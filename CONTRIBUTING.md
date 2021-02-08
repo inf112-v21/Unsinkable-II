@@ -40,6 +40,7 @@ $ git push origin master
 ### Pull request
 
 Når den nye branchen med endringene er pushet, lager du en ny pull request.  
-Denne merge din branch, inn i master branchen.
+Denne merge din branch, inn i master branchen.  
+![lage pr](https://i.imgur.com/0UnA23s.png)
 
 Før en PR kan merges, skal den godkjennes av minst én annen person.
