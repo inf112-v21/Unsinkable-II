@@ -44,3 +44,6 @@ Denne merger din branch, inn i master branchen.
 ![lage pr](https://i.imgur.com/0UnA23s.png)
 
 Før en PR kan merges, skal den godkjennes av minst én annen person.
+
+Når du lager en pull request, kan du linke til issues du har fikset, så vil de automatisk lukkes når PRen er gått gjennom. [Ref til docs om dette](https://docs.github.com/en/github/managing-your-work-on-github/linking-a-pull-request-to-an-issue#linking-a-pull-request-to-an-issue-using-a-keyword)  
+Du kan lukke flere issues i en PR.
