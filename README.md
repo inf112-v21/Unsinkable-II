@@ -4,3 +4,6 @@ Simple skeleton with libgdx.
 
 ## Known bugs
 none
+
+## Contributing
+[CONTRIBUTING.md](./CONTRIBUTING.md)
