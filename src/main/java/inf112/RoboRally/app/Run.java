@@ -7,6 +7,7 @@ import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
  * The type Run.
  */
 public class Run {
+    
     /**
      * The entry point of application.
      *

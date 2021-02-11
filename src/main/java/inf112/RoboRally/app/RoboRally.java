@@ -14,28 +14,26 @@ import com.badlogic.gdx.maps.tiled.tiles.StaticTiledMapTile;
 import com.badlogic.gdx.math.Vector2;
 
 /**
- * RoboRally listener class.
+ * RoboRally class. Contains the game logic.
  */
 public class RoboRally extends InputAdapter implements ApplicationListener {
     private static final int TILE_SIZE = 300;
     private static final int MAP_SIZE_X = 5;
     private static final int MAP_SIZE_Y = 5;
 
-    private TiledMapTileLayer playerLayer;
-    private TiledMapTileLayer flagLayer;
-    private TiledMapTileLayer holeLayer;
-    private OrthogonalTiledMapRenderer renderer;
+    private TiledMapTileLayer playerLayer, flagLayer, holeLayer;
     private TiledMapTileLayer.Cell playerCell, playerDiedCell, playerWonCell;
+    private OrthogonalTiledMapRenderer renderer;
     private Vector2 playerLoc;
 
     @Override
     public void create() {
-        TiledMap board = new TmxMapLoader().load("testBoard.tmx");
+        TiledMap board = new TmxMapLoader().load("src/main/assets/testBoard.tmx");
         playerLayer = (TiledMapTileLayer) board.getLayers().get("Player");
         flagLayer = (TiledMapTileLayer) board.getLayers().get("Flag");
         holeLayer = (TiledMapTileLayer) board.getLayers().get("Hole");
 
-        TextureRegion[][] textures = TextureRegion.split(new Texture("player.png"), TILE_SIZE, TILE_SIZE);
+        TextureRegion[][] textures = TextureRegion.split(new Texture("src/main/assets/player.png"), TILE_SIZE, TILE_SIZE);
         playerCell = new TiledMapTileLayer.Cell();
         playerCell.setTile(new StaticTiledMapTile(textures[0][0]));
         playerDiedCell = new TiledMapTileLayer.Cell();
@@ -59,6 +57,9 @@ public class RoboRally extends InputAdapter implements ApplicationListener {
         renderer.render();
     }
 
+    /**
+     * Checks if a player is standing on a flag or hole tile or not and displays the appropriate texture accordingly.
+     */
     private void checkConditions() {
         if (flagLayer.getCell((int) playerLoc.x, (int) playerLoc.y) != null) {
             playerLayer.setCell((int) playerLoc.x, (int) playerLoc.y, playerWonCell);
