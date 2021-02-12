@@ -3,7 +3,7 @@
 ##Deloppgave 1: Organiser teamet
 Teamet har fått navnet Unsinkable-II.
 
-De ulike medlemmene har lastet opp sin kompetanse til readme i GitHub. 
+De ulike medlemmene har dokumentert sin kompetanse i "TheTeam.md". 
 
 Temet har fordelt seg i følgende roller:
 
@@ -56,8 +56,6 @@ sprinter opp mot obligatoriske innleveringer. Gruppen dokumenterer hvilken deler
 **Rollemodell:** Vi følger ikke rollemodellen, og har designet vår egen. Dette er grunnet i at vi har såpass få 
 medlemmer i teamet, og at vi liker å ha presist definerte roller.
 
-- Prosess og prosjektplan må opprettes, ta kontakt med Vegard og Daniel.
-
 Unsinkable-II møtes på ukentlig basis, med minst ett (1) møte i uken ved gruppetime mandag. 
 Det er satt opp mulighet, og blir anbefalt med to (2) møter i uken, da især møte før en obligatorisk innlevering. 
 Det er fullt mulig å ha møter utenfor denne rammen. Alt arbeid som blir gjort for Unsinkable-II skal gjøres mens man er 
@@ -81,20 +79,6 @@ Gruppen er lite kjent med denne arbeidsprosessen, men stiller seg positivt til �
 denne formen for utvikling kan bringe.
 
 ## Deloppgave 3: Få oversikt over forventet produkt
-Dere skal lage en digital versjon av RoboRally. Denne versjonen skal inkludere de fleste av RoboRallys funksjoner som 
-prosesskort, mekanismer på spillebrettet og mulighet for å spille flere sammen.
-Dere skal lage en spesifikasjon som inneholder:
-En kort beskrivelse av det overordnede målet for applikasjonen
-En liste over brukerhistorier til systemet basert på MVP-kravene.
-For hver brukerhistorie, skal dere ha akseptansekriterier og arbeidsoppgaver, samt beskrivelse av hvilke krav 
-brukerhistorien oppfyller (dette lager dere kun for historier dere er ferdige med, holder på med, eller skal til å 
-begynne med) En prioritert liste over hvilke brukerhistorier dere vil ha med i første iterasjon 
-(altså frem til levering av denne oppgaven, se deloppgave 4 for forslag).
-(Frivillig) Krav til MVP er gitt i neste deloppgave. 
-Dersom dere ønsker å utvide denne listen med ytterligere funksjonalitet, 
-skal det også med som en del av denne spesifikasjonen.
-
-###kommentar
 ####Hva er det overordnede målet for applikasjonen?
 - Applikasjonen skal være et spillbart spill. Med dette menes at spillet skal følge fastsatte regler.
 - Det må være mulig å vinne, og tape spillet. Det skal videre være mulig å kjøre spillet på OSX, Windows, og Linux. 
