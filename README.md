@@ -4,10 +4,14 @@
 - Version control
 - The team
 
-## Known bugs
 
-## The team
-- Daniel Svalestad Liland
+# Project overview
+The game can be started by running src/main/java/inf112/RoboRally/app/Run.java
+
+# Known bugs
+
+# The team
+- Daniel Svalestad Liland 
 - Inge Amdal Halvorsen
 - Jonas Valen
 - Vegard Haugland
@@ -20,7 +24,7 @@ Have worked with web development since 2018. Along with many hobby projects.
 #### Related courses taken:
 - INF101 INF102 INF115 INF122
 - DAT103
-- MNF130 MAT111
+- MNF130, MAT111
 
 ### Inge
 Learnt to code through the University
@@ -39,8 +43,10 @@ Limited experience setting up and managing Linux servers with deployed game/weba
 - DAT 103
 - MNF130, STAT110
 
-### Vegard
-Mostly just through university.
+
+## Vegard
+Mostly just learned coding at University.
+
 
 #### Related courses taken:
 - INF100-102, 115, 122
@@ -48,4 +54,4 @@ Mostly just through university.
 - MNF130, MAT111
 
 ## Contributing
-[CONTRIBUTING.md](./CONTRIBUTING.md)
+[CONTRIBUTING.md](documentation/CONTRIBUTING.md)
