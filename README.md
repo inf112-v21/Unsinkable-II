@@ -4,54 +4,40 @@
 - Version control
 - The team
 
+## Project Overview
+RoboRally game app by Unsinkable-II.
 
-# Project overview
-The game can be started by running src/main/java/inf112/RoboRally/app/Run.java
+## How to run:
+Run 
+[Main](src/main/java/inf112/RoboRally/app/Main.java)
+from IDE.
 
-# Known bugs
+## Known bugs:
 
-# The team
-- Daniel Svalestad Liland 
-- Inge Amdal Halvorsen
-- Jonas Valen
-- Vegard Haugland
+## Contributing:
 
-## Experience
+### About:
+[Unsinkable-II](documentation/deliverables/compulsoryAssignment1/about.md)
 
-### Daniel
-Have worked with web development since 2018. Along with many hobby projects.
+[Group dynamics](documentation/deliverables/compulsoryAssignment1/ComplulsoryAssignment1.md)
 
-#### Related courses taken:
-- INF101 INF102 INF115 INF122
-- DAT103
-- MNF130, MAT111
+### Meeting Minutes:
+[Feb/01/2021](documentation/deliverables/compulsoryAssignment1/minutesOfMeetings/2021.02.01.md)
 
-### Inge
-Learnt to code through the University
+[Feb/04/2021](documentation/deliverables/compulsoryAssignment1/minutesOfMeetings/2021.02.04.md)
 
-#### Related courses taken:
-- INF100-102, 115, 122
-- DAT 103
-- MNF130, MAT111
+[Feb/08/2021](documentation/deliverables/compulsoryAssignment1/minutesOfMeetings/2021.02.08.md)
 
-### Jonas
-UiB courses, KATTIS, and hobby projects.
-Limited experience setting up and managing Linux servers with deployed game/webapp projects.
+[Feb/11/2021](documentation/deliverables/compulsoryAssignment1/minutesOfMeetings/2021.02.11.md)
 
-#### Related courses taken:
-- INF 100, 101, 102, 115, 122, 140
-- DAT 103
-- MNF130, STAT110
+### User Stories:
+[User Story 1](documentation/deliverables/compulsoryAssignment1/userStories/UserStory1.md)
 
+[User Story 2](documentation/deliverables/compulsoryAssignment1/userStories/UserStory2.md)
 
-## Vegard
-Mostly just learned coding at University.
+[User Story 3](documentation/deliverables/compulsoryAssignment1/userStories/UserStory3.md)
 
+[User Story 4](documentation/deliverables/compulsoryAssignment1/userStories/UserStory4.md)
 
-#### Related courses taken:
-- INF100-102, 115, 122
-- DAT 103
-- MNF130, MAT111
-
-## Contributing
-[CONTRIBUTING.md](documentation/CONTRIBUTING.md)
+### Git:
+[Git instructions](documentation/CONTRIBUTING.md)

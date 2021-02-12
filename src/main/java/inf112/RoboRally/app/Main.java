@@ -4,9 +4,9 @@ import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
 
 /**
- * The type Run.
+ * The type Main.
  */
-public class Run {
+public class Main {
     
     /**
      * The entry point of application.

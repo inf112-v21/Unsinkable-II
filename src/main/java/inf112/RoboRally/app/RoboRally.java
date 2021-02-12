@@ -28,12 +28,12 @@ public class RoboRally extends InputAdapter implements ApplicationListener {
 
     @Override
     public void create() {
-        TiledMap board = new TmxMapLoader().load("src/main/assets/testBoard.tmx");
+        TiledMap board = new TmxMapLoader().load("testBoard.tmx");
         playerLayer = (TiledMapTileLayer) board.getLayers().get("Player");
         flagLayer = (TiledMapTileLayer) board.getLayers().get("Flag");
         holeLayer = (TiledMapTileLayer) board.getLayers().get("Hole");
 
-        TextureRegion[][] textures = TextureRegion.split(new Texture("src/main/assets/player.png"), TILE_SIZE, TILE_SIZE);
+        TextureRegion[][] textures = TextureRegion.split(new Texture("player.png"), TILE_SIZE, TILE_SIZE);
         playerCell = new TiledMapTileLayer.Cell();
         playerCell.setTile(new StaticTiledMapTile(textures[0][0]));
         playerDiedCell = new TiledMapTileLayer.Cell();
@@ -46,7 +46,7 @@ public class RoboRally extends InputAdapter implements ApplicationListener {
         camera.setToOrtho(false, MAP_SIZE_X, MAP_SIZE_Y);
         camera.position.x = (float) MAP_SIZE_X/2;
         camera.update();
-        renderer = new OrthogonalTiledMapRenderer(board, (float) 1/ TILE_SIZE);
+        renderer = new OrthogonalTiledMapRenderer(board, (float) 1/TILE_SIZE);
         renderer.setView(camera);
         Gdx.input.setInputProcessor(this);
     }
@@ -73,11 +73,11 @@ public class RoboRally extends InputAdapter implements ApplicationListener {
 
     @Override
     public boolean keyUp(int keycode) {
-         if ((keycode == Input.Keys.UP || keycode == Input.Keys.W) && playerLoc.y < MAP_SIZE_Y-1) {
+        if ((keycode == Input.Keys.UP || keycode == Input.Keys.W) && playerLoc.y < MAP_SIZE_Y-1) {
              playerLayer.setCell((int) playerLoc.x, (int) playerLoc.y, null);
              playerLoc.y += 1;
              return true;
-         }
+        }
         else if ((keycode == Input.Keys.DOWN || keycode == Input.Keys.S) && playerLoc.y > 0) {
             playerLayer.setCell((int) playerLoc.x, (int) playerLoc.y, null);
             playerLoc.y -= 1;
