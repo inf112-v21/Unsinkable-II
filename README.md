@@ -39,5 +39,10 @@ from IDE.
 
 [User Story 4](documentation/deliverables/compulsoryAssignment1/userStories/UserStory4.md)
 
+### Diagrams:
+[Proposed game flow](documentation/deliverables/compulsoryAssignment1/RoboRally%20Flowchart.pdf)
+
+[Project board](https://github.com/inf112-v21/Unsinkable-II/issues)
+
 ### Git:
 [Git instructions](documentation/CONTRIBUTING.md)
