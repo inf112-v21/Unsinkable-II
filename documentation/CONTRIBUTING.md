@@ -3,7 +3,7 @@
 For å bidra med kode, følger vi følgende prosedyre:
 
 ### Første steg
-Lag en ny brnach basert på master branchen.
+Lag en ny branch basert på master branchen.
 ```sh
 $ git checkout -b <navn> origin/master
 ```
