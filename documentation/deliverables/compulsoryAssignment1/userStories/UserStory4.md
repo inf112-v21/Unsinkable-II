@@ -1,7 +1,8 @@
 ###Brukerhistorie:
-Som brikke ønsker jeg ikke å kunne forlate brettet
+Som et hull, ønsker jeg å være tilgjengelig på brettet, slik at en brikke kan falle ned i meg.
 
 ###Akseptansekriterier:
-
+Når brikke når et hull skal det komme visuell bekreftelse på dette.
 
 ###Arbeidsoppgaver:
+- lage ny grafikk for spiullerikon når brikke når huill
