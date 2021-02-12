@@ -1,8 +1,9 @@
 # Overview
-- Project overview
-- How to run
-- Known bugs
-- Contributing:
+  - Project overview
+  - Version Control
+  - How to run
+  - Known bugs
+  - Contributing:
 
 ## Project Overview
 RoboRally game app by Unsinkable-II.

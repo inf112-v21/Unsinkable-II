@@ -1,38 +1,38 @@
-#Informasjon vedrørende obligatorisk oppgave 1
+# Informasjon vedrørende obligatorisk oppgave 1
 
-##Deloppgave 1: Organiser teamet
+## Deloppgave 1: Organiser teamet
 Teamet har fått navnet Unsinkable-II.
 
 De ulike medlemmene har dokumentert sin kompetanse i "TheTeam.md". 
 
 Temet har fordelt seg i følgende roller:
 
-###CCO – Inge Halvorsen
+### CCO – Inge Halvorsen
 Som CCO skal Halvorsen ha hovedansvar for møter, referat og møteinnkallelser. 
 Vi har valgt å bruke denne rolle for å sikre at alle møter har referat, 
 at gruppen til en hver tid er oppdatert på de møter som kommer, og sporbarhet.
 
-###CIO – Daniel Liland
+### CIO – Daniel Liland
 Som CIO har Liland ansvar for prosess og planlegging av prosjektet. 
 Vi har valgt å ha en ansvarlig for prosessplanlegging fordi det er nødvendig at en person er ansvarlig 
 for at vi har en felles oppdatert oversikt over prosjektet, og følger planen vi har laget i plenum.
 
-###CTO – Jonas Valen
+### CTO – Jonas Valen
 Som CTO har Valen ansvar for at programmet blir utviklet etter de planer og prosesser som allerede er avklart i gruppen. 
 Vi har valgt å ha en ansvarlig for programutvikling fordi kodestandard og syntaks skal følge den strukturen vi har blitt 
 enige om i plenum.
 
-###Gamemaster – Vegard Haugland
+### Gamemaster – Vegard Haugland
 Som Gamemaster har Haugland ansvar for at spillet følger de spilleregler som er satt for spillet. 
 Vi har valgt å ha en ansvarlig for spillereglene fordi spill logikk er vanskelig å ha oversikt over.
 
-###Redaksjon – Samlet gruppe
+### Redaksjon – Samlet gruppe
 Før hver innlevering må gruppen samles for å ferdigstille obligatoriske oppgaver. 
 Til dette har gruppen satt ned en redaksjon bestående av samtlige gruppemedlemmer. 
 Redaksjonen møtes før hver innlevering. Vi har valgt å sette ned dette ansvarsområdet fordi det er 
 viktig at alle i gruppen har eierskap til det produktet som blir levert til karaktersetting.
 
-###Ansvarlig for GitHub – Daniel Liland
+### Ansvarlig for GitHub – Daniel Liland
 Som ansvarlig for GitHub har Liland laget en prosedyre for nedlasting og opplasting av filer mot Git. 
 Vi har valgt å bruke denne rollen fordi det kan være vanskelig å sammenfatte opplastinger til Git på 
 en god måte om alle i gruppen velger å gjøre det alene.
@@ -40,19 +40,19 @@ Projectboard er ferdigstilt på GitHub.
 
 
 ## Deloppgave 2: Velg og tilpass en prosess for laget
-###Metodikk
+### Metodikk
 En tilnærming av SCRUM, men med en flytende overgang mot KANBAN. SCRUM virker som en logisk metodikk da man kan legge 
 sprinter opp mot obligatoriske innleveringer. Gruppen dokumenterer hvilken deler av SCRUM som blir brukt, og ikke brukt.
 
  
-####Hva vi ønsker å ta med fra SCRUM sin modell:
+#### Hva vi ønsker å ta med fra SCRUM sin modell:
 **Sprint:** Det å ha sprint inn mot obliger virker som en logisk modell å følge fremover.
 
 **Parprogrammering:** Ingen av oss er kjent med parprogrammering, så vi ønsker å lære mer om dette konseptet i praksis.
 
 **Struktur:** Strukturen som SCRUM tilbyr virker veldig appellerende for gruppen.
 
-####Hva vi ønsker å se bort fra utifra SCRUM sin modell:
+#### Hva vi ønsker å se bort fra utifra SCRUM sin modell:
 **Rollemodell:** Vi følger ikke rollemodellen, og har designet vår egen. Dette er grunnet i at vi har såpass få 
 medlemmer i teamet, og at vi liker å ha presist definerte roller.
 
@@ -79,7 +79,7 @@ Gruppen er lite kjent med denne arbeidsprosessen, men stiller seg positivt til �
 denne formen for utvikling kan bringe.
 
 ## Deloppgave 3: Få oversikt over forventet produkt
-####Hva er det overordnede målet for applikasjonen?
+#### Hva er det overordnede målet for applikasjonen?
 - Applikasjonen skal være et spillbart spill. Med dette menes at spillet skal følge fastsatte regler.
 - Det må være mulig å vinne, og tape spillet. Det skal videre være mulig å kjøre spillet på OSX, Windows, og Linux. 
 - Det er også satt krav om støtte for flere spillere samtidig.
