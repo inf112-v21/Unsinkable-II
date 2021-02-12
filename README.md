@@ -20,12 +20,14 @@ Have worked with web development since 2018. Along with many hobby projects.
 - INF101 INF102 INF115 INF122
 - DAT103
 - MNF130 MAT111
-
+  
 ### Inge
--Your text-
+Learnt to code through the University
 
 ####Related courses taken:
-- Course
+- INF100-102, 115, 122
+- DAT 103
+- MNF130, MAT111
 
 ### Jonas
 UiB courses, KATTIS, and hobby projects.
