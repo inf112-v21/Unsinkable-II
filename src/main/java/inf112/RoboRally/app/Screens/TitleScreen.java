@@ -1,5 +1,7 @@
 package inf112.RoboRally.app.Screens;
 
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import inf112.RoboRally.app.RoboRally;
 
 /**
@@ -15,17 +17,38 @@ public class TitleScreen extends MenuScreen {
     public TitleScreen(RoboRally game) {
         super(game);
         setHeading("Select Game Mode");
-        setButton1("Single Player");
-        setButton2("Multiplayer");
-        setButton3("Quit");
+        addButton("Single Player", Slot.TOP, topListener());
+        addButton("Multiplayer", Slot.MIDDLE, middleListener());
+        addButton("Quit", Slot.BOTTOM, bottomListener());
     }
 
     @Override
-    public void firstButtonAction() { game.setScreen(new GameScreen(game)); }
+    public InputListener topListener() {
+        return new InputListener() {
+            @Override
+            public void touchUp(InputEvent event, float x, float y, int pointer, int button) { game.setScreen(new GameScreen(game)); }
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) { return true; }
+        };
+    }
 
     @Override
-    public void secondButtonAction() { game.setScreen(new MultiplayerOptionScreen(game)); }
+    public InputListener middleListener() {
+        return new InputListener() {
+            @Override
+            public void touchUp(InputEvent event, float x, float y, int pointer, int button) { game.setScreen(new MultiplayerOptionScreen(game)); }
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) { return true; }
+        };
+    }
 
     @Override
-    public void thirdButtonAction() { System.exit(0); }
+    public InputListener bottomListener() {
+        return new InputListener() {
+            @Override
+            public void touchUp(InputEvent event, float x, float y, int pointer, int button) { System.exit(0); }
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) { return true; }
+        };
+    }
 }

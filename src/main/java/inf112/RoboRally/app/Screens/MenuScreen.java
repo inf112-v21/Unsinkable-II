@@ -2,11 +2,11 @@ package inf112.RoboRally.app.Screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import inf112.RoboRally.app.RoboRally;
@@ -18,7 +18,6 @@ abstract class MenuScreen implements IMenuScreen {
     protected RoboRally game;
     protected Stage stage;
     protected Label heading;
-    protected TextButton button1, button2, button3;
 
     /**
      * Instantiates a new Menu screen.
@@ -54,45 +53,30 @@ abstract class MenuScreen implements IMenuScreen {
     }
 
     @Override
-    public void setButton1(String buttonText) {
-        this.button1 = new TextButton(buttonText, game.getSkin());
-        button1.setWidth(Gdx.graphics.getWidth() >> 1);
-        button1.setPosition((Gdx.graphics.getWidth() >> 1) - button1.getWidth()/2f, (Gdx.graphics.getHeight() >> 1) - button1.getHeight()/2f);
-        button1.addListener(new InputListener() {
-            @Override
-            public void touchUp(InputEvent event, float x, float y, int pointer, int button) { firstButtonAction(); }
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) { return true; }
-        });
-        stage.addActor(this.button1);
+    public TextButton addButton(String buttonText, Slot slot, InputListener listener) {
+        TextButton button = new TextButton(buttonText, game.getSkin());
+        button.setWidth(getCenterWidth());
+        button.setPosition(getWidgetWidth(button.getWidth()), getWidgetHeight(button.getHeight(), slot));
+        button.addListener(listener);
+        stage.addActor(button);
+        return button;
     }
 
     @Override
-    public void setButton2(String buttonText) {
-        this.button2 = new TextButton(buttonText, game.getSkin());
-        button2.setWidth(Gdx.graphics.getWidth() >> 1);
-        button2.setPosition((Gdx.graphics.getWidth() >> 1) - button2.getWidth()/2f, Gdx.graphics.getHeight()/3f - button2.getHeight()/2f);
-        button2.addListener(new InputListener() {
-            @Override
-            public void touchUp(InputEvent event, float x, float y, int pointer, int button) { secondButtonAction(); }
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) { return true; }
-        });
-        stage.addActor(button2);
+    public TextField addTextField(String fieldText, Slot slot) {
+        TextField field = new TextField(fieldText, game.getSkin());
+        field.setWidth(getCenterWidth() /2f);
+        field.setPosition(getWidgetWidth(field.getWidth()), getWidgetHeight(field.getHeight(), slot));
+        stage.addActor(field);
+        return field;
     }
 
-    @Override
-    public void setButton3(String buttonText) {
-        this.button3 = new TextButton(buttonText, game.getSkin());
-        button3.setWidth(Gdx.graphics.getWidth() >> 1);
-        button3.setPosition((Gdx.graphics.getWidth() >> 1) - button3.getWidth()/2f, Gdx.graphics.getHeight()/6f - button3.getHeight()/2f);
-        button3.addListener(new InputListener() {
-            @Override
-            public void touchUp(InputEvent event, float x, float y, int pointer, int button) { thirdButtonAction(); }
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) { return true; }
-        });
-        stage.addActor(button3);
+    public Label addLabel(String text, Slot slot) {
+        Label label = new Label(text, game.getSkin());
+        label.setWidth(getCenterWidth() /2f);
+        label.setPosition(getWidgetWidth(label.getWidth()), getWidgetHeight(label.getHeight(), slot));
+        stage.addActor(label);
+        return label;
     }
 
     @Override
@@ -120,4 +104,22 @@ abstract class MenuScreen implements IMenuScreen {
 
     @Override
     public void dispose() { stage.dispose(); }
+
+
+    private float getCenterWidth() { return Gdx.graphics.getWidth() >> 1; }
+
+    private float getCenterHeight() { return Gdx.graphics.getHeight() >> 1; }
+
+    private float getWidgetHeight(float height, Slot slot) { return getCenterHeight()/slot.getValue() - height/2f; }
+
+    private float getWidgetWidth(float width) { return getCenterWidth() - width/2f; }
+}
+
+
+enum Slot { TOP(1f), TOP1(1f), TOP2(1.15f), MIDDLE(1.5f), BOTTOM(3f);
+    private final float value;
+
+    Slot(float value) { this.value = value; }
+
+    float getValue() { return value; }
 }

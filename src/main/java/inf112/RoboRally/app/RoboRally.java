@@ -26,6 +26,5 @@ public class RoboRally extends Game {
     public void render () { super.render(); }
 
     public Skin getSkin() { return this.skin; }
-    public Stage getStage() { return this.stage; }
     public TitleScreen getTitleScreen() { return this.titleScreen; }
 }

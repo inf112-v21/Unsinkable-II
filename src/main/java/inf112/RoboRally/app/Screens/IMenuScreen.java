@@ -1,9 +1,12 @@
 package inf112.RoboRally.app.Screens;
 
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 
 /**
- * The interface Menu screen.
+ * The interface for Menu screen building 3-4 Widgets.
  */
 public interface IMenuScreen extends Screen {
 
@@ -22,38 +25,41 @@ public interface IMenuScreen extends Screen {
     void setHeading(String headingText);
 
     /**
-     * Sets button 1.
+     * Adds TextButton at the specified slot using the specified InputListner.
      *
      * @param buttonText the button text
+     * @return TextButton that was added.
      */
-    void setButton1(String buttonText);
+    TextButton addButton(String buttonText, Slot slot, InputListener listener);
 
     /**
-     * Sets button 2.
+     * Adds TextField at the specified slot using the specified InputListner.
      *
-     * @param buttonText the button text
+     * @param fieldText the field text
+     * @return TextField that was added.
      */
-    void setButton2(String buttonText);
+    TextField addTextField(String fieldText, Slot slot);
 
     /**
-     * Sets button 3.
+     * Input listener for TOP.
      *
-     * @param buttonText the button text
+     * @return the input listener
      */
-    void setButton3(String buttonText);
+    InputListener topListener();
 
     /**
-     * First button action.
+     * Input listener for MIDDLE.
+     *
+     * @return the input listener
      */
-    void firstButtonAction();
+    InputListener middleListener();
 
     /**
-     * Second button action.
+     * Input listener for BOTTOM.
+     *
+     * @return the input listener
      */
-    void secondButtonAction();
-
-    /**
-     * Third button action.
-     */
-    void thirdButtonAction();
+    InputListener bottomListener();
 }
+
+

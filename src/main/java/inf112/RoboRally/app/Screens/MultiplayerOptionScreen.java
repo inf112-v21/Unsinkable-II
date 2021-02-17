@@ -1,5 +1,7 @@
 package inf112.RoboRally.app.Screens;
 
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import inf112.RoboRally.app.RoboRally;
 
 /**
@@ -15,17 +17,38 @@ public class MultiplayerOptionScreen extends MenuScreen {
     public MultiplayerOptionScreen(RoboRally game) {
         super(game);
         setHeading("Multiplayer");
-        setButton1("Host");
-        setButton2("Join");
-        setButton3("Back");
+        addButton("Host", Slot.TOP, topListener());
+        addButton("Join", Slot.MIDDLE, middleListener());
+        addButton("Back", Slot.BOTTOM, bottomListener());
     }
 
     @Override
-    public void firstButtonAction() {}
+    public InputListener topListener() {
+        return new InputListener() {
+            @Override
+            public void touchUp(InputEvent event, float x, float y, int pointer, int button) { game.setScreen(new MultiplayerHostScreen(game)); }
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) { return true; }
+        };
+    }
 
     @Override
-    public void secondButtonAction() {}
+    public InputListener middleListener() {
+        return new InputListener() {
+            @Override
+            public void touchUp(InputEvent event, float x, float y, int pointer, int button) { game.setScreen(new MultiplayerJoinScreen(game)); }
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) { return true; }
+        };
+    }
 
     @Override
-    public void thirdButtonAction() { game.setScreen(game.getTitleScreen()); }
+    public InputListener bottomListener() {
+        return new InputListener() {
+            @Override
+            public void touchUp(InputEvent event, float x, float y, int pointer, int button) { game.setScreen(game.getTitleScreen()); }
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) { return true; }
+        };
+    }
 }
