@@ -1,5 +1,8 @@
 package deck.cards.Upgrade;
 
+import java.util.Arrays;
+import java.util.List;
+
 /** Once you've purchased a temporary upgrade,
  * you may keep it in your hand and use it at any time on your turn.
  * After a temporary upgrade has gone into effect, place it out of play. */
@@ -88,4 +91,10 @@ public enum TemporaryUpgrades {
     ZOOP(1);
 
     TemporaryUpgrades(int cost){}
+
+    public static List<TemporaryUpgrades> ALL_TEMPORARY_CARDS = Arrays.asList(
+            BOINK, HACK, ENERGY_ROUTINE, MANUAL_SORT, MEMORY_SWAP, REPEAT_ROUTINE,
+            REBOOT, SANDBOX_ROUTINE, RECHARGE, SPAM_BLOCKER, RECOMPILE, SPAM_FOLDER_ROUTINE,
+            REFRESH, SPEED_ROUTINE, WEASEL_ROUTINE, ZOOP
+    );
 }

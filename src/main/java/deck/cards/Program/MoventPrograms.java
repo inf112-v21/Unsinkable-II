@@ -1,6 +1,9 @@
 package deck.cards.Program;
 
-public enum MoventProgram {
+import java.util.Arrays;
+import java.util.List;
+
+public enum MoventPrograms {
     /** Move your robot in the direction it is facing the number of spaces indicated. */
     MOVE_1(1,0), MOVE_2(2,0), MOVE_3(3,0),
 
@@ -24,5 +27,9 @@ public enum MoventProgram {
      * your previous register that allowed you to play multiple programming cards, re-execute the second card.
      * This card cannot be played in the first register. */
 
-    MoventProgram(int movement, int rotation){}
+    MoventPrograms(int movement, int rotation){}
+
+    public static List<MoventPrograms> ALL_MOVEMENT_CARDS = Arrays.asList(
+            MOVE_1, MOVE_2, MOVE_3, TURN_RIGHT, TURN_LEFT, U_TURN, BACK_UP, POWER_UP
+    );
 }

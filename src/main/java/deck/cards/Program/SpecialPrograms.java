@@ -1,11 +1,16 @@
 package deck.cards.Program;
 
+import deck.cards.Upgrade.PermanentUpgrades;
+
+import java.util.Arrays;
+import java.util.List;
+
 /** You may obtain these special programming cards by installing certain temporary upgrades.
  * When you first receive a special programming card, place it in your discard pile.
  * The card will cycle through your programming deck, and you may play them just as you
  * would any other programming card, by placing them in one of your registers during the programming phase. */
 
-public enum SpecialProgram {
+public enum SpecialPrograms {
     /** Take one energy cube, and place it on your player mat. */
     ENERGY_ROUTINE,
 
@@ -30,5 +35,12 @@ public enum SpecialProgram {
      * If your previous register was a damage card, draw a card from the top of your deck,
      * and play that card this register. If you used an upgrade in your previous register
      * that allowed you to play multiple programming cards, re-execute the second card. */
-    REPEAT_ROUTINE
+    REPEAT_ROUTINE;
+
+    SpecialPrograms(){}
+
+    public static List<SpecialPrograms> ALL_SPECIAL_CARDS = Arrays.asList(
+            ENERGY_ROUTINE, WEASEL_ROUTINE, SPAM_FOLDER,
+            SANDBOX_ROUTINE, SPEED_ROUTINE, REPEAT_ROUTINE
+    );
 }

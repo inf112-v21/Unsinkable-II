@@ -1,10 +1,13 @@
 package deck.cards.Upgrade;
 
+import java.util.Arrays;
+import java.util.List;
+
 /** Once you've purchased a permanent upgrade, place it on your player mat.
  * In the case of most upgrades, the card's attributes will apply to your
  * robot for the remainder of the game. */
 
-public enum PermanentUpgrade {
+public enum PermanentUpgrades {
     /** Effect: Once per round, you may give your robot priority for one register. */
     ADMIN_PRIVILAGE(3),
 
@@ -96,5 +99,13 @@ public enum PermanentUpgrade {
     VIRUS_MODULE(2);
 
 
-    PermanentUpgrade(int cost){}
+    PermanentUpgrades(int cost){}
+
+    public static List<PermanentUpgrades> ALL_PERMANENT_CARDS = Arrays.asList(
+            ADMIN_PRIVILAGE, CORRUPTION_WAVE, BLUE_SCREEN_OF_DEATH, CRAB_LEGS,
+            BRAKES, DEFLECTOR_SHIELD, CACHE_MEMORY, DEFRAG_GIZMO, DOUBLE_BARREL_LASER,
+            MODULAR_CHASSIS, FIREWALL, PRESSOR_BEAM, HOVER_UNIT, RAIL_GUN, MEMORY_STICK,
+            RAMMING_GEAR, MINI_HOWITZER, REAR_LASER, SCRAMBLER, TRACTOR_BEAM, SIDE_ARMS,
+            TROJAN_NEEDLER, TELEPORTER, VIRUS_MODULE
+    );
 }
