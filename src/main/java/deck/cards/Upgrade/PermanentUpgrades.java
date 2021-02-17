@@ -98,9 +98,6 @@ public enum PermanentUpgrades {
     /** Effect: When you push a robot, give that player a virus damage card. */
     VIRUS_MODULE(2);
 
-
-    PermanentUpgrades(int cost){}
-
     public static List<PermanentUpgrades> ALL_PERMANENT_CARDS = Arrays.asList(
             ADMIN_PRIVILAGE, CORRUPTION_WAVE, BLUE_SCREEN_OF_DEATH, CRAB_LEGS,
             BRAKES, DEFLECTOR_SHIELD, CACHE_MEMORY, DEFRAG_GIZMO, DOUBLE_BARREL_LASER,
@@ -108,4 +105,10 @@ public enum PermanentUpgrades {
             RAMMING_GEAR, MINI_HOWITZER, REAR_LASER, SCRAMBLER, TRACTOR_BEAM, SIDE_ARMS,
             TROJAN_NEEDLER, TELEPORTER, VIRUS_MODULE
     );
+
+    private final int cost;
+
+    PermanentUpgrades(int cost){ this.cost = cost; }
+
+    public int getCost() { return cost; }
 }

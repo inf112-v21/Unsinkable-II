@@ -20,16 +20,28 @@ public enum MoventPrograms {
     BACK_UP(-1,0),
 
     /** Take one energy cube, and place it on your player mat. */
-    POWER_UP(0,0);
+    POWER_UP(0,0),
 
     /** Repeat the programming in your previous register. If your previous register was a damage card,
      * draw a card from the top of your deck, and play that card this register.If you used an upgrade in
      * your previous register that allowed you to play multiple programming cards, re-execute the second card.
      * This card cannot be played in the first register. */
-
-    MoventPrograms(int movement, int rotation){}
+    AGAIN(0, 0);
 
     public static List<MoventPrograms> ALL_MOVEMENT_CARDS = Arrays.asList(
-            MOVE_1, MOVE_2, MOVE_3, TURN_RIGHT, TURN_LEFT, U_TURN, BACK_UP, POWER_UP
+            MOVE_1, MOVE_2, MOVE_3, TURN_RIGHT, TURN_LEFT, U_TURN, BACK_UP, POWER_UP, AGAIN
     );
+
+
+    private final int movement, rotation;
+
+    MoventPrograms(int movement, int rotation){
+        this.movement = movement;
+        this.rotation = rotation;
+    }
+
+    public int getMovement() { return movement; }
+
+    public int getRotation() { return rotation; }
+
 }

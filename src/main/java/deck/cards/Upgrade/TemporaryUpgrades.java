@@ -90,11 +90,16 @@ public enum TemporaryUpgrades {
     /** Effect: Rotate to face any direction. */
     ZOOP(1);
 
-    TemporaryUpgrades(int cost){}
 
     public static List<TemporaryUpgrades> ALL_TEMPORARY_CARDS = Arrays.asList(
             BOINK, HACK, ENERGY_ROUTINE, MANUAL_SORT, MEMORY_SWAP, REPEAT_ROUTINE,
             REBOOT, SANDBOX_ROUTINE, RECHARGE, SPAM_BLOCKER, RECOMPILE, SPAM_FOLDER_ROUTINE,
             REFRESH, SPEED_ROUTINE, WEASEL_ROUTINE, ZOOP
     );
+
+    private final int cost;
+
+    TemporaryUpgrades(int cost){ this.cost = cost; }
+
+    public int getCost() { return cost; }
 }
