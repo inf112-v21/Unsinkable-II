@@ -22,11 +22,4 @@ public class CharacterTest {
 
     @Test
     public void getYReturnsY() { assertEquals(5, robot.getY()); }
-
-    @Test
-    public void rotationWorks() {
-        robot.rotate(90);
-
-        assertEquals(90, robot.getRotation());
-    }
 }

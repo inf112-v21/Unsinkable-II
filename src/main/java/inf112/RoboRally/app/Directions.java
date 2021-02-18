@@ -1,29 +1,32 @@
 package inf112.RoboRally.app;
 
+import com.badlogic.gdx.math.Vector2;
+
 import java.util.Arrays;
 import java.util.List;
 
 public enum Directions {
-    NORTH(0, 1, 0), SOUTH(0,-1, 180),
-    EAST(1,0, 90), WEST(-1, 0,270),
-    CENTER(0,0,0);
+    NORTH(new Vector2(0,1), 0), EAST(new Vector2(1,0), 1),
+    SOUTH(new Vector2(0,-1), 2), WEST(new Vector2(-1,0), 3);
 
     public static List<Directions> FOUR_DIRECTIONS = Arrays.asList(NORTH, SOUTH, EAST, WEST);
-    public static List<Directions> ALL_DIRECTIONS = Arrays.asList(NORTH, SOUTH, EAST, WEST, CENTER);
+    //public static List<Directions> ALL_DIRECTIONS = Arrays.asList(NORTH, SOUTH, EAST, WEST);
 
-    private final int x, y, rotation;
+    private final Vector2 loc;
+    private final int direction;
 
-    Directions(int x, int y, int rotation){
-        this.x = x;
-        this.y = y;
-        this.rotation = rotation;
+    Directions(Vector2 loc, int direction){
+        this.loc = loc;
+        this.direction = direction;
     }
 
-    public int getX() { return x; }
+    public Vector2 getLoc() { return loc; }
 
-    public int getY() { return y; }
+    public Directions rotateLeft(Directions dir) {
+        return FOUR_DIRECTIONS.get(dir.direction+3%4);
+    }
 
-    public int getRotation() {
-        return rotation;
+    public Directions rotateRight(Directions dir) {
+        return FOUR_DIRECTIONS.get(dir.direction+1%4);
     }
 }

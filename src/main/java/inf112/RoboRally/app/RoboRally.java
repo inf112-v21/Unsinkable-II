@@ -60,27 +60,27 @@ public class RoboRally extends InputAdapter implements ApplicationListener {
     }
 
     private void check() {
-        if (get(mr_Robot, flagLayer) != null) {
-            set(mr_Robot, playerWonCell);
+        if (getLocation(mr_Robot, flagLayer) != null) {
+            setLocation(mr_Robot, playerWonCell);
         }
-        else if (get(mr_Robot, holeLayer) != null) {
-            set(mr_Robot, playerDiedCell);
+        else if (getLocation(mr_Robot, holeLayer) != null) {
+            setLocation(mr_Robot, playerDiedCell);
         }
         else {
-            set(mr_Robot, playerCell);
+            setLocation(mr_Robot, playerCell);
         }
     }
 
-    private TiledMapTileLayer.Cell get(Character character, TiledMapTileLayer layer){
+    private TiledMapTileLayer.Cell getLocation(Character character, TiledMapTileLayer layer){
         return layer.getCell(character.getX(), character.getY());
     }
 
-    private void set(Character character, TiledMapTileLayer.Cell cell) {
+    private void setLocation(Character character, TiledMapTileLayer.Cell cell) {
         playerLayer.setCell(character.getX(), character.getY(), cell);
     }
 
     public void move(Character character, Directions dir){
-        set(character, null);
+        setLocation(character, null);
         character.move(dir);
     }
 

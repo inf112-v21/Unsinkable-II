@@ -8,46 +8,37 @@ import java.util.HashMap;
 public class Character {
 
     private final Pieces piece;
-    private int rotation;
+    private Directions facing;
     private Vector2 loc;
 
-    HashMap<Integer, Directions> forward;
-
     public Character() {
-        piece = Pieces.PIECE1;
-        loc = new Vector2();
-        rotation = 0;
-
-        forward = new HashMap<>();
-        for(Directions dir : Directions.FOUR_DIRECTIONS) {
-            forward.put(dir.getRotation(), dir);
-        }
+        this.piece = Pieces.PIECE1;
+        this.loc = new Vector2();
+        this.facing = Directions.NORTH;
     }
 
-    public int getId() { return piece.getId(); }
+    public int getId() { return this.piece.getId(); }
 
-    public int getRotation() { return rotation; }
+    public Directions getFacing() { return this.facing; }
 
-    public void rotate(int rotation) { this.rotation = rotation; }
+    public void setDirection(Directions dir) {
+        facing = dir;
+    }
+
+    public int getX() { return (int) this.loc.x; }
+
+    public int getY() { return (int) this.loc.y; }
+
+    public void move(Directions dir) { //TODO: Move to gamelibrary
+        loc.add(dir.getLoc());
+    }
+
+    public void move() { //TODO: Move to gamelibrary
+        loc.add(facing.getLoc());
+    }
 
     public void setLoc(int x, int y) {
         this.loc.x = x;
         this.loc.y = y;
     }
-
-    public int getX() { return (int) loc.x; }
-
-    public int getY() { return (int) loc.y; }
-
-    public void move(Directions dir) {
-        loc.x += dir.getX();
-        loc.y += dir.getY();
-    }
-
-    public void move() {
-        Directions dir = forward.get(rotation);
-        loc.x += dir.getX();
-        loc.y += dir.getY();
-    }
-
 }
