@@ -7,7 +7,7 @@ import java.util.List;
  * In the case of most upgrades, the card's attributes will apply to your
  * robot for the remainder of the game. */
 
-public enum PermanentUpgrades {
+public enum PermanentUpgrade {
     /** Effect: Once per round, you may give your robot priority for one register. */
     ADMIN_PRIVILAGE(3),
 
@@ -98,7 +98,7 @@ public enum PermanentUpgrades {
     /** Effect: When you push a robot, give that player a virus damage card. */
     VIRUS_MODULE(2);
 
-    public static List<PermanentUpgrades> ALL_PERMANENT_CARDS = Arrays.asList(
+    public static List<PermanentUpgrade> ALL_PERMANENT_CARDS = Arrays.asList(
             ADMIN_PRIVILAGE, CORRUPTION_WAVE, BLUE_SCREEN_OF_DEATH, CRAB_LEGS,
             BRAKES, DEFLECTOR_SHIELD, CACHE_MEMORY, DEFRAG_GIZMO, DOUBLE_BARREL_LASER,
             MODULAR_CHASSIS, FIREWALL, PRESSOR_BEAM, HOVER_UNIT, RAIL_GUN, MEMORY_STICK,
@@ -108,7 +108,7 @@ public enum PermanentUpgrades {
 
     private final int cost;
 
-    PermanentUpgrades(int cost){ this.cost = cost; }
+    PermanentUpgrade(int cost){ this.cost = cost; }
 
     public int getCost() { return cost; }
 }

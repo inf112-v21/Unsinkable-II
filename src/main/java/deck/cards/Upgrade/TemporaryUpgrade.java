@@ -7,7 +7,7 @@ import java.util.List;
  * you may keep it in your hand and use it at any time on your turn.
  * After a temporary upgrade has gone into effect, place it out of play. */
 
-public enum TemporaryUpgrades {
+public enum TemporaryUpgrade {
     /** Effect: Move to an adjacent space. Do not change direction. */
     BOINK(1),
 
@@ -91,7 +91,7 @@ public enum TemporaryUpgrades {
     ZOOP(1);
 
 
-    public static List<TemporaryUpgrades> ALL_TEMPORARY_CARDS = Arrays.asList(
+    public static List<TemporaryUpgrade> ALL_TEMPORARY_CARDS = Arrays.asList(
             BOINK, HACK, ENERGY_ROUTINE, MANUAL_SORT, MEMORY_SWAP, REPEAT_ROUTINE,
             REBOOT, SANDBOX_ROUTINE, RECHARGE, SPAM_BLOCKER, RECOMPILE, SPAM_FOLDER_ROUTINE,
             REFRESH, SPEED_ROUTINE, WEASEL_ROUTINE, ZOOP
@@ -99,7 +99,7 @@ public enum TemporaryUpgrades {
 
     private final int cost;
 
-    TemporaryUpgrades(int cost){ this.cost = cost; }
+    TemporaryUpgrade(int cost){ this.cost = cost; }
 
     public int getCost() { return cost; }
 }

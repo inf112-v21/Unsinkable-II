@@ -1,7 +1,5 @@
 package deck.cards.Program;
 
-import deck.cards.Upgrade.PermanentUpgrades;
-
 import java.util.Arrays;
 import java.util.List;
 
@@ -10,7 +8,7 @@ import java.util.List;
  * The card will cycle through your programming deck, and you may play them just as you
  * would any other programming card, by placing them in one of your registers during the programming phase. */
 
-public enum SpecialPrograms {
+public enum SpecialProgram {
     /** Take one energy cube, and place it on your player mat. */
     ENERGY_ROUTINE,
 
@@ -37,9 +35,9 @@ public enum SpecialPrograms {
      * that allowed you to play multiple programming cards, re-execute the second card. */
     REPEAT_ROUTINE;
 
-    SpecialPrograms(){}
+    SpecialProgram(){}
 
-    public static List<SpecialPrograms> ALL_SPECIAL_CARDS = Arrays.asList(
+    public static List<SpecialProgram> ALL_SPECIAL_CARDS = Arrays.asList(
             ENERGY_ROUTINE, WEASEL_ROUTINE, SPAM_FOLDER,
             SANDBOX_ROUTINE, SPEED_ROUTINE, REPEAT_ROUTINE
     );
