@@ -6,11 +6,11 @@
   - Contributing:
 
 ## Project Overview
-RoboRally game app by Unsinkable-II.
+inf112.OLD.FUTURE RoboRally.Game RoboRally by Unsinkable-II.
 
 ## How to run:
 Run 
-[Main](src/main/java/inf112/RoboRally/app/Main.java)
+[Main](src/main/java/RoboRally/Main.java)
 from IDE.
 
 ## Known bugs:
@@ -41,7 +41,7 @@ from IDE.
 [User Story 4](documentation/deliverables/compulsoryAssignment1/userStories/UserStory4.md)
 
 ### Diagrams:
-[Proposed game flow](documentation/deliverables/compulsoryAssignment1/RoboRally%20Flowchart.pdf)
+[Proposed RoboRally.Game flow](documentation/deliverables/compulsoryAssignment1/RoboRally%20Flowchart.pdf)
 
 [Project board](https://github.com/inf112-v21/Unsinkable-II/issues)
 

@@ -1,22 +1,21 @@
-package inf112.OLD;
+package RoboRally.GUI.Screens;
 
-import com.badlogic.gdx.ApplicationListener;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
-import com.badlogic.gdx.InputAdapter;
-import com.badlogic.gdx.graphics.*;
+import com.badlogic.gdx.*;
+import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.tiles.StaticTiledMapTile;
-import com.badlogic.gdx.math.Vector2;
+import RoboRally.Game.objects.Character;
+import RoboRally.Game.Game;
 
 /**
- * RoboRally class. Contains the RoboRally.game logic.
+ * The type Game screen.
  */
-public class RoboRally extends InputAdapter implements ApplicationListener {
+public class GameScreen extends InputAdapter implements Screen {
     private static final int TILE_SIZE = 300;
     private static final int MAP_SIZE_X = 5;
     private static final int MAP_SIZE_Y = 5;
@@ -24,10 +23,16 @@ public class RoboRally extends InputAdapter implements ApplicationListener {
     private TiledMapTileLayer playerLayer, flagLayer, holeLayer;
     private TiledMapTileLayer.Cell playerCell, playerDiedCell, playerWonCell;
     private OrthogonalTiledMapRenderer renderer;
-    private Vector2 playerLoc;
 
-    @Override
-    public void create() {
+    private final Character robot = new Character();
+
+    /**
+     * Instantiates a new Game screen.
+     *
+     * @param game the RoboRally.game
+     */
+    public GameScreen(RoboRally game) {
+
         TiledMap board = new TmxMapLoader().load("testBoard.tmx");
         playerLayer = (TiledMapTileLayer) board.getLayers().get("Player");
         flagLayer = (TiledMapTileLayer) board.getLayers().get("Flag");
@@ -40,7 +45,9 @@ public class RoboRally extends InputAdapter implements ApplicationListener {
         playerDiedCell.setTile(new StaticTiledMapTile(textures[0][1]));
         playerWonCell = new TiledMapTileLayer.Cell();
         playerWonCell.setTile(new StaticTiledMapTile(textures[0][2]));
-        playerLoc = new Vector2();
+
+        robot = new Character();
+        gamelogic = new Game();
 
         OrthographicCamera camera = new OrthographicCamera();
         camera.setToOrtho(false, MAP_SIZE_X, MAP_SIZE_Y);
@@ -51,60 +58,91 @@ public class RoboRally extends InputAdapter implements ApplicationListener {
         Gdx.input.setInputProcessor(this);
     }
 
-    @Override
-    public void render() {
-        checkConditions();
-        renderer.render();
-    }
-
     /**
      * Checks if a RoboRally.game.player is standing on a flag or hole tile or not and displays the appropriate texture accordingly.
      */
     private void checkConditions() {
-        if (flagLayer.getCell((int) playerLoc.x, (int) playerLoc.y) != null) {
-            playerLayer.setCell((int) playerLoc.x, (int) playerLoc.y, playerWonCell);
+        if (getLocation(robot, flagLayer) != null) {
+            setLocation(robot, playerWonCell);
         }
-        else if (holeLayer.getCell((int) playerLoc.x, (int) playerLoc.y) != null) {
-            playerLayer.setCell((int) playerLoc.x, (int) playerLoc.y, playerDiedCell);
+        else if (getLocation(robot, holeLayer) != null) {
+            setLocation(robot, playerDiedCell);
         }
         else {
-            playerLayer.setCell((int) playerLoc.x,(int) playerLoc.y, playerCell); }
+            setLocation(robot, playerCell);
+        }
+    }
+
+    private TiledMapTileLayer.Cell getLocation(Character character, TiledMapTileLayer layer){
+        return layer.getCell((int) character.getX(), (int) character.getY());
+    }
+
+    private void setLocation(Character character, TiledMapTileLayer.Cell cell) {
+        playerLayer.setCell((int) character.getX(), (int) character.getY(), cell);
+    }
+
+    public void move(Character character, Direction dir){
+        setLocation(character, null);
+        robot.setLoc(character.getLoc().add(dir.getLoc()));
     }
 
     @Override
     public boolean keyUp(int keycode) {
-        if ((keycode == Input.Keys.UP || keycode == Input.Keys.W) && playerLoc.y < MAP_SIZE_Y-1) {
-            playerLayer.setCell((int) playerLoc.x, (int) playerLoc.y, null);
-            playerLoc.y += 1;
+        if ((keycode == Input.Keys.UP || keycode == Input.Keys.W) && robot.getY() < MAP_SIZE_Y-1) {
+            move(robot, Direction.NORTH);
             return true;
         }
-        else if ((keycode == Input.Keys.DOWN || keycode == Input.Keys.S) && playerLoc.y > 0) {
-            playerLayer.setCell((int) playerLoc.x, (int) playerLoc.y, null);
-            playerLoc.y -= 1;
+        else if ((keycode == Input.Keys.DOWN || keycode == Input.Keys.S) && robot.getY() > 0) {
+            move(robot, Direction.SOUTH);
             return true;
         }
-        else if ((keycode == Input.Keys.LEFT || keycode == Input.Keys.A) && playerLoc.x > 0) {
-            playerLayer.setCell((int) playerLoc.x, (int) playerLoc.y, null);
-            playerLoc.x -= 1;
+        else if ((keycode == Input.Keys.LEFT || keycode == Input.Keys.A) && robot.getX() > 0) {
+            move(robot, Direction.WEST);
             return true;
         }
-        else if ((keycode == Input.Keys.RIGHT || keycode == Input.Keys.D) && playerLoc.x < MAP_SIZE_X-1) {
-            playerLayer.setCell((int) playerLoc.x, (int) playerLoc.y, null);
-            playerLoc.x += 1;
+        else if ((keycode == Input.Keys.RIGHT || keycode == Input.Keys.D) && robot.getX() < MAP_SIZE_X-1) {
+            move(robot, Direction.EAST);
             return true;
         }
         else { return false; }
     }
 
     @Override
-    public void dispose() {}
+    public void show() {
+
+    }
 
     @Override
-    public void resize(int width, int height) {}
+    public void render(float delta) {
+        checkConditions();
+        renderer.render();
+    }
 
     @Override
-    public void pause() {}
+    public void resize(int width, int height) {
+
+    }
 
     @Override
-    public void resume() {}
+    public void pause() {
+
+    }
+
+    @Override
+    public void resume() {
+
+    }
+
+    @Override
+    public void hide() {
+
+    }
+
+    @Override
+    public void dispose() {
+
+    }
+
+
 }
+
