@@ -1,9 +1,11 @@
-package RoboRally.GUI.Screens;
+package RoboRally.GUI.Screens.Multiplayer;
 
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
+
+import RoboRally.GUI.Screens.MenuScreen;
 import RoboRally.RoboRally;
 
 import java.io.BufferedReader;
@@ -14,7 +16,7 @@ import java.net.URL;
 /**
  * The type Multiplayer host screen.
  */
-public class MultiplayerHostScreen extends MenuScreen{
+public class MultiplayerHostScreen extends MenuScreen {
     private final String ip;
     private final String localIP;
     private int port;
@@ -32,10 +34,10 @@ public class MultiplayerHostScreen extends MenuScreen{
         this.localIP = getLocalhost();
         this.ip = getIP();
         this.port = 8888;
-        this.ipLabel = addLabel(String.format("%s\n%s", localIP, ip), Slot.TOP1);
-        this.portField = addTextField(""+port, Slot.TOP2);
-        addButton("Host",Slot.MIDDLE, middleListener());
-        addButton("Back",Slot.BOTTOM, bottomListener());
+        this.ipLabel = addLabel(String.format("%s\n%s", localIP, ip), TOP1);
+        this.portField = addTextField(""+port, TOP2);
+        addButton("Host", MIDDLE, middleListener());
+        addButton("Back",BOTTOM, bottomListener());
     }
 
     @Override

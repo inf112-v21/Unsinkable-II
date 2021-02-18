@@ -1,4 +1,4 @@
-package RoboRally.Game.objects;
+package RoboRally.Game.Objects;
 
 public enum Pieces {
     PIECE1(1), PIECE2(2);

@@ -14,10 +14,12 @@ import RoboRally.RoboRally;
 /**
  * 3 button Framework for menu Screens
  */
-abstract class MenuScreen implements IMenuScreen {
+public abstract class MenuScreen implements IMenuScreen {
     protected RoboRally game;
     protected Stage stage;
     protected Label heading;
+
+    protected static float TOP = 1f, TOP1 = 1f, TOP2 = 1.15f, MIDDLE = 1.5f, BOTTOM = 3f;
 
     /**
      * Instantiates a new Menu screen.
@@ -33,7 +35,7 @@ abstract class MenuScreen implements IMenuScreen {
     @Override
     public void setTitle(String titleText) {
         Label.LabelStyle titleStyle = new Label.LabelStyle();
-        titleStyle.font = game.getSkin().getFont("title");
+        titleStyle.font = game.getGUI_SKIN().getFont("title");
         Label title = new Label(titleText, titleStyle);
         title.setFontScale(1.5f);
         title.setAlignment(Align.center);
@@ -44,7 +46,7 @@ abstract class MenuScreen implements IMenuScreen {
 
     @Override
     public void setHeading(String headingText) {
-        this.heading = new Label(headingText, game.getSkin());
+        this.heading = new Label(headingText, game.getGUI_SKIN());
         heading.setFontScale(2f);
         heading.setAlignment(Align.center);
         heading.setY(Gdx.graphics.getHeight()*2f/3);
@@ -53,8 +55,8 @@ abstract class MenuScreen implements IMenuScreen {
     }
 
     @Override
-    public TextButton addButton(String buttonText, Slot slot, InputListener listener) {
-        TextButton button = new TextButton(buttonText, game.getSkin());
+    public TextButton addButton(String buttonText, float slot, InputListener listener) {
+        TextButton button = new TextButton(buttonText, game.getGUI_SKIN());
         button.setWidth(getCenterWidth());
         button.setPosition(getWidgetWidth(button.getWidth()), getWidgetHeight(button.getHeight(), slot));
         button.addListener(listener);
@@ -63,8 +65,8 @@ abstract class MenuScreen implements IMenuScreen {
     }
 
     @Override
-    public TextField addTextField(String fieldText, Slot slot) {
-        TextField field = new TextField(fieldText, game.getSkin());
+    public TextField addTextField(String fieldText, float slot) {
+        TextField field = new TextField(fieldText, game.getGUI_SKIN());
         field.setWidth(getCenterWidth() /2f);
         field.setPosition(getWidgetWidth(field.getWidth()), getWidgetHeight(field.getHeight(), slot));
         stage.addActor(field);
@@ -72,8 +74,8 @@ abstract class MenuScreen implements IMenuScreen {
     }
 
     @Override
-    public Label addLabel(String text, Slot slot) {
-        Label label = new Label(text, game.getSkin());
+    public Label addLabel(String text, float slot) {
+        Label label = new Label(text, game.getGUI_SKIN());
         label.setWidth(getCenterWidth() /2f);
         label.setPosition(getWidgetWidth(label.getWidth()), getWidgetHeight(label.getHeight(), slot));
         stage.addActor(label);
@@ -111,16 +113,9 @@ abstract class MenuScreen implements IMenuScreen {
 
     private float getCenterHeight() { return Gdx.graphics.getHeight() >> 1; }
 
-    private float getWidgetHeight(float height, Slot slot) { return getCenterHeight()/slot.getValue() - height/2f; }
+    private float getWidgetHeight(float height, float slot) { return getCenterHeight() /slot - height/2f; }
 
     private float getWidgetWidth(float width) { return getCenterWidth() - width/2f; }
 }
 
 
-enum Slot { TOP(1f), TOP1(1f), TOP2(1.15f), MIDDLE(1.5f), BOTTOM(3f);
-    private final float value;
-
-    Slot(float value) { this.value = value; }
-
-    float getValue() { return value; }
-}

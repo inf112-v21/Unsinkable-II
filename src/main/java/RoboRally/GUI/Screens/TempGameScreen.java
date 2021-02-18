@@ -9,13 +9,12 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.tiles.StaticTiledMapTile;
-import RoboRally.Game.objects.Character;
-import RoboRally.Game.Game;
+import RoboRally.Game.Objects.Robot;
 
 /**
  * The type Game screen.
  */
-public class GameScreen extends InputAdapter implements Screen {
+public class TempGameScreen extends InputAdapter implements Screen {
     private static final int TILE_SIZE = 300;
     private static final int MAP_SIZE_X = 5;
     private static final int MAP_SIZE_Y = 5;
@@ -31,7 +30,7 @@ public class GameScreen extends InputAdapter implements Screen {
      *
      * @param game the RoboRally.game
      */
-    public GameScreen(RoboRally game) {
+    public TempGameScreen(RoboRally game) {
 
         TiledMap board = new TmxMapLoader().load("testBoard.tmx");
         playerLayer = (TiledMapTileLayer) board.getLayers().get("Player");
@@ -46,8 +45,8 @@ public class GameScreen extends InputAdapter implements Screen {
         playerWonCell = new TiledMapTileLayer.Cell();
         playerWonCell.setTile(new StaticTiledMapTile(textures[0][2]));
 
-        robot = new Character();
-        gamelogic = new Game();
+        robot = new Robot(0);
+        gamelogic = new GameLib();
 
         OrthographicCamera camera = new OrthographicCamera();
         camera.setToOrtho(false, MAP_SIZE_X, MAP_SIZE_Y);
@@ -73,17 +72,18 @@ public class GameScreen extends InputAdapter implements Screen {
         }
     }
 
-    private TiledMapTileLayer.Cell getLocation(Character character, TiledMapTileLayer layer){
-        return layer.getCell((int) character.getX(), (int) character.getY());
+    private TiledMapTileLayer.Cell getLocation(Robot robot, TiledMapTileLayer layer){
+        return layer.getCell((int) robot.getX(), (int) robot.getY());
     }
 
-    private void setLocation(Character character, TiledMapTileLayer.Cell cell) {
-        playerLayer.setCell((int) character.getX(), (int) character.getY(), cell);
+    private void setLocation(Robot robot, TiledMapTileLayer.Cell cell) {
+        playerLayer.setCell((int) robot.getX(), (int) robot.getY(), cell);
     }
 
-    public void move(Character character, Direction dir){
-        setLocation(character, null);
-        robot.setLoc(character.getLoc().add(dir.getLoc()));
+    public void move(Robot robot, Direction dir){
+        setLocation(robot, null);
+        this.robot.getLoc().x += dir.getX();
+        this.robot.getLoc().y += dir.getY();
     }
 
     @Override

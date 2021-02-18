@@ -1,5 +1,6 @@
-package RoboRally.GUI.Screens;
+package RoboRally.GUI.Screens.Multiplayer;
 
+import RoboRally.GUI.Screens.MenuScreen;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -25,11 +26,11 @@ public class MultiplayerJoinScreen extends MenuScreen {
         setHeading("Join Multiplayer Game");
         this.hostIP = "";
         this.hostPort = 8888;
-        this.label = addLabel("", Slot.TOP1);
-        this.ipField = addTextField(hostIP, Slot.TOP2);
+        this.label = addLabel("", TOP1);
+        this.ipField = addTextField(hostIP, TOP2);
         ipField.setMessageText("hostIP:port#");
-        addButton("Join", Slot.MIDDLE, middleListener());
-        addButton("Back", Slot.BOTTOM, bottomListener());
+        addButton("Join", MIDDLE, middleListener());
+        addButton("Back", BOTTOM, bottomListener());
     }
 
     @Override

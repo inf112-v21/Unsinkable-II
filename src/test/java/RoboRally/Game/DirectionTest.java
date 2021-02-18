@@ -1,6 +1,6 @@
 package RoboRally.Game;
 
-import RoboRally.Game.objects.Character;
+import RoboRally.Game.Objects.Robot;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -8,46 +8,46 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class DirectionTest {
 
-    Character robot;
-    Game game;
+    Robot robot;
+    GameLib gameLib;
     @BeforeEach
     public void setup(){
-        robot = new Character();
-        game = new Game();
+        robot = new Robot(0);
+        gameLib = new GameLib();
         robot.setLoc(5,5);
     }
 
     @Test
-    public void moveNORTHWorkes(){
-        robot.setDirection(Direction.NORTH);
-        game.move(robot);
+    public void moveNorthIncrementsY(){
+        robot.setHeading(Direction.NORTH);
+        gameLib.move(robot);
 
         assertEquals(5, robot.getX());
         assertEquals(6, robot.getY());
     }
 
     @Test
-    public void moveSOUTHWorkes(){
-        robot.setDirection(Direction.SOUTH);
-        game.move(robot);
+    public void moveSouthDecrementsY(){
+        robot.setHeading(Direction.SOUTH);
+        gameLib.move(robot);
 
         assertEquals(5, robot.getX());
         assertEquals(4, robot.getY());
     }
 
     @Test
-    public void moveEASTWorkes(){
-        robot.setDirection(Direction.EAST);
-        game.move(robot);
+    public void moveEastIncrementsX(){
+        robot.setHeading(Direction.EAST);
+        gameLib.move(robot);
 
         assertEquals(6, robot.getX());
         assertEquals(5, robot.getY());
     }
 
     @Test
-    public void moveWESTWorkes() {
-        robot.setDirection(Direction.WEST);
-        game.move(robot);
+    public void moveWestDecrementsX() {
+        robot.setHeading(Direction.WEST);
+        gameLib.move(robot);
 
         assertEquals(4, robot.getX());
         assertEquals(5, robot.getY());

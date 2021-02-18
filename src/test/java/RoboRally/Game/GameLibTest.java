@@ -2,28 +2,28 @@ package RoboRally.Game;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import RoboRally.Game.deck.ProgramCards;
-import RoboRally.Game.objects.Character;
+import RoboRally.Game.Cards.ProgramCards;
+import RoboRally.Game.Objects.Robot;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class GameTest {
+public class GameLibTest {
 
-    Character robbie;
-    Game game;
+    Robot robbie;
+    GameLib gameLib;
 
     @BeforeEach
     void setUp() {
-        game = new Game();
-        robbie = new Character();
-        robbie.setDirection(Direction.NORTH);
+        gameLib = new GameLib();
+        robbie = new Robot(0);
+        robbie.setHeading(Direction.NORTH);
         robbie.setLoc(5,5);
     }
 
     @Test
     void moveTest(){
-        game.move(robbie);
+        gameLib.move(robbie);
 
         assertEquals(5,robbie.getX());
         assertEquals(6,robbie.getY());
@@ -31,7 +31,7 @@ public class GameTest {
 
     @Test
     void moveStepsTest() {
-        game.move(robbie,3);
+        gameLib.move(robbie,3);
 
         assertEquals(5,robbie.getX());
         assertEquals(8,robbie.getY());
@@ -39,21 +39,21 @@ public class GameTest {
 
     @Test
     void rotateTest() {
-        game.rotate(robbie, ProgramCards.TURN_RIGHT);
+        gameLib.rotate(robbie, ProgramCards.TURN_RIGHT);
 
-        assertEquals(Direction.EAST,robbie.getDirection());
+        assertEquals(Direction.EAST,robbie.heading());
     }
 
     @Test
     void rotateStepsTest() {
-        game.rotate(robbie, ProgramCards.TURN_LEFT);
+        gameLib.rotate(robbie, ProgramCards.TURN_LEFT);
 
-        assertEquals(Direction.WEST,robbie.getDirection());
+        assertEquals(Direction.WEST,robbie.heading());
     }
 
     @Test
     void MOVE_ONE_MovesRobot1Forward() {
-        game.playProgramCard(robbie, ProgramCards.MOVE_1);
+        gameLib.playProgramCard(robbie, ProgramCards.MOVE_1);
 
         assertEquals(5,robbie.getX());
         assertEquals(6,robbie.getY());
@@ -61,7 +61,7 @@ public class GameTest {
 
     @Test
     void MOVE_TWO_MovesRobot2Forward() {
-        game.playProgramCard(robbie, ProgramCards.MOVE_2);
+        gameLib.playProgramCard(robbie, ProgramCards.MOVE_2);
 
         assertEquals(5,robbie.getX());
         assertEquals(7,robbie.getY());
@@ -69,7 +69,7 @@ public class GameTest {
 
     @Test
     void MOVE_THREE_MovesRobot3Forward() {
-        game.playProgramCard(robbie, ProgramCards.MOVE_3);
+        gameLib.playProgramCard(robbie, ProgramCards.MOVE_3);
 
         assertEquals(5,robbie.getX());
         assertEquals(8,robbie.getY());
@@ -77,7 +77,7 @@ public class GameTest {
 
     @Test
     void BACK_UP_MovesRobot1Back() {
-        game.playProgramCard(robbie, ProgramCards.BACK_UP);
+        gameLib.playProgramCard(robbie, ProgramCards.BACK_UP);
 
         assertEquals(5,robbie.getX());
         assertEquals(4,robbie.getY());
@@ -85,22 +85,22 @@ public class GameTest {
 
     @Test
     void TURN_RIGHT_RotatesRobotToTheRight() {
-        game.playProgramCard(robbie, ProgramCards.TURN_RIGHT);
+        gameLib.playProgramCard(robbie, ProgramCards.TURN_RIGHT);
 
-        assertEquals(Direction.EAST,robbie.getDirection());
+        assertEquals(Direction.EAST,robbie.heading());
     }
 
     @Test
     void TURN_LEFT_RotatesRobotToTheLeft() {
-        game.playProgramCard(robbie, ProgramCards.TURN_LEFT);
+        gameLib.playProgramCard(robbie, ProgramCards.TURN_LEFT);
 
-        assertEquals(Direction.WEST,robbie.getDirection());
+        assertEquals(Direction.WEST,robbie.heading());
     }
 
     @Test
     void U_TURN_RotatesRobotAround() {
-        game.playProgramCard(robbie, ProgramCards.U_TURN);
+        gameLib.playProgramCard(robbie, ProgramCards.U_TURN);
 
-        assertEquals(Direction.SOUTH,robbie.getDirection());
+        assertEquals(Direction.SOUTH,robbie.heading());
     }
 }

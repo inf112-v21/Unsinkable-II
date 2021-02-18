@@ -6,7 +6,7 @@
   - Contributing:
 
 ## Project Overview
-inf112.OLD.FUTURE RoboRally.Game RoboRally by Unsinkable-II.
+inf112.DEPRECIATED.FUTURE RoboRally.Game RoboRally by Unsinkable-II.
 
 ## How to run:
 Run 

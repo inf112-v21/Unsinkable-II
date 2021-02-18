@@ -1,9 +1,9 @@
-package RoboRally.Game.deck;
+package RoboRally.Game.Cards;
 
 import java.util.*;
 
 public enum ProgramCards {
-    /** Move your robot in the direction it is facing the number of spaces indicated. */
+    /** Move your robot in the direction it's facing the number of steps indicated on the card. */
     MOVE_1(1,0),
     MOVE_2(2,0),
     MOVE_3(3,0),
@@ -20,11 +20,9 @@ public enum ProgramCards {
     /** Turn your robot 180 degrees so it faces the opposite direction. The robot remains in its current space. */
     U_TURN(0,2);
 
-    //public static List<ProgramCards> ALL_MOVEMENT_CARDS = Arrays.asList(
-    //        MOVE_1, MOVE_2, MOVE_3, TURN_RIGHT, TURN_LEFT, U_TURN, BACK_UP);
 
-    public static List<ProgramCards> getNewDeck() {
-        List<ProgramCards> deck = new LinkedList<>();
+    public static Stack<ProgramCards> getNewDeck() {
+        Stack<ProgramCards> deck = new Stack<>();
         for (int i = 0; i != 18; ++i) { deck.add(MOVE_1); }
         for (int i = 0; i != 12; ++i) { deck.add(MOVE_2); }
         for (int i = 0; i != 6; ++i) { deck.add(MOVE_3); }
@@ -36,14 +34,14 @@ public enum ProgramCards {
         return deck;
     }
 
-    private final int movement, rotation;
+    private final int steps, rotation;
 
-    ProgramCards(int movement, int rotation){
-        this.movement = movement;
+    ProgramCards(int steps, int rotation) {
+        this.steps = steps;
         this.rotation = rotation;
     }
 
-    public int getMovement() { return movement; }
+    public int getSteps() { return steps; }
 
     public int getRotation() { return rotation; }
 

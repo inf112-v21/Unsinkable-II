@@ -1,4 +1,4 @@
-package inf112.OLD;
+package inf112.DEPRECIATED;
 
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;

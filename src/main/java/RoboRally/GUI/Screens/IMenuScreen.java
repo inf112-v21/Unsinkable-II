@@ -31,7 +31,7 @@ public interface IMenuScreen extends Screen {
      * @param buttonText the button text
      * @return TextButton that was added.
      */
-    TextButton addButton(String buttonText, Slot slot, InputListener listener);
+    TextButton addButton(String buttonText, float slot, InputListener listener);
 
     /**
      * Adds TextField at the specified slot using the specified InputListner.
@@ -39,9 +39,9 @@ public interface IMenuScreen extends Screen {
      * @param fieldText the field text
      * @return TextField that was added.
      */
-    TextField addTextField(String fieldText, Slot slot);
+    TextField addTextField(String fieldText, float slot);
 
-    Label addLabel(String text, Slot slot);
+    Label addLabel(String text, float slot);
 
     /**
      * Input listener for TOP.
