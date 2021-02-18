@@ -34,7 +34,7 @@ Løs eventuelle merge conflicts i intellij.
 
 Så kan du pushe dine endringer, der navnet er navnet på branchen du lagde tidligere.
 ```sh
-$ git push origin master
+$ git push origin <navn>
 ```
 
 ### Pull request
