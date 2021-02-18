@@ -13,19 +13,10 @@ public class Robot implements IRobot {
     private int playerNum;
     private Direction heading;
     private Vector2 loc;
-    public final TiledMapTileLayer.Cell robotCell, robotDiedCell, robotWonCell;
+
 
     public Robot(int playerNum) {
         this.playerNum = playerNum;
-
-        TextureRegion[][] textures = TextureRegion.split(new Texture(RoboRally.ROBOT_SKINS), RoboRally.TILE_SIZE, RoboRally.TILE_SIZE);
-        this.robotCell = new TiledMapTileLayer.Cell();
-        robotCell.setTile(new StaticTiledMapTile(textures[playerNum][0]));
-        this.robotDiedCell = new TiledMapTileLayer.Cell();
-        robotDiedCell.setTile(new StaticTiledMapTile(textures[playerNum][1]));
-        this.robotWonCell = new TiledMapTileLayer.Cell();
-        robotWonCell.setTile(new StaticTiledMapTile(textures[playerNum][2]));
-
         this.loc = new Vector2();
         this.heading = Direction.WEST;
     }
@@ -55,14 +46,5 @@ public class Robot implements IRobot {
 
     @Override
     public float getY() { return this.loc.y; }
-
-    @Override
-    public TiledMapTileLayer.Cell getCell() { return this.robotCell; }
-
-    @Override
-    public TiledMapTileLayer.Cell getDiedCell() { return this.robotDiedCell; }
-
-    @Override
-    public TiledMapTileLayer.Cell getWonCell() { return this.robotWonCell; }
 }
 

@@ -20,9 +20,9 @@ public interface IRobot {
 
     float getY();
 
-    TiledMapTileLayer.Cell getCell();
+    //TiledMapTileLayer.Cell getCell();
 
-    TiledMapTileLayer.Cell getDiedCell();
+    //TiledMapTileLayer.Cell getDiedCell();
 
-    TiledMapTileLayer.Cell getWonCell();
+    //TiledMapTileLayer.Cell getWonCell();
 }

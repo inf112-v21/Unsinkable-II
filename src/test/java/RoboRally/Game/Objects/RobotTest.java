@@ -15,7 +15,7 @@ public class RobotTest {
     }
 
     @Test
-    public void getIdReturnsId() { assertEquals(1, robot.getId()); }
+    public void getIdReturnsId() { assertEquals(0, robot.getId()); }
 
     @Test
     public void getXReturnsX() { assertEquals(5, robot.getX()); }

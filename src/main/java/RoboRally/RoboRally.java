@@ -26,8 +26,6 @@ public class RoboRally extends Game {
     private Stage stage;
     private TitleScreen titleScreen;
 
-    public TextureRegion[][] textureCells;
-
     @Override
     public void create() {
         this.GUI_SKIN = new Skin(Gdx.files.internal(skin));
