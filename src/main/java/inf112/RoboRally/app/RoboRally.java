@@ -25,6 +25,10 @@ public class RoboRally extends Game {
     @Override
     public void render () { super.render(); }
 
+    @Override
+    public void dispose() {}
+
+
     public Skin getSkin() { return this.skin; }
 
     public TitleScreen getTitleScreen() { return this.titleScreen; }

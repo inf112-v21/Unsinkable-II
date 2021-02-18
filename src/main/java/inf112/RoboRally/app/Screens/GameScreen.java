@@ -9,7 +9,8 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.tiles.StaticTiledMapTile;
-import com.badlogic.gdx.math.Vector2;
+import inf112.RoboRally.game.Directions;
+import inf112.RoboRally.game.objects.Character;
 
 /**
  * The type Game screen.
@@ -22,7 +23,8 @@ public class GameScreen extends InputAdapter implements Screen {
     private TiledMapTileLayer playerLayer, flagLayer, holeLayer;
     private TiledMapTileLayer.Cell playerCell, playerDiedCell, playerWonCell;
     private OrthogonalTiledMapRenderer renderer;
-    private Vector2 playerLoc;
+
+    private final Character robot = new Character();
 
     /**
      * Instantiates a new Game screen.
@@ -42,7 +44,6 @@ public class GameScreen extends InputAdapter implements Screen {
        playerDiedCell.setTile(new StaticTiledMapTile(textures[0][1]));
        playerWonCell = new TiledMapTileLayer.Cell();
        playerWonCell.setTile(new StaticTiledMapTile(textures[0][2]));
-       playerLoc = new Vector2();
 
        OrthographicCamera camera = new OrthographicCamera();
        camera.setToOrtho(false, MAP_SIZE_X, MAP_SIZE_Y);
@@ -54,17 +55,26 @@ public class GameScreen extends InputAdapter implements Screen {
     }
 
     /**
-     * Checks if a player is standing on a flag or hole tile or not and displays the appropriate texture accordingly.
+     * Checks if a inf112.RoboRally.game.player is standing on a flag or hole tile or not and displays the appropriate texture accordingly.
      */
     private void checkConditions() {
-        if (flagLayer.getCell((int) playerLoc.x, (int) playerLoc.y) != null) {
-            playerLayer.setCell((int) playerLoc.x, (int) playerLoc.y, playerWonCell);
+        if (getLocation(robot, flagLayer) != null) {
+            setLocation(robot, playerWonCell);
         }
-        else if (holeLayer.getCell((int) playerLoc.x, (int) playerLoc.y) != null) {
-            playerLayer.setCell((int) playerLoc.x, (int) playerLoc.y, playerDiedCell);
+        else if (getLocation(robot, holeLayer) != null) {
+            setLocation(robot, playerDiedCell);
         }
         else {
-            playerLayer.setCell((int) playerLoc.x,(int) playerLoc.y, playerCell); }
+            setLocation(robot, playerCell);
+        }
+    }
+
+    private TiledMapTileLayer.Cell getLocation(Character character, TiledMapTileLayer layer){
+        return layer.getCell(character.getX(), character.getY());
+    }
+
+    private void setLocation(Character character, TiledMapTileLayer.Cell cell) {
+        playerLayer.setCell(character.getX(), character.getY(), cell);
     }
 
     @Override

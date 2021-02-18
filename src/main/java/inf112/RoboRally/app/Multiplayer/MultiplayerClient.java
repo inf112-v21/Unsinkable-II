@@ -33,7 +33,7 @@ public class MultiplayerClient extends Multiplayer {
         }
     }
 
-    public Packet getMail() { return this.receivedPackets.poll(); }
+    public Packet getNextPacket() { return this.receivedPackets.poll(); }
     public boolean checkMail() { return this.receivedPackets.size() != 0; }
 
     public void send(Connection connection, Packet packet) { connection.sendTCP(packet); }
