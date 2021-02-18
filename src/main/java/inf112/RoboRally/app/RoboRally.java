@@ -1,5 +1,6 @@
 package inf112.RoboRally.app;
 
+import Objects.Character;
 import com.badlogic.gdx.ApplicationListener;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -11,7 +12,8 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.tiles.StaticTiledMapTile;
-import com.badlogic.gdx.math.Vector2;
+
+import static inf112.RoboRally.app.Directions.*;
 
 /**
  * RoboRally class. Contains the game logic.
@@ -24,7 +26,8 @@ public class RoboRally extends InputAdapter implements ApplicationListener {
     private TiledMapTileLayer playerLayer, flagLayer, holeLayer;
     private TiledMapTileLayer.Cell playerCell, playerDiedCell, playerWonCell;
     private OrthogonalTiledMapRenderer renderer;
-    private Vector2 playerLoc;
+
+    private final Character mr_Robot = new Character();
 
     @Override
     public void create() {
@@ -40,7 +43,6 @@ public class RoboRally extends InputAdapter implements ApplicationListener {
         playerDiedCell.setTile(new StaticTiledMapTile(textures[0][1]));
         playerWonCell = new TiledMapTileLayer.Cell();
         playerWonCell.setTile(new StaticTiledMapTile(textures[0][2]));
-        playerLoc = new Vector2();
 
         OrthographicCamera camera = new OrthographicCamera();
         camera.setToOrtho(false, MAP_SIZE_X, MAP_SIZE_Y);
@@ -53,44 +55,51 @@ public class RoboRally extends InputAdapter implements ApplicationListener {
 
     @Override
     public void render() {
-        checkConditions();
+        check();
         renderer.render();
     }
 
-    /**
-     * Checks if a player is standing on a flag or hole tile or not and displays the appropriate texture accordingly.
-     */
-    private void checkConditions() {
-        if (flagLayer.getCell((int) playerLoc.x, (int) playerLoc.y) != null) {
-            playerLayer.setCell((int) playerLoc.x, (int) playerLoc.y, playerWonCell);
+    private void check() {
+        if (get(mr_Robot, flagLayer) != null) {
+            set(mr_Robot, playerWonCell);
         }
-        else if (holeLayer.getCell((int) playerLoc.x, (int) playerLoc.y) != null) {
-            playerLayer.setCell((int) playerLoc.x, (int) playerLoc.y, playerDiedCell);
+        else if (get(mr_Robot, holeLayer) != null) {
+            set(mr_Robot, playerDiedCell);
         }
         else {
-            playerLayer.setCell((int) playerLoc.x,(int) playerLoc.y, playerCell); }
+            set(mr_Robot, playerCell);
+        }
+    }
+
+    private TiledMapTileLayer.Cell get(Character character, TiledMapTileLayer layer){
+        return layer.getCell(character.getX(), character.getY());
+    }
+
+    private void set(Character character, TiledMapTileLayer.Cell cell) {
+        playerLayer.setCell(character.getX(), character.getY(), cell);
+    }
+
+    public void move(Character character, Directions dir){
+        set(character, null);
+        character.move(dir);
     }
 
     @Override
     public boolean keyUp(int keycode) {
-        if ((keycode == Input.Keys.UP || keycode == Input.Keys.W) && playerLoc.y < MAP_SIZE_Y-1) {
-             playerLayer.setCell((int) playerLoc.x, (int) playerLoc.y, null);
-             playerLoc.y += 1;
-             return true;
-        }
-        else if ((keycode == Input.Keys.DOWN || keycode == Input.Keys.S) && playerLoc.y > 0) {
-            playerLayer.setCell((int) playerLoc.x, (int) playerLoc.y, null);
-            playerLoc.y -= 1;
+        if ((keycode == Input.Keys.UP || keycode == Input.Keys.W) && mr_Robot.getY() < MAP_SIZE_Y-1) {
+            move(mr_Robot, NORTH);
             return true;
         }
-        else if ((keycode == Input.Keys.LEFT || keycode == Input.Keys.A) && playerLoc.x > 0) {
-            playerLayer.setCell((int) playerLoc.x, (int) playerLoc.y, null);
-            playerLoc.x -= 1;
+        else if ((keycode == Input.Keys.DOWN || keycode == Input.Keys.S) && mr_Robot.getY() > 0) {
+            move(mr_Robot, SOUTH);
             return true;
         }
-        else if ((keycode == Input.Keys.RIGHT || keycode == Input.Keys.D) && playerLoc.x < MAP_SIZE_X-1) {
-            playerLayer.setCell((int) playerLoc.x, (int) playerLoc.y, null);
-            playerLoc.x += 1;
+        else if ((keycode == Input.Keys.LEFT || keycode == Input.Keys.A) && mr_Robot.getX() > 0) {
+            move(mr_Robot, WEST);
+            return true;
+        }
+        else if ((keycode == Input.Keys.RIGHT || keycode == Input.Keys.D) && mr_Robot.getX() < MAP_SIZE_X-1) {
+            move(mr_Robot, EAST);
             return true;
         }
         else { return false; }
