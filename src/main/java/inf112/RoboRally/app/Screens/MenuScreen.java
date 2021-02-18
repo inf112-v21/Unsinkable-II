@@ -71,6 +71,7 @@ abstract class MenuScreen implements IMenuScreen {
         return field;
     }
 
+    @Override
     public Label addLabel(String text, Slot slot) {
         Label label = new Label(text, game.getSkin());
         label.setWidth(getCenterWidth() /2f);

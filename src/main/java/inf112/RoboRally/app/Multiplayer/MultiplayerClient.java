@@ -5,27 +5,36 @@ import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 
 import java.io.IOException;
+import java.util.Date;
+import java.util.LinkedList;
+import java.util.Queue;
 
-public class MultiplayerClient extends Listener {
+public class MultiplayerClient extends Multiplayer {
     private static Client client;
-    private static String hostIP;
-    private static int tcpPort = 8888, udpPort = 8888;
+    private static final int timeout = 5000;
 
-    public MultiplayerClient(String serverIP) {
-        hostIP = serverIP;
-        System.out.println("Connecting to server "+hostIP); // TODO: Remove
+    private final Queue<Packet> receivedPackets;
+
+    public MultiplayerClient(String hostIP, int tcpPort, int udpPort) {
+        this.receivedPackets = new LinkedList<>();
         client = new Client();
         client.getKryo().register(Packet.class);
         client.start();
-        try { client.connect(5000, hostIP, tcpPort, udpPort); }
-        catch (IOException ioException) { ioException.printStackTrace(); } // TODO: Handle with care!
+        try { client.connect(timeout, hostIP, tcpPort, udpPort); }
+        catch (Exception e) { e.printStackTrace(); } // TODO: Handle with care!
         client.addListener(this);
     }
 
     public void received(Connection connection, Object transmission) {
         if (transmission instanceof Packet) {
-            Packet packet = (Packet) transmission;
-            System.out.println(connection+" received "+packet); // TODO: Remove
+            Packet received = (Packet) transmission;
+            receivedPackets.add(received);
+            System.out.println("Client received: "+received.packetMessage+" from "+connection); // TODO: Remove
         }
     }
+
+    public Packet getMail() { return this.receivedPackets.poll(); }
+    public boolean checkMail() { return this.receivedPackets.size() != 0; }
+
+    public void send(Connection connection, Packet packet) { connection.sendTCP(packet); }
 }

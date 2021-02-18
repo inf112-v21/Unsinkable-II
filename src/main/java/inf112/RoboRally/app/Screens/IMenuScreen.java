@@ -2,6 +2,7 @@ package inf112.RoboRally.app.Screens;
 
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 
@@ -39,6 +40,8 @@ public interface IMenuScreen extends Screen {
      * @return TextField that was added.
      */
     TextField addTextField(String fieldText, Slot slot);
+
+    Label addLabel(String text, Slot slot);
 
     /**
      * Input listener for TOP.
