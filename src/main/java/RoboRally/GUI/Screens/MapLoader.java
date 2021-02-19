@@ -19,7 +19,7 @@ import java.util.HashMap;
 public class MapLoader extends InputAdapter implements Screen {
     private final HashMap<String, TiledMapTileLayer> layers;
     private final OrthogonalTiledMapRenderer renderer;
-    private final int mapSizeX, mapSizeY;;
+    private final int mapSizeX, mapSizeY;
 
     /**
      * Instantiates a new Game screen.

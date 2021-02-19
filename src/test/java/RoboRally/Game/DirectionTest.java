@@ -22,8 +22,8 @@ public class DirectionTest {
         robot.setHeading(Direction.NORTH);
         gameLib.move(robot);
 
-        assertEquals(5, robot.getX());
-        assertEquals(6, robot.getY());
+        assertEquals(5, robot.getLoc().x);
+        assertEquals(6, robot.getLoc().y);
     }
 
     @Test
@@ -31,8 +31,8 @@ public class DirectionTest {
         robot.setHeading(Direction.SOUTH);
         gameLib.move(robot);
 
-        assertEquals(5, robot.getX());
-        assertEquals(4, robot.getY());
+        assertEquals(5, robot.getLoc().x);
+        assertEquals(4, robot.getLoc().y);
     }
 
     @Test
@@ -40,8 +40,8 @@ public class DirectionTest {
         robot.setHeading(Direction.EAST);
         gameLib.move(robot);
 
-        assertEquals(6, robot.getX());
-        assertEquals(5, robot.getY());
+        assertEquals(6, robot.getLoc().x);
+        assertEquals(5, robot.getLoc().y);
     }
 
     @Test
@@ -49,7 +49,7 @@ public class DirectionTest {
         robot.setHeading(Direction.WEST);
         gameLib.move(robot);
 
-        assertEquals(4, robot.getX());
-        assertEquals(5, robot.getY());
+        assertEquals(4, robot.getLoc().x);
+        assertEquals(5, robot.getLoc().y);
     }
 }

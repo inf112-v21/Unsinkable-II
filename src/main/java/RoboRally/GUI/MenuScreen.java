@@ -1,4 +1,4 @@
-package RoboRally.GUI.Screens;
+package RoboRally.GUI;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;

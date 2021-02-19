@@ -16,10 +16,6 @@ public interface IRobot {
 
     Vector2 getLoc();
 
-    float getX();
-
-    float getY();
-
     //TiledMapTileLayer.Cell getCell();
 
     //TiledMapTileLayer.Cell getDiedCell();

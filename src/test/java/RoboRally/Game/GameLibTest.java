@@ -25,16 +25,16 @@ public class GameLibTest {
     void moveTest(){
         gameLib.move(robbie);
 
-        assertEquals(5,robbie.getX());
-        assertEquals(6,robbie.getY());
+        assertEquals(5, robbie.getLoc().x);
+        assertEquals(6, robbie.getLoc().y);
     }
 
     @Test
     void moveStepsTest() {
         gameLib.move(robbie,3);
 
-        assertEquals(5,robbie.getX());
-        assertEquals(8,robbie.getY());
+        assertEquals(5,robbie.getLoc().x);
+        assertEquals(8,robbie.getLoc().y);
     }
 
     @Test
@@ -55,32 +55,32 @@ public class GameLibTest {
     void MOVE_ONE_MovesRobot1Forward() {
         gameLib.playProgramCard(robbie, ProgramCards.MOVE_1);
 
-        assertEquals(5,robbie.getX());
-        assertEquals(6,robbie.getY());
+        assertEquals(5,robbie.getLoc().x);
+        assertEquals(6,robbie.getLoc().y);
     }
 
     @Test
     void MOVE_TWO_MovesRobot2Forward() {
         gameLib.playProgramCard(robbie, ProgramCards.MOVE_2);
 
-        assertEquals(5,robbie.getX());
-        assertEquals(7,robbie.getY());
+        assertEquals(5,robbie.getLoc().x);
+        assertEquals(7,robbie.getLoc().y);
     }
 
     @Test
     void MOVE_THREE_MovesRobot3Forward() {
         gameLib.playProgramCard(robbie, ProgramCards.MOVE_3);
 
-        assertEquals(5,robbie.getX());
-        assertEquals(8,robbie.getY());
+        assertEquals(5,robbie.getLoc().x);
+        assertEquals(8,robbie.getLoc().y);
     }
 
     @Test
     void BACK_UP_MovesRobot1Back() {
         gameLib.playProgramCard(robbie, ProgramCards.BACK_UP);
 
-        assertEquals(5,robbie.getX());
-        assertEquals(4,robbie.getY());
+        assertEquals(5,robbie.getLoc().x);
+        assertEquals(4,robbie.getLoc().y);
     }
 
     @Test

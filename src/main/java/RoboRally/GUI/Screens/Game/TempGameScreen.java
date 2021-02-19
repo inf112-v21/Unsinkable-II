@@ -1,4 +1,4 @@
-package RoboRally.GUI.Screens;
+package RoboRally.GUI.Screens.Game;
 
 import com.badlogic.gdx.*;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -73,11 +73,11 @@ public class TempGameScreen extends InputAdapter implements Screen {
     }
 
     private TiledMapTileLayer.Cell getLocation(Robot robot, TiledMapTileLayer layer){
-        return layer.getCell((int) robot.getX(), (int) robot.getY());
+        return layer.getCell((int) robot.getLoc().x, (int) robot.getLoc().y);
     }
 
     private void setLocation(Robot robot, TiledMapTileLayer.Cell cell) {
-        playerLayer.setCell((int) robot.getX(), (int) robot.getY(), cell);
+        playerLayer.setCell((int) robot.getLoc().x, (int) robot.getLoc().y, cell);
     }
 
     public void move(Robot robot, Direction dir){
@@ -88,19 +88,19 @@ public class TempGameScreen extends InputAdapter implements Screen {
 
     @Override
     public boolean keyUp(int keycode) {
-        if ((keycode == Input.Keys.UP || keycode == Input.Keys.W) && robot.getY() < MAP_SIZE_Y-1) {
+        if ((keycode == Input.Keys.UP || keycode == Input.Keys.W) && robot.getLoc().y < MAP_SIZE_Y-1) {
             move(robot, Direction.NORTH);
             return true;
         }
-        else if ((keycode == Input.Keys.DOWN || keycode == Input.Keys.S) && robot.getY() > 0) {
+        else if ((keycode == Input.Keys.DOWN || keycode == Input.Keys.S) && robot.getLoc().y > 0) {
             move(robot, Direction.SOUTH);
             return true;
         }
-        else if ((keycode == Input.Keys.LEFT || keycode == Input.Keys.A) && robot.getX() > 0) {
+        else if ((keycode == Input.Keys.LEFT || keycode == Input.Keys.A) && robot.getLoc().x > 0) {
             move(robot, Direction.WEST);
             return true;
         }
-        else if ((keycode == Input.Keys.RIGHT || keycode == Input.Keys.D) && robot.getX() < MAP_SIZE_X-1) {
+        else if ((keycode == Input.Keys.RIGHT || keycode == Input.Keys.D) && robot.getLoc().x < MAP_SIZE_X-1) {
             move(robot, Direction.EAST);
             return true;
         }
