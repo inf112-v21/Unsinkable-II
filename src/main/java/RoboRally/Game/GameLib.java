@@ -14,7 +14,12 @@ public class GameLib {
         else { rotate(robot, card); }
     }
 
-    public void move(Robot robot) { //TODO: Optimize
+    /**
+     * Method for Testing ONLY!
+     *
+     * @param robot
+     */
+    public void move(Robot robot) { //TODO: Remove
         Vector2 dir = new Vector2(robot.heading().getX(), robot.heading().getY());
         robot.setLoc(robot.getLoc().add(dir));
     }

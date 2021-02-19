@@ -1,5 +1,8 @@
 package RoboRally.GUI.Screens.Game;
 
+import RoboRally.Game.Direction;
+import RoboRally.Game.GameLib;
+import RoboRally.RoboRally;
 import com.badlogic.gdx.*;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -23,7 +26,9 @@ public class TempGameScreen extends InputAdapter implements Screen {
     private TiledMapTileLayer.Cell playerCell, playerDiedCell, playerWonCell;
     private OrthogonalTiledMapRenderer renderer;
 
-    private final Character robot = new Character();
+
+    private Robot robot;
+    private GameLib gamelogic;
 
     /**
      * Instantiates a new Game screen.
@@ -143,6 +148,4 @@ public class TempGameScreen extends InputAdapter implements Screen {
 
     }
 
-
 }
-

@@ -48,4 +48,3 @@ public class Robot implements IRobot {
     public Vector2 getLoc() { return loc; }
 
 }
-
