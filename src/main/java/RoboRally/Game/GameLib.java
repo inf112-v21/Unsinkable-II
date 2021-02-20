@@ -24,6 +24,10 @@ public class GameLib {
         robot.setLoc(robot.getLoc().add(dir));
     }
 
+    public void move(Robot robot, Direction dir) { //TODO: Remove
+        robot.setLoc(robot.getLoc().add(new Vector2 (dir.getX(), dir.getY())));
+    }
+
     public void move(Robot robot, int steps){
         if (steps < 0) {
             robot.getLoc().x +=robot.heading().getX();

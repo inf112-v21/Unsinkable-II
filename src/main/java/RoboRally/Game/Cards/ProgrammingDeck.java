@@ -14,7 +14,7 @@ public class ProgrammingDeck {
 
     public void returnCards(Collection<ProgramCards> c) { programCardDeck.addAll(c); }
 
-    public static void shuffle(ProgrammingDeck deck) { Collections.shuffle(deck.getDeck()); }
+    public void shuffle() { Collections.shuffle(this.getDeck()); }
 
     private Stack<ProgramCards> getDeck() { return this.programCardDeck; }
 }

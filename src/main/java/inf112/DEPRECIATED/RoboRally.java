@@ -28,12 +28,12 @@ public class RoboRally extends InputAdapter implements ApplicationListener {
 
     @Override
     public void create() {
-        TiledMap board = new TmxMapLoader().load("testBoard.tmx");
+        TiledMap board = new TmxMapLoader().load("Maps/testBoard.tmx");
         playerLayer = (TiledMapTileLayer) board.getLayers().get("Player");
         flagLayer = (TiledMapTileLayer) board.getLayers().get("Flag");
         holeLayer = (TiledMapTileLayer) board.getLayers().get("Hole");
 
-        TextureRegion[][] textures = TextureRegion.split(new Texture("player.png"), TILE_SIZE, TILE_SIZE);
+        TextureRegion[][] textures = TextureRegion.split(new Texture("Maps/player.png"), TILE_SIZE, TILE_SIZE);
         playerCell = new TiledMapTileLayer.Cell();
         playerCell.setTile(new StaticTiledMapTile(textures[0][0]));
         playerDiedCell = new TiledMapTileLayer.Cell();

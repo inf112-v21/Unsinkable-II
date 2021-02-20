@@ -25,7 +25,7 @@ public enum Direction {
 
     public int getY() { return this.y; }
 
-    public static Direction rotate(Direction dir, int rotation) { return DIRECTIONS.get(dir.direction + rotation %4); }
+    public static Direction rotate(Direction dir, int rotation) { return DIRECTIONS.get((dir.direction + rotation) %4); }
 
-    public Direction rotate(int rotation) { return DIRECTIONS.get(this.direction + rotation %4); }
+    public Direction rotate(int rotation) { return DIRECTIONS.get((this.direction + rotation) %4); }
 }

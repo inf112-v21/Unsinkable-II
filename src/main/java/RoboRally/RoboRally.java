@@ -2,10 +2,6 @@ package RoboRally;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
@@ -17,10 +13,10 @@ import RoboRally.GUI.Screens.TitleScreen;
 public class RoboRally extends Game {
     public static final String TITLE = "RoboRally";
     public static final int TILE_SIZE = 300;
-    public static final String ROBOT_SKINS = "player.png";
+    public static final String ROBOT_SKINS = "Maps/player.png";
     private static final String skin = "skin/rusty-robot-ui.json";
 
-    public final String board = "RiskyExchange.tmx";
+    public final String board = "Maps/RiskyExchange.tmx";
 
     private Skin GUI_SKIN;
     private Stage stage;
