@@ -17,7 +17,7 @@
 5,5,5,5,5,5,5,5,5,5,5,5
 </data>
  </layer>
- <layer id="3" name="HoleLayer" width="12" height="12">
+ <layer id="3" name="Hole" width="12" height="12">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,
@@ -33,7 +33,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <layer id="5" name="BlueConveyerLayer" width="12" height="12">
+ <layer id="5" name="BlueConveyer" width="12" height="12">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,17,22,
@@ -49,7 +49,7 @@
 0,0,0,0,0,0,13,0,0,0,13,0
 </data>
  </layer>
- <layer id="6" name="YellowConveyerLayer" width="12" height="12">
+ <layer id="6" name="YellowConveyer" width="12" height="12">
   <data encoding="csv">
 0,50,0,0,0,50,0,0,0,0,0,0,
 0,61,52,52,52,58,52,52,52,36,0,0,
@@ -65,7 +65,7 @@
 0,0,0,0,0,50,0,0,0,0,0,0
 </data>
  </layer>
- <layer id="7" name="LasershooterLayer" width="12" height="12">
+ <layer id="7" name="Lasershooter" width="12" height="12">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,
@@ -97,7 +97,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <layer id="8" name="Walllayer" width="12" height="12">
+ <layer id="8" name="Wall" width="12" height="12">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,
@@ -113,7 +113,7 @@
 0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <layer id="10" name="PuserLayer" width="12" height="12">
+ <layer id="10" name="Pusher" width="12" height="12">
   <data encoding="csv">
 0,0,1,0,1,0,0,1,0,1,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,
@@ -129,7 +129,7 @@
 0,0,11,0,11,0,0,11,0,11,0,0
 </data>
  </layer>
- <layer id="11" name="WrenchLayer" width="12" height="12">
+ <layer id="11" name="Repair" width="12" height="12">
   <data encoding="csv">
 0,0,0,0,0,0,0,0,0,0,0,15,
 0,0,0,0,0,0,0,0,0,0,0,0,
@@ -145,7 +145,7 @@
 15,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
- <layer id="12" name="WrenchAndHammerLayer" width="12" height="12">
+ <layer id="12" name="RepairUpgrade" width="12" height="12">
   <data encoding="csv">
 0,0,0,7,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,
@@ -161,7 +161,7 @@
 0,0,0,0,0,0,0,0,7,0,0,0
 </data>
  </layer>
- <layer id="13" name="FlagLayer" width="12" height="12">
+ <layer id="13" name="Flag" width="12" height="12">
   <data encoding="csv">
 0,0,0,0,0,0,55,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,0,0,0,
