@@ -21,7 +21,7 @@ public class TitleScreen extends MenuScreen {
     public TitleScreen(RoboRally game) {
         super(game);
         setHeading("Select Game Mode");
-        addButton(mapSelecter.printMapName(), TOP, topListener());
+        addButton(mapSelecter.getMapName(), TOP, topListener());
         addButton("Single Player", TOP2, topListener());
         addButton("Multiplayer", MIDDLE, middleListener());
         addButton("Quit", BOTTOM, bottomListener());
