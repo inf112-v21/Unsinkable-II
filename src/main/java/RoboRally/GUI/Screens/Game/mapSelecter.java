@@ -21,4 +21,10 @@ public class mapSelecter {
     public TiledMap getMap() {
         return map;
     }
+
+    public static String printMapName(){
+        return map.toString();
+    }
+
+    //TODO Make prettyPrintMApName()
 }
