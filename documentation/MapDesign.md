@@ -46,6 +46,10 @@ LaserWallS - Laser facing north
 
 LaserWallW - Laser facing east
 
+LaserH - Horizontal laser
+
+LaserV - Vertical laser
+
 WallN
 
 WallE
@@ -78,10 +82,5 @@ Flag4
 
 FLagN
 
-Player1
+Player
 
-Player2
-
-...
-
-PlayerN
