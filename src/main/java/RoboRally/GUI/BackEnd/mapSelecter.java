@@ -14,8 +14,15 @@ public class mapSelecter {
         mapDirectory.put("Maps/RoundaboutHell.tmx", "Roundabout Hell");
         mapDirectory.put("Maps/RiskyExhange.tmx", "Risky Exchange");
     }
+    public static int mapNumber;
+
+    public static void selectMap() {
+        mapNumber += 1;
+        System.out.println(mapNumber);
+    }
 
 
+    //TODO implement something, maybee a counter to make sure that one can circle trough maps
     /**
      * Sets the Map that is going to be played
      * @param selectedMap = the selected map
@@ -33,8 +40,7 @@ public class mapSelecter {
     }
 
     public static String getMapName(){
-        //String name = mapDirectory.get(map);
-        return "NoName";
+        return "Your battlefield is " + mapDirectory.get("Maps/testBoard2.tmx");
     }
 
 

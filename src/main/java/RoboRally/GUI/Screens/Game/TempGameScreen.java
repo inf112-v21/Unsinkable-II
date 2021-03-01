@@ -39,7 +39,6 @@ public class TempGameScreen extends InputAdapter implements Screen {
      */
     public TempGameScreen(RoboRally game) {
         //Board setup
-        //TiledMap board = new TmxMapLoader().load("Maps/testBoard2.tmx");
         TiledMap board = new mapSelecter().getMap();
         playerLayer = (TiledMapTileLayer) board.getLayers().get("Player");
         flagLayer = (TiledMapTileLayer) board.getLayers().get("Flag");
