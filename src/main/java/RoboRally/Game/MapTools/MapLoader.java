@@ -12,7 +12,6 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
  */
 public class MapLoader extends InputAdapter implements Screen {
     private final OrthogonalTiledMapRenderer renderer;
-    private final int mapSizeX, mapSizeY;
     private RoboRally game;
 
     /**
@@ -23,8 +22,8 @@ public class MapLoader extends InputAdapter implements Screen {
     public MapLoader(RoboRally game) {
         this.game = game;
 
-        this.mapSizeX = game.gameBoard.getWidth();
-        this.mapSizeY = game.gameBoard.getWidth();
+        int mapSizeX = game.gameBoard.getWidth();
+        int mapSizeY = game.gameBoard.getWidth();
 
         OrthographicCamera camera = new OrthographicCamera();
         camera.setToOrtho(false, mapSizeX, mapSizeY);
