@@ -4,7 +4,7 @@ import RoboRally.GUI.Screens.Multiplayer.MultiplayerOptionScreen;
 import RoboRally.Game.MapTools.MapLoader;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
-import RoboRally.RoboRally;
+import RoboRally.RoboRallyApp;
 
 /**
  * The title screen.
@@ -16,7 +16,7 @@ public class TitleScreen extends MenuScreen {
      *
      * @param game the RoboRally.game
      */
-    public TitleScreen(RoboRally game) {
+    public TitleScreen(RoboRallyApp game) {
         super(game);
         setHeading("Select Game Mode. ");
         addButton("Single Player", TOP, topListener());

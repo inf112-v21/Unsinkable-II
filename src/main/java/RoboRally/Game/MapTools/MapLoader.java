@@ -1,6 +1,6 @@
 package RoboRally.Game.MapTools;
 
-import RoboRally.RoboRally;
+import RoboRally.RoboRallyApp;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.Screen;
@@ -12,14 +12,14 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
  */
 public class MapLoader extends InputAdapter implements Screen {
     private final OrthogonalTiledMapRenderer renderer;
-    private RoboRally game;
+    private RoboRallyApp game;
 
     /**
      * Instantiates a new Game screen.
      *
      * @param game the RoboRally.game
      */
-    public MapLoader(RoboRally game) {
+    public MapLoader(RoboRallyApp game) {
         this.game = game;
 
         int mapSizeX = game.gameBoard.getHight();
@@ -30,7 +30,7 @@ public class MapLoader extends InputAdapter implements Screen {
         camera.position.x = (float) mapSizeX/2;
         camera.update();
 
-        renderer = new OrthogonalTiledMapRenderer(game.gameBoard.getBoard(), (float) 1/ RoboRally.TILE_SIZE);
+        renderer = new OrthogonalTiledMapRenderer(game.gameBoard.getBoard(), (float) 1/ RoboRallyApp.TILE_SIZE);
         renderer.setView(camera);
         Gdx.input.setInputProcessor(this);
     }
@@ -43,7 +43,7 @@ public class MapLoader extends InputAdapter implements Screen {
 
     @Override
     public void render(float delta) {
-        game.render();
+        game.gameRender();
         renderer.render();
     }
 

@@ -3,7 +3,7 @@ package RoboRally.GUI.Screens.Multiplayer;
 import RoboRally.GUI.Screens.MenuScreen;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
-import RoboRally.RoboRally;
+import RoboRally.RoboRallyApp;
 
 /**
  * The type Multiplayer screen.
@@ -15,7 +15,7 @@ public class MultiplayerOptionScreen extends MenuScreen {
      *
      * @param game the RoboRally.game
      */
-    public MultiplayerOptionScreen(RoboRally game) {
+    public MultiplayerOptionScreen(RoboRallyApp game) {
         super(game);
         setHeading("Multiplayer");
         addButton("Host", TOP, topListener());

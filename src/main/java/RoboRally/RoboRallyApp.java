@@ -21,16 +21,16 @@ import RoboRally.GUI.Screens.TitleScreen;
 /**
  * RoboRally application entry point.
  */
-public class RoboRally extends Game {
+public class RoboRallyApp extends Game {
 
     //================================================================
-    //                         Game configuration
+    //                         App configuration
     //================================================================
     public static final String TITLE = "RoboRally";
     public static final int TILE_SIZE = 300;
     public static final String ROBOT_SKINS = "Maps/player.png";
     private static final String SKIN = "skin/rusty-robot-ui.json";
-    public static final String BOARD_NAME = "Maps/RiskyExchange.tmx";
+    public static final String BOARD_NAME = "Maps/testBoard2.tmx";
 
     //================================================================
     //                         GUI Objects
@@ -69,10 +69,10 @@ public class RoboRally extends Game {
 
         gameBoard = new Board(BOARD_NAME, TILE_SIZE);
         deck = new ProgrammingDeck();
-        players = new PlayerList();
         gameLib = new GameLib();
 
-
+        players = new PlayerList();
+        players.addPlayer();
         //TODO: Put robot in starting position, not the middle of the board
         CENTER = new Vector2(gameBoard.getWidth()/2f, gameBoard.getHight()/2f);
         players.currentRobot().setLoc(CENTER);
@@ -101,6 +101,12 @@ public class RoboRally extends Game {
         players.currentHand().set(index, deck.drawCard());
     }
 
+    public void cheatMove (Direction dir) {
+        gameBoard.removeRobot(players.currentRobot());
+        gameLib.move(players.currentRobot(), dir);
+        gameBoard.putRobot(players.currentRobot());
+    }
+
     /**
      * Gets an input from user and directs it to the related action
      * @param keycode
@@ -116,15 +122,15 @@ public class RoboRally extends Game {
             case Input.Keys.C:  { cheatmode = !cheatmode; return true; }
         }
 
-        //=====================================================================================================
-        //                                      FOR TESTING BELLOW
-        //=====================================================================================================
+        //============================================================================
+        //                              FOR TESTING BELLOW
+        //============================================================================
         if (cheatmode) {
             switch (keycode) {
-                case Input.Keys.UP:    { gameLib.move(players.currentRobot(), Direction.NORTH); return true; }
-                case Input.Keys.DOWN:  { gameLib.move(players.currentRobot(), Direction.SOUTH); return true; }
-                case Input.Keys.LEFT:  { gameLib.move(players.currentRobot(), Direction.WEST);  return true; }
-                case Input.Keys.RIGHT: { gameLib.move(players.currentRobot(), Direction.EAST);  return true; }
+                case Input.Keys.UP:    { cheatMove(Direction.NORTH); return true; }
+                case Input.Keys.DOWN:  { cheatMove(Direction.SOUTH); return true; }
+                case Input.Keys.LEFT:  { cheatMove(Direction.WEST); return true; }
+                case Input.Keys.RIGHT: { cheatMove(Direction.EAST); return true; }
             }
         }
 
@@ -133,8 +139,10 @@ public class RoboRally extends Game {
 
     @Override
     public void render () {
-        Gdx.gl.glClearColor(0, 0, 0, 1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        super.render();
+    }
+
+    public void gameRender () {
         displayCards();
         gameBoard.checkConditions(players.currentRobot());
     }

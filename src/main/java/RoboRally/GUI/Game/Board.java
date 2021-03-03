@@ -1,7 +1,7 @@
 package RoboRally.GUI.Game;
 
 import RoboRally.Game.Objects.Robot;
-import RoboRally.RoboRally;
+import RoboRally.RoboRallyApp;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.MapLayer;
@@ -24,7 +24,7 @@ public class Board {
         for (MapLayer layer: board.getLayers()) { layers.put(layer.getName(), (TiledMapTileLayer) layer);}
 
         TextureRegion[][] textures = TextureRegion.split(
-                new Texture(RoboRally.ROBOT_SKINS), size, size);
+                new Texture(RoboRallyApp.ROBOT_SKINS), size, size);
         playerCell = new TiledMapTileLayer.Cell();
         playerCell.setTile(new StaticTiledMapTile(textures[0][0]));
         playerDiedCell = new TiledMapTileLayer.Cell();
@@ -38,7 +38,7 @@ public class Board {
      */
     public void checkConditions(Robot robot) {
         //TODO: implement what happens when robot leaves the bound of the board
-        if (outOfBounds(robot)) robot.setLoc(RoboRally.CENTER);
+        if (outOfBounds(robot)) robot.setLoc(RoboRallyApp.CENTER);
 
         if (getLocation(robot, layers.get("Flag")) != null) {
             setLocation(robot, playerWonCell);

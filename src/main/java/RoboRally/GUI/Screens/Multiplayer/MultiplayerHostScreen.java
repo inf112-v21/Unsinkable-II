@@ -6,7 +6,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 
 import RoboRally.GUI.Screens.MenuScreen;
-import RoboRally.RoboRally;
+import RoboRally.RoboRallyApp;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -27,7 +27,7 @@ public class MultiplayerHostScreen extends MenuScreen {
      *
      * @param game the RoboRally.game
      */
-    public MultiplayerHostScreen(RoboRally game) {
+    public MultiplayerHostScreen(RoboRallyApp game) {
 
         super(game);
         setHeading("Host Multiplayer Game");
