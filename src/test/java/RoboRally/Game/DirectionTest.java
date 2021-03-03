@@ -14,42 +14,38 @@ public class DirectionTest {
     public void setup(){
         robot = new Robot(0);
         gameLib = new GameLib();
-        robot.setLoc(5,5);
+        robot.setLocation(5,5);
     }
 
     @Test
     public void moveNorthIncrementsY(){
-        robot.setHeading(Direction.NORTH);
-        gameLib.move(robot);
+        gameLib.move(robot, Direction.NORTH);
 
-        assertEquals(5, robot.getLoc().x);
-        assertEquals(6, robot.getLoc().y);
+        assertEquals(5, robot.getLocation().x);
+        assertEquals(6, robot.getLocation().y);
     }
 
     @Test
     public void moveSouthDecrementsY(){
-        robot.setHeading(Direction.SOUTH);
-        gameLib.move(robot);
+        gameLib.move(robot, Direction.SOUTH);
 
-        assertEquals(5, robot.getLoc().x);
-        assertEquals(4, robot.getLoc().y);
+        assertEquals(5, robot.getLocation().x);
+        assertEquals(4, robot.getLocation().y);
     }
 
     @Test
     public void moveEastIncrementsX(){
-        robot.setHeading(Direction.EAST);
-        gameLib.move(robot);
+        gameLib.move(robot, Direction.EAST);
 
-        assertEquals(6, robot.getLoc().x);
-        assertEquals(5, robot.getLoc().y);
+        assertEquals(6, robot.getLocation().x);
+        assertEquals(5, robot.getLocation().y);
     }
 
     @Test
     public void moveWestDecrementsX() {
-        robot.setHeading(Direction.WEST);
-        gameLib.move(robot);
+        gameLib.move(robot, Direction.WEST);
 
-        assertEquals(4, robot.getLoc().x);
-        assertEquals(5, robot.getLoc().y);
+        assertEquals(4, robot.getLocation().x);
+        assertEquals(5, robot.getLocation().y);
     }
 }

@@ -1,8 +1,6 @@
 package RoboRally.GUI.Screens.Game;
 
-import RoboRally.Game.Cards.ProgramCards;
 import RoboRally.Game.Direction;
-import RoboRally.Game.GameLib;
 import RoboRally.RoboRally;
 import com.badlogic.gdx.*;
 import com.badlogic.gdx.graphics.GL20;
@@ -28,8 +26,6 @@ public class TempGameScreen extends InputAdapter implements Screen {
     private TiledMapTileLayer.Cell playerCell, playerDiedCell, playerWonCell;
     private OrthogonalTiledMapRenderer renderer;
 
-    private Robot robot;
-    private GameLib gamelogic;
     private TableTop table;
 
     /**
@@ -44,21 +40,8 @@ public class TempGameScreen extends InputAdapter implements Screen {
         flagLayer = (TiledMapTileLayer) board.getLayers().get("Flag");
         holeLayer = (TiledMapTileLayer) board.getLayers().get("Hole");
 
-        //Load player textures
-        TextureRegion[][] textures = TextureRegion.split(
-                new Texture("Maps/player.png"), TILE_SIZE, TILE_SIZE);
-        playerCell = new TiledMapTileLayer.Cell();
-        playerCell.setTile(new StaticTiledMapTile(textures[0][0]));
-        playerDiedCell = new TiledMapTileLayer.Cell();
-        playerDiedCell.setTile(new StaticTiledMapTile(textures[0][1]));
-        playerWonCell = new TiledMapTileLayer.Cell();
-        playerWonCell.setTile(new StaticTiledMapTile(textures[0][2]));
-
         //Create objects
         table = new TableTop();
-        robot = new Robot(0);
-        robot.setLoc(MAP_SIZE_X/2, MAP_SIZE_Y/2);
-        gamelogic = new GameLib();
 
         //Set camera
         OrthographicCamera camera = new OrthographicCamera();
@@ -76,89 +59,50 @@ public class TempGameScreen extends InputAdapter implements Screen {
     }
 
     /**
-     * Checks if a RoboRally.game.player is standing on a flag or hole tile or not and displays the appropriate texture accordingly.
+     * Checks if a player is standing on a flag or hole tile
+     * or not and displays the appropriate texture accordingly.
      */
-    private void checkConditions() {
-        if (robot.getLoc().x < 0 || robot.getLoc().x > MAP_SIZE_X-1 ||
-                robot.getLoc().y < 0 || robot.getLoc().y > MAP_SIZE_Y-1)
-            robot.setLoc(MAP_SIZE_X/2, MAP_SIZE_Y/2);
-        if (getLocation(robot, flagLayer) != null) {
-            setLocation(robot, playerWonCell);
-        }
-        else if (getLocation(robot, holeLayer) != null) {
-            setLocation(robot, playerDiedCell);
-        }
-        else {
-            setLocation(robot, playerCell);
-        }
+
+    private void checkConditions(Robot robot) {
+        if (inbounds(robot)) robot.setLocation(MAP_SIZE_X/2f, MAP_SIZE_Y/2f);
+        else if (getRobotTile(robot, flagLayer) != null) { setRobotTile(robot, playerWonCell);  }
+        else if (getRobotTile(robot, holeLayer) != null) { setRobotTile(robot, playerDiedCell); }
+        else { setRobotTile(robot, playerCell); }
     }
 
-    private TiledMapTileLayer.Cell getLocation(Robot robot, TiledMapTileLayer layer){
-        return layer.getCell((int) robot.getLoc().x, (int) robot.getLoc().y);
+    private boolean inbounds(Robot robot) {
+        return robot.getLocation().x < 0 || robot.getLocation().x > MAP_SIZE_X - 1 ||
+               robot.getLocation().y < 0 || robot.getLocation().y > MAP_SIZE_Y - 1;
     }
 
-    private void setLocation(Robot robot, TiledMapTileLayer.Cell cell) {
-        playerLayer.setCell((int) robot.getLoc().x, (int) robot.getLoc().y, cell);
+    private TiledMapTileLayer.Cell getRobotTile(Robot robot, TiledMapTileLayer layer){
+        return layer.getCell((int) robot.getLocation().x, (int) robot.getLocation().y);
     }
 
-    public void moveRobot(Robot robot, Direction dir){
-        setLocation(robot, null);
-        gamelogic.move(robot, dir);
+    private void setRobotTile(Robot robot, TiledMapTileLayer.Cell cell) {
+        playerLayer.setCell((int) robot.getLocation().x, (int) robot.getLocation().y, cell);
     }
 
-    public void moveRobot(Robot robot, ProgramCards card){
-        setLocation(robot, null);
-        gamelogic.playProgramCard(robot, card);
-    }
-
-    public void cardAction(int index){
-        moveRobot(robot, table.getHand().get(index));
-        table.getHand().set(index, table.getDeck().drawCard());
+    private void displayRobots(){
+        for (Robot robot : table.getRobots()) checkConditions(robot);
     }
 
     @Override
     public boolean keyUp(int keycode) {
         switch (keycode) {
-            case Input.Keys.NUM_1: {
-                cardAction(0);
-                return true;
-            }
-            case Input.Keys.NUM_2: {
-                cardAction(1);
-                return true;
-            }
-            case Input.Keys.NUM_3: {
-                cardAction(2);
-                return true;
-            }
-            case Input.Keys.NUM_4: {
-                cardAction(3);
-                return true;
-            }
-            case Input.Keys.NUM_5: {
-                cardAction(4);
-                return true;
-            }
-            case Input.Keys.R: {
-                table.flipHand();
-                return true;
-            }
-            case Input.Keys.UP: {
-                moveRobot(robot, Direction.NORTH);
-                return true;
-            }
-            case Input.Keys.DOWN: {
-                moveRobot(robot, Direction.SOUTH);
-                return true;
-            }
-            case Input.Keys.LEFT: {
-                moveRobot(robot, Direction.WEST);
-                return true;
-            }
-            case Input.Keys.RIGHT: {
-                moveRobot(robot, Direction.EAST);
-                return true;
-            }
+            case Input.Keys.NUM_1: { action(0); return true; }
+            case Input.Keys.NUM_2: { action(1); return true; }
+            case Input.Keys.NUM_3: { action(2); return true; }
+            case Input.Keys.NUM_4: { action(3); return true; }
+            case Input.Keys.NUM_5: { action(4); return true; }
+            case Input.Keys.R:    { table.flipHand(); return true; }
+            //======================================================================
+            //                          FOR TESTING BELLOW
+            //======================================================================
+            case Input.Keys.UP:    { table.moveRobot(Direction.NORTH); return true; }
+            case Input.Keys.DOWN:  { table.moveRobot(Direction.SOUTH); return true; }
+            case Input.Keys.LEFT:  { table.moveRobot(Direction.WEST);  return true; }
+            case Input.Keys.RIGHT: { table.moveRobot(Direction.EAST);  return true; }
         } return false;
     }
 
@@ -172,7 +116,7 @@ public class TempGameScreen extends InputAdapter implements Screen {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         table.displayCards();
-        checkConditions();
+        displayRobots();
         renderer.render();
     }
 
