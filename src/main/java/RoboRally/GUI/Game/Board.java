@@ -24,7 +24,7 @@ public class Board {
         for (MapLayer layer: board.getLayers()) { layers.put(layer.getName(), (TiledMapTileLayer) layer);}
 
         TextureRegion[][] textures = TextureRegion.split(
-                new Texture("Maps/player.png"), size, size);
+                new Texture(RoboRally.ROBOT_SKINS), size, size);
         playerCell = new TiledMapTileLayer.Cell();
         playerCell.setTile(new StaticTiledMapTile(textures[0][0]));
         playerDiedCell = new TiledMapTileLayer.Cell();

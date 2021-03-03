@@ -11,15 +11,15 @@ public class RobotTest {
     @BeforeEach
     public void setup(){
         robot = new Robot(0);
-        robot.setLocation(5,5);
+        robot.setLoc(5,5);
     }
 
     @Test
     public void getIdReturnsId() { assertEquals(0, robot.getId()); }
 
     @Test
-    public void getXReturnsX() { assertEquals(5, robot.getLocation().x); }
+    public void getXReturnsX() { assertEquals(5, robot.getLoc().x); }
 
     @Test
-    public void getYReturnsY() { assertEquals(5, robot.getLocation().y); }
+    public void getYReturnsY() { assertEquals(5, robot.getLoc().y); }
 }

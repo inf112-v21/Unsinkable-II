@@ -26,7 +26,7 @@ public class Robot implements IRobot {
     }
 
     @Override
-    public void setLocation(Vector2 newLoc) { this.location = newLoc; }
+    public void setLoc(Vector2 newLoc) { this.location = newLoc; }
 
     /**
      * Set loc for JUnit testing
@@ -35,9 +35,9 @@ public class Robot implements IRobot {
      * @param y
      */
     @Override
-    public void setLocation(float x, float y) { this.location.x = x; this.location.y = y; }
+    public void setLoc(float x, float y) { this.location.x = x; this.location.y = y; }
 
     @Override
-    public Vector2 getLocation() { return location; }
+    public Vector2 getLoc() { return location; }
 
 }

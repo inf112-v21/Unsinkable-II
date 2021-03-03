@@ -29,8 +29,8 @@ public class RoboRally extends Game {
     public static final String TITLE = "RoboRally";
     public static final int TILE_SIZE = 300;
     public static final String ROBOT_SKINS = "Maps/player.png";
-    private static final String skin = "skin/rusty-robot-ui.json";
-    public static final String boardName = "Maps/RiskyExchange.tmx";
+    private static final String SKIN = "skin/rusty-robot-ui.json";
+    public static final String BOARD_NAME = "Maps/RiskyExchange.tmx";
 
     //================================================================
     //                         GUI Objects
@@ -53,13 +53,12 @@ public class RoboRally extends Game {
     //================================================================
     private GameLib gameLib;
     private boolean cheatmode = false;
-
     //TODO: Only used to move robot to middle of map, remove when robot is placed properly
     public static Vector2 CENTER;
 
     @Override
     public void create() {
-        this.GUI_SKIN = new Skin(Gdx.files.internal(skin));
+        this.GUI_SKIN = new Skin(Gdx.files.internal(SKIN));
         this.stage = new Stage(new ScreenViewport());
         Gdx.input.setInputProcessor(stage);
         this.titleScreen = new TitleScreen(this);
@@ -68,10 +67,11 @@ public class RoboRally extends Game {
         cardGraphics = new CardGraphics();
         spriteBatch = new SpriteBatch();
 
+        gameBoard = new Board(BOARD_NAME, TILE_SIZE);
         deck = new ProgrammingDeck();
         players = new PlayerList();
         gameLib = new GameLib();
-        gameBoard = new Board(boardName, TILE_SIZE);
+
 
         //TODO: Put robot in starting position, not the middle of the board
         CENTER = new Vector2(gameBoard.getWidth()/2f, gameBoard.getHight()/2f);
@@ -117,7 +117,7 @@ public class RoboRally extends Game {
         }
 
         //=====================================================================================================
-        //                          FOR TESTING BELLOW
+        //                                      FOR TESTING BELLOW
         //=====================================================================================================
         if (cheatmode) {
             switch (keycode) {

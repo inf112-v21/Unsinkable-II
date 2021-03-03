@@ -22,7 +22,7 @@ public class MapLoader extends InputAdapter implements Screen {
     public MapLoader(RoboRally game) {
         this.game = game;
 
-        int mapSizeX = game.gameBoard.getWidth();
+        int mapSizeX = game.gameBoard.getHight();
         int mapSizeY = game.gameBoard.getWidth();
 
         OrthographicCamera camera = new OrthographicCamera();

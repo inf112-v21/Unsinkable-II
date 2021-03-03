@@ -10,11 +10,11 @@ public interface IRobot {
 
     void setHeading(Direction dir);
 
-    void setLocation(Vector2 newLoc);
+    void setLoc(Vector2 newLoc);
 
-    void setLocation(float x, float y);
+    void setLoc(float x, float y);
 
-    Vector2 getLocation();
+    Vector2 getLoc();
 
     //TiledMapTileLayer.Cell getCell();
 
