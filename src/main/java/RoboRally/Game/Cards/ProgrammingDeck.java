@@ -4,17 +4,20 @@ import java.util.*;
 
 
 public class ProgrammingDeck {
-    private final Stack<ProgramCards> programCardDeck;
+    private final Stack<ProgramCard> programCardDeck;
 
-    public ProgrammingDeck(){ this.programCardDeck = ProgramCards.getNewDeck(); }
+    public ProgrammingDeck(){
+        this.programCardDeck = ProgramCard.getNewDeck();
+        shuffle();
+    }
 
     public int Size() { return programCardDeck.size(); }
 
-    public ProgramCards drawCard() { return programCardDeck.pop(); }
+    public ProgramCard drawCard() { return programCardDeck.pop(); }
 
-    public void returnCards(Collection<ProgramCards> c) { programCardDeck.addAll(c); }
+    public void returnCards(Collection<ProgramCard> c) { programCardDeck.addAll(c); }
 
     public void shuffle() { Collections.shuffle(this.getDeck()); }
 
-    private Stack<ProgramCards> getDeck() { return this.programCardDeck; }
+    private Stack<ProgramCard> getDeck() { return this.programCardDeck; }
 }

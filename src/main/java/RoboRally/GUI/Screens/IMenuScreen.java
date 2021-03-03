@@ -1,4 +1,4 @@
-package RoboRally.GUI;
+package RoboRally.GUI.Screens;
 
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.scenes.scene2d.InputListener;

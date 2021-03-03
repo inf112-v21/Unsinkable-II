@@ -5,7 +5,7 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 
-import RoboRally.GUI.MenuScreen;
+import RoboRally.GUI.Screens.MenuScreen;
 import RoboRally.RoboRally;
 
 import java.io.BufferedReader;
