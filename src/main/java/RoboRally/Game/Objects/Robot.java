@@ -1,26 +1,19 @@
 package RoboRally.Game.Objects;
 
 import RoboRally.Game.Direction;
-import RoboRally.RoboRally;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
-import com.badlogic.gdx.maps.tiled.tiles.StaticTiledMapTile;
 import com.badlogic.gdx.math.Vector2;
 
 public class Robot implements IRobot {
 
     private int playerNum;
     private Direction heading;
-    private Vector2 loc;
-
+    private Vector2 location;
 
     public Robot(int playerNum) {
         this.playerNum = playerNum;
-        this.loc = new Vector2();
+        this.location = new Vector2();
         this.heading = Direction.WEST;
     }
-
 
     public int getId() { return this.playerNum; }
 
@@ -33,7 +26,7 @@ public class Robot implements IRobot {
     }
 
     @Override
-    public void setLoc(Vector2 newLoc) { this.loc = newLoc; }
+    public void setLocation(Vector2 newLoc) { this.location = newLoc; }
 
     /**
      * Set loc for JUnit testing
@@ -42,9 +35,9 @@ public class Robot implements IRobot {
      * @param y
      */
     @Override
-    public void setLoc(float x, float y) { this.loc.x = x; this.loc.y = y; }
+    public void setLocation(float x, float y) { this.location.x = x; this.location.y = y; }
 
     @Override
-    public Vector2 getLoc() { return loc; }
+    public Vector2 getLocation() { return location; }
 
 }
