@@ -1,4 +1,4 @@
-package RoboRally.GUI.BackEnd;
+package RoboRally.Game.MapTools;
 
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
@@ -23,6 +23,7 @@ public class mapSelecter {
 
 
     //TODO implement something, maybee a counter to make sure that one can circle trough maps
+    // Why do we need to circle though maps? Iterable? -Jonas
     /**
      * Sets the Map that is going to be played
      * @param selectedMap = the selected map

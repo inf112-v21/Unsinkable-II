@@ -1,4 +1,4 @@
-package RoboRally.GUI.Screens;
+package RoboRally.Game.MapTools;
 
 import RoboRally.RoboRally;
 import com.badlogic.gdx.Gdx;

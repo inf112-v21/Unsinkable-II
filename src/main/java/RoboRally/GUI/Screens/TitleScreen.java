@@ -2,7 +2,6 @@ package RoboRally.GUI.Screens;
 
 import RoboRally.GUI.MenuScreen;
 import RoboRally.GUI.Screens.Game.TempGameScreen;
-import RoboRally.GUI.BackEnd.mapSelecter;
 import RoboRally.GUI.Screens.Multiplayer.MultiplayerOptionScreen;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
@@ -20,7 +19,7 @@ public class TitleScreen extends MenuScreen {
      */
     public TitleScreen(RoboRally game) {
         super(game);
-        setHeading("Select Game Mode. " + mapSelecter.getMapName());
+        setHeading("Select Game Mode. ");
         addButton("Single Player", TOP, topListener());
         addButton("Multiplayer", MIDDLE, middleListener());
         addButton("Quit", BOTTOM, bottomListener());
