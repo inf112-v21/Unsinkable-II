@@ -52,7 +52,7 @@ LaserV - Vertical laser
 
 WallN
 
-WallE
+WallE .
 
 WallS
 
