@@ -1,9 +1,9 @@
 package RoboRally.GUI.Screens.Game;
 
-import RoboRally.GUI.BackEnd.mapSelecter;
 import RoboRally.Game.Cards.ProgramCards;
 import RoboRally.Game.Direction;
 import RoboRally.Game.GameLib;
+import RoboRally.Game.MapTools.mapSelecter;
 import RoboRally.RoboRally;
 import com.badlogic.gdx.*;
 import com.badlogic.gdx.graphics.GL20;
