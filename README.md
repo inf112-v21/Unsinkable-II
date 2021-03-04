@@ -125,3 +125,6 @@ from IDE.
 
 ### Git:
 [Git instructions](documentation/CONTRIBUTING.md)
+
+### Retrospect Sprint 2
+[Retrospect 2](documentation/deliverables/Compulsary Assignment 2/Retrospect.md)
