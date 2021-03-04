@@ -1,5 +1,9 @@
 package RoboRally.Game.Cards;
 
+import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+
 import java.util.*;
 
 public enum ProgramCard {
@@ -38,8 +42,12 @@ public enum ProgramCard {
 
     private final int steps, rotation;
     private String name;
+    private final Sprite face;
+    private final TextureAtlas atlas = new TextureAtlas();
+    private final Sprite BACK = atlas.createSprite("Back");
 
     ProgramCard(int steps, int rotation, String name) {
+        this.face = atlas.createSprite(name);
         this.steps = steps;
         this.rotation = rotation;
         this.name = name;
@@ -50,5 +58,12 @@ public enum ProgramCard {
     public int getRotation() { return rotation; }
 
     public String getName() { return name; }
+
+    public void draw(Batch batch) { face.draw(batch); }
+
+    public void setPosition(float x, float y) { // TODO: ????
+        face.setPosition(x - 0.5f * face.getWidth(), y - 0.5f * face.getHeight());
+        BACK.setPosition(x - 0.5f * BACK.getWidth(), y - 0.5f * BACK.getHeight());
+    }
 
 }

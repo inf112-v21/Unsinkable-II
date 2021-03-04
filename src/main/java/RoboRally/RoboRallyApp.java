@@ -10,7 +10,6 @@ import RoboRally.Game.Players.PlayerList;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -28,8 +27,9 @@ public class RoboRallyApp extends Game {
     //================================================================
     public static final String TITLE = "RoboRally";
     public static final int TILE_SIZE = 300;
-    public static final String ROBOT_SKINS = "Maps/player.png";
+    public static final String ROBOT_SKINS = "Robots/player.png";
     private static final String SKIN = "skin/rusty-robot-ui.json";
+    private final String CARDSKIN = "ProgramCards/Cards.atlas";
     public static final String BOARD_NAME = "Maps/testBoard2.tmx";
 
     //================================================================
@@ -52,9 +52,8 @@ public class RoboRallyApp extends Game {
     //                         Game Logic
     //================================================================
     private GameLib gameLib;
-    private boolean cheatmode = false;
-    //TODO: Only used to move robot to middle of map, remove when robot is placed properly
-    public static Vector2 CENTER;
+    private boolean cheatMode = false;
+    public static Vector2 CENTER; //TODO: Only used to move robot to middle of map, remove when robot is placed properly
 
     @Override
     public void create() {
@@ -67,12 +66,13 @@ public class RoboRallyApp extends Game {
         cardGraphics = new CardGraphics();
         spriteBatch = new SpriteBatch();
 
-        gameBoard = new Board(BOARD_NAME, TILE_SIZE);
+        gameBoard = new Board(BOARD_NAME, TILE_SIZE); // TODO: Should happen in RRGame at New Game creation.
         deck = new ProgrammingDeck();
         gameLib = new GameLib();
 
         players = new PlayerList();
         players.addPlayer();
+
         //TODO: Put robot in starting position, not the middle of the board
         CENTER = new Vector2(gameBoard.getWidth()/2f, gameBoard.getHight()/2f);
         players.currentRobot().setLoc(CENTER);
@@ -119,13 +119,13 @@ public class RoboRallyApp extends Game {
             case Input.Keys.NUM_3: { cardAction(2); return true; }
             case Input.Keys.NUM_4: { cardAction(3); return true; }
             case Input.Keys.NUM_5: { cardAction(4); return true; }
-            case Input.Keys.C:  { cheatmode = !cheatmode; return true; }
+            case Input.Keys.C:  { cheatMode = !cheatMode; return true; }
         }
 
         //============================================================================
         //                              FOR TESTING BELLOW
         //============================================================================
-        if (cheatmode) {
+        if (cheatMode) {
             switch (keycode) {
                 case Input.Keys.UP:    { cheatMove(Direction.NORTH); return true; }
                 case Input.Keys.DOWN:  { cheatMove(Direction.SOUTH); return true; }

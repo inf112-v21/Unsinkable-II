@@ -1,7 +1,7 @@
 package RoboRally.GUI.Screens;
 
 import RoboRally.GUI.Screens.Multiplayer.MultiplayerOptionScreen;
-import RoboRally.Game.MapTools.MapLoader;
+import RoboRally.GUI.PlayerView;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import RoboRally.RoboRallyApp;
@@ -28,7 +28,7 @@ public class TitleScreen extends MenuScreen {
     public InputListener topListener() {
         return new InputListener() {
             @Override
-            public void touchUp(InputEvent event, float x, float y, int pointer, int button) { game.setScreen(new MapLoader(game)); }
+            public void touchUp(InputEvent event, float x, float y, int pointer, int button) { game.setScreen(new PlayerView(game)); }
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) { return true; }
         };
