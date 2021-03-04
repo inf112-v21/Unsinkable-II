@@ -1,4 +1,4 @@
-package RoboRally.GUI;
+package RoboRally.GUI.Screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
@@ -9,13 +9,13 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
-import RoboRally.RoboRally;
+import RoboRally.RoboRallyApp;
 
 /**
  * 3 button Framework for menu Screens
  */
 public abstract class MenuScreen implements IMenuScreen {
-    protected RoboRally game;
+    protected RoboRallyApp game;
     protected Stage stage;
     protected Label heading;
 
@@ -26,7 +26,7 @@ public abstract class MenuScreen implements IMenuScreen {
      *
      * @param game the RoboRally.game
      */
-    public MenuScreen(RoboRally game) {
+    public MenuScreen(RoboRallyApp game) {
         this.game = game;
         this.stage = new Stage(new ScreenViewport());
         setTitle("RoboRally");

@@ -1,3 +1,4 @@
+
 # RoboRally - Unsinkable II
 A java implementation of the board game RoboRally for the INF112 subject at the
 University of Bergen.
@@ -68,3 +69,59 @@ Current developers of this project
 ## Documents
 For further documents related to this project and assignments, see
 [documents.md](./documentation/documents.md).
+=======
+# Overview
+  - Project overview
+  - Version Control
+  - How to run
+  - Known bugs
+  - Contributing:
+
+## Project Overview
+inf112.DEPRECIATED.FUTURE RoboRally.Game RoboRally by Unsinkable-II.
+
+## How to run:
+Run 
+[Main](src/main/java/RoboRally/Main.java)
+from IDE.
+
+## Known bugs:
+
+## Contributing:
+
+### About:
+[Unsinkable-II](documentation/deliverables/compulsoryAssignment1/about.md)
+
+[Group dynamics](documentation/deliverables/compulsoryAssignment1/ComplulsoryAssignment1.md)
+
+### Meeting Minutes:
+[Feb/01/2021](documentation/deliverables/minutesOfMeetings/2021.02.01.md)
+
+[Feb/04/2021](documentation/deliverables/minutesOfMeetings/2021.02.04.md)
+
+[Feb/08/2021](documentation/deliverables/minutesOfMeetings/2021.02.08.md)
+
+[Feb/11/2021](documentation/deliverables/minutesOfMeetings/2021.02.11.md)
+
+[Feb/15/2001](documentation/deliverables/minutesOfMeetings/minutes_15.02.21.md)
+
+[Feb/25/2001](documentation/deliverables/minutesOfMeetings/minutes_25.02.21.md)
+
+[Mar/03/2001](documentation/deliverables/minutesOfMeetings/minutes_03.01.21.md)
+
+### User Stories:
+[User Story 1](documentation/deliverables/compulsoryAssignment1/userStories/UserStory1.md)
+
+[User Story 2](documentation/deliverables/compulsoryAssignment1/userStories/UserStory2.md)
+
+[User Story 3](documentation/deliverables/compulsoryAssignment1/userStories/UserStory3.md)
+
+[User Story 4](documentation/deliverables/compulsoryAssignment1/userStories/UserStory4.md)
+
+### Diagrams:
+[Proposed RoboRally.Game flow](documentation/deliverables/compulsoryAssignment1/RoboRally%20Flowchart.pdf)
+
+[Project board](https://github.com/inf112-v21/Unsinkable-II/issues)
+
+### Git:
+[Git instructions](documentation/CONTRIBUTING.md)
