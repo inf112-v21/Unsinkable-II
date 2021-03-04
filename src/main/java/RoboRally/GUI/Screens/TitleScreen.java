@@ -1,11 +1,10 @@
 package RoboRally.GUI.Screens;
 
-import RoboRally.GUI.MenuScreen;
-import RoboRally.GUI.Screens.Game.TempGameScreen;
 import RoboRally.GUI.Screens.Multiplayer.MultiplayerOptionScreen;
+import RoboRally.GUI.PlayerView;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
-import RoboRally.RoboRally;
+import RoboRally.RoboRallyApp;
 
 /**
  * The title screen.
@@ -17,7 +16,7 @@ public class TitleScreen extends MenuScreen {
      *
      * @param game the RoboRally.game
      */
-    public TitleScreen(RoboRally game) {
+    public TitleScreen(RoboRallyApp game) {
         super(game);
         setHeading("Select Game Mode. ");
         addButton("Single Player", TOP, topListener());
@@ -29,7 +28,7 @@ public class TitleScreen extends MenuScreen {
     public InputListener topListener() {
         return new InputListener() {
             @Override
-            public void touchUp(InputEvent event, float x, float y, int pointer, int button) { game.setScreen(new TempGameScreen(game)); }
+            public void touchUp(InputEvent event, float x, float y, int pointer, int button) { game.setScreen(new PlayerView(game)); }
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) { return true; }
         };

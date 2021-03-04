@@ -1,4 +1,4 @@
-package RoboRally.Game.Player;
+package RoboRally.Game.Players;
 
 public class TestPlayerTest {
 }

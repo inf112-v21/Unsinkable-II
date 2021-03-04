@@ -1,11 +1,11 @@
 package RoboRally.GUI.Screens.Multiplayer;
 
-import RoboRally.GUI.MenuScreen;
+import RoboRally.GUI.Screens.MenuScreen;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
-import RoboRally.RoboRally;
+import RoboRally.RoboRallyApp;
 
 /**
  * The type Multiplayer join screen.
@@ -20,7 +20,7 @@ public class MultiplayerJoinScreen extends MenuScreen {
      *
      * @param game the RoboRally.game
      */
-    public MultiplayerJoinScreen(RoboRally game) {
+    public MultiplayerJoinScreen(RoboRallyApp game) {
 
         super(game);
         setHeading("Join Multiplayer Game");

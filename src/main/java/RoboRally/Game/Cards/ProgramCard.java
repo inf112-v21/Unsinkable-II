@@ -1,10 +1,12 @@
 package RoboRally.Game.Cards;
 
-import RoboRally.Game.Direction;
+import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 
 import java.util.*;
 
-public enum ProgramCards {
+public enum ProgramCard {
     /** Move your robot in the direction it's facing the number of steps indicated on the card. */
     MOVE_1(1,0, "Move_One"),
     MOVE_2(2,0, "Move_Two"),
@@ -22,11 +24,11 @@ public enum ProgramCards {
     /** Turn your robot 180 degrees so it faces the opposite direction. The robot remains in its current space. */
     U_TURN(0,2,"U_Turn");
 
-    public static List<ProgramCards> ALL_PROGRAM_CARDS = Arrays.asList(
+    public static List<ProgramCard> ALL_PROGRAM_CARDS = Arrays.asList(
             MOVE_1, MOVE_2, MOVE_3, BACK_UP, TURN_RIGHT, TURN_LEFT, U_TURN);
 
-    public static Stack<ProgramCards> getNewDeck() {
-        Stack<ProgramCards> deck = new Stack<>();
+    public static Stack<ProgramCard> getNewDeck() {
+        Stack<ProgramCard> deck = new Stack<>();
         for (int i = 0; i != 18; ++i) { deck.add(MOVE_1); }
         for (int i = 0; i != 12; ++i) { deck.add(MOVE_2); }
         for (int i = 0; i != 6; ++i) { deck.add(MOVE_3); }
@@ -40,8 +42,12 @@ public enum ProgramCards {
 
     private final int steps, rotation;
     private String name;
+    private final Sprite face;
+    private final TextureAtlas atlas = new TextureAtlas();
+    private final Sprite BACK = atlas.createSprite("Back");
 
-    ProgramCards(int steps, int rotation, String name) {
+    ProgramCard(int steps, int rotation, String name) {
+        this.face = atlas.createSprite(name);
         this.steps = steps;
         this.rotation = rotation;
         this.name = name;
@@ -52,5 +58,12 @@ public enum ProgramCards {
     public int getRotation() { return rotation; }
 
     public String getName() { return name; }
+
+    public void draw(Batch batch) { face.draw(batch); }
+
+    public void setPosition(float x, float y) { // TODO: ????
+        face.setPosition(x - 0.5f * face.getWidth(), y - 0.5f * face.getHeight());
+        BACK.setPosition(x - 0.5f * BACK.getWidth(), y - 0.5f * BACK.getHeight());
+    }
 
 }
