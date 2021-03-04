@@ -35,4 +35,5 @@ Multiplayer-tread - sender pakker mellom maskinene
 - gi hver player en unik ID, som kan gjøre det lett å koble seg på om man faller ut.
 
 ** Refleksjon rundt roller i teamet **
-Gjennom denne sprinten har det blitt klart for laget at vi trenger en mer definert leder for selve programmeringen. Det har blitt komentert fra gruppen at man føler seg hjelpeløs io forhold til angrepspunkt på prosjektet.
+Gjennom denne sprinten har det blitt klart for laget at vi trenger en mer definert leder for selve programmeringen. 
+Det har blitt komentert fra gruppen at man føler seg hjelpeløs io forhold til angrepspunkt på prosjektet.
