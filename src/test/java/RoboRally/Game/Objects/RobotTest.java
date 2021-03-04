@@ -10,12 +10,9 @@ public class RobotTest {
 
     @BeforeEach
     public void setup(){
-        robot = new Robot(0);
+        robot = new Robot();
         robot.setLoc(5,5);
     }
-
-    @Test
-    public void getIdReturnsId() { assertEquals(0, robot.getId()); }
 
     @Test
     public void getXReturnsX() { assertEquals(5, robot.getLoc().x); }

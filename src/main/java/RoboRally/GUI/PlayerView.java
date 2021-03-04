@@ -1,10 +1,15 @@
 package RoboRally.GUI;
 
+import RoboRally.Game.Cards.ProgramCard;
+import RoboRally.Game.Direction;
+import RoboRally.Game.Players.Player;
 import RoboRally.RoboRallyApp;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 
 /**
@@ -12,25 +17,30 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
  */
 public class PlayerView extends InputAdapter implements Screen {
     private final OrthogonalTiledMapRenderer renderer;
-    private RoboRallyApp game;
+    private final RoboRallyApp app;
+    private final Player self;
+
+    private SpriteBatch spriteBatch;
+    private boolean cheatMode = false;
 
     /**
      * Instantiates a new Game screen.
      *
-     * @param game the RoboRally.game
+     * @param app the RoboRally.game
      */
-    public PlayerView(RoboRallyApp game) {
-        this.game = game;
+    public PlayerView(RoboRallyApp app) {
 
-        int mapSizeX = game.gameBoard.getHight();
-        int mapSizeY = game.gameBoard.getWidth();
+        this.self = app.getSelf();
+        this.app = app;
+        int mapSizeX = app.getGame().getMap().getMapSizeX();
+        int mapSizeY = app.getGame().getMap().getMapSizeY();
 
         OrthographicCamera camera = new OrthographicCamera();
         camera.setToOrtho(false, mapSizeX, mapSizeY);
         camera.position.x = (float) mapSizeX/2;
         camera.update();
-
-        renderer = new OrthogonalTiledMapRenderer(game.gameBoard.getBoard(), (float) 1/ RoboRallyApp.TILE_SIZE);
+        spriteBatch = new SpriteBatch();
+        renderer = new OrthogonalTiledMapRenderer(app.getGame().getMap().getBoard(), (float) 1/ RoboRallyApp.TILE_SIZE);
         renderer.setView(camera);
         Gdx.input.setInputProcessor(this);
     }
@@ -43,7 +53,7 @@ public class PlayerView extends InputAdapter implements Screen {
 
     @Override
     public void render(float delta) {
-        game.gameRender();
+        displayCards();
         renderer.render();
     }
 
@@ -63,7 +73,9 @@ public class PlayerView extends InputAdapter implements Screen {
     }
 
     @Override
-    public boolean keyUp(int keycode) { return game.handleInput(keycode); }
+    public boolean keyDown(int keycode) {
+        return app.getGame().eventHandler.handleKeys(keycode);
+    }
 
     @Override
     public void hide() {
@@ -74,5 +86,23 @@ public class PlayerView extends InputAdapter implements Screen {
     public void dispose() {
 
     }
+
+
+    /**
+     * Displays current card
+     *
+     * TODO: Display just the cards of the player playing, and not the cards for the current player
+     */
+    public void displayCards(){
+        spriteBatch.begin();
+        int position = 0;
+        for (ProgramCard card : self.getHand()) {
+            card.getFace().setPosition(position+150, 100);
+            card.draw(spriteBatch);
+            position += 170;
+        }
+        spriteBatch.end();
+    }
+
 }
 

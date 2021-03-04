@@ -41,7 +41,7 @@ public enum ProgramCard {
     }
 
     private final int steps, rotation;
-    private String name;
+    private final String name;
     private final Sprite face;
     private final TextureAtlas atlas = new TextureAtlas();
     private final Sprite BACK = atlas.createSprite("Back");
@@ -58,6 +58,8 @@ public enum ProgramCard {
     public int getRotation() { return rotation; }
 
     public String getName() { return name; }
+
+    public Sprite getFace() { return this.face; }
 
     public void draw(Batch batch) { face.draw(batch); }
 

@@ -6,7 +6,7 @@ import com.esotericsoftware.kryonet.Listener;
 
 public class Multiplayer extends Listener implements IMultiplayer {
 
-    static public final int tcpPort = 8888, udpPort = 8888;
+    static public final int tcpPort = 18888, udpPort = 18888;
 
     /**
      * Common registration method.

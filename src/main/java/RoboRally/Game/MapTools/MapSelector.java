@@ -2,8 +2,8 @@ package RoboRally.Game.MapTools;
 
 
 public enum MapSelector {
-    MAP1("Maps/testBoard.tmx", "Test Board"),
-    MAP2("Maps/testBoard2.tmx", "Test Board 2");
+    MAP1("Maps/testBoard.tmx", "Test MapChecker"),
+    MAP2("Maps/testBoard2.tmx", "Test MapChecker 2");
 
 
     public final String path, name;

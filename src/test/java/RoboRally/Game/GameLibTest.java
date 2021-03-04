@@ -16,7 +16,7 @@ public class GameLibTest {
     @BeforeEach
     void setUp() {
         gameLib = new GameLib();
-        robbie = new Robot(0);
+        robbie = new Robot();
         robbie.setHeading(Direction.NORTH);
         robbie.setLoc(5,5);
     }
