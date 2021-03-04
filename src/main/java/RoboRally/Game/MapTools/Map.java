@@ -13,15 +13,15 @@ public class Map {
     private final TiledMap board;
 
     public Map(MapSelector selection) {
-        board = new TmxMapLoader().load(selection.name);
+        board = new TmxMapLoader().load(selection.path);
 
         this.layers = new HashMap<>();
         for (MapLayer layer : board.getLayers()) {
             layers.put(layer.getName(), (TiledMapTileLayer) layer);
         }
 
-        this.mapSizeX = layers.get("MapChecker").getWidth();
-        this.mapSizeY = layers.get("MapChecker").getHeight();
+        this.mapSizeX = layers.get("Board").getWidth();
+        this.mapSizeY = layers.get("Board").getHeight();
     }
 
     public int getMapSizeX() { return this.mapSizeX; }

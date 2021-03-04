@@ -53,19 +53,15 @@ public enum ProgramCard {
         this.name = name;
     }
 
-    public int getSteps() { return steps; }
+    public int getSteps() { return this.steps; }
 
-    public int getRotation() { return rotation; }
+    public int getRotation() { return this.rotation; }
 
-    public String getName() { return name; }
+    public String getName() { return this.name; }
 
     public Sprite getFace() { return this.face; }
 
-    public void draw(Batch batch) { face.draw(batch); }
+    public void draw(Batch batch) { this.face.draw(batch); }
 
-    public void setPosition(float x, float y) { // TODO: ????
-        face.setPosition(x - 0.5f * face.getWidth(), y - 0.5f * face.getHeight());
-        BACK.setPosition(x - 0.5f * BACK.getWidth(), y - 0.5f * BACK.getHeight());
-    }
 
 }

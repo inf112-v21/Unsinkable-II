@@ -1,6 +1,6 @@
 package RoboRally;
 
-import RoboRally.GUI.PlayerView;
+import RoboRally.GUI.Screens.PlayerView;
 import RoboRally.Game.Players.Player;
 import RoboRally.Game.RoboRallyGame;
 import com.badlogic.gdx.Game;
@@ -65,14 +65,12 @@ public class RoboRallyApp extends Game {
     public TitleScreen getTitleScreen() { return this.titleScreen; }
 
     public void startNewGame() {
-        setGame(new RoboRallyGame(this));
+        game = new RoboRallyGame(this);
         this.self = game.addPlayer();
         this.setScreen(new PlayerView(this));
     }
 
     public RoboRallyGame getGame() { return game; }
-
-    public void setGame(RoboRallyGame game) { this.game = game; }
 
     public Player getSelf() { return self; }
 

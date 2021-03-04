@@ -1,4 +1,4 @@
-package RoboRally.GUI;
+package RoboRally.GUI.Screens;
 
 import RoboRally.Game.Cards.ProgramCard;
 import RoboRally.Game.Direction;
@@ -39,61 +39,21 @@ public class PlayerView extends InputAdapter implements Screen {
         camera.setToOrtho(false, mapSizeX, mapSizeY);
         camera.position.x = (float) mapSizeX/2;
         camera.update();
+
+        self.getRobot().getLoc().add(3, 3);
+
         spriteBatch = new SpriteBatch();
         renderer = new OrthogonalTiledMapRenderer(app.getGame().getMap().getBoard(), (float) 1/ RoboRallyApp.TILE_SIZE);
         renderer.setView(camera);
         Gdx.input.setInputProcessor(this);
     }
 
-    @Override
-    public void show() {
-
-    }
-
-
-    @Override
-    public void render(float delta) {
-        displayCards();
-        renderer.render();
-    }
-
-    @Override
-    public void resize(int width, int height) {
-
-    }
-
-    @Override
-    public void pause() {
-
-    }
-
-    @Override
-    public void resume() {
-
-    }
-
-    @Override
-    public boolean keyDown(int keycode) {
-        return app.getGame().eventHandler.handleKeys(keycode);
-    }
-
-    @Override
-    public void hide() {
-
-    }
-
-    @Override
-    public void dispose() {
-
-    }
-
-
     /**
      * Displays current card
      *
      * TODO: Display just the cards of the player playing, and not the cards for the current player
      */
-    public void displayCards(){
+/*    public void displayCards(){
         spriteBatch.begin();
         int position = 0;
         for (ProgramCard card : self.getHand()) {
@@ -103,6 +63,39 @@ public class PlayerView extends InputAdapter implements Screen {
         }
         spriteBatch.end();
     }
+*/
+    @Override
+    public void show() {}
+
+
+    @Override
+    public void render(float delta) {
+        //displayCards();
+        renderer.render();
+    }
+
+    @Override
+    public void resize(int width, int height) {}
+
+    @Override
+    public void pause() {}
+
+    @Override
+    public void resume() {}
+
+    @Override
+    public boolean keyDown(int keycode) {
+        return app.getGame().eventHandler.handleKeys(keycode);
+    }
+
+    @Override
+    public void hide() {}
+
+    @Override
+    public void dispose() {}
+
+
+
 
 }
 

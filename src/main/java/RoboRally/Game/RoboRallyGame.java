@@ -32,14 +32,17 @@ public class RoboRallyGame {
 
     public RoboRallyGame(RoboRallyApp app) {
         this.app = app;
-
-        this.host = new MultiplayerHost();
-        players = new LinkedList<>();
+        this.players = new LinkedList<>();
 
         map = new Map(MapSelector.MAP2); // TODO: Get selected map.
+        mapChecker = new MapChecker(map);
+        this.host = new MultiplayerHost();
+
+
+
         eventHandler = new EventHandler(this); //TODO: Use handler
 
-        mapChecker = new MapChecker(map);
+
 
         deck = new ProgrammingDeck();
     }

@@ -1,5 +1,6 @@
 package RoboRally.GUI.Screens.Multiplayer;
 
+import RoboRally.Multiplayer.Multiplayer;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -25,7 +26,7 @@ public class MultiplayerHostScreen extends MenuScreen {
     /**
      * Instantiates a new Multiplayer host screen.
      *
-     * @param game the RoboRally.game
+     * @param game the RoboRallyApp.game
      */
     public MultiplayerHostScreen(RoboRallyApp game) {
 
@@ -33,7 +34,7 @@ public class MultiplayerHostScreen extends MenuScreen {
         setHeading("Host Multiplayer Game");
         this.localIP = getLocalhost();
         this.ip = getIP();
-        this.port = 8888;
+        this.port = Multiplayer.tcpPort;
         this.ipLabel = addLabel(String.format("%s\n%s", localIP, ip), TOP1);
         this.portField = addTextField(""+port, TOP2);
         addButton("Host", MIDDLE, middleListener());
@@ -91,6 +92,7 @@ public class MultiplayerHostScreen extends MenuScreen {
 
     private void hostPressed() {
         port = Integer.parseInt(portField.getText());
-        ipLabel.setText(localIP+" hosting at "+ip+":"+port);
+        game.startNewGame();
+
     }
 }
