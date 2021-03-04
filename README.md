@@ -23,13 +23,13 @@ from IDE.
 [Group dynamics](documentation/deliverables/compulsoryAssignment1/ComplulsoryAssignment1.md)
 
 ### Meeting Minutes:
-[Feb/01/2021](documentation/deliverables/compulsoryAssignment1/minutesOfMeetings/2021.02.01.md)
+[Feb/01/2021](documentation/deliverables/minutesOfMeetings/2021.02.01.md)
 
-[Feb/04/2021](documentation/deliverables/compulsoryAssignment1/minutesOfMeetings/2021.02.04.md)
+[Feb/04/2021](documentation/deliverables/minutesOfMeetings/2021.02.04.md)
 
-[Feb/08/2021](documentation/deliverables/compulsoryAssignment1/minutesOfMeetings/2021.02.08.md)
+[Feb/08/2021](documentation/deliverables/minutesOfMeetings/2021.02.08.md)
 
-[Feb/11/2021](documentation/deliverables/compulsoryAssignment1/minutesOfMeetings/2021.02.11.md)
+[Feb/11/2021](documentation/deliverables/minutesOfMeetings/2021.02.11.md)
 
 ### User Stories:
 [User Story 1](documentation/deliverables/compulsoryAssignment1/userStories/UserStory1.md)
