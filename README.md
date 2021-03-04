@@ -31,6 +31,12 @@ from IDE.
 
 [Feb/11/2021](documentation/deliverables/minutesOfMeetings/2021.02.11.md)
 
+[Feb/15/2001](documentation/deliverables/minutesOfMeetings/minutes_15.02.21.md)
+
+[Feb/25/2001](documentation/deliverables/minutesOfMeetings/minutes_25.02.21.md)
+
+[Mar/03/2001](documentation/deliverables/minutesOfMeetings/minutes_03.01.21.md)
+
 ### User Stories:
 [User Story 1](documentation/deliverables/compulsoryAssignment1/userStories/UserStory1.md)
 
