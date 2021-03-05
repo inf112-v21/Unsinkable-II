@@ -37,7 +37,6 @@ public class PlayerView extends InputAdapter implements Screen {
         camera.position.x = (float) mapSizeX/2;
         camera.update();
 
-        self.getRobot().getLoc().add(3, 3);
 
         spriteBatch = new SpriteBatch();
         renderer = new OrthogonalTiledMapRenderer(app.getGame().getMap().getBoard(), (float) 1/ RoboRallyApp.TILE_SIZE);
@@ -66,7 +65,7 @@ public class PlayerView extends InputAdapter implements Screen {
 
 
     @Override
-    public void render(float delta) {
+    public void render(float delta) { ;
         //displayCards();
         renderer.render();
     }

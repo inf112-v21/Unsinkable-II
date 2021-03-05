@@ -44,11 +44,17 @@ public class RoboRallyGame {
 
 
 
+
+
         deck = new ProgrammingDeck();
     }
 
     public Player addPlayer() {
-        players.add(new Player(players.size()+1));
+        Player newPlayer = new Player(players.size()+1);
+        newPlayer.getRobot().setLoc(5,5);
+        map.layers.get("Player").setCell((int) newPlayer.getRobot().getLoc().x,(int) newPlayer.getRobot().getLoc().y, newPlayer.getPiece().getCell());
+        players.add(newPlayer);
+
         return players.get(players.size()-1);
     }
 
