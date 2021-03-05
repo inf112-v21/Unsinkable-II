@@ -23,7 +23,9 @@ public class Player {
     }
 
     public List<ProgramCard> getHand() { return this.hand; }
+
     public Robot getRobot() { return this.robot; }
+
     public Piece getPiece() {
         return piece;
     }

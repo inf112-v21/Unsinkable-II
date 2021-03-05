@@ -24,8 +24,18 @@ public enum ProgramCard {
     /** Turn your robot 180 degrees so it faces the opposite direction. The robot remains in its current space. */
     U_TURN(0,2,"U_Turn");
 
-    public static List<ProgramCard> ALL_PROGRAM_CARDS = Arrays.asList(
-            MOVE_1, MOVE_2, MOVE_3, BACK_UP, TURN_RIGHT, TURN_LEFT, U_TURN);
+    private final int steps, rotation;
+    private final String name;
+    private final Sprite face;
+    private final TextureAtlas atlas = new TextureAtlas();
+    private final Sprite BACK = atlas.createSprite("Back");
+
+    ProgramCard(int steps, int rotation, String name) {
+        this.face = atlas.createSprite(name);
+        this.steps = steps;
+        this.rotation = rotation;
+        this.name = name;
+    }
 
     public static Stack<ProgramCard> getNewDeck() {
         Stack<ProgramCard> deck = new Stack<>();
@@ -38,19 +48,6 @@ public enum ProgramCard {
         for (int i = 0; i != 6; ++i) { deck.add(U_TURN); }
 
         return deck;
-    }
-
-    private final int steps, rotation;
-    private final String name;
-    private final Sprite face;
-    private final TextureAtlas atlas = new TextureAtlas();
-    private final Sprite BACK = atlas.createSprite("Back");
-
-    ProgramCard(int steps, int rotation, String name) {
-        this.face = atlas.createSprite(name);
-        this.steps = steps;
-        this.rotation = rotation;
-        this.name = name;
     }
 
     public int getSteps() { return this.steps; }
