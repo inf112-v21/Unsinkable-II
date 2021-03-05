@@ -83,6 +83,7 @@ Run
 from IDE.
 
 ## Known bugs:
+See [issues](https://github.com/inf112-v21/Unsinkable-II/issues)
 
 ## Contributing:
 
