@@ -1,6 +1,7 @@
 package RoboRally.GUI.Screens;
 
 
+import RoboRally.Game.Cards.ProgramCard;
 import RoboRally.Game.Objects.Player;
 import RoboRally.RoboRallyApp;
 import com.badlogic.gdx.Gdx;
@@ -49,7 +50,8 @@ public class PlayerView extends InputAdapter implements Screen {
      *
      * TODO: Display just the cards of the player playing, and not the cards for the current player
      */
-/*    public void displayCards(){
+    /*
+    public void displayCards(){
         spriteBatch.begin();
         int position = 0;
         for (ProgramCard card : self.getHand()) {
@@ -59,7 +61,9 @@ public class PlayerView extends InputAdapter implements Screen {
         }
         spriteBatch.end();
     }
-*/
+    */
+
+
     @Override
     public void show() {}
 

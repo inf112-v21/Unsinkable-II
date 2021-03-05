@@ -77,7 +77,7 @@ public class RoboRallyApp extends Game {
     }
 
     public void joinNewGame() {
-        MultiplayerClient client = new MultiplayerClient("127.0.0.1", 18888, 18888);
+        MultiplayerClient client = new MultiplayerClient("127.0.0.1", 18888);
         game = new RoboRallyGame(this, client);
         this.self = game.addPlayer();
         this.setScreen(new PlayerView(this));

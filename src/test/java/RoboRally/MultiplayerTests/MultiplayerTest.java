@@ -14,7 +14,7 @@ public class MultiplayerTest {
     @Test
     public void ClientCanConnectToHost() throws InterruptedException {
         MultiplayerHost mph = new MultiplayerHost();
-        MultiplayerClient mpc = new MultiplayerClient("127.0.0.1", 18888, 18888);
+        MultiplayerClient mpc = new MultiplayerClient("127.0.0.1", 18888);
     }
 
     @Test
