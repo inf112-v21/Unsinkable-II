@@ -18,9 +18,9 @@ public class MultiplayerOptionScreen extends MenuScreen {
     public MultiplayerOptionScreen(RoboRallyApp game) {
         super(game);
         setHeading("Multiplayer");
-        addButton("Host", TOP, topListener());
-        addButton("Join", MIDDLE, middleListener());
-        addButton("Back", BOTTOM, bottomListener());
+        addButton("Host", BOTTOM1, topListener());
+        addButton("Join", BOTTOM2, middleListener());
+        addButton("Back", BOTTOM3, bottomListener());
     }
 
     @Override

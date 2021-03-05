@@ -12,7 +12,8 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import RoboRally.GUI.Screens.TitleScreen;
 
 /**
- * RoboRally application entry point.
+ * RoboRally application entry point. This is the top-level GUI class that
+ * the graphics thread runs and is the anchor when switching between screens.
  */
 public class RoboRallyApp extends Game {
 
@@ -21,9 +22,11 @@ public class RoboRallyApp extends Game {
     //================================================================
     public static final String TITLE = "RoboRally";
     public static final int TILE_SIZE = 300;
-    public static final String ROBOT_SKINS = "Robots/RobotsV1.png";
-    private static final String SKIN = "skin/rusty-robot-ui.json";
-    private final String CARDSKIN = "ProgramCards/Cards.atlas";
+    private static final String LOGO_PATH = "Logo/logo.png";
+    public static final String ROBOT_SKINS_PATH = "Robots/RobotsV1.png";
+    private static final String GUI_SKIN_PATH = "skin/rusty-robot-ui.json";
+    private final String CARD_SKINS_PATH = "ProgramCards/Cards.atlas";
+
 
     //================================================================
     //                         GUI Objects
@@ -36,7 +39,7 @@ public class RoboRallyApp extends Game {
 
     @Override
     public void create() {
-        this.GUI_SKIN = new Skin(Gdx.files.internal(SKIN));
+        this.GUI_SKIN = new Skin(Gdx.files.internal(GUI_SKIN_PATH));
         this.stage = new Stage(new ScreenViewport());
         Gdx.input.setInputProcessor(stage);
         this.titleScreen = new TitleScreen(this);
@@ -45,14 +48,10 @@ public class RoboRallyApp extends Game {
 
 
     @Override
-    public void render () {
-
-        super.render();
-
-    }
+    public void render () { super.render(); }
 
     @Override
-    public void dispose() {}
+    public void dispose() { super.dispose(); }
 
     /**
      * @return the GUI skin being used by the application.

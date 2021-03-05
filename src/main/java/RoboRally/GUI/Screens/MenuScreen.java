@@ -2,8 +2,10 @@ package RoboRally.GUI.Screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
@@ -19,7 +21,7 @@ public abstract class MenuScreen implements IMenuScreen {
     protected Stage stage;
     protected Label heading;
 
-    protected static float TOP = 1f, TOP1 = 1f, TOP2 = 1.15f, MIDDLE = 1.5f, BOTTOM = 3f;
+    protected static float TOP1 = 1.25f, TOP2 = 1.5f, BOTTOM1 = 1.5f, BOTTOM2 = 2f, BOTTOM3 = 3f;
 
     /**
      * Instantiates a new Menu screen.
@@ -29,7 +31,8 @@ public abstract class MenuScreen implements IMenuScreen {
     public MenuScreen(RoboRallyApp game) {
         this.game = game;
         this.stage = new Stage(new ScreenViewport());
-        setTitle("RoboRally");
+        setTitle("Unsinkable-II");
+        setLogo("Logo/logo.png");
     }
 
     @Override
@@ -37,11 +40,18 @@ public abstract class MenuScreen implements IMenuScreen {
         Label.LabelStyle titleStyle = new Label.LabelStyle();
         titleStyle.font = game.getGUI_SKIN().getFont("title");
         Label title = new Label(titleText, titleStyle);
-        title.setFontScale(1.5f);
+        title.setFontScale(1f);
         title.setAlignment(Align.center);
-        title.setY(Gdx.graphics.getHeight() * 4f / 5);
+        title.setY(Gdx.graphics.getHeight() * 6f / 7);
         title.setWidth(Gdx.graphics.getWidth());
         stage.addActor(title);
+    }
+
+    public void setLogo(String logoPath) {
+        Texture logoTexture = new Texture(Gdx.files.internal(logoPath));
+        Image logo = new Image(logoTexture);
+        logo.setPosition(Gdx.graphics.getWidth()/2 - logo.getWidth()/2,Gdx.graphics.getHeight()/BOTTOM1 - logo.getHeight()/2);
+        stage.addActor(logo);
     }
 
     @Override
@@ -49,7 +59,7 @@ public abstract class MenuScreen implements IMenuScreen {
         this.heading = new Label(headingText, game.getGUI_SKIN());
         heading.setFontScale(2f);
         heading.setAlignment(Align.center);
-        heading.setY(Gdx.graphics.getHeight()*2f/3);
+        heading.setY(Gdx.graphics.getHeight()*3f/7);
         heading.setWidth(Gdx.graphics.getWidth());
         stage.addActor(heading);
     }

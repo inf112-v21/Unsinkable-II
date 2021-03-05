@@ -37,8 +37,8 @@ public class MultiplayerHostScreen extends MenuScreen {
         this.port = Multiplayer.tcpPort;
         this.ipLabel = addLabel(String.format("%s\n%s", localIP, ip), TOP1);
         this.portField = addTextField(""+port, TOP2);
-        addButton("Host", MIDDLE, middleListener());
-        addButton("Back",BOTTOM, bottomListener());
+        addButton("Host", BOTTOM2, middleListener());
+        addButton("Back", BOTTOM3, bottomListener());
     }
 
     @Override
@@ -91,8 +91,11 @@ public class MultiplayerHostScreen extends MenuScreen {
     }
 
     private void hostPressed() {
-        port = Integer.parseInt(portField.getText());
-        game.startNewGame();
+        try {
+            port = Integer.parseInt(portField.getText());
+            game.startNewGame();
+        }
+        catch (Exception e) { }// TODO: Display error message in GUI.
 
     }
 }

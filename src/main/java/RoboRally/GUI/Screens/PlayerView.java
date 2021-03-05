@@ -1,11 +1,9 @@
 package RoboRally.GUI.Screens;
 
-import RoboRally.Game.Cards.ProgramCard;
-import RoboRally.Game.Direction;
+
 import RoboRally.Game.Players.Player;
 import RoboRally.RoboRallyApp;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -21,7 +19,6 @@ public class PlayerView extends InputAdapter implements Screen {
     private final Player self;
 
     private SpriteBatch spriteBatch;
-    private boolean cheatMode = false;
 
     /**
      * Instantiates a new Game screen.

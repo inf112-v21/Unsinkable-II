@@ -29,8 +29,8 @@ public class MultiplayerJoinScreen extends MenuScreen {
         this.label = addLabel("", TOP1);
         this.ipField = addTextField(hostIP, TOP2);
         ipField.setMessageText("hostIP:port#");
-        addButton("Join", MIDDLE, middleListener());
-        addButton("Back", BOTTOM, bottomListener());
+        addButton("Join", BOTTOM2, middleListener());
+        addButton("Back", BOTTOM3, bottomListener());
     }
 
     @Override

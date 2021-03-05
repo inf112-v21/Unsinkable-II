@@ -11,23 +11,23 @@ import RoboRally.RoboRallyApp;
 public class TitleScreen extends MenuScreen {
 
     /**
-     * Instantiates a new Title screen.
+     * The Game title screen.
      *
-     * @param game the RoboRally.game
+     * @param app the application GUI entry point object.
      */
-    public TitleScreen(RoboRallyApp game) {
-        super(game);
+    public TitleScreen(RoboRallyApp app) {
+        super(app);
         setHeading("Select Game Mode. ");
-        addButton("Single Player", TOP, topListener());
-        addButton("Multiplayer", MIDDLE, middleListener());
-        addButton("Quit", BOTTOM, bottomListener());
+        addButton("Single Player - TESTING", BOTTOM1, topListener());
+        addButton("Multiplayer", BOTTOM2, middleListener());
+        addButton("Quit", BOTTOM3, bottomListener());
     }
 
     @Override
     public InputListener topListener() {
         return new InputListener() {
             @Override
-            public void touchUp(InputEvent event, float x, float y, int pointer, int button) { game.setScreen(new PlayerView(game)); }
+            public void touchUp(InputEvent event, float x, float y, int pointer, int button) { game.startNewGame(); }
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) { return true; }
         };
