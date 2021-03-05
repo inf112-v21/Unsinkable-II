@@ -19,6 +19,9 @@ import RoboRally.GUI.Screens.TitleScreen;
  */
 public class RoboRallyApp extends Game {
 
+    private RoboRallyGame game;
+    private Player self;
+
     //================================================================
     //                         App configuration
     //================================================================

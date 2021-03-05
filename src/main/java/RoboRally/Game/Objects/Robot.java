@@ -5,17 +5,17 @@ import com.badlogic.gdx.math.Vector2;
 
 public class Robot implements IRobot {
 
-    private int playerNum;
+
     private Direction heading;
     private Vector2 location;
 
-    public Robot(int playerNum) {
-        this.playerNum = playerNum;
+    public Robot() {
+
         this.location = new Vector2();
         this.heading = Direction.WEST;
     }
 
-    public int getId() { return this.playerNum; }
+
 
     @Override
     public Direction heading() { return this.heading; }

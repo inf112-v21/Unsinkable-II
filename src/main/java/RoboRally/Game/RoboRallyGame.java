@@ -4,6 +4,7 @@ import RoboRally.Game.Cards.ProgramCard;
 import RoboRally.Game.MapTools.MapChecker;
 import RoboRally.Game.MapTools.Map;
 import RoboRally.Game.MapTools.MapSelector;
+import RoboRally.Game.Cards.ProgrammingDeck;
 import RoboRally.Game.Players.Player;
 import RoboRally.Multiplayer.Multiplayer;
 import RoboRally.RoboRallyApp;
@@ -12,8 +13,12 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class RoboRallyGame {
-    private final RoboRallyApp game;
-    private final MultiplayerHost host;
+    private final RoboRallyApp app;
+
+    //================================================================
+    //                          Players
+    //================================================================
+    private final Multiplayer myConnection;
     private final List<Player> players;
 
 
@@ -40,6 +45,9 @@ public class RoboRallyGame {
         deck = new ProgrammingDeck();
     }
 
+    //================================================================
+    //                            Players
+    //================================================================
     public Player addPlayer() {
         Player newPlayer = new Player(players.size()+1);
         newPlayer.getRobot().setLoc(5,5);
