@@ -24,7 +24,7 @@ Learnt to code through the University
 
 ### Jonas
 UiB courses, KATTIS, and hobby projects.
-Limited experience setting up and managing Linux servers with deployed game/webapp projects.
+Limited experience setting up and managing Linux servers with deployed RoboRally.Game/webapp projects.
 
 #### Related courses taken:
 - INF 100, 101, 102, 115, 122, 140

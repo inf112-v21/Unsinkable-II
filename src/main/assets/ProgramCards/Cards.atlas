@@ -1,0 +1,62 @@
+
+Cards.png
+size: 2048, 256
+format: RGBA8888
+filter: Nearest, Nearest
+repeat: none
+Back
+  rotate: false
+  xy: 318, 2
+  size: 156, 216
+  orig: 156, 216
+  offset: 0, 0
+  index: -1
+Back_Up
+  rotate: false
+  xy: 2, 2
+  size: 156, 216
+  orig: 156, 216
+  offset: 0, 0
+  index: -1
+Move_Three
+  rotate: false
+  xy: 160, 2
+  size: 156, 216
+  orig: 156, 216
+  offset: 0, 0
+  index: -1
+Move_Two
+  rotate: false
+  xy: 476, 2
+  size: 156, 216
+  orig: 156, 216
+  offset: 0, 0
+  index: -1
+Move_One
+  rotate: false
+  xy: 792, 2
+  size: 156, 216
+  orig: 156, 216
+  offset: 0, 0
+  index: -1
+Turn_Left
+  rotate: false
+  xy: 1108, 22
+  size: 138, 196
+  orig: 138, 196
+  offset: 0, 0
+  index: -1
+Turn_Right
+  rotate: false
+  xy: 950, 2
+  size: 156, 216
+  orig: 156, 216
+  offset: 0, 0
+  index: -1
+U_Turn
+  rotate: false
+  xy: 634, 2
+  size: 156, 216
+  orig: 156, 216
+  offset: 0, 0
+  index: -1

@@ -1,4 +1,4 @@
-package inf112.RoboRally.app;
+package RoboRally;
 
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
@@ -16,7 +16,7 @@ public class Main {
     public static void main(String[] args) {
         Lwjgl3ApplicationConfiguration cfg = new Lwjgl3ApplicationConfiguration();
         cfg.setTitle("RoboRally");
-        cfg.setWindowedMode(500, 500);
-        new Lwjgl3Application(new RoboRally(), cfg);
+        cfg.setWindowedMode(600,800);
+        new Lwjgl3Application(new RoboRallyApp(), cfg);
     }
 }
