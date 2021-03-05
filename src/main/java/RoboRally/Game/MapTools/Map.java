@@ -35,4 +35,3 @@ public class Map {
 
     public TiledMapTileLayer getMapLayer(String layer) { return layers.get(layer); }
 }
-

@@ -23,25 +23,4 @@ Samt hva som er forklart tidligere i dette dokument.
 ** Multiplayer **
 Host - client build. Allt i spillet skal kalkuleres fra hver maskin, men Host skal tildele tilganger. Denne løsningen kommer etter samtale med gruppeleder.
 En server løsning virkler mer fristende.
-
-** Multitreading **
-Gui-tread - oppdaterer grafikken
-Backend-tread - henter informasjon fra logikken, og kan vente på beskjeder fra mp o.l.
-Multiplayer-tread - sender pakker mellom maskinene
-
-** Plan videre**
-- slanke så mye som mulig
-- jobbe mot multiplayer
-- få to robotter til å kunne bevege seg på brettet
-- få to maskiner til å kunne kommunisere
-- sikre at en maskin bare kan kontrollere en robot, og at en maskin ikke kan kontrollere en robot som blir kontrollert av en annen maskin
-- sørge for at en spiller får fem kort, og at disse fem kortene sørger for bevegelse
-- legge testkart under Test - mappen, oppdatere POM i henhold til dette
-- trenger grafikk for robot2
-- bygge game-tread loop
-- sørge for at kart ikke dekker for kort
-- gi hver player en unik ID, som kan gjøre det lett å koble seg på om man faller ut.
-
-** Refleksjon rundt roller i teamet **
-Gjennom denne sprinten har det blitt klart for laget at vi trenger en mer definert leder for selve programmeringen. 
-Det har blitt komentert fra gruppen at man føler seg hjelpeløs io forhold til angrepspunkt på prosjektet.
+hs io forhold til angrepspunkt på prosjektet.

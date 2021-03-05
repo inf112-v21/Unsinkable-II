@@ -12,6 +12,4 @@ public enum MapSelector {
         this.path = path;
         this.name = name;
     }
-
-
 }
