@@ -22,9 +22,7 @@ public class EventHandler {
             case Input.Keys.NUM_3: { return game.ExecuteProgramCard(2); }
             case Input.Keys.NUM_4: { return game.ExecuteProgramCard(3); }
             case Input.Keys.NUM_5: { return game.ExecuteProgramCard(4); }
-
-
-            case Input.Keys.C:  {
+            case Input.Keys.C: {
                 game.toggleCheatMode();
                 return true;
             } // TODO: remove cheat mode

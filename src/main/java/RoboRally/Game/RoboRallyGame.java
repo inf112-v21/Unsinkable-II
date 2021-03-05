@@ -5,33 +5,26 @@ import RoboRally.Game.MapTools.MapChecker;
 import RoboRally.Game.MapTools.Map;
 import RoboRally.Game.MapTools.MapSelector;
 import RoboRally.Game.Cards.ProgrammingDeck;
-import RoboRally.Game.Players.Player;
+import RoboRally.Game.Objects.Player;
+import RoboRally.Game.Objects.Robot;
 import RoboRally.Multiplayer.Multiplayer;
 import RoboRally.RoboRallyApp;
+import com.badlogic.gdx.math.Vector2;
 
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * The Game - RoboRally
+ */
 public class RoboRallyGame {
     private final RoboRallyApp app;
-
-    //================================================================
-    //                          Players
-    //================================================================
     private final Multiplayer myConnection;
     private final List<Player> players;
-
-
-    //================================================================
-    //                           Tools
-    //================================================================
     private final Map map;
     public final EventHandler eventHandler;
     private boolean cheatMode = false;
 
-    //================================================================
-    //                         Game objects
-    //================================================================
     private final MapChecker mapChecker;
     private final ProgrammingDeck deck;
 
@@ -45,35 +38,46 @@ public class RoboRallyGame {
         deck = new ProgrammingDeck();
     }
 
-    //================================================================
-    //                            Players
-    //================================================================
+
+    /**
+     * Adds a new player to the game.
+     *
+     * @return the Player added.
+     */
     public Player addPlayer() {
         Player newPlayer = new Player(players.size()+1);
-        newPlayer.getRobot().setLoc(5,5);
-        map.layers.get("Player").setCell((int) newPlayer.getRobot().getLoc().x,(int) newPlayer.getRobot().getLoc().y, newPlayer.getPiece().getCell());
+        newPlayer.getRobot().setLoc(5,5); // TODO: Get next start loc
+        map.playerLayer.setCell((int) newPlayer.getRobot().getLoc().x,(int) newPlayer.getRobot().getLoc().y, newPlayer.getPiece().getCell());
         players.add(newPlayer);
 
         return players.get(players.size()-1);
     }
 
+    /**
+     * @return List of players
+     */
     public List<Player> getPlayers() { return players; }
 
     public Map getMap() { return map; }
 
+
+
     //================================================================
     //                            Actions
     //================================================================
-    /**
-     * Moves robot according to card.
-     * return true if robot was moved.
-    */
-    public boolean ExecuteProgramCard(int index) {
-        mapChecker.removeRobot(app.getSelf().getRobot());
-        GameLib.playProgramCard(app.getSelf().getRobot(), app.getSelf().getHand().get(index));
-        mapChecker.putRobot(app.getSelf());
-        app.getSelf().getHand().set(index, deck.drawCard());
-        return true;
+
+    private void playProgramCard(Robot robot, ProgramCard card) {
+        if (card.getSteps() != 0) { updateLocation(robot, card); }
+        else { updateHeading(robot, card); }
+    }
+
+    private void updateLocation(Robot robot, ProgramCard card) {
+        robot.getLoc().x += robot.heading().getX() * card.getSteps();
+        robot.getLoc().y += robot.heading().getY() * card.getSteps();
+    }
+
+    private void updateHeading(Robot robot, ProgramCard card) {
+        robot.setHeading(robot.heading().rotate(card.getRotation()));
     }
 
 
@@ -85,16 +89,40 @@ public class RoboRallyGame {
      */
     public void ExecuteProgramCard(Player player, ProgramCard card) {
         mapChecker.removeRobot(player.getRobot());
-        GameLib.playProgramCard(player.getRobot(), card);
+        playProgramCard(player.getRobot(), card);
         mapChecker.putRobot(player);
     }
+
+    // ======================================================================================
+    //                         TESTING RELATED METHODS BELLOW
+    // ======================================================================================
+
+    public static void move(Robot robot, Direction dir) {
+        robot.setLoc(robot.getLoc().add(new Vector2(dir.getX(), dir.getY())));
+    }
+
+    /**
+     * Moves robot according to card.
+     * return true if robot was moved.
+    */
+    public boolean ExecuteProgramCard(int index) {
+        mapChecker.removeRobot(app.getSelf().getRobot());
+        playProgramCard(app.getSelf().getRobot(), app.getSelf().getHand().get(index));
+        mapChecker.putRobot(app.getSelf());
+        app.getSelf().getHand().set(index, deck.drawCard());
+        return true;
+    }
+
+    //================================================================
+    //                            Cheat Mode
+    //================================================================
 
     /**
      * Enters Cheat-mode. Lets the robot move with commands from keyboard.
      */
     public boolean cheatMove (Direction dir) {
         mapChecker.removeRobot(app.getSelf().getRobot());
-        GameLib.move(app.getSelf().getRobot(), dir);
+        TestingLibrary.move(app.getSelf().getRobot(), dir);
         mapChecker.putRobot(app.getSelf());
         return true;
     }

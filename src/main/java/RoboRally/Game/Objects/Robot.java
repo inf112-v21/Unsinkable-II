@@ -15,8 +15,6 @@ public class Robot implements IRobot {
         this.heading = Direction.WEST;
     }
 
-
-
     @Override
     public Direction heading() { return this.heading; }
 

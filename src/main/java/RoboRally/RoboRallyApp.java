@@ -1,7 +1,7 @@
 package RoboRally;
 
 import RoboRally.GUI.Screens.PlayerView;
-import RoboRally.Game.Players.Player;
+import RoboRally.Game.Objects.Player;
 import RoboRally.Game.RoboRallyGame;
 import RoboRally.Multiplayer.MultiplayerClient;
 import RoboRally.Multiplayer.MultiplayerHost;

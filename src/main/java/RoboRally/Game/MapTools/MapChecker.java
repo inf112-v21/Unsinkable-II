@@ -1,9 +1,8 @@
 package RoboRally.Game.MapTools;
 
 import RoboRally.Game.Objects.Robot;
-import RoboRally.Game.Players.Player;
+import RoboRally.Game.Objects.Player;
 import RoboRally.RoboRallyApp;
-import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 
 /**
@@ -25,10 +24,10 @@ public class MapChecker {
 
         if (outOfBounds(player.getRobot())) player.getRobot().setLoc(RoboRallyApp.CENTER); //TODO: temp solution to robot leaving the board
 
-        if (getLocation(player.getRobot(), map.layers.get("Flag")) != null) {
+        if (getLocation(player.getRobot(), map.flagLayer) != null) {
             setLocation(player.getRobot(), player.getPiece().getWonCell());
         }
-        else if (getLocation(player.getRobot(), map.layers.get("Hole")) != null) {
+        else if (getLocation(player.getRobot(), map.holeLayer) != null) {
             setLocation(player.getRobot(), player.getPiece().getDiedCell());
         }
         else {
@@ -46,7 +45,7 @@ public class MapChecker {
     }
 
     private void setLocation(Robot robot, TiledMapTileLayer.Cell cell) {
-        map.layers.get("Player").setCell((int) robot.getLoc().x, (int) robot.getLoc().y, cell);
+        map.playerLayer.setCell((int) robot.getLoc().x, (int) robot.getLoc().y, cell);
     }
 
     public void removeRobot(Robot robot) { setLocation(robot, null); }

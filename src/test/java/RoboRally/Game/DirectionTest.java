@@ -17,7 +17,7 @@ public class DirectionTest {
 
     @Test
     public void moveNorthIncrementsY(){
-        GameLib.move(robot,Direction.NORTH);
+        TestingLibrary.move(robot,Direction.NORTH);
 
         assertEquals(5, robot.getLoc().x);
         assertEquals(6, robot.getLoc().y);
@@ -25,7 +25,7 @@ public class DirectionTest {
 
     @Test
     public void moveSouthDecrementsY(){
-        GameLib.move(robot,Direction.SOUTH);
+        TestingLibrary.move(robot,Direction.SOUTH);
 
         assertEquals(5, robot.getLoc().x);
         assertEquals(4, robot.getLoc().y);
@@ -33,7 +33,7 @@ public class DirectionTest {
 
     @Test
     public void moveEastIncrementsX(){
-        GameLib.move(robot,Direction.EAST);
+        TestingLibrary.move(robot,Direction.EAST);
 
         assertEquals(6, robot.getLoc().x);
         assertEquals(5, robot.getLoc().y);
@@ -41,7 +41,7 @@ public class DirectionTest {
 
     @Test
     public void moveWestDecrementsX() {
-        GameLib.move(robot,Direction.WEST);
+        TestingLibrary.move(robot,Direction.WEST);
 
         assertEquals(4, robot.getLoc().x);
         assertEquals(5, robot.getLoc().y);

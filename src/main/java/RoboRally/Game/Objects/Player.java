@@ -1,4 +1,4 @@
-package RoboRally.Game.Players;
+package RoboRally.Game.Objects;
 
 import RoboRally.Game.Cards.ProgramCard;
 import RoboRally.Game.Objects.Piece;
