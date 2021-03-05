@@ -8,9 +8,12 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import java.util.HashMap;
 
 public class Map {
+
     public final HashMap<String, TiledMapTileLayer> layers;
     private final int mapSizeX, mapSizeY;
     private final TiledMap board;
+
+
 
     public Map(MapSelector selection) {
         board = new TmxMapLoader().load(selection.path);

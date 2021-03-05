@@ -8,16 +8,19 @@ import java.util.Queue;
 
 public class MultiplayerClient extends Multiplayer {
     private static Client client;
+    private static String hostIP;
+    private static int hostPort;
     private static final int timeout = 5000;
 
     private final Queue<Packet> receivedPackets;
 
     public MultiplayerClient(String hostIP, int tcpPort, int udpPort) {
+        this.hostIP = hostIP;
         this.receivedPackets = new LinkedList<>();
         client = new Client();
         client.getKryo().register(Packet.class);
         client.start();
-        try { client.connect(timeout, hostIP, tcpPort, udpPort); }
+        try { client.connect(timeout, this.hostIP, tcpPort, udpPort); }
         catch (Exception e) { e.printStackTrace(); } // TODO: Handle with care!
         client.addListener(this);
     }

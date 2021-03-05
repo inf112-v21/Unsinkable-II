@@ -3,6 +3,8 @@ package RoboRally;
 import RoboRally.GUI.Screens.PlayerView;
 import RoboRally.Game.Players.Player;
 import RoboRally.Game.RoboRallyGame;
+import RoboRally.Multiplayer.MultiplayerClient;
+import RoboRally.Multiplayer.MultiplayerHost;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
@@ -64,7 +66,16 @@ public class RoboRallyApp extends Game {
     public TitleScreen getTitleScreen() { return this.titleScreen; }
 
     public void startNewGame() {
-        game = new RoboRallyGame(this);
+        MultiplayerHost host = new MultiplayerHost();
+        game = new RoboRallyGame(this, host);
+
+        this.self = game.addPlayer();
+        this.setScreen(new PlayerView(this));
+    }
+
+    public void joinNewGame() {
+        MultiplayerClient client = new MultiplayerClient("127.0.0.1", 18888, 18888);
+        game = new RoboRallyGame(this, client);
         this.self = game.addPlayer();
         this.setScreen(new PlayerView(this));
     }

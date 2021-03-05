@@ -17,11 +17,11 @@ public class EventHandler {
     public boolean handleKeys(int key) {
         switch (key) {
             //Card actions
-            case Input.Keys.NUM_1: { return game.cardAction(0); }
-            case Input.Keys.NUM_2: { return game.cardAction(1); }
-            case Input.Keys.NUM_3: { return game.cardAction(2); }
-            case Input.Keys.NUM_4: { return game.cardAction(3); }
-            case Input.Keys.NUM_5: { return game.cardAction(4); }
+            case Input.Keys.NUM_1: { return game.ExecuteProgramCard(0); }
+            case Input.Keys.NUM_2: { return game.ExecuteProgramCard(1); }
+            case Input.Keys.NUM_3: { return game.ExecuteProgramCard(2); }
+            case Input.Keys.NUM_4: { return game.ExecuteProgramCard(3); }
+            case Input.Keys.NUM_5: { return game.ExecuteProgramCard(4); }
 
 
             case Input.Keys.C:  {

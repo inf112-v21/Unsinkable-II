@@ -58,6 +58,6 @@ public class MultiplayerJoinScreen extends MenuScreen {
 
     private void joinPressed() {
         hostIP = ipField.getText();
-        label.setText("Joining "+hostIP);
+        game.joinNewGame();
     }
 }

@@ -5,7 +5,7 @@ import RoboRally.Game.MapTools.MapChecker;
 import RoboRally.Game.MapTools.Map;
 import RoboRally.Game.MapTools.MapSelector;
 import RoboRally.Game.Players.Player;
-import RoboRally.Multiplayer.MultiplayerHost;
+import RoboRally.Multiplayer.Multiplayer;
 import RoboRally.RoboRallyApp;
 
 import java.util.LinkedList;
@@ -30,22 +30,13 @@ public class RoboRallyGame {
     private final MapChecker mapChecker;
     private final ProgrammingDeck deck;
 
-    public RoboRallyGame(RoboRallyApp app) {
+    public RoboRallyGame(RoboRallyApp app, Multiplayer connection) {
         this.app = app;
+        this.myConnection = connection;
         this.players = new LinkedList<>();
-
         map = new Map(MapSelector.MAP2); // TODO: Get selected map.
         mapChecker = new MapChecker(map);
-        this.host = new MultiplayerHost();
-
-
-
         eventHandler = new EventHandler(this); //TODO: Use handler
-
-
-
-
-
         deck = new ProgrammingDeck();
     }
 

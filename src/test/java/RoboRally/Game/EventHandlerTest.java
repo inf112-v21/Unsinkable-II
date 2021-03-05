@@ -19,18 +19,18 @@ public class EventHandlerTest {
     @Test
     public void testCardActions() {
         handler.handleKeys(Input.Keys.NUM_1);
-        verify(game, times(1)).cardAction(0);
+        verify(game, times(1)).ExecuteProgramCard(0);
 
         handler.handleKeys(Input.Keys.NUM_2);
-        verify(game, times(1)).cardAction(1);
+        verify(game, times(1)).ExecuteProgramCard(1);
 
         handler.handleKeys(Input.Keys.NUM_3);
-        verify(game, times(1)).cardAction(2);
+        verify(game, times(1)).ExecuteProgramCard(2);
 
         handler.handleKeys(Input.Keys.NUM_4);
-        verify(game, times(1)).cardAction(3);
+        verify(game, times(1)).ExecuteProgramCard(3);
 
         handler.handleKeys(Input.Keys.NUM_5);
-        verify(game, times(1)).cardAction(4);
+        verify(game, times(1)).ExecuteProgramCard(4);
     }
 }
