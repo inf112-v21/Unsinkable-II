@@ -1,6 +1,6 @@
 package RoboRally.Multiplayer;
 
-import RoboRally.Game.Board.MapSelector;
+import RoboRally.Game.Board.Boards;
 import RoboRally.Game.Objects.Player;
 import RoboRally.Multiplayer.Packets.ConnectionPacket;
 import RoboRally.Multiplayer.Packets.GamePacket;
@@ -53,7 +53,7 @@ public abstract class Multiplayer extends Listener implements IMultiplayer {
     }
 
     @Override
-    public void broadcastGamePacket(Player player, MapSelector board) {
+    public void broadcastGamePacket(Player player, Boards board) {
         GamePacket packet = new GamePacket();
         packet.robotLoc = player.getRobot().getLoc();
         packet.registers = player.getHand();

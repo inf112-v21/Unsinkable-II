@@ -1,6 +1,6 @@
-package RoboRally.GUI.Screens.Multiplayer;
+package RoboRally.GUI.Screens.Menu.Multiplayer;
 
-import RoboRally.GUI.Screens.MenuScreenAdapter;
+import RoboRally.GUI.Screens.Menu.MenuScreenAdapter;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import RoboRally.RoboRallyApp;
@@ -18,13 +18,12 @@ public class MultiplayerOptionScreen extends MenuScreenAdapter {
     public MultiplayerOptionScreen(RoboRallyApp game) {
         super(game);
         setHeading("Multiplayer");
-        addButton("Host", true, Listener1());
-        addButton("Join", true, Listener2());
-        addButton("Back", true, Listener3());
+        addButton("Host", true, HostButtonListener());
+        addButton("Join", true, JoinButtonListener());
+        addButton("Back", true, BackButtonListener());
     }
 
-    @Override
-    public InputListener Listener1() {
+    public InputListener HostButtonListener() {
         return new InputListener() {
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) { game.setScreen(new MultiplayerHostScreen(game)); }
@@ -33,8 +32,7 @@ public class MultiplayerOptionScreen extends MenuScreenAdapter {
         };
     }
 
-    @Override
-    public InputListener Listener2() {
+    public InputListener JoinButtonListener() {
         return new InputListener() {
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) { game.setScreen(new MultiplayerJoinScreen(game)); }
@@ -43,13 +41,4 @@ public class MultiplayerOptionScreen extends MenuScreenAdapter {
         };
     }
 
-    @Override
-    public InputListener Listener3() {
-        return new InputListener() {
-            @Override
-            public void touchUp(InputEvent event, float x, float y, int pointer, int button) { game.setScreen(game.getTitleScreen()); }
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) { return true; }
-        };
-    }
 }

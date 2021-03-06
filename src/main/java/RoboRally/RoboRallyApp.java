@@ -1,9 +1,9 @@
 package RoboRally;
 
 //import RoboRally.GUI.Screens.IMenuScreen;
-import RoboRally.GUI.Screens.MenuScreen;
+import RoboRally.GUI.Screens.Menu.MenuScreen;
 import RoboRally.GUI.Screens.PlayerView;
-import RoboRally.Game.Board.MapSelector;
+import RoboRally.Game.Board.Boards;
 import RoboRally.Game.Objects.Player;
 import RoboRally.Game.RoboRallyGame;
 import RoboRally.Multiplayer.Multiplayer;
@@ -15,7 +15,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
-import RoboRally.GUI.Screens.TitleScreen;
+import RoboRally.GUI.Screens.Menu.TitleScreen;
 
 /**
  * RoboRally application entry point. This is the top-level GUI class that
@@ -78,7 +78,7 @@ public class RoboRallyApp extends Game {
      * @variable myConnection = the IP of the host
      * @param board = The board the player want to host a game on
      */
-    public void startNewGame(MapSelector board) {
+    public void startNewGame(Boards board) {
         myConnection = new MultiplayerHost();
         game = new RoboRallyGame(this, myConnection, board);
         this.myPlayer = game.addPlayer();

@@ -1,13 +1,13 @@
-package RoboRally.GUI.Screens;
+package RoboRally.GUI.Screens.Menu;
 
-import RoboRally.GUI.Screens.Multiplayer.MultiplayerOptionScreen;
-import RoboRally.Game.Board.MapSelector;
+import RoboRally.GUI.Screens.Menu.Multiplayer.MultiplayerOptionScreen;
+import RoboRally.Game.Board.Boards;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import RoboRally.RoboRallyApp;
 
 /**
- * The title screen.
+ * The Robo Rally app title screen.
  */
 public class TitleScreen extends MenuScreenAdapter {
 
@@ -19,33 +19,22 @@ public class TitleScreen extends MenuScreenAdapter {
     public TitleScreen(RoboRallyApp app) {
         super(app);
         setHeading("Select Game Mode. ");
-        addButton("Single Player - TESTING", true, Listener1());
-        addButton("Multiplayer", true, Listener2());
-        addButton("Options", true, optionButtonListener());
-        addButton("Quit", true, Listener3());
+        addButton("Single Player - TESTING", true, SinglePlayerListener());
+        addButton("Multiplayer", true, MultiplayerListener());
+        addButton("Options", true, OptionsListener());
+        addButton("Quit", true, QuitListener());
     }
 
-    private InputListener optionButtonListener() {
+    public InputListener SinglePlayerListener() {
         return new InputListener() {
             @Override
-            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {} // TODO: Options Screen
+            public void touchUp(InputEvent event, float x, float y, int pointer, int button) { game.startNewGame(Boards.TEST_BOARD2); }
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) { return true; }
         };
     }
 
-    @Override
-    public InputListener Listener1() {
-        return new InputListener() {
-            @Override
-            public void touchUp(InputEvent event, float x, float y, int pointer, int button) { game.startNewGame(MapSelector.TEST_BOARD2); }
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) { return true; }
-        };
-    }
-
-    @Override
-    public InputListener Listener2() {
+    public InputListener MultiplayerListener() {
         return new InputListener() {
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) { game.setScreen(new MultiplayerOptionScreen(game)); }
@@ -54,8 +43,16 @@ public class TitleScreen extends MenuScreenAdapter {
         };
     }
 
-    @Override
-    public InputListener Listener3() {
+    private InputListener OptionsListener() {
+        return new InputListener() {
+            @Override
+            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {} // TODO: Options Screen
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) { return true; }
+        };
+    }
+
+    public InputListener QuitListener() {
         return new InputListener() {
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) { System.exit(0); }

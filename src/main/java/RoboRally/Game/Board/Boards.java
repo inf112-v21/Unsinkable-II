@@ -1,6 +1,6 @@
 package RoboRally.Game.Board;
 
-public enum MapSelector {
+public enum Boards {
     MP_TEST("Maps/MPTest.tmx", "MPTest"),
     TEST_BOARD2("Maps/testBoard2.tmx", "Test Board 2"),
     TEST_BOARD3("Maps/testBoard3.tmx", "Test Board 3"),
@@ -9,10 +9,11 @@ public enum MapSelector {
 
     public final String path, name;
 
-    MapSelector(String path, String name) {
+    Boards(String path, String name) {
         this.path = path;
         this.name = name;
     }
 
-    public static final MapSelector[] ALL_BOARDS = new MapSelector[] { MP_TEST, TEST_BOARD2, TEST_BOARD3, RISKY_EXCHANGE, ROUNDABOUT_HELL };
+    public static final Boards[] ALL_BOARDS = new Boards[] { MP_TEST, TEST_BOARD2, TEST_BOARD3, RISKY_EXCHANGE, ROUNDABOUT_HELL };
+
 }

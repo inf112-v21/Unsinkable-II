@@ -1,9 +1,8 @@
 package RoboRally.Game;
 
-import RoboRally.Game.Board.BoardLayer;
-import RoboRally.Game.Board.MapChecker;
+import RoboRally.Game.Board.Board;
 import RoboRally.Game.Cards.ProgramCard;
-import RoboRally.Game.Board.MapSelector;
+import RoboRally.Game.Board.Boards;
 import RoboRally.Game.Cards.ProgrammingDeck;
 import RoboRally.Game.Objects.Player;
 import RoboRally.Game.Objects.Robot;
@@ -22,15 +21,13 @@ import java.util.List;
 public class RoboRallyGame {
     private final RoboRallyApp app;
     private final List<Player> players;
+    public final EventHandler eventHandler;
+    private final ProgrammingDeck deck;
     private Multiplayer myConnection;
     private Connection host;
-    private BoardLayer boardLayer;
-    public final EventHandler eventHandler;
+    private Board board;
 
     private boolean CHEAT_MODE = false;
-
-    private MapChecker mapChecker;
-    private final ProgrammingDeck deck;
 
     public RoboRallyGame(RoboRallyApp app) {
         this.app = app;
@@ -39,11 +36,10 @@ public class RoboRallyGame {
         this.eventHandler = new EventHandler(this); //TODO: Use handler
     }
 
-    public RoboRallyGame(RoboRallyApp app, Multiplayer mp, MapSelector board) {
+    public RoboRallyGame(RoboRallyApp app, Multiplayer mp, Boards board) {
         this(app);
         this.myConnection = mp;
-        this.boardLayer = new BoardLayer(board);
-        this.mapChecker = new MapChecker(boardLayer);
+        this.board = new Board(board);
     }
 
     public RoboRallyGame(RoboRallyApp app, Multiplayer mp) {
@@ -51,8 +47,7 @@ public class RoboRallyGame {
         this.myConnection = mp;
         this.host = mp.getHost();
         GamePacket packet = mp.getNextGamePacket();
-        boardLayer = new BoardLayer(packet.board);
-        mapChecker = new MapChecker(boardLayer);
+        board = new Board(packet.board);
     }
 
 
@@ -62,12 +57,14 @@ public class RoboRallyGame {
      * @return the Player added.
      */
     public Player addPlayer() {
-        Player newPlayer = new Player(players.size()+1);
-        newPlayer.getRobot().setLoc(0, 0); // TODO: Get next start loc
-        boardLayer.playerLayer.setCell((int) newPlayer.getRobot().getLoc().x,(int) newPlayer.getRobot().getLoc().y, newPlayer.getPiece().getCell());
-        players.add(newPlayer);
+        if (players.size() < 8) {
+            Player newPlayer = new Player(players.size());
+            board.addNewPlayer(newPlayer);
+            players.add(newPlayer);
 
-        return players.get(players.size()-1);
+            return players.get(players.size() - 1);
+        }
+        else { return null; }
     }
 
     /**
@@ -75,7 +72,7 @@ public class RoboRallyGame {
      */
     public List<Player> getPlayers() { return players; }
 
-    public BoardLayer getMap() { return boardLayer; }
+    public Board getMap() { return board; }
 
 
 
@@ -89,12 +86,12 @@ public class RoboRallyGame {
     }
 
     private void updateLocation(Robot robot, ProgramCard card) {
-        robot.getLoc().x += robot.heading().getX() * card.getSteps();
-        robot.getLoc().y += robot.heading().getY() * card.getSteps();
+        robot.getLoc().x += robot.getDirection().getX() * card.getSteps();
+        robot.getLoc().y += robot.getDirection().getY() * card.getSteps();
     }
 
     private void updateHeading(Robot robot, ProgramCard card) {
-        robot.setHeading(robot.heading().rotate(card.getRotation()));
+        robot.setDirection(robot.getDirection().rotate(card.getRotation()));
     }
 
 
@@ -105,9 +102,9 @@ public class RoboRallyGame {
      * @param card that contains robot instructions to be executed.
      */
     public void ExecuteProgramCard(Player player, ProgramCard card) {
-        mapChecker.removeRobot(player.getRobot());
+        board.removeRobot(player.getRobot());
         playProgramCard(player.getRobot(), card);
-        mapChecker.putRobot(player);
+        board.putRobot(player);
     }
 
     // ======================================================================================
@@ -123,9 +120,9 @@ public class RoboRallyGame {
      * return true if robot was moved.
     */
     public boolean ExecuteProgramCard(int index) {
-        mapChecker.removeRobot(app.getMyPlayer().getRobot());
+        board.removeRobot(app.getMyPlayer().getRobot());
         playProgramCard(app.getMyPlayer().getRobot(), app.getMyPlayer().getHand()[index]);
-        mapChecker.putRobot(app.getMyPlayer());
+        board.putRobot(app.getMyPlayer());
         app.getMyPlayer().getHand()[index] = deck.drawCard();
         return true;
     }
@@ -138,9 +135,9 @@ public class RoboRallyGame {
      * Enters Cheat-mode. Lets the robot move with commands from keyboard.
      */
     public boolean cheatMove (Direction dir) {
-        mapChecker.removeRobot(app.getMyPlayer().getRobot());
+        board.removeRobot(app.getMyPlayer().getRobot());
         TestingLibrary.move(app.getMyPlayer().getRobot(), dir);
-        mapChecker.putRobot(app.getMyPlayer());
+        board.putRobot(app.getMyPlayer());
         return true;
     }
 

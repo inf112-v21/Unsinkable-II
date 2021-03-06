@@ -6,21 +6,24 @@ import com.badlogic.gdx.math.Vector2;
 public class Robot implements IRobot {
 
 
-    private Direction heading;
+    private Direction direction;
     private Vector2 location;
 
     public Robot() {
 
         this.location = new Vector2();
-        this.heading = Direction.WEST;
+        this.direction = Direction.WEST;
     }
 
+    /**
+     * @return the direction the robot is facing.
+     */
     @Override
-    public Direction heading() { return this.heading; }
+    public Direction getDirection() { return this.direction; }
 
     @Override
-    public void setHeading(Direction dir) {
-        this.heading = dir;
+    public void setDirection(Direction dir) {
+        this.direction = dir;
     }
 
     @Override
@@ -37,5 +40,7 @@ public class Robot implements IRobot {
 
     @Override
     public Vector2 getLoc() { return location; }
+
+
 
 }

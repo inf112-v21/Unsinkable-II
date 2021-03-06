@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<boardLayer version="1.2" tiledversion="1.3.2" orientation="orthogonal" renderorder="right-down" compressionlevel="-1" width="12" height="12" tilewidth="300" tileheight="300" infinite="0" nextlayerid="14" nextobjectid="1">
+<boardLayers version="1.2" tiledversion="1.3.2" orientation="orthogonal" renderorder="right-down" compressionlevel="-1" width="12" height="12" tilewidth="300" tileheight="300" infinite="0" nextlayerid="14" nextobjectid="1">
  <tileset firstgid="1" source="../../../../Robot_test/src/main/java/assets/tiles.tsx"/>
  <layer id="4" name="BaseLayer" width="12" height="12">
   <data encoding="csv">
@@ -177,4 +177,4 @@
 0,0,0,0,0,0,0,0,0,0,0,0
 </data>
  </layer>
-</boardLayer>
+</boardLayers>

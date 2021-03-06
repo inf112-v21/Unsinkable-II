@@ -4,25 +4,32 @@ import RoboRally.Game.Cards.ProgramCard;
 import RoboRally.Game.Cards.ProgrammingDeck;
 
 public class Player {
-    private Piece piece;
+    private final int id;
+    private final Piece piece;
     private final Robot robot;
-    private final ProgramCard[] hand;
+    private ProgramCard[] hand;
 
     public Player(int id){
-        this.piece = Piece.PIECE1.get(id);
-        hand = new ProgramCard[ProgrammingDeck.MAX_HAND];
-        robot = new Robot();
-
-        //TODO: Temp. Why does it exist? Makes TESTING hand.
-        // for (int i = 0; i < 5 ; i++) { hand.add(ProgramCard.MOVE_1); }
+        this.id = id;
+        this.piece = Piece.get(id);
+        this.hand = new ProgramCard[ProgrammingDeck.MAX_HAND];
+        this.robot = new Robot();
     }
 
     public ProgramCard[] getHand() { return this.hand; }
 
+    public boolean setHand(ProgramCard[] newHand) {
+        if (newHand.length == ProgrammingDeck.MAX_HAND) {
+            this.hand = newHand;
+            return true;
+        }
+        else { return false; }
+    }
+
+    public int getID() { return this.id; }
+
     public Robot getRobot() { return this.robot; }
 
-    public Piece getPiece() {
-        return piece;
-    }
+    public Piece getPiece() {  return this.piece; }
 }
 

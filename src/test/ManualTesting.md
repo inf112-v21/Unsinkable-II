@@ -21,7 +21,7 @@ Pressing the "Single Player - TESTING" button should load a game.
 ###Test: Input keys
 It should be possible to enable/disable cheatmode by pressing 'c'
 
-When cheat mode is active, you can move the robot around the boardLayer using the arrow keys.
+When cheat mode is active, you can move the robot around the boardLayers using the arrow keys.
 
 **Expected result:** The robot should move on screen according to the direction of the input.
 

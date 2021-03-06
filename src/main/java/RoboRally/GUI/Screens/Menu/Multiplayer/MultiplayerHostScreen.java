@@ -1,6 +1,6 @@
-package RoboRally.GUI.Screens.Multiplayer;
+package RoboRally.GUI.Screens.Menu.Multiplayer;
 
-import RoboRally.Game.Board.MapSelector;
+import RoboRally.Game.Board.Boards;
 import RoboRally.Multiplayer.Multiplayer;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
@@ -8,7 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.SelectBox;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 
-import RoboRally.GUI.Screens.MenuScreenAdapter;
+import RoboRally.GUI.Screens.Menu.MenuScreenAdapter;
 import RoboRally.RoboRallyApp;
 
 import java.io.BufferedReader;
@@ -38,41 +38,11 @@ public class MultiplayerHostScreen extends MenuScreenAdapter {
         this.localIP = getLocalhost();
         this.ip = getIP();
         this.port = Multiplayer.tcpPort;
-        this.box = addSelectBox(MapSelector.ALL_BOARDS, true);
+        this.box = addSelectBox(Boards.ALL_BOARDS, true);
         this.ipLabel = addLabel(String.format("%s:%s", ip, port), true);
         this.portField = addTextField(""+port, true);
-        addButton("Host", true, Listener2());
-        addButton("Back", true, Listener3());
-    }
-
-    @Override
-    public InputListener Listener1() {
-        return new InputListener() {
-            @Override
-            public void touchUp(InputEvent event, float x, float y, int pointer, int button) { port = Integer.parseInt(portField.getText());}
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) { return true; }
-        };
-    }
-
-    @Override
-    public InputListener Listener2() {
-        return new InputListener() {
-            @Override
-            public void touchUp(InputEvent event, float x, float y, int pointer, int button) { hostPressed(); }
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) { return true; }
-        };
-    }
-
-    @Override
-    public InputListener Listener3() {
-        return new InputListener() {
-            @Override
-            public void touchUp(InputEvent event, float x, float y, int pointer, int button) { game.setScreen(game.getTitleScreen()); }
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) { return true; }
-        };
+        addButton("Host Game", true, HostGameListener());
+        addButton("Back", true, BackButtonListener());
     }
 
     public String getLocalhost() {
@@ -97,9 +67,27 @@ public class MultiplayerHostScreen extends MenuScreenAdapter {
     private void hostPressed() {
         try {
             port = Integer.parseInt(portField.getText());
-            game.startNewGame((MapSelector) box.getSelected());
+            game.startNewGame((Boards) box.getSelected());
         }
         catch (Exception e) { }// TODO: Display error message in GUI.
-
     }
+
+    public InputListener HostGameListener() {
+        return new InputListener() {
+            @Override
+            public void touchUp(InputEvent event, float x, float y, int pointer, int button) { hostPressed(); }
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) { return true; }
+        };
+    }
+
+    public InputListener PortFieldListener() {
+        return new InputListener() {
+            @Override
+            public void touchUp(InputEvent event, float x, float y, int pointer, int button) { port = Integer.parseInt(portField.getText());}
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) { return true; }
+        };
+    }
+
 }

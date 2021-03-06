@@ -6,9 +6,9 @@ import com.badlogic.gdx.math.Vector2;
 
 public interface IRobot {
 
-    Direction heading();
+    Direction getDirection();
 
-    void setHeading(Direction dir);
+    void setDirection(Direction dir);
 
     void setLoc(Vector2 newLoc);
 

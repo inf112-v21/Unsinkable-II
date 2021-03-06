@@ -5,7 +5,6 @@ import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Server;
 
 import java.util.HashSet;
-import java.util.LinkedList;
 
 public class MultiplayerHost extends Multiplayer {
     private static Server server;

@@ -1,6 +1,6 @@
-package RoboRally.GUI.Screens.Multiplayer;
+package RoboRally.GUI.Screens.Menu.Multiplayer;
 
-import RoboRally.GUI.Screens.MenuScreenAdapter;
+import RoboRally.GUI.Screens.Menu.MenuScreenAdapter;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -27,15 +27,16 @@ public class MultiplayerJoinScreen extends MenuScreenAdapter {
         this.label = addLabel("", true);
         this.ipField = addTextField(hostIP, true);
         ipField.setMessageText("Enter Host IP");
-        addButton("Join", true, Listener2());
-        addButton("Back", true, Listener3());
+        addButton("Join", true, JoinListener());
+        addButton("Back", true, BackListener());
     }
 
-    @Override
-    public InputListener Listener1() { return null; }
+    private void joinPressed() {
+        hostIP = ipField.getText();
+        game.joinNewGame(hostIP);
+    }
 
-    @Override
-    public InputListener Listener2() {
+    public InputListener JoinListener() {
         return new InputListener() {
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) { joinPressed(); }
@@ -44,8 +45,7 @@ public class MultiplayerJoinScreen extends MenuScreenAdapter {
         };
     }
 
-    @Override
-    public InputListener Listener3() {
+    public InputListener BackListener() {
         return new InputListener() {
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) { game.setScreen(game.getTitleScreen()); }
@@ -54,8 +54,5 @@ public class MultiplayerJoinScreen extends MenuScreenAdapter {
         };
     }
 
-    private void joinPressed() {
-        hostIP = ipField.getText();
-        game.joinNewGame(hostIP);
-    }
+
 }

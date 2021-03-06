@@ -14,7 +14,7 @@ public enum Piece {
     PIECE1(0),
     PIECE2(1);
 
-    private final static List<Piece> PIECES = Arrays.asList(PIECE1,PIECE2);
+    private final static List<Piece> PIECES = Arrays.asList(PIECE1, PIECE2);
 
     private final TiledMapTileLayer.Cell cell, diedCell, wonCell;
     private final TextureRegion[][] textures = TextureRegion.split(
@@ -29,7 +29,7 @@ public enum Piece {
         this.wonCell.setTile(new StaticTiledMapTile(textures[id][2]));
     }
 
-    public Piece get(int id) { return PIECES.get(id); }
+    public static Piece get(int id) { return PIECES.get(id); }
 
     public TiledMapTileLayer.Cell getCell() { return this.cell; }
 

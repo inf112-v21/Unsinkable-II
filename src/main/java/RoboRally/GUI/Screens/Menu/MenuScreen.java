@@ -1,4 +1,4 @@
-package RoboRally.GUI.Screens;
+package RoboRally.GUI.Screens.Menu;
 
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
@@ -41,29 +41,9 @@ public interface MenuScreen extends Screen {
      */
     TextField addTextField(String fieldText, boolean newRow);
 
-    SelectBox addSelectBox(Object[] objects, boolean newRow);
+    SelectBox<Object> addSelectBox(Object[] objects, boolean newRow);
 
 
-    /**
-     * Input listener for TOP.
-     *
-     * @return the input listener
-     */
-    InputListener Listener1();
-
-    /**
-     * Input listener for MIDDLE.
-     *
-     * @return the input listener
-     */
-    InputListener Listener2();
-
-    /**
-     * Input listener for BOTTOM.
-     *
-     * @return the input listener
-     */
-    InputListener Listener3();
 
 
 }

@@ -18,12 +18,12 @@ public class TestingLibrary {
     }
 
     public static void updateLocation(Robot robot, ProgramCard card) {
-        robot.getLoc().x += robot.heading().getX() * card.getSteps();
-        robot.getLoc().y += robot.heading().getY() * card.getSteps();
+        robot.getLoc().x += robot.getDirection().getX() * card.getSteps();
+        robot.getLoc().y += robot.getDirection().getY() * card.getSteps();
     }
 
     public static void updateHeading(Robot robot, ProgramCard card) {
-        robot.setHeading(robot.heading().rotate(card.getRotation()));
+        robot.setDirection(robot.getDirection().rotate(card.getRotation()));
     }
 
 

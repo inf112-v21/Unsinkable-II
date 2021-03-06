@@ -1,8 +1,9 @@
-package RoboRally.GUI.Screens;
+package RoboRally.GUI.Screens.Menu;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
@@ -109,6 +110,15 @@ public abstract class MenuScreenAdapter implements MenuScreen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         stage.act();
         stage.draw();
+    }
+
+    public InputListener BackButtonListener() {
+        return new InputListener() {
+            @Override
+            public void touchUp(InputEvent event, float x, float y, int pointer, int button) { game.setScreen(game.getTitleScreen()); }
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) { return true; }
+        };
     }
 
     @Override

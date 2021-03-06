@@ -17,7 +17,7 @@ public class TestingLibraryTest {
     void setUp() {
         testingLibrary = new TestingLibrary();
         robbie = new Robot();
-        robbie.setHeading(Direction.NORTH);
+        robbie.setDirection(Direction.NORTH);
         robbie.setLoc(5,5);
     }
 
@@ -41,14 +41,14 @@ public class TestingLibraryTest {
     void rotateTest() {
         testingLibrary.updateHeading(robbie, ProgramCard.TURN_RIGHT);
 
-        assertEquals(Direction.EAST,robbie.heading());
+        assertEquals(Direction.EAST,robbie.getDirection());
     }
 
     @Test
     void rotateStepsTest() {
         testingLibrary.updateHeading(robbie, ProgramCard.TURN_LEFT);
 
-        assertEquals(Direction.WEST,robbie.heading());
+        assertEquals(Direction.WEST,robbie.getDirection());
     }
 
     @Test
@@ -87,20 +87,20 @@ public class TestingLibraryTest {
     void TURN_RIGHT_RotatesRobotToTheRight() {
         testingLibrary.playProgramCard(robbie, ProgramCard.TURN_RIGHT);
 
-        assertEquals(Direction.EAST,robbie.heading());
+        assertEquals(Direction.EAST,robbie.getDirection());
     }
 
     @Test
     void TURN_LEFT_RotatesRobotToTheLeft() {
         testingLibrary.playProgramCard(robbie, ProgramCard.TURN_LEFT);
 
-        assertEquals(Direction.WEST,robbie.heading());
+        assertEquals(Direction.WEST,robbie.getDirection());
     }
 
     @Test
     void U_TURN_RotatesRobotAround() {
         testingLibrary.playProgramCard(robbie, ProgramCard.U_TURN);
 
-        assertEquals(Direction.SOUTH,robbie.heading());
+        assertEquals(Direction.SOUTH,robbie.getDirection());
     }
 }
