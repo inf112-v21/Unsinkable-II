@@ -1,6 +1,7 @@
 package RoboRally.Multiplayer;
 
-import RoboRally.Game.Objects.Robot;
+import RoboRally.Game.Board.MapSelector;
+import RoboRally.Game.Objects.Player;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.EndPoint;
 
@@ -8,7 +9,11 @@ public interface IMultiplayer {
 
     void register(EndPoint endPoint);
 
-    void sendPacket(Robot robot);
+    void broadcastGamePacket(Player player, MapSelector board);
+
+    void broadcastMessagePacket(String message);
+
+    void sendMessagePacket(Connection connection, String message);
 
     void received(Connection connection, Object packet);
 }

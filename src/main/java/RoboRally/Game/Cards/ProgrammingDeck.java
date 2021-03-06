@@ -4,8 +4,8 @@ package RoboRally.Game.Cards;
 import java.util.*;
 
 public class ProgrammingDeck {
-    private final int NUM_CARDS_HAND = 5;
-    private final int NUM_CARDS_SELECT = 9;
+    public static final int MAX_HAND = 5;
+    public static final int MAX_SELECT = 9;
     private final Stack<ProgramCard> programCardDeck;
     private final List<ProgramCard> thrownCards;
 

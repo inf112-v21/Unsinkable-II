@@ -1,6 +1,6 @@
 package RoboRally.GUI.Screens.Multiplayer;
 
-import RoboRally.GUI.Screens.MenuScreen;
+import RoboRally.GUI.Screens.MenuScreenAdapter;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -10,11 +10,10 @@ import RoboRally.RoboRallyApp;
 /**
  * The type Multiplayer join screen.
  */
-public class MultiplayerJoinScreen extends MenuScreen {
+public class MultiplayerJoinScreen extends MenuScreenAdapter {
     private final TextField ipField;
     private final Label label;
     private String hostIP;
-    private int hostPort;
     /**
      * Instantiates a new Multiplayer join screen.
      *
@@ -25,19 +24,18 @@ public class MultiplayerJoinScreen extends MenuScreen {
         super(game);
         setHeading("Join Multiplayer Game");
         this.hostIP = "";
-        this.hostPort = 8888;
-        this.label = addLabel("", TOP1);
-        this.ipField = addTextField(hostIP, TOP2);
-        ipField.setMessageText("hostIP:port#");
-        addButton("Join", BOTTOM2, middleListener());
-        addButton("Back", BOTTOM3, bottomListener());
+        this.label = addLabel("", true);
+        this.ipField = addTextField(hostIP, true);
+        ipField.setMessageText("Enter Host IP");
+        addButton("Join", true, Listener2());
+        addButton("Back", true, Listener3());
     }
 
     @Override
-    public InputListener topListener() { return null; }
+    public InputListener Listener1() { return null; }
 
     @Override
-    public InputListener middleListener() {
+    public InputListener Listener2() {
         return new InputListener() {
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) { joinPressed(); }
@@ -47,7 +45,7 @@ public class MultiplayerJoinScreen extends MenuScreen {
     }
 
     @Override
-    public InputListener bottomListener() {
+    public InputListener Listener3() {
         return new InputListener() {
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) { game.setScreen(game.getTitleScreen()); }
@@ -58,6 +56,6 @@ public class MultiplayerJoinScreen extends MenuScreen {
 
     private void joinPressed() {
         hostIP = ipField.getText();
-        game.joinNewGame();
+        game.joinNewGame(hostIP);
     }
 }

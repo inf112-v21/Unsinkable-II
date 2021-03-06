@@ -1,11 +1,7 @@
 package RoboRally.Multiplayer;
 
-import RoboRally.Game.Objects.Robot;
+import RoboRally.Multiplayer.Packets.Packet;
 import com.esotericsoftware.kryonet.Client;
-import com.esotericsoftware.kryonet.Connection;
-
-import java.util.LinkedList;
-import java.util.Queue;
 
 public class MultiplayerClient extends Multiplayer {
     private Client client;
@@ -21,7 +17,7 @@ public class MultiplayerClient extends Multiplayer {
         this.client.getKryo().register(Packet.class);
         this.client.start();
         try { client.connect(TIMEOUT, this.hostIP, tcpPort); }
-        catch (Exception e) { e.printStackTrace(); } // TODO: Handle with care!
-        client.addListener(this);
+        catch (Exception e) { e.printStackTrace(); } // TODO: Handle with more care!
+        client.addListener(this); // TODO: If this steals the main thread. Then it needs it's own thread.
     }
 }

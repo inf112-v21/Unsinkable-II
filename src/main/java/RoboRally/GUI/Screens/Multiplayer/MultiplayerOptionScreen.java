@@ -1,6 +1,6 @@
 package RoboRally.GUI.Screens.Multiplayer;
 
-import RoboRally.GUI.Screens.MenuScreen;
+import RoboRally.GUI.Screens.MenuScreenAdapter;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import RoboRally.RoboRallyApp;
@@ -8,7 +8,7 @@ import RoboRally.RoboRallyApp;
 /**
  * The type Multiplayer screen.
  */
-public class MultiplayerOptionScreen extends MenuScreen {
+public class MultiplayerOptionScreen extends MenuScreenAdapter {
 
     /**
      * Instantiates a new Multiplayer screen.
@@ -18,13 +18,13 @@ public class MultiplayerOptionScreen extends MenuScreen {
     public MultiplayerOptionScreen(RoboRallyApp game) {
         super(game);
         setHeading("Multiplayer");
-        addButton("Host", BOTTOM1, topListener());
-        addButton("Join", BOTTOM2, middleListener());
-        addButton("Back", BOTTOM3, bottomListener());
+        addButton("Host", true, Listener1());
+        addButton("Join", true, Listener2());
+        addButton("Back", true, Listener3());
     }
 
     @Override
-    public InputListener topListener() {
+    public InputListener Listener1() {
         return new InputListener() {
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) { game.setScreen(new MultiplayerHostScreen(game)); }
@@ -34,7 +34,7 @@ public class MultiplayerOptionScreen extends MenuScreen {
     }
 
     @Override
-    public InputListener middleListener() {
+    public InputListener Listener2() {
         return new InputListener() {
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) { game.setScreen(new MultiplayerJoinScreen(game)); }
@@ -44,7 +44,7 @@ public class MultiplayerOptionScreen extends MenuScreen {
     }
 
     @Override
-    public InputListener bottomListener() {
+    public InputListener Listener3() {
         return new InputListener() {
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) { game.setScreen(game.getTitleScreen()); }

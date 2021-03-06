@@ -5,10 +5,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import com.badlogic.gdx.scenes.scene2d.ui.TextField;
+import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import RoboRally.RoboRallyApp;
@@ -16,23 +13,29 @@ import RoboRally.RoboRallyApp;
 /**
  * 3 button Framework for menu Screens
  */
-public abstract class MenuScreen implements IMenuScreen {
-    protected RoboRallyApp game;
-    protected Stage stage;
+public abstract class MenuScreenAdapter implements IMenuScreenAdapter {
+    protected final RoboRallyApp game;
+    protected final Stage stage;
     protected Label heading;
+    protected Table table;
+    protected static final int widgetWidth = 250;
 
-    protected static float TOP1 = 1.25f, TOP2 = 1.5f, BOTTOM1 = 1.5f, BOTTOM2 = 2f, BOTTOM3 = 3f;
 
     /**
      * Instantiates a new Menu screen.
      *
      * @param game the RoboRally.game
      */
-    public MenuScreen(RoboRallyApp game) {
+    public MenuScreenAdapter(RoboRallyApp game) {
         this.game = game;
         this.stage = new Stage(new ScreenViewport());
-        setTitle("Unsinkable-II");
+
+        table = new Table();
+        table.setFillParent(true);
+        table.top();
+        stage.addActor(table);
         setLogo("Logo/logo.png");
+        setTitle("Unsinkable-II");
     }
 
     @Override
@@ -40,18 +43,18 @@ public abstract class MenuScreen implements IMenuScreen {
         Label.LabelStyle titleStyle = new Label.LabelStyle();
         titleStyle.font = game.getGUI_SKIN().getFont("title");
         Label title = new Label(titleText, titleStyle);
-        title.setFontScale(1f);
-        title.setAlignment(Align.center);
-        title.setY(Gdx.graphics.getHeight() * 6f / 7);
-        title.setWidth(Gdx.graphics.getWidth());
-        stage.addActor(title);
+        title.setFontScale(0.6f);
+        table.row();
+        table.add(title);
+
     }
 
     public void setLogo(String logoPath) {
         Texture logoTexture = new Texture(Gdx.files.internal(logoPath));
         Image logo = new Image(logoTexture);
-        logo.setPosition(Gdx.graphics.getWidth()/2 - logo.getWidth()/2,Gdx.graphics.getHeight()/BOTTOM1 - logo.getHeight()/2);
-        stage.addActor(logo);
+        table.row();
+        table.add(logo);
+
     }
 
     @Override
@@ -59,37 +62,45 @@ public abstract class MenuScreen implements IMenuScreen {
         this.heading = new Label(headingText, game.getGUI_SKIN());
         heading.setFontScale(2f);
         heading.setAlignment(Align.center);
-        heading.setY(Gdx.graphics.getHeight()*3f/7);
-        heading.setWidth(Gdx.graphics.getWidth());
-        stage.addActor(heading);
+        table.row();
+        table.add(heading);
+
     }
 
     @Override
-    public TextButton addButton(String buttonText, float slot, InputListener listener) {
+    public Label addLabel(String text, boolean newRow) {
+        Label label = new Label(text, game.getGUI_SKIN());
+        label.setWidth(getCenterWidth() /2f);
+        if (newRow) { table.row(); }
+        table.add(label);
+        return label;
+    }
+
+    @Override
+    public TextButton addButton(String buttonText, boolean newRow, InputListener listener) {
         TextButton button = new TextButton(buttonText, game.getGUI_SKIN());
-        button.setWidth(getCenterWidth());
-        button.setPosition(getWidgetWidth(button.getWidth()), getWidgetHeight(button.getHeight(), slot));
         button.addListener(listener);
-        stage.addActor(button);
+        if (newRow) { table.row(); }
+        table.add(button).width(widgetWidth);
         return button;
     }
 
     @Override
-    public TextField addTextField(String fieldText, float slot) {
+    public TextField addTextField(String fieldText, boolean newRow) {
         TextField field = new TextField(fieldText, game.getGUI_SKIN());
-        field.setWidth(getCenterWidth() /2f);
-        field.setPosition(getWidgetWidth(field.getWidth()), getWidgetHeight(field.getHeight(), slot));
-        stage.addActor(field);
+        field.setWidth(widgetWidth);
+        if (newRow) { table.row(); }
+        table.add(field);
         return field;
     }
 
     @Override
-    public Label addLabel(String text, float slot) {
-        Label label = new Label(text, game.getGUI_SKIN());
-        label.setWidth(getCenterWidth() /2f);
-        label.setPosition(getWidgetWidth(label.getWidth()), getWidgetHeight(label.getHeight(), slot));
-        stage.addActor(label);
-        return label;
+    public SelectBox<Object> addSelectBox(Object[] objects, boolean newRow) {
+        SelectBox<Object> box = new SelectBox<>(game.getGUI_SKIN());
+        box.setItems(objects);
+        if (newRow) { table.row(); }
+        table.add(box).width(widgetWidth);
+        return box;
     }
 
     @Override

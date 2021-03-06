@@ -1,4 +1,4 @@
-package RoboRally.Game.MapTools;
+package RoboRally.Game.Board;
 
 import RoboRally.Game.Objects.Robot;
 import RoboRally.Game.Objects.Player;

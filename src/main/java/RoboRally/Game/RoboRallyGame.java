@@ -1,15 +1,17 @@
 package RoboRally.Game;
 
+import RoboRally.Game.Board.MapChecker;
 import RoboRally.Game.Cards.ProgramCard;
-import RoboRally.Game.MapTools.MapChecker;
-import RoboRally.Game.MapTools.Map;
-import RoboRally.Game.MapTools.MapSelector;
+import RoboRally.Game.Board.Map;
+import RoboRally.Game.Board.MapSelector;
 import RoboRally.Game.Cards.ProgrammingDeck;
 import RoboRally.Game.Objects.Player;
 import RoboRally.Game.Objects.Robot;
 import RoboRally.Multiplayer.Multiplayer;
+import RoboRally.Multiplayer.Packets.GamePacket;
 import RoboRally.RoboRallyApp;
 import com.badlogic.gdx.math.Vector2;
+import com.esotericsoftware.kryonet.Connection;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -19,23 +21,38 @@ import java.util.List;
  */
 public class RoboRallyGame {
     private final RoboRallyApp app;
-    private final Multiplayer myConnection;
     private final List<Player> players;
-    private final Map map;
+    private Multiplayer myConnection;
+    private Connection host;
+    private Map map;
     public final EventHandler eventHandler;
-    private boolean cheatMode = false;
 
-    private final MapChecker mapChecker;
+    private boolean CHEAT_MODE = false;
+
+    private MapChecker mapChecker;
     private final ProgrammingDeck deck;
 
-    public RoboRallyGame(RoboRallyApp app, Multiplayer connection) {
+    public RoboRallyGame(RoboRallyApp app) {
         this.app = app;
-        this.myConnection = connection;
         this.players = new LinkedList<>();
-        map = new Map(MapSelector.MAP2); // TODO: Get selected map.
+        this.deck = new ProgrammingDeck();
+        this.eventHandler = new EventHandler(this); //TODO: Use handler
+    }
+
+    public RoboRallyGame(RoboRallyApp app, Multiplayer mp, MapSelector board) {
+        this(app);
+        this.myConnection = mp;
+        this.map = new Map(board);
+        this.mapChecker = new MapChecker(map);
+    }
+
+    public RoboRallyGame(RoboRallyApp app, Multiplayer mp) {
+        this(app);
+        this.myConnection = mp;
+        this.host = mp.getHost();
+        GamePacket packet = mp.getNextGamePacket();
+        map = new Map(packet.board);
         mapChecker = new MapChecker(map);
-        eventHandler = new EventHandler(this); //TODO: Use handler
-        deck = new ProgrammingDeck();
     }
 
 
@@ -106,10 +123,10 @@ public class RoboRallyGame {
      * return true if robot was moved.
     */
     public boolean ExecuteProgramCard(int index) {
-        mapChecker.removeRobot(app.getSelf().getRobot());
-        playProgramCard(app.getSelf().getRobot(), app.getSelf().getHand().get(index));
-        mapChecker.putRobot(app.getSelf());
-        app.getSelf().getHand().set(index, deck.drawCard());
+        mapChecker.removeRobot(app.getMyPlayer().getRobot());
+        playProgramCard(app.getMyPlayer().getRobot(), app.getMyPlayer().getHand()[index]);
+        mapChecker.putRobot(app.getMyPlayer());
+        app.getMyPlayer().getHand()[index] = deck.drawCard();
         return true;
     }
 
@@ -121,17 +138,17 @@ public class RoboRallyGame {
      * Enters Cheat-mode. Lets the robot move with commands from keyboard.
      */
     public boolean cheatMove (Direction dir) {
-        mapChecker.removeRobot(app.getSelf().getRobot());
-        TestingLibrary.move(app.getSelf().getRobot(), dir);
-        mapChecker.putRobot(app.getSelf());
+        mapChecker.removeRobot(app.getMyPlayer().getRobot());
+        TestingLibrary.move(app.getMyPlayer().getRobot(), dir);
+        mapChecker.putRobot(app.getMyPlayer());
         return true;
     }
 
     public void toggleCheatMode() {
-        cheatMode = !cheatMode;
+        CHEAT_MODE = !CHEAT_MODE;
     }
 
     public boolean isCheatModeOn() {
-        return cheatMode;
+        return CHEAT_MODE;
     }
 }

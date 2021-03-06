@@ -1,8 +1,10 @@
 package RoboRally;
 
 import RoboRally.GUI.Screens.PlayerView;
+import RoboRally.Game.Board.MapSelector;
 import RoboRally.Game.Objects.Player;
 import RoboRally.Game.RoboRallyGame;
+import RoboRally.Multiplayer.Multiplayer;
 import RoboRally.Multiplayer.MultiplayerClient;
 import RoboRally.Multiplayer.MultiplayerHost;
 import com.badlogic.gdx.Game;
@@ -20,7 +22,8 @@ import RoboRally.GUI.Screens.TitleScreen;
 public class RoboRallyApp extends Game {
 
     private RoboRallyGame game;
-    private Player self;
+    private Multiplayer myConnection;
+    private Player myPlayer;
 
     //================================================================
     //                         App configuration
@@ -68,23 +71,22 @@ public class RoboRallyApp extends Game {
      */
     public TitleScreen getTitleScreen() { return this.titleScreen; }
 
-    public void startNewGame() {
-        MultiplayerHost host = new MultiplayerHost();
-        game = new RoboRallyGame(this, host);
-
-        this.self = game.addPlayer();
+    public void startNewGame(MapSelector board) {
+        myConnection = new MultiplayerHost();
+        game = new RoboRallyGame(this, myConnection, board);
+        this.myPlayer = game.addPlayer();
         this.setScreen(new PlayerView(this));
     }
 
-    public void joinNewGame() {
-        MultiplayerClient client = new MultiplayerClient("127.0.0.1", 18888);
-        game = new RoboRallyGame(this, client);
-        this.self = game.addPlayer();
+    public void joinNewGame(String hostIP) {
+        myConnection = new MultiplayerClient(hostIP, Multiplayer.tcpPort);
+        game = new RoboRallyGame(this, myConnection);
+        this.myPlayer = game.addPlayer();
         this.setScreen(new PlayerView(this));
     }
 
     public RoboRallyGame getGame() { return game; }
 
-    public Player getSelf() { return self; }
+    public Player getMyPlayer() { return myPlayer; }
 
 }

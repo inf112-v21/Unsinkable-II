@@ -1,7 +1,5 @@
 package RoboRally.GUI.Screens;
 
-
-import RoboRally.Game.Cards.ProgramCard;
 import RoboRally.Game.Objects.Player;
 import RoboRally.RoboRallyApp;
 import com.badlogic.gdx.Gdx;
@@ -28,7 +26,7 @@ public class PlayerView extends InputAdapter implements Screen {
      */
     public PlayerView(RoboRallyApp app) {
 
-        this.self = app.getSelf();
+        this.self = app.getMyPlayer();
         this.app = app;
         int mapSizeX = app.getGame().getMap().getMapSizeX();
         int mapSizeY = app.getGame().getMap().getMapSizeY();
