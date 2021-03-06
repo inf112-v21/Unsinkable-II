@@ -73,6 +73,11 @@ public class RoboRallyApp extends Game {
      */
     public IMenuScreenAdapter getTitleScreen() { return this.titleScreen; }
 
+    /**
+     * starts a new multiplayergame
+     * @variable myConnection = the IP of the host
+     * @param board = The board the player want to host a game on
+     */
     public void startNewGame(MapSelector board) {
         myConnection = new MultiplayerHost();
         game = new RoboRallyGame(this, myConnection, board);
@@ -80,6 +85,10 @@ public class RoboRallyApp extends Game {
         this.setScreen(new PlayerView(this));
     }
 
+    /**
+    *Lets a player join a game.
+     * @param hostIP = IP of host, must be provided
+    */
     public void joinNewGame(String hostIP) {
         myConnection = new MultiplayerClient(hostIP, Multiplayer.tcpPort);
         game = new RoboRallyGame(this, myConnection);
