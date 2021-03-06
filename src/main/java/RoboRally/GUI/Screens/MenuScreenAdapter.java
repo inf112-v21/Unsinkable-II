@@ -13,7 +13,7 @@ import RoboRally.RoboRallyApp;
 /**
  * 3 button Framework for menu Screens
  */
-public abstract class MenuScreenAdapter implements IMenuScreenAdapter {
+public abstract class MenuScreenAdapter implements MenuScreen {
     protected final RoboRallyApp game;
     protected final Stage stage;
     protected Label heading;

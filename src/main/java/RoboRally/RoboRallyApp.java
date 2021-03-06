@@ -1,7 +1,7 @@
 package RoboRally;
 
 //import RoboRally.GUI.Screens.IMenuScreen;
-import RoboRally.GUI.Screens.IMenuScreenAdapter;
+import RoboRally.GUI.Screens.MenuScreen;
 import RoboRally.GUI.Screens.PlayerView;
 import RoboRally.Game.Board.MapSelector;
 import RoboRally.Game.Objects.Player;
@@ -43,7 +43,7 @@ public class RoboRallyApp extends Game {
     //================================================================
     private Skin GUI_SKIN;
     private Stage stage;
-    private IMenuScreenAdapter titleScreen;
+    private MenuScreen titleScreen;
 
     public static Vector2 CENTER; //TODO: Only used to move robot to middle of map, remove when robot is placed properly
 
@@ -71,7 +71,7 @@ public class RoboRallyApp extends Game {
     /**
      * @return the title screen starting point of the application GUI.
      */
-    public IMenuScreenAdapter getTitleScreen() { return this.titleScreen; }
+    public MenuScreen getTitleScreen() { return this.titleScreen; }
 
     public void startNewGame(MapSelector board) {
         myConnection = new MultiplayerHost();

@@ -1,7 +1,7 @@
 This is the desired procedure for constructing Maps.
 
-1. Each map is constructed in layers
-2. Each object on a map, has its own layer
+1. Each boardLayer is constructed in layers
+2. Each object on a boardLayer, has its own layer
    
     2.1 Each objects direction has its own layer
    

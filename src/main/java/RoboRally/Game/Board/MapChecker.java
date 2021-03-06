@@ -11,10 +11,10 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 
 public class MapChecker {
 
-    private Map map;
+    private BoardLayer boardLayer;
 
-    public MapChecker(Map map) {
-        this.map = map;
+    public MapChecker(BoardLayer boardLayer) {
+        this.boardLayer = boardLayer;
     }
 
     /**
@@ -24,10 +24,10 @@ public class MapChecker {
 
         if (outOfBounds(player.getRobot())) player.getRobot().setLoc(RoboRallyApp.CENTER); //TODO: temp solution to robot leaving the board
 
-        if (getLocation(player.getRobot(), map.flagLayer) != null) {
+        if (getLocation(player.getRobot(), boardLayer.flagLayer) != null) {
             setLocation(player.getRobot(), player.getPiece().getWonCell());
         }
-        else if (getLocation(player.getRobot(), map.holeLayer) != null) {
+        else if (getLocation(player.getRobot(), boardLayer.holeLayer) != null) {
             setLocation(player.getRobot(), player.getPiece().getDiedCell());
         }
         else {
@@ -36,8 +36,8 @@ public class MapChecker {
     }
 
     private boolean outOfBounds(Robot robot) {
-        return robot.getLoc().x < 0 || robot.getLoc().x > map.getMapSizeX() - 1 ||
-               robot.getLoc().y < 0 || robot.getLoc().y > map.getMapSizeY() - 1;
+        return robot.getLoc().x < 0 || robot.getLoc().x > boardLayer.getMapSizeX() - 1 ||
+               robot.getLoc().y < 0 || robot.getLoc().y > boardLayer.getMapSizeY() - 1;
     }
 
     private TiledMapTileLayer.Cell getLocation(Robot robot, TiledMapTileLayer layer){
@@ -45,7 +45,7 @@ public class MapChecker {
     }
 
     private void setLocation(Robot robot, TiledMapTileLayer.Cell cell) {
-        map.playerLayer.setCell((int) robot.getLoc().x, (int) robot.getLoc().y, cell);
+        boardLayer.playerLayer.setCell((int) robot.getLoc().x, (int) robot.getLoc().y, cell);
     }
 
     public void removeRobot(Robot robot) { setLocation(robot, null); }

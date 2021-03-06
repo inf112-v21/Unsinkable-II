@@ -7,7 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.*;
 /**
  * The interface for Menu screen building 3-4 Widgets.
  */
-public interface IMenuScreenAdapter extends Screen {
+public interface MenuScreen extends Screen {
 
     /**
      * Sets title.
