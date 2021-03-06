@@ -1,8 +1,8 @@
 package RoboRally.Game;
 
+import RoboRally.Game.Board.BoardLayer;
 import RoboRally.Game.Board.MapChecker;
 import RoboRally.Game.Cards.ProgramCard;
-import RoboRally.Game.Board.Map;
 import RoboRally.Game.Board.MapSelector;
 import RoboRally.Game.Cards.ProgrammingDeck;
 import RoboRally.Game.Objects.Player;
@@ -24,7 +24,7 @@ public class RoboRallyGame {
     private final List<Player> players;
     private Multiplayer myConnection;
     private Connection host;
-    private Map map;
+    private BoardLayer boardLayer;
     public final EventHandler eventHandler;
 
     private boolean CHEAT_MODE = false;
@@ -42,8 +42,8 @@ public class RoboRallyGame {
     public RoboRallyGame(RoboRallyApp app, Multiplayer mp, MapSelector board) {
         this(app);
         this.myConnection = mp;
-        this.map = new Map(board);
-        this.mapChecker = new MapChecker(map);
+        this.boardLayer = new BoardLayer(board);
+        this.mapChecker = new MapChecker(boardLayer);
     }
 
     public RoboRallyGame(RoboRallyApp app, Multiplayer mp) {
@@ -51,8 +51,8 @@ public class RoboRallyGame {
         this.myConnection = mp;
         this.host = mp.getHost();
         GamePacket packet = mp.getNextGamePacket();
-        map = new Map(packet.board);
-        mapChecker = new MapChecker(map);
+        boardLayer = new BoardLayer(packet.board);
+        mapChecker = new MapChecker(boardLayer);
     }
 
 
@@ -63,8 +63,8 @@ public class RoboRallyGame {
      */
     public Player addPlayer() {
         Player newPlayer = new Player(players.size()+1);
-        newPlayer.getRobot().setLoc(5,5); // TODO: Get next start loc
-        map.playerLayer.setCell((int) newPlayer.getRobot().getLoc().x,(int) newPlayer.getRobot().getLoc().y, newPlayer.getPiece().getCell());
+        newPlayer.getRobot().setLoc(0, 0); // TODO: Get next start loc
+        boardLayer.playerLayer.setCell((int) newPlayer.getRobot().getLoc().x,(int) newPlayer.getRobot().getLoc().y, newPlayer.getPiece().getCell());
         players.add(newPlayer);
 
         return players.get(players.size()-1);
@@ -75,7 +75,7 @@ public class RoboRallyGame {
      */
     public List<Player> getPlayers() { return players; }
 
-    public Map getMap() { return map; }
+    public BoardLayer getMap() { return boardLayer; }
 
 
 

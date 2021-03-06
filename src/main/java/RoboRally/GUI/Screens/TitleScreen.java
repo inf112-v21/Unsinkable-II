@@ -38,7 +38,7 @@ public class TitleScreen extends MenuScreenAdapter {
     public InputListener Listener1() {
         return new InputListener() {
             @Override
-            public void touchUp(InputEvent event, float x, float y, int pointer, int button) { game.startNewGame(MapSelector.MAP2); }
+            public void touchUp(InputEvent event, float x, float y, int pointer, int button) { game.startNewGame(MapSelector.TEST_BOARD2); }
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) { return true; }
         };
