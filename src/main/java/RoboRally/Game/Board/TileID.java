@@ -1,7 +1,7 @@
 package RoboRally.Game.Board;
 
 public enum TileID {
-    //Startpossitions
+    //-----------------Startpossitions----------------
     Start1(120),
     Start2(121),
     Start3(122),
@@ -10,9 +10,13 @@ public enum TileID {
     Start6(129),
     Start7(130),
     Start0(131),
-    //Holes
+    //------------------------Holes--------------------
     SmallHole(5),
-    //BlueConveyer
+    //------------------------Walls---------------------
+
+    //------------------YellowConveyer------------------
+
+    //-------------------BlueConveyer-------------------
     BlueConveyerN(12),
     BlueConveyerS(20),
     BlueConveyerE(13),
@@ -24,7 +28,13 @@ public enum TileID {
     BlueConveyerNE(18),
     BlueConveyerES(19),
     BlueConveyerWN(26),
-    BlueConveyerSW(27)
+    BlueConveyerSW(27),
+
+    //-----------------------Flag--------------------------
+    Glag1(54),
+    Flag2(62),
+    Fløag3(70),
+    Flag4(78)
     ;
 
     public final int id;
