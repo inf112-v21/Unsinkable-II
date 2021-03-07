@@ -3,6 +3,9 @@ package RoboRally.Game;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * Class to represent cardinal directions.
+ */
 public enum Direction {
     NORTH(0,1, 0),
     EAST(1,0, 1),

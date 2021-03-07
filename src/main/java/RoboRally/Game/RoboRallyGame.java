@@ -50,7 +50,6 @@ public class RoboRallyGame {
         board = new Board(packet.board);
     }
 
-
     /**
      * Adds a new player to the game.
      *
@@ -68,32 +67,51 @@ public class RoboRallyGame {
     }
 
     /**
-     * @return List of players
+     * @return the list of current players.
      */
     public List<Player> getPlayers() { return players; }
 
+    /**
+     * @return the current board.
+     */
     public Board getMap() { return board; }
-
 
 
     //================================================================
     //                            Actions
     //================================================================
 
+    /**
+     * Executes a robot's next registry.
+     *
+     * @param robot the robot executing its program.
+     * @param card the program.
+     */
     private void playProgramCard(Robot robot, ProgramCard card) {
-        if (card.getSteps() != 0) { updateLocation(robot, card); }
-        else { updateHeading(robot, card); }
+        if (card.getSteps() != 0) { move(robot, card); }
+        else { rotate(robot, card); }
     }
 
-    private void updateLocation(Robot robot, ProgramCard card) {
+    /**
+     * Moves a robot according to the program card.
+     *
+     * @param robot the robot to move.
+     * @param card the card determining movement.
+     */
+    private void move(Robot robot, ProgramCard card) {
         robot.getLoc().x += robot.getDirection().getX() * card.getSteps();
         robot.getLoc().y += robot.getDirection().getY() * card.getSteps();
     }
 
-    private void updateHeading(Robot robot, ProgramCard card) {
+    /**
+     * Rotates a robot according to the program card.
+     *
+     * @param robot the robot to rotate.
+     * @param card the ProgramCard determining rotation.
+     */
+    private void rotate(Robot robot, ProgramCard card) {
         robot.setDirection(robot.getDirection().rotate(card.getRotation()));
     }
-
 
     /**
      * Moves a player's robot according to the program card.
@@ -116,7 +134,7 @@ public class RoboRallyGame {
     }
 
     /**
-     * Moves robot according to card.
+     * Moves robot according to the card.
      * return true if robot was moved.
     */
     public boolean ExecuteProgramCard(int index) {
@@ -132,7 +150,7 @@ public class RoboRallyGame {
     //================================================================
 
     /**
-     * Enters Cheat-mode. Lets the robot move with commands from keyboard.
+     * Lets the player move the robot using the keyboard arrow keys.
      */
     public boolean cheatMove (Direction dir) {
         board.removeRobot(app.getMyPlayer().getRobot());
@@ -141,10 +159,16 @@ public class RoboRallyGame {
         return true;
     }
 
+    /**
+     * Enables cheat mode.
+     */
     public void toggleCheatMode() {
         CHEAT_MODE = !CHEAT_MODE;
     }
 
+    /**
+     * @return true if cheat mode is enabled.
+     */
     public boolean isCheatModeOn() {
         return CHEAT_MODE;
     }

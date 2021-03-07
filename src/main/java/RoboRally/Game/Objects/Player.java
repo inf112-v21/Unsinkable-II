@@ -11,9 +11,9 @@ public class Player {
 
     public Player(int id){
         this.id = id;
-        this.piece = Piece.get(id);
+        this.piece = Piece.getPieceByID(id);
         this.hand = new ProgramCard[ProgrammingDeck.MAX_HAND];
-        this.robot = new Robot();
+        this.robot = new Robot(this.piece);
     }
 
     public ProgramCard[] getHand() { return this.hand; }

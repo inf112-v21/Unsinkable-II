@@ -7,14 +7,17 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.tiles.StaticTiledMapTile;
 
 import java.util.Arrays;
-
 import java.util.List;
 
+/**
+ * Enum to handle robot skins.
+ */
 public enum Piece {
     PIECE1(0),
     PIECE2(1);
 
     private final static List<Piece> PIECES = Arrays.asList(PIECE1, PIECE2);
+
 
     private final TiledMapTileLayer.Cell cell, diedCell, wonCell;
     private final TextureRegion[][] textures = TextureRegion.split(
@@ -29,12 +32,27 @@ public enum Piece {
         this.wonCell.setTile(new StaticTiledMapTile(textures[id][2]));
     }
 
-    public static Piece get(int id) { return PIECES.get(id); }
+    /**
+     * Finds the piece corresponding to the id.
+     *
+     * @param id number.
+     * @return the piece with the corresponding id.
+     */
+    public static Piece getPieceByID(int id) { return PIECES.get(id); }
 
+    /**
+     * @return normal graphical representation of the piece.
+     */
     public TiledMapTileLayer.Cell getCell() { return this.cell; }
 
+    /**
+     * @return graphical representation of the piece when dead.
+     */
     public TiledMapTileLayer.Cell getDiedCell() { return this.diedCell; }
 
+    /**
+     * @return graphical representation of the piece as a winner.
+     */
     public TiledMapTileLayer.Cell getWonCell() { return this.wonCell; }
 }
 

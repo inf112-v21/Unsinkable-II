@@ -2,6 +2,9 @@ package RoboRally.Game;
 
 import com.badlogic.gdx.Input;
 
+/**
+ * Input event handler to allow use of keyboard movements.
+ */
 public class EventHandler {
 
     RoboRallyGame game;
@@ -9,6 +12,7 @@ public class EventHandler {
     public EventHandler(RoboRallyGame game) {
         this.game = game;
     }
+
     /**
     * Lets player pick a card and put it on player board.
      * Lets player hold one turn.
@@ -16,7 +20,6 @@ public class EventHandler {
     */
     public boolean handleKeys(int key) {
         switch (key) {
-            //Card actions
             case Input.Keys.NUM_1: { return game.ExecuteProgramCard(0); }
             case Input.Keys.NUM_2: { return game.ExecuteProgramCard(1); }
             case Input.Keys.NUM_3: { return game.ExecuteProgramCard(2); }
@@ -25,16 +28,12 @@ public class EventHandler {
             case Input.Keys.C: {
                 game.toggleCheatMode();
                 return true;
-            } // TODO: remove cheat mode
+            }
         }
 
         //============================================================================
-        //                              FOR TESTING BELLOW
+        //                              Cheat Moves
         //============================================================================
-        /**
-        *Enters Cheat-mode
-         * In this mode the player pieces may be moved by keystrokes
-         */
         if (game.isCheatModeOn()) {
             switch (key) {
                 case Input.Keys.UP:    { return game.cheatMove(Direction.NORTH);}
@@ -45,4 +44,5 @@ public class EventHandler {
         }
         return false;
     }
+
 }
