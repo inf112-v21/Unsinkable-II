@@ -34,7 +34,7 @@ public class RoboRallyApp extends Game {
     public static final int TILE_SIZE = 300;
     private static final String LOGO_PATH = "Logo/logo.png";
     public static final String ROBOT_SKINS_PATH = "Robots/RobotsV1.png";
-    private static final String GUI_SKIN_PATH = "skin/rusty-robot-ui.json";
+    private static final String GUI_SKIN_PATH = "Skin/rusty-robot-ui.json";
     private final String CARD_SKINS_PATH = "ProgramCards/Cards.atlas";
 
 

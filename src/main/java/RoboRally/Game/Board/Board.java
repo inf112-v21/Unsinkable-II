@@ -12,32 +12,38 @@ import java.util.List;
 
 public class Board {
 
-    private final int mapSizeX, mapSizeY;
     private final TiledMap board;
     private final List<Vector2> startLocs;
-    private final TiledMapTileLayer boardLayer, flagLayer, holeLayer;
-    private TiledMapTileLayer playerLayer, startLayer;
+    private final TiledMapTileLayer boardLayer, flagLayer, holeLayer, conveyor1Layer, gearLayer, repairLayer, upgradeLayer, laserWallLayer, wallLayer;
+    private TiledMapTileLayer playerLayer, startLayer, laserLayer;
 
 
     /**
-     * @param selection the board
+     * The Board class reads maps from Tiled (.tmx) files and updates the board and layers accordingly.
+     *
+     * @param gameBoard the board to be played.
      */
-    public Board(Boards selection) {
-        this.board = new TmxMapLoader().load(selection.path);
+    public Board(Boards gameBoard) {
+        this.board = new TmxMapLoader().load(gameBoard.path);
         this.boardLayer = (TiledMapTileLayer) board.getLayers().get("Board");
         this.playerLayer = (TiledMapTileLayer) board.getLayers().get("Player");
+        this.startLayer = (TiledMapTileLayer) board.getLayers().get("Start");
         this.flagLayer = (TiledMapTileLayer) board.getLayers().get("Flag");
         this.holeLayer = (TiledMapTileLayer) board.getLayers().get("Hole");
-        this.startLayer = (TiledMapTileLayer) board.getLayers().get("Start");
-
-        this.mapSizeX = boardLayer.getWidth();
-        this.mapSizeY = boardLayer.getHeight();
+        this.laserLayer = (TiledMapTileLayer) board.getLayers().get("Laser");
+        this.conveyor1Layer = (TiledMapTileLayer) board.getLayers().get("Conveyor1");
+        this.gearLayer = (TiledMapTileLayer) board.getLayers().get("Gear");
+        this.repairLayer = (TiledMapTileLayer) board.getLayers().get("Repair");
+        this.upgradeLayer = (TiledMapTileLayer) board.getLayers().get("Upgrade");
+        this.laserWallLayer = (TiledMapTileLayer) board.getLayers().get("LaserWall");
+        this.wallLayer = (TiledMapTileLayer) board.getLayers().get("Wall");
 
         this.startLocs = find(startLayer);
     }
 
     /**
-     * Checks if the position is outside the map.
+     * Checks if the robot is inside the map bounds.
+     *
      * @param robot to check if in bounds.
      * @return true if robot location is in bounds, otherwise false.
      */
@@ -47,12 +53,6 @@ public class Board {
             { return true; }
         return true;
     }
-
-    public int getMapSizeX() { return this.mapSizeX; }
-
-    public int getMapSizeY() { return this.mapSizeY; }
-
-    public TiledMap getBoard() { return this.board;}
 
     /**
      * Adds a new player to the player layer
@@ -72,6 +72,9 @@ public class Board {
 
     public void removeRobot(Robot robot) { addRobot(robot, null); }
 
+    /**
+     * @param player who controls the robot.
+     */
     public void putRobot(Player player) { addRobot(player.getRobot(), player.getPiece().getCell()); }
 
     private List<Vector2> find(TiledMapTileLayer layer) {
@@ -82,6 +85,13 @@ public class Board {
             }
         }
         return list;
-
     }
+
+    public TiledMap getBoard() { return this.board;}
+
+    public int getBoardWidth() { return boardLayer.getWidth(); }
+
+    public int getBoardHeight() { return boardLayer.getHeight(); }
+
+
 }

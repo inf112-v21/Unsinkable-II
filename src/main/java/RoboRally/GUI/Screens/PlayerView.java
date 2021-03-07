@@ -28,8 +28,8 @@ public class PlayerView extends InputAdapter implements Screen {
 
         this.self = app.getMyPlayer();
         this.app = app;
-        int mapSizeX = app.getGame().getMap().getMapSizeX();
-        int mapSizeY = app.getGame().getMap().getMapSizeY();
+        int mapSizeX = app.getGame().getMap().getBoardWidth();
+        int mapSizeY = app.getGame().getMap().getBoardHeight();
 
         OrthographicCamera camera = new OrthographicCamera();
         camera.setToOrtho(false, mapSizeX, mapSizeY);

@@ -28,7 +28,9 @@ public class TitleScreen extends MenuScreenAdapter {
     public InputListener SinglePlayerListener() {
         return new InputListener() {
             @Override
-            public void touchUp(InputEvent event, float x, float y, int pointer, int button) { game.startNewGame(Boards.MP_TEST); }
+            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+                game.startNewGame(Boards.RISKY_EXCHANGE); // TODO: replace with SinglePlayer Screen.
+            }
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) { return true; }
         };
@@ -37,7 +39,9 @@ public class TitleScreen extends MenuScreenAdapter {
     public InputListener MultiplayerListener() {
         return new InputListener() {
             @Override
-            public void touchUp(InputEvent event, float x, float y, int pointer, int button) { game.setScreen(new MultiplayerOptionScreen(game)); }
+            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+                game.setScreen(new MultiplayerOptionScreen(game));
+            }
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) { return true; }
         };
@@ -46,7 +50,9 @@ public class TitleScreen extends MenuScreenAdapter {
     private InputListener OptionsListener() {
         return new InputListener() {
             @Override
-            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {} // TODO: Options Screen
+            public void touchUp(InputEvent event, float x, float y, int pointer, int button) { // TODO: Options Screen
+
+            }
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) { return true; }
         };
@@ -55,7 +61,9 @@ public class TitleScreen extends MenuScreenAdapter {
     public InputListener QuitListener() {
         return new InputListener() {
             @Override
-            public void touchUp(InputEvent event, float x, float y, int pointer, int button) { System.exit(0); }
+            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+                System.exit(0);
+            }
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) { return true; }
         };
