@@ -6,23 +6,24 @@ import com.badlogic.gdx.scenes.scene2d.InputListener;
 import RoboRally.RoboRallyApp;
 
 /**
- * The type Multiplayer screen.
+ * The multiplayer option screen.
  */
 public class MultiplayerOptionScreen extends MenuScreenAdapter {
 
-    /**
-     * Instantiates a new Multiplayer screen.
-     *
-     * @param game the RoboRally.game
-     */
+
     public MultiplayerOptionScreen(RoboRallyApp game) {
         super(game);
-        setHeading("Multiplayer");
+        addHeading("Multiplayer");
         addButton("Host", true, HostButtonListener());
         addButton("Join", true, JoinButtonListener());
         addButton("Back", true, BackButtonListener());
     }
 
+    /**
+     * Listener that switches to the {@link MultiplayerHostScreen} when the Host button is pressed.
+     *
+     * @return InputListener for the host button.
+     */
     public InputListener HostButtonListener() {
         return new InputListener() {
             @Override
@@ -32,6 +33,11 @@ public class MultiplayerOptionScreen extends MenuScreenAdapter {
         };
     }
 
+    /**
+     * Listener that switches to the {@link MultiplayerJoinScreen} when the Join button is pressed.
+     *
+     * @return InputListener for the join button.
+     */
     public InputListener JoinButtonListener() {
         return new InputListener() {
             @Override

@@ -1,8 +1,10 @@
 package RoboRally.Multiplayer;
 
-import RoboRally.Multiplayer.Packets.Packet;
 import com.esotericsoftware.kryonet.Client;
 
+/**
+ * Class to create a client connection to a host server.
+ */
 public class MultiplayerClient extends Multiplayer {
     private Client client;
     private String hostIP;
@@ -14,7 +16,7 @@ public class MultiplayerClient extends Multiplayer {
         this.hostPort = hostPort;
         this.client = new Client();
 
-        this.client.getKryo().register(Packet.class);
+        register(client);
         this.client.start();
         try { client.connect(TIMEOUT, this.hostIP, tcpPort); }
         catch (Exception e) { e.printStackTrace(); } // TODO: Handle with more care!

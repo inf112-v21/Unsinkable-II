@@ -12,7 +12,7 @@ import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import RoboRally.RoboRallyApp;
 
 /**
- * 3 button Framework for menu Screens
+ * Adapter for building GUI menu screens.
  */
 public abstract class MenuScreenAdapter implements MenuScreen {
     protected final RoboRallyApp game;
@@ -21,51 +21,43 @@ public abstract class MenuScreenAdapter implements MenuScreen {
     protected Table table;
     protected static final int widgetWidth = 250;
 
-
-    /**
-     * Instantiates a new Menu screen.
-     *
-     * @param game the RoboRally.game
-     */
     public MenuScreenAdapter(RoboRallyApp game) {
         this.game = game;
         this.stage = new Stage(new ScreenViewport());
+        this.table = new Table();
+        this.table.setFillParent(true);
+        this.table.top();
+        this.stage.addActor(table);
 
-        table = new Table();
-        table.setFillParent(true);
-        table.top();
-        stage.addActor(table);
-        setLogo("Logo/logo.png");
-        setTitle("Unsinkable-II");
+        addLogo(game.getLogoPath());
+        addTitle(game.getGroupName());
     }
 
     @Override
-    public void setTitle(String titleText) {
+    public void addLogo(String logoPath) {
+        Texture logoTexture = new Texture(Gdx.files.internal(logoPath));
+        Image logo = new Image(logoTexture);
+        table.row();
+        table.add(logo);
+    }
+
+    @Override
+    public void addTitle(String titleText) {
         Label.LabelStyle titleStyle = new Label.LabelStyle();
         titleStyle.font = game.getGUI_SKIN().getFont("title");
         Label title = new Label(titleText, titleStyle);
         title.setFontScale(0.6f);
         table.row();
         table.add(title);
-
-    }
-
-    public void setLogo(String logoPath) {
-        Texture logoTexture = new Texture(Gdx.files.internal(logoPath));
-        Image logo = new Image(logoTexture);
-        table.row();
-        table.add(logo);
-
     }
 
     @Override
-    public void setHeading(String headingText) {
+    public void addHeading(String headingText) {
         this.heading = new Label(headingText, game.getGUI_SKIN());
         heading.setFontScale(2f);
         heading.setAlignment(Align.center);
         table.row();
         table.add(heading);
-
     }
 
     @Override
@@ -105,13 +97,6 @@ public abstract class MenuScreenAdapter implements MenuScreen {
     }
 
     @Override
-    public void render(float delta) {
-        Gdx.gl.glClearColor(150/255f, 200/255f, 230/255f, 1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        stage.act();
-        stage.draw();
-    }
-
     public InputListener BackButtonListener() {
         return new InputListener() {
             @Override
@@ -119,6 +104,33 @@ public abstract class MenuScreenAdapter implements MenuScreen {
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) { return true; }
         };
+    }
+
+    @Override
+    public InputListener QuitButtonListener() {
+        return new InputListener() {
+            @Override
+            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+                System.exit(0);
+            }
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) { return true; }
+        };
+    }
+
+    @Override
+    public float getCenterWidth() { return Gdx.graphics.getWidth() >> 1; }
+
+    @Override
+    public float getCenterHeight() { return Gdx.graphics.getHeight() >> 1; }
+
+
+    @Override
+    public void render(float delta) {
+        Gdx.gl.glClearColor(150/255f, 200/255f, 230/255f, 1);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        stage.act();
+        stage.draw();
     }
 
     @Override
@@ -139,14 +151,6 @@ public abstract class MenuScreenAdapter implements MenuScreen {
     @Override
     public void dispose() { stage.dispose(); }
 
-
-    private float getCenterWidth() { return Gdx.graphics.getWidth() >> 1; }
-
-    private float getCenterHeight() { return Gdx.graphics.getHeight() >> 1; }
-
-    private float getWidgetHeight(float height, float slot) { return getCenterHeight() /slot - height/2f; }
-
-    private float getWidgetWidth(float width) { return getCenterWidth() - width/2f; }
 }
 
 

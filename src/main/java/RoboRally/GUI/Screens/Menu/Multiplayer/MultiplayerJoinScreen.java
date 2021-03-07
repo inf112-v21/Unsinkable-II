@@ -8,47 +8,43 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import RoboRally.RoboRallyApp;
 
 /**
- * The type Multiplayer join screen.
+ * The multiplayer join screen.
  */
 public class MultiplayerJoinScreen extends MenuScreenAdapter {
     private final TextField ipField;
     private final Label label;
     private String hostIP;
-    /**
-     * Instantiates a new Multiplayer join screen.
-     *
-     * @param game the RoboRally.game
-     */
+
     public MultiplayerJoinScreen(RoboRallyApp game) {
 
         super(game);
-        setHeading("Join Multiplayer Game");
+
+        addHeading("Join Multiplayer Game");
         this.hostIP = "";
         this.label = addLabel("", true);
         this.ipField = addTextField(hostIP, true);
         ipField.setMessageText("Enter Host IP");
-        addButton("Join", true, JoinListener());
-        addButton("Back", true, BackListener());
+        addButton("Join", true, JoinButtonListener());
+        addButton("Back", true, BackButtonListener());
     }
 
+    /**
+     * Helper method for JoinListener
+     */
     private void joinPressed() {
         hostIP = ipField.getText();
         game.joinNewGame(hostIP);
     }
 
-    public InputListener JoinListener() {
+    /**
+     * Listener that starts a new client connections and attempts to connect to the specified host.
+     *
+     * @return InputListener for the join button
+     */
+    public InputListener JoinButtonListener() {
         return new InputListener() {
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) { joinPressed(); }
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) { return true; }
-        };
-    }
-
-    public InputListener BackListener() {
-        return new InputListener() {
-            @Override
-            public void touchUp(InputEvent event, float x, float y, int pointer, int button) { game.setScreen(game.getTitleScreen()); }
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) { return true; }
         };

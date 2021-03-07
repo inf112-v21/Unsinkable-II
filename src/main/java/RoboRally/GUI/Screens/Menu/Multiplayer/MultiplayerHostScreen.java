@@ -13,29 +13,24 @@ import RoboRally.RoboRallyApp;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.net.InetAddress;
 import java.net.URL;
 
 /**
- * The type Multiplayer host screen.
+ * The multiplayer host screen.
  */
 public class MultiplayerHostScreen extends MenuScreenAdapter {
     private final String ip;
-    private final String localIP;
     private int port;
     private final Label ipLabel;
     private final TextField portField;
-    private SelectBox<Object> box;
-    /**
-     * Instantiates a new Multiplayer host screen.
-     *
-     * @param game the RoboRallyApp.game
-     */
+    private final SelectBox<Object> box;
+
+
     public MultiplayerHostScreen(RoboRallyApp game) {
 
         super(game);
-        setHeading("Host Multiplayer Game");
-        this.localIP = getLocalhost();
+
+        addHeading("Host Multiplayer Game");
         this.ip = getIP();
         this.port = Multiplayer.tcpPort;
         this.box = addSelectBox(Boards.ALL_BOARDS, true);
@@ -45,14 +40,11 @@ public class MultiplayerHostScreen extends MenuScreenAdapter {
         addButton("Back", true, BackButtonListener());
     }
 
-    public String getLocalhost() {
-        InetAddress localhost = null;
-        try { localhost = InetAddress.getLocalHost(); }
-        catch (Exception e) { e.printStackTrace(); }
-        if (localhost != null) { return localhost.toString(); }
-        else return "";
-    }
-
+    /**
+     * Pings a web bot to find the external IP.
+     *
+     * @return the IP address.
+     */
     public String getIP() {
         String systemIP = "IP: ";
         try {
@@ -64,14 +56,22 @@ public class MultiplayerHostScreen extends MenuScreenAdapter {
         return systemIP;
     }
 
+    /**
+     * Helper method for HostGameListener
+     */
     private void hostPressed() {
         try {
             port = Integer.parseInt(portField.getText());
             game.startNewGame((Boards) box.getSelected());
         }
-        catch (Exception e) { }// TODO: Display error message in GUI.
+        catch (Exception e) { e.printStackTrace(); }// TODO: Display error message in GUI.
     }
 
+    /**
+     * Listener that starts a new host server and a new game using the selected board.
+     *
+     * @return InputListener for Host Game button.
+     */
     public InputListener HostGameListener() {
         return new InputListener() {
             @Override
@@ -81,10 +81,18 @@ public class MultiplayerHostScreen extends MenuScreenAdapter {
         };
     }
 
+    /**
+     * Listener that reads integers from the port field.
+     *
+     * @return InputListener for the port field.
+     */
     public InputListener PortFieldListener() {
         return new InputListener() {
             @Override
-            public void touchUp(InputEvent event, float x, float y, int pointer, int button) { port = Integer.parseInt(portField.getText());}
+            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+                try { port = Integer.parseInt(portField.getText()); }
+                catch(Exception e) { e.printStackTrace(); } // TODO: Display error message in GUI. Use ipLabel?
+            }
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) { return true; }
         };

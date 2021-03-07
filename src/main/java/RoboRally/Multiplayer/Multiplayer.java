@@ -13,7 +13,7 @@ import com.esotericsoftware.kryonet.Listener;
 import java.util.Queue;
 import java.util.Set;
 
-public abstract class Multiplayer extends Listener implements IMultiplayer {
+public abstract class Multiplayer extends Listener implements Networking {
 
     public Connection host;
     public static final int tcpPort = 18888;
