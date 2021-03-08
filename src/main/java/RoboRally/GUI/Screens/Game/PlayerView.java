@@ -3,6 +3,7 @@ package RoboRally.GUI.Screens.Game;
 import RoboRally.RoboRallyApp;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputAdapter;
+import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -37,7 +38,7 @@ public class PlayerView extends InputAdapter implements Screen {
         renderer = new OrthogonalTiledMapRenderer(app.getGame().getBoard().getBoard(),  1f/ RoboRallyApp.TILE_SIZE);
         renderer.setView(camera);
 
-        Gdx.input.setInputProcessor(this);
+        Gdx.input.setInputProcessor(sheet.getStage());
     }
 
     @Override

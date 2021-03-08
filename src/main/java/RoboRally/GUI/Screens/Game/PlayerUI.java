@@ -11,6 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 
@@ -41,7 +42,7 @@ public class PlayerUI {
 
     private Button addCardButton() {
         Button button =  new ImageButton(new TextureRegionDrawable(new TextureRegion(new Texture("ProgramCards/Cards/Back.png"))));
-        button.addListener(new InputListener() {
+        button.addListener(new ClickListener() {
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) { System.out.println("Card Click"); }
             @Override
@@ -53,7 +54,7 @@ public class PlayerUI {
 
     private void addRunButton() {
         TextButton button = new TextButton("Run", app.getGUI_SKIN());
-        button.addListener(new InputListener() {
+        button.addListener(new ClickListener() {
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) { System.out.println("Run Click"); }
             @Override
