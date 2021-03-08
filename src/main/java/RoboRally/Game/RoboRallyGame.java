@@ -59,11 +59,16 @@ public class RoboRallyGame {
         if (players.size() < 8) {
             Player newPlayer = new Player(players.size());
             board.addNewPlayer(newPlayer);
+            selectProgramCards(newPlayer);
             players.add(newPlayer);
 
             return players.get(players.size() - 1);
         }
         else { return null; }
+    }
+
+    private void selectProgramCards(Player player) {
+        player.setHand(deck.drawProgramCards(player.getRobot()));
     }
 
     /**
@@ -74,7 +79,7 @@ public class RoboRallyGame {
     /**
      * @return the current board.
      */
-    public Board getMap() { return board; }
+    public Board getBoard() { return board; }
 
 
     //================================================================

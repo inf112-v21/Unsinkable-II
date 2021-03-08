@@ -40,4 +40,6 @@ public interface IRobot {
      * @return robot won cell.
      */
     TiledMapTileLayer.Cell getWonCell();
+
+    int getHealth();
 }

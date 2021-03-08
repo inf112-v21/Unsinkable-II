@@ -34,7 +34,7 @@ public class TitleScreen extends MenuScreenAdapter {
         return new InputListener() {
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                game.startNewGame(Boards.RISKY_EXCHANGE); // TODO: replace with SinglePlayer Screen.
+                app.startNewGame(Boards.RISKY_EXCHANGE); // TODO: replace with SinglePlayer Screen.
             }
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) { return true; }
@@ -50,7 +50,7 @@ public class TitleScreen extends MenuScreenAdapter {
         return new InputListener() {
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                game.setScreen(new MultiplayerOptionScreen(game));
+                app.setScreen(new MultiplayerOptionScreen(app));
             }
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) { return true; }

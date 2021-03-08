@@ -9,8 +9,12 @@ public class Robot implements IRobot {
     private Piece piece;
     private Direction direction;
     private Vector2 location;
+    public final int registers, cache, damage;
 
     public Robot() {
+        this.registers = 5;
+        this.cache = 9;
+        this.damage = 0;
         this.location = new Vector2();
         this.direction = Direction.NORTH;
     }
@@ -21,18 +25,21 @@ public class Robot implements IRobot {
     }
 
     @Override
-    public Direction getDirection() { return this.direction; }
-
-    @Override
-    public void setDirection(Direction dir) {
-        this.direction = dir;
-    }
+    public int getHealth() { return cache - damage; }
 
     @Override
     public Vector2 getLoc() { return location; }
 
     @Override
     public void setLoc(Vector2 newLoc) { this.location = newLoc; }
+
+    @Override
+    public Direction getDirection() { return this.direction; }
+
+    @Override
+    public void setDirection(Direction dir) {
+        this.direction = dir;
+    }
 
     @Override
     public TiledMapTileLayer.Cell getCell() { return piece.getCell(); }

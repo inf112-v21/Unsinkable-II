@@ -33,7 +33,7 @@ public class MultiplayerJoinScreen extends MenuScreenAdapter {
      */
     private void joinPressed() {
         hostIP = ipField.getText();
-        game.joinNewGame(hostIP);
+        app.joinNewGame(hostIP);
     }
 
     /**

@@ -1,7 +1,7 @@
 package RoboRally;
 
 import RoboRally.GUI.Screens.Menu.MenuScreen;
-import RoboRally.GUI.Screens.PlayerView;
+import RoboRally.GUI.Screens.Game.PlayerView;
 import RoboRally.Game.Board.Boards;
 import RoboRally.Game.Objects.Player;
 import RoboRally.Game.RoboRallyGame;
@@ -52,13 +52,18 @@ public class RoboRallyApp extends Game {
         Gdx.input.setInputProcessor(stage);
         this.titleScreen = new TitleScreen(this);
         this.setScreen(titleScreen);
+
     }
 
     @Override
-    public void render () { super.render(); }
+    public void render () {
+        super.render();
+        stage.act();
+        stage.draw();
+    }
 
     @Override
-    public void dispose() { super.dispose(); }
+    public void dispose() {  }
 
     /**
      * @return the name of the design group.
@@ -69,6 +74,11 @@ public class RoboRallyApp extends Game {
      * @return the GUI skin being used by the application.
      */
     public String getLogoPath() { return this.logoPath; }
+
+    /**
+     * @return the GUI skin being used by the application.
+     */
+    public String getCardSkinPath() { return this.cardSkinPath; }
 
     /**
      * @return the GUI skin being used by the application.
@@ -108,6 +118,11 @@ public class RoboRallyApp extends Game {
      * @return the RoboRally game being played.
      */
     public RoboRallyGame getGame() { return game; }
+
+    /**
+     * @return the RoboRally game stage.
+     */
+    public Stage getStage() { return stage; }
 
     /**
      * @return the local player.

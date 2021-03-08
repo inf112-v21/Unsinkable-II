@@ -62,7 +62,7 @@ public class MultiplayerHostScreen extends MenuScreenAdapter {
     private void hostPressed() {
         try {
             port = Integer.parseInt(portField.getText());
-            game.startNewGame((Boards) box.getSelected());
+            app.startNewGame((Boards) box.getSelected());
         }
         catch (Exception e) { e.printStackTrace(); }// TODO: Display error message in GUI.
     }

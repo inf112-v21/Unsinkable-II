@@ -27,7 +27,7 @@ public class MultiplayerOptionScreen extends MenuScreenAdapter {
     public InputListener HostButtonListener() {
         return new InputListener() {
             @Override
-            public void touchUp(InputEvent event, float x, float y, int pointer, int button) { game.setScreen(new MultiplayerHostScreen(game)); }
+            public void touchUp(InputEvent event, float x, float y, int pointer, int button) { app.setScreen(new MultiplayerHostScreen(app)); }
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) { return true; }
         };
@@ -41,7 +41,7 @@ public class MultiplayerOptionScreen extends MenuScreenAdapter {
     public InputListener JoinButtonListener() {
         return new InputListener() {
             @Override
-            public void touchUp(InputEvent event, float x, float y, int pointer, int button) { game.setScreen(new MultiplayerJoinScreen(game)); }
+            public void touchUp(InputEvent event, float x, float y, int pointer, int button) { app.setScreen(new MultiplayerJoinScreen(app)); }
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) { return true; }
         };

@@ -15,22 +15,22 @@ import RoboRally.RoboRallyApp;
  * Adapter for building GUI menu screens.
  */
 public abstract class MenuScreenAdapter implements MenuScreen {
-    protected final RoboRallyApp game;
+    protected final RoboRallyApp app;
     protected final Stage stage;
     protected Label heading;
     protected Table table;
-    protected static final int widgetWidth = 250;
+    protected static final int widgetWidth = 250; //TODO:
 
-    public MenuScreenAdapter(RoboRallyApp game) {
-        this.game = game;
+    public MenuScreenAdapter(RoboRallyApp app) {
+        this.app = app;
         this.stage = new Stage(new ScreenViewport());
         this.table = new Table();
         this.table.setFillParent(true);
         this.table.top();
         this.stage.addActor(table);
 
-        addLogo(game.getLogoPath());
-        addTitle(game.getGroupName());
+        addLogo(app.getLogoPath());
+        addTitle(app.getGroupName());
     }
 
     @Override
@@ -44,7 +44,7 @@ public abstract class MenuScreenAdapter implements MenuScreen {
     @Override
     public void addTitle(String titleText) {
         Label.LabelStyle titleStyle = new Label.LabelStyle();
-        titleStyle.font = game.getGUI_SKIN().getFont("title");
+        titleStyle.font = app.getGUI_SKIN().getFont("title");
         Label title = new Label(titleText, titleStyle);
         title.setFontScale(0.6f);
         table.row();
@@ -53,7 +53,7 @@ public abstract class MenuScreenAdapter implements MenuScreen {
 
     @Override
     public void addHeading(String headingText) {
-        this.heading = new Label(headingText, game.getGUI_SKIN());
+        this.heading = new Label(headingText, app.getGUI_SKIN());
         heading.setFontScale(2f);
         heading.setAlignment(Align.center);
         table.row();
@@ -62,7 +62,7 @@ public abstract class MenuScreenAdapter implements MenuScreen {
 
     @Override
     public Label addLabel(String text, boolean newRow) {
-        Label label = new Label(text, game.getGUI_SKIN());
+        Label label = new Label(text, app.getGUI_SKIN());
         label.setWidth(getCenterWidth() /2f);
         if (newRow) { table.row(); }
         table.add(label);
@@ -71,7 +71,7 @@ public abstract class MenuScreenAdapter implements MenuScreen {
 
     @Override
     public TextButton addButton(String buttonText, boolean newRow, InputListener listener) {
-        TextButton button = new TextButton(buttonText, game.getGUI_SKIN());
+        TextButton button = new TextButton(buttonText, app.getGUI_SKIN());
         button.addListener(listener);
         if (newRow) { table.row(); }
         table.add(button).width(widgetWidth);
@@ -80,7 +80,7 @@ public abstract class MenuScreenAdapter implements MenuScreen {
 
     @Override
     public TextField addTextField(String fieldText, boolean newRow) {
-        TextField field = new TextField(fieldText, game.getGUI_SKIN());
+        TextField field = new TextField(fieldText, app.getGUI_SKIN());
         field.setWidth(widgetWidth);
         if (newRow) { table.row(); }
         table.add(field);
@@ -89,7 +89,7 @@ public abstract class MenuScreenAdapter implements MenuScreen {
 
     @Override
     public SelectBox<Object> addSelectBox(Object[] objects, boolean newRow) {
-        SelectBox<Object> box = new SelectBox<>(game.getGUI_SKIN());
+        SelectBox<Object> box = new SelectBox<>(app.getGUI_SKIN());
         box.setItems(objects);
         if (newRow) { table.row(); }
         table.add(box).width(widgetWidth);
@@ -100,7 +100,7 @@ public abstract class MenuScreenAdapter implements MenuScreen {
     public InputListener BackButtonListener() {
         return new InputListener() {
             @Override
-            public void touchUp(InputEvent event, float x, float y, int pointer, int button) { game.setScreen(game.getTitleScreen()); }
+            public void touchUp(InputEvent event, float x, float y, int pointer, int button) { app.setScreen(app.getTitleScreen()); }
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) { return true; }
         };
@@ -137,7 +137,7 @@ public abstract class MenuScreenAdapter implements MenuScreen {
     public void show() { Gdx.input.setInputProcessor(stage); }
 
     @Override
-    public void resize(int width, int height) { }
+    public void resize(int width, int height) { stage.getCamera().update(); }
 
     @Override
     public void pause() {}
