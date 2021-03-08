@@ -4,6 +4,7 @@ import RoboRally.GUI.Screens.Menu.MenuScreenAdapter;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import RoboRally.RoboRallyApp;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 /**
  * The multiplayer option screen.
@@ -24,12 +25,10 @@ public class MultiplayerOptionScreen extends MenuScreenAdapter {
      *
      * @return InputListener for the host button.
      */
-    public InputListener HostButtonListener() {
-        return new InputListener() {
+    public ClickListener HostButtonListener() {
+        return new ClickListener() {
             @Override
-            public void touchUp(InputEvent event, float x, float y, int pointer, int button) { app.setScreen(new MultiplayerHostScreen(app)); }
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) { return true; }
+            public void clicked(InputEvent event, float x, float y) { app.setScreen(new MultiplayerHostScreen(app)); }
         };
     }
 
@@ -38,12 +37,10 @@ public class MultiplayerOptionScreen extends MenuScreenAdapter {
      *
      * @return InputListener for the join button.
      */
-    public InputListener JoinButtonListener() {
-        return new InputListener() {
+    public ClickListener JoinButtonListener() {
+        return new ClickListener() {
             @Override
-            public void touchUp(InputEvent event, float x, float y, int pointer, int button) { app.setScreen(new MultiplayerJoinScreen(app)); }
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) { return true; }
+            public void clicked(InputEvent event, float x, float y) { app.setScreen(new MultiplayerJoinScreen(app)); }
         };
     }
 

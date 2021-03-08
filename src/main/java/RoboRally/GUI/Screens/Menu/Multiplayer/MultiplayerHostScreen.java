@@ -10,6 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 
 import RoboRally.GUI.Screens.Menu.MenuScreenAdapter;
 import RoboRally.RoboRallyApp;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
@@ -72,12 +73,10 @@ public class MultiplayerHostScreen extends MenuScreenAdapter {
      *
      * @return InputListener for Host Game button.
      */
-    public InputListener HostGameListener() {
-        return new InputListener() {
+    public ClickListener HostGameListener() {
+        return new ClickListener() {
             @Override
-            public void touchUp(InputEvent event, float x, float y, int pointer, int button) { hostPressed(); }
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) { return true; }
+            public void clicked(InputEvent event, float x, float y) { hostPressed(); }
         };
     }
 

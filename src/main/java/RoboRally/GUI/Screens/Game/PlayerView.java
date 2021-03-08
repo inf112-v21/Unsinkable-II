@@ -3,7 +3,6 @@ package RoboRally.GUI.Screens.Game;
 import RoboRally.RoboRallyApp;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputAdapter;
-import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -61,14 +60,13 @@ public class PlayerView extends InputAdapter implements Screen {
     }
 
     @Override
-    public void resize(int width, int height) {}
+    public void resize(int width, int height) { camera.update(); }
 
     @Override
     public void pause() {}
 
     @Override
     public void resume() {}
-
 
     @Override
     public void hide() {}

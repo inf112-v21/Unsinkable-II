@@ -7,6 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import RoboRally.RoboRallyApp;
@@ -97,24 +98,18 @@ public abstract class MenuScreenAdapter implements MenuScreen {
     }
 
     @Override
-    public InputListener BackButtonListener() {
-        return new InputListener() {
+    public ClickListener BackButtonListener() {
+        return new ClickListener() {
             @Override
-            public void touchUp(InputEvent event, float x, float y, int pointer, int button) { app.setScreen(app.getTitleScreen()); }
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) { return true; }
+            public void clicked(InputEvent event, float x, float y) { app.setScreen(app.getTitleScreen()); }
         };
     }
 
     @Override
-    public InputListener QuitButtonListener() {
-        return new InputListener() {
+    public ClickListener QuitButtonListener() {
+        return new ClickListener() {
             @Override
-            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                System.exit(0);
-            }
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) { return true; }
+            public void clicked(InputEvent event, float x, float y) { System.exit(0); }
         };
     }
 
@@ -123,7 +118,6 @@ public abstract class MenuScreenAdapter implements MenuScreen {
 
     @Override
     public float getCenterHeight() { return Gdx.graphics.getHeight() >> 1; }
-
 
     @Override
     public void render(float delta) {

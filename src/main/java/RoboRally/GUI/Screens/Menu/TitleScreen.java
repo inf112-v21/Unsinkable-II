@@ -1,10 +1,9 @@
 package RoboRally.GUI.Screens.Menu;
 
 import RoboRally.GUI.Screens.Menu.Multiplayer.MultiplayerOptionScreen;
-import RoboRally.Game.Board.Boards;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.InputListener;
 import RoboRally.RoboRallyApp;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 /**
  * The Robo Rally app title screen.
@@ -30,14 +29,10 @@ public class TitleScreen extends MenuScreenAdapter {
      *
      * @return InputListener for the Single Player button
      */
-    public InputListener SinglePlayerButtonListener() {
-        return new InputListener() {
+    public ClickListener SinglePlayerButtonListener() {
+        return new ClickListener() {
             @Override
-            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                app.startNewGame(Boards.RISKY_EXCHANGE); // TODO: replace with SinglePlayer Screen.
-            }
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) { return true; }
+            public void clicked(InputEvent event, float x, float y) { app.setScreen(new SinglePlayerScreen(app)); }
         };
     }
 
@@ -46,14 +41,10 @@ public class TitleScreen extends MenuScreenAdapter {
      *
      * @return InputListener for the Multiplayer button
      */
-    public InputListener MultiplayerButtonListener() {
-        return new InputListener() {
+    public ClickListener MultiplayerButtonListener() {
+        return new ClickListener() {
             @Override
-            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                app.setScreen(new MultiplayerOptionScreen(app));
-            }
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) { return true; }
+            public void clicked(InputEvent event, float x, float y) { app.setScreen(new MultiplayerOptionScreen(app)); }
         };
     }
 
@@ -62,15 +53,12 @@ public class TitleScreen extends MenuScreenAdapter {
      *
      * @return InputListener for the Options button.
      */
-    private InputListener OptionsButtonListener() {
-        return new InputListener() {
+    private ClickListener OptionsButtonListener() {
+        return new ClickListener() {
             @Override
-            public void touchUp(InputEvent event, float x, float y, int pointer, int button) { // TODO: Options Screen
-
-            }
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) { return true; }
+            public void clicked(InputEvent event, float x, float y) {  } // TODO: Options Screen
         };
     }
+
 }
 

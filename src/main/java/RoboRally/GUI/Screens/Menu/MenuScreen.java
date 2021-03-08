@@ -3,6 +3,7 @@ package RoboRally.GUI.Screens.Menu;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 /**
  * An interface for building menu screens by adding widgets to a table.
@@ -67,14 +68,14 @@ public interface MenuScreen extends Screen {
      *
      * @return InputListener for a Back button.
      */
-    InputListener BackButtonListener();
+    ClickListener BackButtonListener();
 
     /**
      * Listener that exits the program when the Quit button is pressed.
      *
      * @return InputListener for a Quit button.
      */
-    InputListener QuitButtonListener();
+    ClickListener QuitButtonListener();
 
     /**
      * @return midpoint of menu screen width.

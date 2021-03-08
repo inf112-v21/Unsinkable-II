@@ -33,7 +33,8 @@ public class RoboRallyGame {
         this.app = app;
         this.players = new LinkedList<>();
         this.deck = new ProgrammingDeck();
-        this.eventHandler = new EventHandler(this); //TODO: Use handler
+        deck.shuffle();
+        this.eventHandler = new EventHandler(this); //TODO: Use handler - Event handler is only used for cheat mode.
     }
 
     public RoboRallyGame(RoboRallyApp app, Multiplayer mp, Boards board) {
@@ -138,10 +139,6 @@ public class RoboRallyGame {
         robot.setLoc(robot.getLoc().add(new Vector2(dir.getX(), dir.getY())));
     }
 
-    /**
-     * Moves robot according to the card.
-     * return true if robot was moved.
-    */
     public boolean ExecuteProgramCard(int index) {
         board.removeRobot(app.getMyPlayer().getRobot());
         playProgramCard(app.getMyPlayer().getRobot(), app.getMyPlayer().getHand()[index]);
