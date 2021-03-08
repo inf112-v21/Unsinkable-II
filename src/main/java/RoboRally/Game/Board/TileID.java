@@ -79,7 +79,34 @@ public enum TileID { // TODO: Check if all IDs should be increased by +1. Map re
     ConveyorNWS(67), //added +1
     ConveyorENW(68), //added +1
     ConveyorWEN(69), //added +1
-    ConveyorNSW(70) //added +1
+    ConveyorNSW(70), //added +1
+
+    /**
+     * Lasers
+     */
+    LaserH(39), //added +1
+    LaserW(47), //added +1
+    LaserCross(40), //added +1
+
+    /**
+     * Walls
+     */
+    /**
+     * Corners
+     */
+    WallCornerSE(8),
+    WallCornerNE(16),
+    WallCornerNW(24),
+    WallCornerSW(32)
+
+    /**
+     * Ordinary Walls
+     */
+
+    /**
+     * LaserWalls
+     */
+
     ;
 
 
