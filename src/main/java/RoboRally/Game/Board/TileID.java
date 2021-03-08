@@ -8,59 +8,79 @@ public enum TileID { // TODO: Check if all IDs should be increased by +1. Map re
     /**
      * Start positions.
      */
-    Start1(120),
-    Start2(121),
-    Start3(122),
-    Start4(123),
-    Start5(128),
-    Start6(129),
-    Start7(130),
-    Start0(131),
+    Start1(121), //added +1
+    Start2(122), //added +1
+    Start3(123), //added +1
+    Start4(124), //added +1
+    Start5(129), //added +1
+    Start6(130), //added +1
+    Start7(131), //added +1
+    Start0(132), //added +1
 
     /**
      * Flags.
      */
-    Flag1(54),
-    Flag2(62),
-    Flag3(70),
-    Flag4(78),
+    Flag1(55), //added +1
+    Flag2(63), //added +1
+    Flag3(71), //added +1
+    Flag4(79), //added +1
 
     /**
      * Holes.
      */
-    Hole(5),
+    Hole(6), //added +1
 
     /**
      * Fast Conveyor belts.
      */
-    FastConveyorN(12),
-    FastConveyorE(13),
-    FastConveyorWtoS(16),
-    FastConveyorNtoW(17),
-    FastConveyorNtoE(18),
-    FastConveyorEtoS(19),
-    FastConveyorS(20),
-    FastConveyorW(21),
-    FastConveyorStoE(24),
-    FastConveyorEtoN(25),
-    FastConveyorWtoN(26),
-    FastConveyorStoW(27),
+    FastConveyorN(13), //added +1
+    FastConveyorE(14), //added +1
+    FastConveyorWtoS(17), //added +1
+    FastConveyorNtoW(18), //added +1
+    FastConveyorNtoE(19), //added +1
+    FastConveyorEtoS(20), //added +1
+    FastConveyorS(21), //added +1
+    FastConveyorW(22), //added +1
+    FastConveyorStoE(25), //added +1
+    FastConveyorEtoN(26), //added +1
+    FastConveyorWtoN(27), //added +1
+    FastConveyorStoW(28), //added +1
 
     /**
      * Normal Conveyor belts
      */
-    ConveyorWtoS(32),
-    ConveyorNtoW(33),
-    ConveyorNtoE(34),
-    ConveyorEtoS(35),
-    ConveyorStoE(40),
-    ConveyorEtoN(41),
-    ConveyorWtoN(42),
-    ConveyorStoW(43),
-    ConveyorN(48),
-    ConveyorS(49),
-    ConveyorW(50),
-    ConveyorE(51);
+    ConveyorWtoS(33), //added +1
+    ConveyorNtoW(34), //added +1
+    ConveyorNtoE(35), //added +1
+    ConveyorEtoS(36), //added +1
+    ConveyorStoE(41), //added +1
+    ConveyorEtoN(42), //added +1
+    ConveyorWtoN(43), //added +1
+    ConveyorStoW(44), //added +1
+    ConveyorN(49), //added +1
+    ConveyorS(50), //added +1
+    ConveyorW(51), //added +1
+    ConveyorE(52), //added +1
+    /**
+     * Special Normal Conveyor belts
+     * Where <>XYZ reads
+     * X = indirection one
+     * Y = indirection two
+     * Z = direction out
+     */
+    ConveyorSWN(57), //added +1
+    ConveyorWNE(58), //added +1
+    ConveyorNES(59), //added +1
+    ConveyorESW(60), //added +1
+    ConveyorNSE(61), //added +1
+    ConveyorEWS(62), //added +1
+    ConveyorSEN(65), //added +1
+    ConveyorWSE(66), //added +1
+    ConveyorNWS(67), //added +1
+    ConveyorENW(68), //added +1
+    ConveyorWEN(69), //added +1
+    ConveyorNSW(70) //added +1
+    ;
 
 
     public final int id;
