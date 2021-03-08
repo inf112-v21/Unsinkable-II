@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.4" tiledversion="1.4.1" orientation="orthogonal" renderorder="right-down" width="12" height="16" tilewidth="300" tileheight="300" infinite="0" nextlayerid="13" nextobjectid="1">
- <tileset firstgid="1" source="tiles.tsx"/>
+<map version="1.4" tiledversion="1.4.1" orientation="orthogonal" renderorder="right-down" width="12" height="16" tilewidth="100" tileheight="100" infinite="0" nextlayerid="13" nextobjectid="1">
+ <tileset firstgid="1" source="tilesRescaled.tsx"/>
  <layer id="2" name="Board" width="12" height="16">
   <data encoding="csv">
 5,5,5,5,5,5,5,5,5,5,5,5,

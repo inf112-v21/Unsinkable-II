@@ -29,15 +29,13 @@ public class RoboRallyApp extends Game {
     //                         App configuration
     //================================================================
     public static final String GAME_TITLE = "RoboRally";
-    public static final int TILE_SIZE = 300;
-    public static final String ROBOT_SKINS_PATH = "Robots/RobotsV1.png";
+    public static final int TILE_SIZE = 100;
+    public static final String ROBOT_SKINS_PATH = "Robots/RobotsV2.png";
 
     private final String groupName = "Unsinkable-II";
     private final String guiSkinPath = "Skin/rusty-robot-ui.json";
     private final String logoPath = "Logo/logo.png";
     private final String cardSkinPath = "ProgramCards/Cards.atlas";
-
-
     //================================================================
     //                         GUI Objects
     //================================================================
@@ -52,7 +50,6 @@ public class RoboRallyApp extends Game {
         Gdx.input.setInputProcessor(stage);
         this.titleScreen = new TitleScreen(this);
         this.setScreen(titleScreen);
-
     }
 
     @Override
@@ -63,7 +60,7 @@ public class RoboRallyApp extends Game {
     }
 
     @Override
-    public void dispose() {  }
+    public void dispose() {}
 
     /**
      * @return the name of the design group.

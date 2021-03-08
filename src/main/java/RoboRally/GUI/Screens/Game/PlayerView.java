@@ -26,16 +26,15 @@ public class PlayerView extends InputAdapter implements Screen {
     public PlayerView(RoboRallyApp app) {
         this.app = app;
         this.sheet = new PlayerUI(app);
-        app.dispose();
 
         camera = new OrthographicCamera();
         camera.setToOrtho(false, app.getGame().getBoard().getBoardWidth(), app.getGame().getBoard().getBoardHeight());
-        camera.position.x = app.getGame().getBoard().getBoardWidth()/2f;
-        camera.position.y = app.getGame().getBoard().getBoardHeight() /(2 * scale);
+        camera.position.x = app.getGame().getBoard().getBoardWidth() /2f;
+        camera.position.y = app.getGame().getBoard().getBoardHeight() /(2f * scale);
         camera.zoom = scale;
         camera.update();
 
-        renderer = new OrthogonalTiledMapRenderer(app.getGame().getBoard().getBoard(), (float) 1/ RoboRallyApp.TILE_SIZE);
+        renderer = new OrthogonalTiledMapRenderer(app.getGame().getBoard().getBoard(),  1f/ RoboRallyApp.TILE_SIZE);
         renderer.setView(camera);
 
         Gdx.input.setInputProcessor(this);
@@ -53,17 +52,15 @@ public class PlayerView extends InputAdapter implements Screen {
         // Render board
         renderer.getBatch().setProjectionMatrix(camera.combined);
         renderer.render();
-        renderer.getBatch().setProjectionMatrix(sheet.getStage().getCamera().combined);
 
         // Draw UI
+        renderer.getBatch().setProjectionMatrix(sheet.getStage().getCamera().combined);
         sheet.getStage().act(delta);
         sheet.getStage().draw();
     }
 
     @Override
-    public void resize(int width, int height) {
-        sheet.getStage().getViewport().update(width, height);
-    }
+    public void resize(int width, int height) {}
 
     @Override
     public void pause() {}
