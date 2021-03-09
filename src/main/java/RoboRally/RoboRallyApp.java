@@ -35,7 +35,6 @@ public class RoboRallyApp extends Game {
     private final String groupName = "Unsinkable-II";
     private final String guiSkinPath = "Skin/rusty-robot-ui.json";
     private final String logoPath = "Logo/logo.png";
-    private final String cardSkinPath = "ProgramCards/Cards.atlas";
     //================================================================
     //                         GUI Objects
     //================================================================
@@ -68,14 +67,10 @@ public class RoboRallyApp extends Game {
     public String getGroupName() { return this.groupName; }
 
     /**
-     * @return the GUI skin being used by the application.
+     * @return the RoboRally Logo.
      */
     public String getLogoPath() { return this.logoPath; }
 
-    /**
-     * @return the GUI skin being used by the application.
-     */
-    public String getCardSkinPath() { return this.cardSkinPath; }
 
     /**
      * @return the GUI skin being used by the application.

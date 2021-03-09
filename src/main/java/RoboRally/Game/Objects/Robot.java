@@ -37,9 +37,7 @@ public class Robot implements IRobot {
     public Direction getDirection() { return this.direction; }
 
     @Override
-    public void setDirection(Direction dir) {
-        this.direction = dir;
-    }
+    public void setDirection(Direction dir) { this.direction = dir; }
 
     @Override
     public TiledMapTileLayer.Cell getCell() { return piece.getCell(); }

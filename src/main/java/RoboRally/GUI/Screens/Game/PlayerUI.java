@@ -1,7 +1,6 @@
 package RoboRally.GUI.Screens.Game;
 
 import RoboRally.RoboRallyApp;
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -21,9 +20,12 @@ public class PlayerUI {
     private final FitViewport stageViewport;
     private final Button[] cardButtons;
 
+    private final float WIDTH = 1200f;
+    private final float HEIGHT = 1600f;
+
     public PlayerUI(RoboRallyApp app) {
         this.app = app;
-        this.stageViewport = new FitViewport(Gdx.graphics.getWidth()*1.1f, Gdx.graphics.getHeight()*1.1f);
+        this.stageViewport = new FitViewport(1200, 1600);
         this.stage = new Stage(stageViewport);
 
         this.table = new Table();
@@ -51,7 +53,7 @@ public class PlayerUI {
                     app.getGame().ExecuteProgramCard(app.getMyPlayer(), app.getMyPlayer().getHand()[index]); // TODO: DEMO CODE. REPLACE!!!
                 }
             });
-            table.add(button).size(Gdx.graphics.getWidth() / 15f, Gdx.graphics.getHeight() / 11f); // TODO: Dynamic size variable.
+            table.add(button).size(WIDTH/11.5f, HEIGHT/7); // TODO: Dynamic size variable.
             cardButtons[i] = button;
         }
     }
@@ -63,8 +65,8 @@ public class PlayerUI {
             public void clicked(InputEvent event, float x, float y) {
             }
         } );
-        button.setWidth(stage.getWidth()/6);
-        table.add(button);
+        //button.setWidth(180);
+        table.add(button).size(WIDTH/10, HEIGHT/8);
     }
 
 }

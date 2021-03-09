@@ -1,9 +1,5 @@
 package RoboRally.Game.Cards;
 
-import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.g2d.Sprite;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-
 import java.util.Stack;
 
 public enum ProgramCard {
@@ -22,12 +18,12 @@ public enum ProgramCard {
     /**
      * Change the cardinal direction of a robot to the next clockwise direction.
      */
-    TURN_RIGHT(0,1,"Turn_Right"),
+    TURN_RIGHT(0,-1,"Turn_Right"),
 
     /**
      * Change the cardinal direction of a robot to the next counter-clockwise direction.
      */
-    TURN_LEFT(0,3,"Turn_Left"),
+    TURN_LEFT(0,1,"Turn_Left"),
 
     /**
      * Change the cardinal direction of a robot to the opposite direction.

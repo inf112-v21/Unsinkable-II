@@ -110,13 +110,14 @@ public class RoboRallyGame {
     }
 
     /**
-     * Rotates a robot according to the program card.
+     * Rotates a robot according to the program card and sets robot Cell accordingly.
      *
      * @param robot the robot to rotate.
      * @param card the ProgramCard determining rotation.
      */
     private void rotate(Robot robot, ProgramCard card) {
-        robot.setDirection(robot.getDirection().rotate(card.getRotation()));
+        robot.setDirection(robot.getDirection().rotate(card.getRotation())); // Changes robot direction
+        robot.getCell().setRotation(robot.getDirection().getDirection()); // Rotates robot Cell
     }
 
     /**

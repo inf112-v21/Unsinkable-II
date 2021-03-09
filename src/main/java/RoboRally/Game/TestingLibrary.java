@@ -23,7 +23,7 @@ public class TestingLibrary {
     }
 
     public static void updateHeading(Robot robot, ProgramCard card) {
-        robot.setDirection(robot.getDirection().rotate(card.getRotation()));
+        //robot.setDirection(robot.getDirection().rotate(card.getRotation()));
     }
 
 

@@ -16,7 +16,7 @@ public class PlayerView extends InputAdapter implements Screen {
     private final OrthogonalTiledMapRenderer renderer;
     private final OrthographicCamera camera;
     private final PlayerUI sheet;
-    private final float scale = 1.1f;
+    private final float scale = 1.15f;
 
     /**
      * Instantiates a new Game screen.
