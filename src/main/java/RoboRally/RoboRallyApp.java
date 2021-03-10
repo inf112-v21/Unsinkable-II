@@ -4,8 +4,6 @@ import RoboRally.GUI.Screens.Menu.MenuScreen;
 import RoboRally.GUI.Screens.Game.PlayerView;
 import RoboRally.Game.Board.Boards;
 import RoboRally.Game.Engine.GameLoop;
-import RoboRally.Game.Objects.Player;
-import RoboRally.Game.Engine.RoboRallyGame;
 import RoboRally.Multiplayer.Multiplayer;
 import RoboRally.Multiplayer.MultiplayerClient;
 import RoboRally.Multiplayer.MultiplayerHost;
@@ -39,9 +37,8 @@ public class RoboRallyApp extends Game {
     private Stage stage;
     private MenuScreen titleScreen;
 
-    private GameLoop game;
     private Multiplayer server, myConnection;
-    public GameLoop newGame;
+    public GameLoop game;
     protected Thread thread;
 
     @Override
@@ -63,6 +60,49 @@ public class RoboRallyApp extends Game {
     @Override
     public void dispose() { stage.dispose(); }
 
+
+
+    /**
+     * Host a new multiplayer game.
+     *
+     * @param boardSelection = The board the host wants to play.
+     */
+    public void hostNewGame(Boards boardSelection) {
+        this.server = new MultiplayerHost(boardSelection);
+        joinNewGame("localhost");
+    }
+
+    /**
+     * Join a hosted multiplayer game.
+     *
+     * @param hostIP = the IP of the host.
+    */
+    public void joinNewGame(String hostIP) {
+        this.myConnection = new MultiplayerClient(this, hostIP);
+        while (!myConnection.start) {
+
+        }
+        System.out.println("I am player "+myConnection.serverPacket.playerID);
+        startGame(myConnection.serverPacket.boardSelection, myConnection.serverPacket.playerID);
+
+    }
+
+    public void startGame(Boards boardSelection, int playerID){
+        this.game = new GameLoop(this, boardSelection, playerID);
+        this.thread = new Thread(game);
+        this.setScreen(new PlayerView(this));
+    }
+
+    /**
+     * @return the RoboRally game being played.
+     */
+    public GameLoop getGame() { return game; }
+
+    /**
+     * @return the RoboRally game stage.
+     */
+    public Stage getStage() { return stage; }
+
     /**
      * @return the name of the design group.
      */
@@ -82,41 +122,5 @@ public class RoboRallyApp extends Game {
      * @return the title screen starting point of the application GUI.
      */
     public MenuScreen getTitleScreen() { return this.titleScreen; }
-
-    /**
-     * Host a new multiplayer game.
-     *
-     * @param boardSelection = The board the host wants to play.
-     */
-    public void hostNewGame(Boards boardSelection) {
-        this.server = new MultiplayerHost(boardSelection);
-        joinNewGame("localhost");
-        startGame(boardSelection, 0);
-    }
-
-    /**
-     * Join a hosted multiplayer game.
-     *
-     * @param hostIP = the IP of the host.
-    */
-    public void joinNewGame(String hostIP) { this.myConnection = new MultiplayerClient(this, hostIP); }
-
-    private void startGame(Boards boardSelection, int playerID){
-        this.newGame = new GameLoop(this, boardSelection, playerID);
-        this.thread = new Thread(newGame);
-        this.setScreen(new PlayerView(this));
-    }
-
-    /**
-     * @return the RoboRally game being played.
-     */
-    public GameLoop getGame() { return newGame; }
-
-    /**
-     * @return the RoboRally game stage.
-     */
-    public Stage getStage() { return stage; }
-
-
 
 }

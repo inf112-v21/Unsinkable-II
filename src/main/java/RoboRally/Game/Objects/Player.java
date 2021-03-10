@@ -11,6 +11,7 @@ public class Player {
     private List<ProgramCard> hand;
 
     public Player(int id){
+        System.out.println("Making new Player "+id);
         this.id = id;
         this.piece = Piece.getPieceByID(id);
         this.robot = new Robot(this.piece);

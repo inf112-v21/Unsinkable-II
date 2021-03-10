@@ -18,8 +18,9 @@ public abstract class Multiplayer extends Listener implements Networking {
     public static final int tcpPort = 18888;
     protected final int TIMEOUT = 5000;
     protected Set<Connection> connections;
-    protected ServerPacket serverPacket;
+    public ServerPacket serverPacket;
     protected RoboRallyApp app;
+    public boolean start = false;
 
 
     /**
@@ -41,7 +42,9 @@ public abstract class Multiplayer extends Listener implements Networking {
     public void received(Connection connection, Object transmission) {
         if (transmission instanceof ServerPacket) {
             this.serverPacket = (ServerPacket) transmission;
+            start = true;
             System.out.println("Received from Server " + serverPacket.boardSelection.toString());
+
         }
         else if (transmission instanceof GamePacket) {
             // TODO: Send gamepacket to update game state

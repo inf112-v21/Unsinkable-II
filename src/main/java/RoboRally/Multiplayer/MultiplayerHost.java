@@ -36,10 +36,14 @@ public class MultiplayerHost extends Multiplayer {
      */
     public void connected(Connection connection) {
         connection.setTimeout(TIMEOUT*10);
-        System.out.println("Connection "+connection.getRemoteAddressTCP());
+        System.out.println("New Connection: "+connection.getRemoteAddressTCP());
         connection.sendTCP(serverPacket);
         this.connections.add(connection);
-        for (Connection con : connections) { con.sendTCP(serverPacket); }
+        for (Connection con : connections) {
+            System.out.println("Sending to server packet update to "+con.getRemoteAddressTCP());
+            con.sendTCP(serverPacket); }
+        
+        ++serverPacket.playerID;
     }
 
     /**
