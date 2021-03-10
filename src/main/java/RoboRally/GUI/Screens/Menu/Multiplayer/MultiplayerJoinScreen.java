@@ -1,8 +1,9 @@
 package RoboRally.GUI.Screens.Menu.Multiplayer;
 
 import RoboRally.GUI.Screens.Menu.MenuScreenAdapter;
+import RoboRally.Multiplayer.Multiplayer;
+import RoboRally.Multiplayer.MultiplayerClient;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import RoboRally.RoboRallyApp;
@@ -34,6 +35,7 @@ public class MultiplayerJoinScreen extends MenuScreenAdapter {
      */
     private void joinPressed() {
         hostIP = ipField.getText();
+        System.out.println(hostIP);
         app.joinNewGame(hostIP);
     }
 
@@ -42,11 +44,9 @@ public class MultiplayerJoinScreen extends MenuScreenAdapter {
      *
      * @return InputListener for the join button
      */
-    public ClickListener JoinButtonListener() {
-        return new ClickListener() {
+    public ClickListener JoinButtonListener() { return new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) { joinPressed(); }
-        };
-    }
+        }; }
 
 }

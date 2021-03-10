@@ -26,7 +26,6 @@ public class MultiplayerHostScreen extends MenuScreenAdapter {
     private final TextField portField;
     private final SelectBox<Object> box;
 
-
     public MultiplayerHostScreen(RoboRallyApp game) {
 
         super(game);
@@ -35,7 +34,7 @@ public class MultiplayerHostScreen extends MenuScreenAdapter {
         this.ip = getIP();
         this.port = Multiplayer.tcpPort;
         this.box = addSelectBox(Boards.ALL_BOARDS, true);
-        this.ipLabel = addLabel(String.format("%s:%s", ip, port), true);
+        this.ipLabel = addLabel(""+ip, true);
         this.portField = addTextField(""+port, true);
         addButton("Host Game", true, HostGameListener());
         addButton("Back", true, BackButtonListener());
@@ -62,7 +61,7 @@ public class MultiplayerHostScreen extends MenuScreenAdapter {
      */
     private void hostPressed() {
         try {
-            port = Integer.parseInt(portField.getText());
+            //port = Integer.parseInt(portField.getText()); // TODO: turn back on port field
             app.startNewGame((Boards) box.getSelected());
         }
         catch (Exception e) { e.printStackTrace(); }// TODO: Display error message in GUI.
@@ -73,12 +72,10 @@ public class MultiplayerHostScreen extends MenuScreenAdapter {
      *
      * @return InputListener for Host Game button.
      */
-    public ClickListener HostGameListener() {
-        return new ClickListener() {
+    public ClickListener HostGameListener() { return new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) { hostPressed(); }
-        };
-    }
+        }; }
 
     /**
      * Listener that reads integers from the port field.

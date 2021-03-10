@@ -24,6 +24,7 @@ public enum Piece {
             new Texture(RoboRallyApp.ROBOT_SKINS_PATH), RoboRallyApp.TILE_SIZE, RoboRallyApp.TILE_SIZE);
 
     Piece(int id) {
+        System.out.println("Piece ID: "+id);
         this.cell = new TiledMapTileLayer.Cell();
         this.cell.setTile(new StaticTiledMapTile(textures[id][0]));
         this.diedCell = new TiledMapTileLayer.Cell();

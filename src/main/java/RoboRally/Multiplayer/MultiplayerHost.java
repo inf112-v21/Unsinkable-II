@@ -1,6 +1,7 @@
 package RoboRally.Multiplayer;
 
-import RoboRally.Multiplayer.Packets.ConnectionPacket;
+import RoboRally.Multiplayer.Packets.ServerPacket;
+import RoboRally.RoboRallyApp;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Server;
 
@@ -10,18 +11,22 @@ import java.util.HashSet;
  * Class to create a host server for clients to connect to.
  */
 public class MultiplayerHost extends Multiplayer {
-    private static Server server;
+    private final RoboRallyApp app;
+    private final Server server;
 
-    public MultiplayerHost() {
-        connections = new HashSet<>();
-        server = new Server();
+
+    public MultiplayerHost(RoboRallyApp app) {
+        this.server = new Server();
         register(server);
-
-        try { server.bind(tcpPort); }
+        server.start();
+        try { server.bind(tcpPort, udpPort); }
         catch (Exception e) { e.printStackTrace(); }
 
-        server.start();
         server.addListener(this);
+
+        this.app = app;
+        connections = new HashSet<>();
+
     }
 
     /**
@@ -30,12 +35,12 @@ public class MultiplayerHost extends Multiplayer {
      * @param connection the connection just established.
      */
     public void connected(Connection connection) {
-        for (Connection con : connections) {
-            ConnectionPacket packet = new ConnectionPacket();
-            packet.connection = con;
-            connection.sendTCP(packet);
-        }
+        connection.setTimeout(TIMEOUT*10);
+        serverPacket = new ServerPacket();
+        serverPacket.board = app.getGame().getBoardSelection();
+        System.out.println("Connection "+connection.getRemoteAddressTCP());
         this.connections.add(connection);
+        for (Connection con : connections) { con.sendTCP(serverPacket); }
     }
 
     /**

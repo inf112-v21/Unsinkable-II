@@ -7,7 +7,7 @@ import RoboRally.Game.Cards.ProgrammingDeck;
 import RoboRally.Game.Objects.Player;
 import RoboRally.Game.Objects.Robot;
 import RoboRally.Multiplayer.Multiplayer;
-import RoboRally.Multiplayer.Packets.GamePacket;
+import RoboRally.Multiplayer.Packets.ServerPacket;
 import RoboRally.RoboRallyApp;
 import com.badlogic.gdx.math.Vector2;
 import com.esotericsoftware.kryonet.Connection;
@@ -23,12 +23,16 @@ public class RoboRallyGame {
     private final List<Player> players;
     public final EventHandler eventHandler;
     private final ProgrammingDeck deck;
-    private Multiplayer myConnection;
-    private Connection host;
     private Board board;
+    private Boards boardSelection;
 
     private boolean CHEAT_MODE = false;
 
+    /**
+     * Constructor for Join Game
+     *
+     * @param app
+     */
     public RoboRallyGame(RoboRallyApp app) {
         this.app = app;
         this.players = new LinkedList<>();
@@ -37,18 +41,16 @@ public class RoboRallyGame {
         this.eventHandler = new EventHandler(this); //TODO: Use handler - Event handler is only used for cheat mode.
     }
 
-    public RoboRallyGame(RoboRallyApp app, Multiplayer mp, Boards board) {
+    /**
+     * Constructor for Single Player and Host New Game
+     *
+     * @param app
+     * @param boardSelection
+     */
+    public RoboRallyGame(RoboRallyApp app, Boards boardSelection) {
         this(app);
-        this.myConnection = mp;
-        this.board = new Board(board);
-    }
-
-    public RoboRallyGame(RoboRallyApp app, Multiplayer mp) {
-        this(app);
-        this.myConnection = mp;
-        this.host = mp.getHost();
-        GamePacket packet = mp.getNextGamePacket();
-        board = new Board(packet.board);
+        this.boardSelection = boardSelection;
+        this.board = new Board(boardSelection);
     }
 
     /**
@@ -75,12 +77,13 @@ public class RoboRallyGame {
     /**
      * @return the list of current players.
      */
-    public List<Player> getPlayers() { return players; }
+    public List<Player> getPlayers() { return this.players; }
 
     /**
      * @return the current board.
      */
-    public Board getBoard() { return board; }
+    public Board getBoard() { return this.board; }
+    public Boards getBoardSelection() { return this.boardSelection; }
 
 
     //================================================================

@@ -65,7 +65,7 @@ public class PlayerUI {
             public void clicked(InputEvent event, float x, float y) {
             }
         } );
-        //button.setWidth(180);
+
         table.add(button).size(WIDTH/10, HEIGHT/8);
     }
 

@@ -22,7 +22,7 @@ import RoboRally.GUI.Screens.Menu.TitleScreen;
 public class RoboRallyApp extends Game {
 
     private RoboRallyGame game;
-    private Multiplayer myConnection;
+    private Multiplayer server, myConnection;
     private Player myPlayer;
 
     //================================================================
@@ -88,20 +88,29 @@ public class RoboRallyApp extends Game {
      * @param board = The board the host wants to play.
      */
     public void startNewGame(Boards board) {
-        myConnection = new MultiplayerHost();
-        game = new RoboRallyGame(this, myConnection, board);
+        this.game = new RoboRallyGame(this, board);
         this.myPlayer = game.addPlayer();
+        this.server = new MultiplayerHost(this);
+        this.myConnection = new MultiplayerClient("localhost");
         this.setScreen(new PlayerView(this));
     }
 
     /**
-     * Join a game being hosted.
+     * Join a hosted multiplayer game.
      *
      * @param hostIP = the IP of the host.
     */
     public void joinNewGame(String hostIP) {
-        myConnection = new MultiplayerClient(hostIP, Multiplayer.tcpPort);
-        game = new RoboRallyGame(this, myConnection);
+        this.myConnection = new MultiplayerClient(hostIP);
+        Boards board;
+        while(true) {
+            try {
+                board = myConnection.getServerPacket().board;
+                break;
+            } catch (Exception e) { System.out.println("Waiting for Server board board"); }
+        }
+
+        this.game = new RoboRallyGame(this, board);
         this.myPlayer = game.addPlayer();
         this.setScreen(new PlayerView(this));
     }
