@@ -2,11 +2,13 @@ package RoboRally.Game.Objects;
 
 import RoboRally.Game.Cards.ProgramCard;
 
+import java.util.List;
+
 public class Player {
     private final int id;
     private final Piece piece;
     private final Robot robot;
-    private ProgramCard[] hand;
+    private List<ProgramCard> hand;
 
     public Player(int id){
         this.id = id;
@@ -14,9 +16,9 @@ public class Player {
         this.robot = new Robot(this.piece);
     }
 
-    public ProgramCard[] getHand() { return this.hand; }
+    public List<ProgramCard> getHand() { return this.hand; }
 
-    public void setHand(ProgramCard[] newHand) { this.hand = newHand; }
+    public void setHand(List<ProgramCard> newHand) { this.hand = newHand; }
 
     public int getID() { return this.id; }
 

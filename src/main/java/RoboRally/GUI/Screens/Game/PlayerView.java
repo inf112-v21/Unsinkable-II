@@ -1,5 +1,6 @@
 package RoboRally.GUI.Screens.Game;
 
+import RoboRally.Game.Board.Board;
 import RoboRally.RoboRallyApp;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputAdapter;
@@ -9,7 +10,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 
 /**
- * The type Game screen.
+ * The type RoboRally screen.
  */
 public class PlayerView extends InputAdapter implements Screen {
     private final RoboRallyApp app;
@@ -19,7 +20,7 @@ public class PlayerView extends InputAdapter implements Screen {
     private final float scale = 1.15f;
 
     /**
-     * Instantiates a new Game screen.
+     * Instantiates a new RoboRally screen.
      *
      * @param app the RoboRally.game
      */
@@ -75,16 +76,6 @@ public class PlayerView extends InputAdapter implements Screen {
     public void dispose() {
         sheet.dispose();
         renderer.dispose();
-    }
-
-    @Override
-    public boolean keyUp(int keycode) {
-        return app.getGame().eventHandler.handleKeys(keycode);
-    }
-
-    @Override
-    public boolean touchUp (int screenX, int screenY, int pointer, int button) {
-        return true;
     }
 
 }

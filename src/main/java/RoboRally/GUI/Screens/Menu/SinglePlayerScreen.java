@@ -12,12 +12,12 @@ public class SinglePlayerScreen extends MenuScreenAdapter{
 
     public SinglePlayerScreen(RoboRallyApp app) {
         super(app);
-        addHeading("Single Player Game");
+        addHeading("Single Player RoboRally");
         this.box = addSelectBox(Boards.ALL_BOARDS, true);
 
-        addButton("Start Game", true, new ClickListener() {
+        addButton("Start RoboRally", true, new ClickListener() {
             @Override
-            public void clicked(InputEvent event, float x, float y) { app.startNewGame((Boards) box.getSelected()); }
+            public void clicked(InputEvent event, float x, float y) { app.hostNewGame((Boards) box.getSelected()); }
         });
         addButton("Back", true, BackButtonListener());
     }

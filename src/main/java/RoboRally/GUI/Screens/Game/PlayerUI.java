@@ -1,5 +1,6 @@
 package RoboRally.GUI.Screens.Game;
 
+import RoboRally.Game.Cards.ProgramCard;
 import RoboRally.RoboRallyApp;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -46,16 +47,20 @@ public class PlayerUI {
     private void addCardButtons() {
         for (int i = 0; i < 9; ++i) {
             int index = i;
-            Button button = new ImageButton(new TextureRegionDrawable(new TextureRegion(new Texture(app.getMyPlayer().getHand()[index].getPath()))));
-            button.addListener(new ClickListener() {
-                @Override
-                public void clicked(InputEvent event, float x, float y) {
-                    app.getGame().ExecuteProgramCard(app.getMyPlayer(), app.getMyPlayer().getHand()[index]); // TODO: DEMO CODE. REPLACE!!!
-                }
-            });
+            Button button = new ImageButton(new TextureRegionDrawable(new TextureRegion(new Texture(ProgramCard.BACK.getPath()))));
+            button.addListener(cardListener(index));
             table.add(button).size(WIDTH/11.5f, HEIGHT/7); // TODO: Dynamic size variable.
             cardButtons[i] = button;
         }
+    }
+
+    private ClickListener cardListener(int index) {
+        return new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                app.getGame().ExecuteProgramCard(app.getGame().getMyPlayer(), app.getGame().getMyPlayer().getHand().get(index)); // TODO: DEMO CODE. REPLACE!!!
+            }
+        };
     }
 
     private void addRunButton() {

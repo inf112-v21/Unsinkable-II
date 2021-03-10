@@ -21,7 +21,7 @@ public class MultiplayerJoinScreen extends MenuScreenAdapter {
 
         super(game);
 
-        addHeading("Join Multiplayer Game");
+        addHeading("Join Multiplayer RoboRally");
         this.hostIP = "";
         this.label = addLabel("", true);
         this.ipField = addTextField(hostIP, true);
@@ -35,7 +35,6 @@ public class MultiplayerJoinScreen extends MenuScreenAdapter {
      */
     private void joinPressed() {
         hostIP = ipField.getText();
-        System.out.println(hostIP);
         app.joinNewGame(hostIP);
     }
 

@@ -1,9 +1,12 @@
 package RoboRally.Game.Board;
 
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * Catalog for the tile.tsx objects.
  */
-public enum TileID { // TODO: Check if all IDs should be increased by +1. Map representation (.tmx) files appear to use IDs+1
+public enum TileID {
 
     /**
      * Start positions.
@@ -15,7 +18,7 @@ public enum TileID { // TODO: Check if all IDs should be increased by +1. Map re
     Start5(129), //added +1
     Start6(130), //added +1
     Start7(131), //added +1
-    Start0(132), //added +1
+    Start8(132), //added +1
 
     /**
      * Flags.
@@ -106,11 +109,13 @@ public enum TileID { // TODO: Check if all IDs should be increased by +1. Map re
     /**
      * LaserWalls
      */
-
     ;
 
+    public final static List<TileID> startPositions = Arrays.asList(Start1, Start2, Start3, Start4, Start5, Start6, Start7, Start8);
 
-    public final int id;
+    private final int id;
 
     TileID(int id) { this.id = id; }
+
+    public int getId() { return this.id; }
 }

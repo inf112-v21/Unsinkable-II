@@ -1,5 +1,6 @@
 package RoboRally.MultiplayerTests;
 
+import RoboRally.Game.Board.Boards;
 import RoboRally.Multiplayer.MultiplayerClient;
 import RoboRally.Multiplayer.MultiplayerHost;
 import RoboRally.RoboRallyApp;
@@ -9,15 +10,11 @@ public class MultiplayerTest {
 
     private RoboRallyApp app = new RoboRallyApp();
 
-    @Test
-    public void HostServerStarts() {
-        MultiplayerHost mph = new MultiplayerHost(app);
-    }
 
     @Test
-    public void ClientCanConnectToHost() throws InterruptedException {
-        MultiplayerHost mph = new MultiplayerHost(app);
-        MultiplayerClient mpc = new MultiplayerClient("127.0.0.1");
+    public void ClientCanConnectToHost() {
+        MultiplayerHost mph = new MultiplayerHost(Boards.CHECKMATE);
+        MultiplayerClient mpc = new MultiplayerClient(app, "localhost");
     }
 
     @Test

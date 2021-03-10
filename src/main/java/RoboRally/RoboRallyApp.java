@@ -3,8 +3,9 @@ package RoboRally;
 import RoboRally.GUI.Screens.Menu.MenuScreen;
 import RoboRally.GUI.Screens.Game.PlayerView;
 import RoboRally.Game.Board.Boards;
+import RoboRally.Game.Engine.GameLoop;
 import RoboRally.Game.Objects.Player;
-import RoboRally.Game.RoboRallyGame;
+import RoboRally.Game.Engine.RoboRallyGame;
 import RoboRally.Multiplayer.Multiplayer;
 import RoboRally.Multiplayer.MultiplayerClient;
 import RoboRally.Multiplayer.MultiplayerHost;
@@ -20,10 +21,6 @@ import RoboRally.GUI.Screens.Menu.TitleScreen;
  * the graphics thread runs and is the anchor when switching between screens.
  */
 public class RoboRallyApp extends Game {
-
-    private RoboRallyGame game;
-    private Multiplayer server, myConnection;
-    private Player myPlayer;
 
     //================================================================
     //                         App configuration
@@ -42,6 +39,11 @@ public class RoboRallyApp extends Game {
     private Stage stage;
     private MenuScreen titleScreen;
 
+    private GameLoop game;
+    private Multiplayer server, myConnection;
+    public GameLoop newGame;
+    protected Thread thread;
+
     @Override
     public void create() {
         this.GUI_SKIN = new Skin(Gdx.files.internal(guiSkinPath));
@@ -59,7 +61,7 @@ public class RoboRallyApp extends Game {
     }
 
     @Override
-    public void dispose() {}
+    public void dispose() { stage.dispose(); }
 
     /**
      * @return the name of the design group.
@@ -70,7 +72,6 @@ public class RoboRallyApp extends Game {
      * @return the RoboRally Logo.
      */
     public String getLogoPath() { return this.logoPath; }
-
 
     /**
      * @return the GUI skin being used by the application.
@@ -85,14 +86,12 @@ public class RoboRallyApp extends Game {
     /**
      * Host a new multiplayer game.
      *
-     * @param board = The board the host wants to play.
+     * @param boardSelection = The board the host wants to play.
      */
-    public void startNewGame(Boards board) {
-        this.game = new RoboRallyGame(this, board);
-        this.myPlayer = game.addPlayer();
-        this.server = new MultiplayerHost(this);
-        this.myConnection = new MultiplayerClient("localhost");
-        this.setScreen(new PlayerView(this));
+    public void hostNewGame(Boards boardSelection) {
+        this.server = new MultiplayerHost(boardSelection);
+        joinNewGame("localhost");
+        startGame(boardSelection, 0);
     }
 
     /**
@@ -100,34 +99,24 @@ public class RoboRallyApp extends Game {
      *
      * @param hostIP = the IP of the host.
     */
-    public void joinNewGame(String hostIP) {
-        this.myConnection = new MultiplayerClient(hostIP);
-        Boards board;
-        while(true) {
-            try {
-                board = myConnection.getServerPacket().board;
-                break;
-            } catch (Exception e) { System.out.println("Waiting for Server board board"); }
-        }
+    public void joinNewGame(String hostIP) { this.myConnection = new MultiplayerClient(this, hostIP); }
 
-        this.game = new RoboRallyGame(this, board);
-        this.myPlayer = game.addPlayer();
+    private void startGame(Boards boardSelection, int playerID){
+        this.newGame = new GameLoop(this, boardSelection, playerID);
+        this.thread = new Thread(newGame);
         this.setScreen(new PlayerView(this));
     }
 
     /**
      * @return the RoboRally game being played.
      */
-    public RoboRallyGame getGame() { return game; }
+    public GameLoop getGame() { return newGame; }
 
     /**
      * @return the RoboRally game stage.
      */
     public Stage getStage() { return stage; }
 
-    /**
-     * @return the local player.
-     */
-    public Player getMyPlayer() { return myPlayer; }
+
 
 }

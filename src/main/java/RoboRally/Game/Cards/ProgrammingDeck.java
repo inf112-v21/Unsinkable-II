@@ -13,7 +13,6 @@ import java.util.Stack;
  */
 public class ProgrammingDeck {
 
-    public static final int MAX_SELECT = 9;
     private final Stack<ProgramCard> programCardDeck;
     private final List<ProgramCard> thrownCards;
 

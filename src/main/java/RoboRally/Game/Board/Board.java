@@ -18,7 +18,7 @@ import java.util.List;
 public class Board {
 
     private final TiledMap board;
-    private final List<Vector2> startLocs;
+    private final Vector2[] startLocs;
     private final TiledMapTileLayer boardLayer, playerLayer, startLayer, wallLayer, laserWallLayer, laserLayer;
     private final TiledMapTileLayer flagLayer, holeLayer, conveyor1Layer, gearLayer, repairLayer, upgradeLayer;
 
@@ -37,7 +37,8 @@ public class Board {
         this.laserWallLayer = (TiledMapTileLayer) board.getLayers().get("LaserWall");
         this.wallLayer = (TiledMapTileLayer) board.getLayers().get("Wall");
 
-        this.startLocs = findObjects(startLayer);
+        this.startLocs = new Vector2[8];
+        findStart();
     }
 
     /**
@@ -59,7 +60,7 @@ public class Board {
      * @param player player to be added to the board
      */
     public void addNewPlayer(Player player) {
-        player.getRobot().setLoc(startLocs.get(player.getID()));
+        player.getRobot().setLoc(startLocs[player.getID()]);
         putRobot(player);
         playerLayer.setCell((int) player.getRobot().getLoc().x, (int) player.getRobot().getLoc().y, player.getPiece().getCell());
     }
@@ -94,7 +95,7 @@ public class Board {
      * @param layer the layer to be searched for objects.
      * @return a list of locations
      */
-    private List<Vector2> findObjects(TiledMapTileLayer layer) {
+    private List<Vector2> find(TiledMapTileLayer layer) {
         List<Vector2> list = new ArrayList<>();
         for (int x = 0; x < layer.getWidth(); ++x) {
             for (int y = 0; y < layer.getHeight(); ++y) {
@@ -104,11 +105,28 @@ public class Board {
         return list;
     }
 
+    private void findStart() {
+        for (int x = 0; x < startLayer.getWidth(); ++x) {
+            for (int y = 0; y < startLayer.getHeight(); ++y) {
+                if (startLayer.getCell(x, y) != null) {
+                    int id = startLayer.getCell( x, y).getTile().getId();
+                    if (id == TileID.Start1.getId()) { startLocs[0] = new Vector2(x, y); }
+                    else if (id == TileID.Start2.getId()) { startLocs[1] = new Vector2(x, y); }
+                    else if (id == TileID.Start3.getId()) { startLocs[2] = new Vector2(x, y); }
+                    else if (id == TileID.Start4.getId()) { startLocs[3] = new Vector2(x, y); }
+                    else if (id == TileID.Start5.getId()) { startLocs[4] = new Vector2(x, y); }
+                    else if (id == TileID.Start6.getId()) { startLocs[5] = new Vector2(x, y); }
+                    else if (id == TileID.Start7.getId()) { startLocs[6] = new Vector2(x, y); }
+                    else if (id == TileID.Start8.getId()) { startLocs[7] = new Vector2(x, y); }
+                }
+            }
+        }
+    }
+
     public TiledMap getBoard() { return this.board;}
 
     public int getBoardWidth() { return boardLayer.getWidth(); }
 
     public int getBoardHeight() { return boardLayer.getHeight(); }
-
 
 }

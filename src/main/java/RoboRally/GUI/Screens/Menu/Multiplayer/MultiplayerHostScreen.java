@@ -30,13 +30,13 @@ public class MultiplayerHostScreen extends MenuScreenAdapter {
 
         super(game);
 
-        addHeading("Host Multiplayer Game");
+        addHeading("Host Multiplayer RoboRally");
         this.ip = getIP();
         this.port = Multiplayer.tcpPort;
         this.box = addSelectBox(Boards.ALL_BOARDS, true);
         this.ipLabel = addLabel(""+ip, true);
         this.portField = addTextField(""+port, true);
-        addButton("Host Game", true, HostGameListener());
+        addButton("Host RoboRally", true, HostGameListener());
         addButton("Back", true, BackButtonListener());
     }
 
@@ -62,7 +62,7 @@ public class MultiplayerHostScreen extends MenuScreenAdapter {
     private void hostPressed() {
         try {
             //port = Integer.parseInt(portField.getText()); // TODO: turn back on port field
-            app.startNewGame((Boards) box.getSelected());
+            app.hostNewGame((Boards) box.getSelected());
         }
         catch (Exception e) { e.printStackTrace(); }// TODO: Display error message in GUI.
     }
@@ -70,7 +70,7 @@ public class MultiplayerHostScreen extends MenuScreenAdapter {
     /**
      * Listener that starts a new host server and a new game using the selected board.
      *
-     * @return InputListener for Host Game button.
+     * @return InputListener for Host RoboRally button.
      */
     public ClickListener HostGameListener() { return new ClickListener() {
             @Override

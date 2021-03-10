@@ -1,5 +1,6 @@
 package RoboRally.Multiplayer;
 
+import RoboRally.RoboRallyApp;
 import com.esotericsoftware.kryonet.Client;
 
 /**
@@ -8,12 +9,12 @@ import com.esotericsoftware.kryonet.Client;
 public class MultiplayerClient extends Multiplayer {
     private final Client client;
 
-    public MultiplayerClient(String hostIP) {
-
+    public MultiplayerClient(RoboRallyApp app, String hostIP) {
+        this.app = app;
         this.client = new Client();
         register(client);
         this.client.start();
-        client.addListener(this); // TODO: If this steals the main thread. Then it needs it's own thread.
+        client.addListener(this);
         connectTo(hostIP);
         System.out.println("Client done!");
     }

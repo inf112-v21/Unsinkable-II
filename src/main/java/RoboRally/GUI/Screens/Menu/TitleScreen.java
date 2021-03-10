@@ -11,13 +11,13 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 public class TitleScreen extends MenuScreenAdapter {
 
     /**
-     * The Game title screen.
+     * The RoboRally title screen.
      *
      * @param app the application GUI entry point object.
      */
     public TitleScreen(RoboRallyApp app) {
         super(app);
-        addHeading("Select Game Mode. ");
+        addHeading("Select RoboRally Mode. ");
         addButton("Single Player - TESTING", true, SinglePlayerButtonListener());
         addButton("Multiplayer", true, MultiplayerButtonListener());
         addButton("Options", true, OptionsButtonListener());
