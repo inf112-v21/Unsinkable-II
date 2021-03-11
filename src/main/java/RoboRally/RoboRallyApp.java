@@ -39,7 +39,7 @@ public class RoboRallyApp extends Game {
 
     private Multiplayer server, myConnection;
     public GameLoop game;
-    protected Thread thread;
+    protected Thread gameThread;
 
     @Override
     public void create() {
@@ -82,14 +82,14 @@ public class RoboRallyApp extends Game {
         while (!myConnection.start) {
 
         }
-        System.out.println("I am player "+myConnection.serverPacket.playerID);
-        startGame(myConnection.serverPacket.boardSelection, myConnection.serverPacket.playerID);
+        System.out.println("I am player "+myConnection.startPacket.playerID);
+        startGame(myConnection.startPacket.boardSelection, myConnection.startPacket.playerID);
 
     }
 
-    public void startGame(Boards boardSelection, int playerID){
+    public void startGame(Boards boardSelection, int playerID) {
         this.game = new GameLoop(this, boardSelection, playerID);
-        this.thread = new Thread(game);
+        this.gameThread = new Thread(game);
         this.setScreen(new PlayerView(this));
     }
 
