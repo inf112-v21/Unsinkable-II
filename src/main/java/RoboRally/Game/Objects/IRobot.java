@@ -6,19 +6,40 @@ import com.badlogic.gdx.math.Vector2;
 
 public interface IRobot {
 
-    Direction heading();
+    /**
+     * @return the direction the robot is facing.
+     */
+    Direction getDirection();
 
-    void setHeading(Direction dir);
+    /**
+     * @param dir the new direction the robot is facing.
+     */
+    void setDirection(Direction dir);
 
-    void setLoc(Vector2 newLoc);
-
-    void setLoc(float x, float y);
-
+    /**
+     * @return the robot's current location.
+     */
     Vector2 getLoc();
 
-    //TiledMapTileLayer.Cell getCell();
+    /**
+     * @param newLoc the new robot location.
+     */
+    void setLoc(Vector2 newLoc);
 
-    //TiledMapTileLayer.Cell getDiedCell();
+    /**
+     * @return robot normal cell.
+     */
+    TiledMapTileLayer.Cell getCell();
 
-    //TiledMapTileLayer.Cell getWonCell();
+    /**
+     * @return robot died cell.
+     */
+    TiledMapTileLayer.Cell getDiedCell();
+
+    /**
+     * @return robot won cell.
+     */
+    TiledMapTileLayer.Cell getWonCell();
+
+    int getHealth();
 }

@@ -1,20 +1,20 @@
 package RoboRally.MultiplayerTests;
 
+import RoboRally.Game.Board.Boards;
 import RoboRally.Multiplayer.MultiplayerClient;
 import RoboRally.Multiplayer.MultiplayerHost;
+import RoboRally.RoboRallyApp;
 import org.junit.jupiter.api.Test;
 
 public class MultiplayerTest {
 
-    @Test
-    public void HostServerStarts() {
-        MultiplayerHost mph = new MultiplayerHost();
-    }
+    private RoboRallyApp app = new RoboRallyApp();
+
 
     @Test
-    public void ClientCanConnectToHost() throws InterruptedException {
-        MultiplayerHost mph = new MultiplayerHost();
-        MultiplayerClient mpc = new MultiplayerClient("127.0.0.1", 8888, 8888);
+    public void ClientCanConnectToHost() {
+        MultiplayerHost mph = new MultiplayerHost(Boards.CHECKMATE);
+        MultiplayerClient mpc = new MultiplayerClient(app, "localhost");
     }
 
     @Test

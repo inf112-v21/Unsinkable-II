@@ -3,20 +3,17 @@ package RoboRally;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
 
-/**
- * The type Main.
- */
 public class Main {
-    
+
     /**
-     * The entry point of application.
+     * Runs RoboRallyApp as a libGDX application using Tiled and Kryonet API.
      *
-     * @param args the input arguments
+     * @param args
      */
     public static void main(String[] args) {
         Lwjgl3ApplicationConfiguration cfg = new Lwjgl3ApplicationConfiguration();
         cfg.setTitle("RoboRally");
-        cfg.setWindowedMode(1000,1000);
+        cfg.setWindowedMode(1920,1080);
         new Lwjgl3Application(new RoboRallyApp(), cfg);
     }
 }

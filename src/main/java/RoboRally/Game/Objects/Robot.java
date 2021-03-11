@@ -1,43 +1,59 @@
 package RoboRally.Game.Objects;
 
 import RoboRally.Game.Direction;
+import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Vector2;
 
 public class Robot implements IRobot {
 
-    private int playerNum;
-    private Direction heading;
+    private Piece piece;
+    private Direction direction;
     private Vector2 location;
+    public final int registers, cache, damage;
 
-    public Robot(int playerNum) {
-        this.playerNum = playerNum;
+    public Robot() {
+        this.registers = 5;
+        this.cache = 9;
+        this.damage = 0;
         this.location = new Vector2();
-        this.heading = Direction.WEST;
+        this.direction = Direction.NORTH;
     }
 
-    public int getId() { return this.playerNum; }
-
-    @Override
-    public Direction heading() { return this.heading; }
-
-    @Override
-    public void setHeading(Direction dir) {
-        this.heading = dir;
+    public Robot(Piece piece) {
+        this();
+        this.piece = piece;
     }
 
     @Override
-    public void setLoc(Vector2 newLoc) { this.location = newLoc; }
-
-    /**
-     * Set loc for JUnit testing
-     *
-     * @param x
-     * @param y
-     */
-    @Override
-    public void setLoc(float x, float y) { this.location.x = x; this.location.y = y; }
+    public int getHealth() { return cache - damage; }
 
     @Override
     public Vector2 getLoc() { return location; }
 
+    @Override
+    public void setLoc(Vector2 newLoc) { this.location = newLoc; }
+
+    @Override
+    public Direction getDirection() { return this.direction; }
+
+    @Override
+    public void setDirection(Direction dir) { this.direction = dir; }
+
+    @Override
+    public TiledMapTileLayer.Cell getCell() { return piece.getCell(); }
+
+    @Override
+    public TiledMapTileLayer.Cell getDiedCell() { return piece.getDiedCell(); }
+
+    @Override
+    public TiledMapTileLayer.Cell getWonCell() { return piece.getWonCell(); }
+
+
+    /**
+     * For JUnit testing ONLY!
+     *
+     * @param x
+     * @param y
+     */
+    public void setLoc(float x, float y) { this.location.x = x; this.location.y = y; }
 }

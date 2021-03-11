@@ -9,17 +9,15 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class DirectionTest {
 
     Robot robot;
-    GameLib gameLib;
     @BeforeEach
     public void setup(){
-        robot = new Robot(0);
-        gameLib = new GameLib();
+        robot = new Robot();
         robot.setLoc(5,5);
     }
 
     @Test
     public void moveNorthIncrementsY(){
-        gameLib.move(robot,Direction.NORTH);
+        TestingLibrary.move(robot,Direction.NORTH);
 
         assertEquals(5, robot.getLoc().x);
         assertEquals(6, robot.getLoc().y);
@@ -27,7 +25,7 @@ public class DirectionTest {
 
     @Test
     public void moveSouthDecrementsY(){
-        gameLib.move(robot,Direction.SOUTH);
+        TestingLibrary.move(robot,Direction.SOUTH);
 
         assertEquals(5, robot.getLoc().x);
         assertEquals(4, robot.getLoc().y);
@@ -35,7 +33,7 @@ public class DirectionTest {
 
     @Test
     public void moveEastIncrementsX(){
-        gameLib.move(robot,Direction.EAST);
+        TestingLibrary.move(robot,Direction.EAST);
 
         assertEquals(6, robot.getLoc().x);
         assertEquals(5, robot.getLoc().y);
@@ -43,7 +41,7 @@ public class DirectionTest {
 
     @Test
     public void moveWestDecrementsX() {
-        gameLib.move(robot,Direction.WEST);
+        TestingLibrary.move(robot,Direction.WEST);
 
         assertEquals(4, robot.getLoc().x);
         assertEquals(5, robot.getLoc().y);

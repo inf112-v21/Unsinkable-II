@@ -1,17 +1,15 @@
 package RoboRally.Game;
 
-import com.badlogic.gdx.math.Vector2;
-
-import java.util.Arrays;
-import java.util.List;
-
+/**
+ * Class to represent cardinal directions.
+ */
 public enum Direction {
     NORTH(0,1, 0),
-    EAST(1,0, 1),
+    WEST(-1,0, 1),
     SOUTH(0,-1, 2),
-    WEST(-1,0, 3);
+    EAST(1,0, 3);
 
-    public static List<Direction> DIRECTIONS = Arrays.asList(NORTH, EAST, SOUTH, WEST);
+    public static Direction[] DIRECTIONS = new Direction[] {NORTH, WEST, SOUTH, EAST};
 
     private final int x, y, direction;
 
@@ -25,7 +23,7 @@ public enum Direction {
 
     public int getY() { return this.y; }
 
-    public static Direction rotate(Direction dir, int rotation) { return DIRECTIONS.get((dir.direction + rotation) %4); }
+    public int getDirection() { return this.direction; }
 
-    public Direction rotate(int rotation) { return DIRECTIONS.get((this.direction + rotation) %4); }
+    public Direction rotate(int rotation) { return DIRECTIONS[(4 + this.direction + rotation) %4]; }
 }

@@ -1,44 +1,79 @@
 package RoboRally.Multiplayer;
 
+import RoboRally.Game.Board.Boards;
+import RoboRally.Game.Objects.Player;
+import RoboRally.Multiplayer.Packets.GamePacket;
+import RoboRally.Multiplayer.Packets.MessagePacket;
+import RoboRally.Multiplayer.Packets.StartPacket;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Server;
 
-import java.util.LinkedList;
-import java.util.List;
+import java.util.HashSet;
 
+/**
+ * Class to create a host server for clients to connect to.
+ */
 public class MultiplayerHost extends Multiplayer {
-    private static Server server;
-    private final List<Connection> connections;
+    private final Server server;
 
-    public MultiplayerHost() {
-        this.connections = new LinkedList<>();
-        server = new Server();
-        Multiplayer.register(server);
 
+    public MultiplayerHost(Boards board) {
+        this.server = new Server();
+        register(server);
+        server.start();
         try { server.bind(tcpPort, udpPort); }
         catch (Exception e) { e.printStackTrace(); }
-
-        server.start();
         server.addListener(this);
+
+        connections = new HashSet<>();
+        startPacket = new StartPacket();
+        startPacket.boardSelection = board;
+        startPacket.playerID = connections.size();
     }
 
+    /**
+     * Method that activates when a new connection is established.
+     *
+     * @param connection the connection just established.
+     */
     public void connected(Connection connection) {
+        connection.setTimeout(TIMEOUT*100);
+        System.out.println("New Connection: "+connection.getRemoteAddressTCP());
+        connection.sendTCP(startPacket);
+        for (Connection con : connections) { con.sendTCP(startPacket); }
         this.connections.add(connection);
-        System.out.println(connection.getRemoteAddressTCP().getHostString()+" has connected!"); // TODO: Remove
-        Packet packet = new Packet();
-        packet.packetMessage = "Connection successful!";
-        connection.sendTCP(packet);
+        startPacket.playerID = connections.size();
+
     }
 
-    public void disconnected(Connection connection) { System.out.println(connection+" disconnected!"); } // TODO: Finish
+    /**
+     * Method that activates when an established connection is lost.
+     *
+     * @param connection the disconnected connection.
+     */
+    public void disconnected(Connection connection) { connections.remove(connection);}
 
-    public void received(Connection connection, Object transmission) {
-        if (transmission instanceof Packet) {
-            Packet packet = (Packet) transmission;
-            System.out.println(connection+" received "+packet.packetMessage); // TODO: Remove
-        }
+
+    /**
+     * Broadcasts a game packet to all player connections playing together.
+     *
+     * @param player the local player
+     * @param board the board being played
+     */
+    private void broadcastGamePacket(Player player, Boards board) {
+        GamePacket packet = new GamePacket();
+        packet.robotLoc = player.getRobot().getLoc();
+        for (Connection connection : connections) { connection.sendTCP(packet); }
     }
-    public void send(Connection connection, Packet packet) { connection.sendTCP(packet); }
 
-    public List<Connection> getConnections() { return connections; }
+    /**
+     * Broadcasts a message to all player connections playing together.
+     *
+     * @param message text message to broadcast.
+     */
+    private void broadcastMessagePacket(String message) {
+        MessagePacket packet = new MessagePacket();
+        packet.message = message;
+        for (Connection connection : connections) { connection.sendTCP(packet); }
+    }
 }

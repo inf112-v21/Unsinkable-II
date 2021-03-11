@@ -14,6 +14,12 @@ University of Bergen.
    1. [Testing](#testing)
 4. [Developers](#developers)
 5. [Documents](#documents)
+6. [About](#About)
+7. [Minutes from meetings](#Meeting Minutes)
+8. [User Stories](#User Stories)
+9. [Diagrams](#Diagram)
+10. [Retrospect](#Retrospect)
+11. [Contributing to Git](#Git)
 
 ## Overview
 This project's goal is to make a fully functional and playable version of
@@ -70,15 +76,6 @@ Current developers of this project
 For further documents related to this project and assignments, see
 [documents.md](./documentation/documents.md).
 =======
-# Overview
-  - Project overview
-  - Version Control
-  - How to run
-  - Known bugs
-  - Contributing:
-
-## Project Overview
-inf112.DEPRECIATED.FUTURE RoboRally.Game RoboRally by Unsinkable-II.
 
 ## How to run:
 Run 
@@ -86,15 +83,16 @@ Run
 from IDE.
 
 ## Known bugs:
+See [issues](https://github.com/inf112-v21/Unsinkable-II/issues)
 
 ## Contributing:
 
-### About:
+### About
 [Unsinkable-II](documentation/deliverables/compulsoryAssignment1/about.md)
 
 [Group dynamics](documentation/deliverables/compulsoryAssignment1/ComplulsoryAssignment1.md)
 
-### Meeting Minutes:
+### Meeting Minutes
 [Feb/01/2021](documentation/deliverables/minutesOfMeetings/2021.02.01.md)
 
 [Feb/04/2021](documentation/deliverables/minutesOfMeetings/2021.02.04.md)
@@ -109,7 +107,7 @@ from IDE.
 
 [Mar/03/2001](documentation/deliverables/minutesOfMeetings/minutes_03.01.21.md)
 
-### User Stories:
+### User Stories
 [User Story 1](documentation/deliverables/compulsoryAssignment1/userStories/UserStory1.md)
 
 [User Story 2](documentation/deliverables/compulsoryAssignment1/userStories/UserStory2.md)
@@ -118,10 +116,13 @@ from IDE.
 
 [User Story 4](documentation/deliverables/compulsoryAssignment1/userStories/UserStory4.md)
 
-### Diagrams:
+### Diagrams
 [Proposed RoboRally.Game flow](documentation/deliverables/compulsoryAssignment1/RoboRally%20Flowchart.pdf)
 
 [Project board](https://github.com/inf112-v21/Unsinkable-II/issues)
 
-### Git:
+### Retrospect
+[Retrospect 2](documentation/deliverables/CompulsaryAssignment2/Retrospect.md)
+
+### Git
 [Git instructions](documentation/CONTRIBUTING.md)
