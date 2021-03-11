@@ -12,20 +12,6 @@ public interface Networking {
      */
     void register(EndPoint endPoint);
 
-    /**
-     * Broadcasts a game packet to all player connections playing together.
-     *
-     * @param player the local player
-     * @param board the board being played
-     */
-    void broadcastGamePacket(Player player, Boards board);
-
-    /**
-     * Broadcasts a message to all player connections playing together.
-     *
-     * @param message text message to broadcast.
-     */
-    void broadcastMessagePacket(String message);
 
     /**
      * Sends a message to a specific player connection.

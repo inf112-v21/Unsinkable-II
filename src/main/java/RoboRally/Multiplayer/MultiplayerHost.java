@@ -1,8 +1,10 @@
 package RoboRally.Multiplayer;
 
 import RoboRally.Game.Board.Boards;
+import RoboRally.Game.Objects.Player;
+import RoboRally.Multiplayer.Packets.GamePacket;
+import RoboRally.Multiplayer.Packets.MessagePacket;
 import RoboRally.Multiplayer.Packets.ServerPacket;
-import RoboRally.RoboRallyApp;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Server;
 
@@ -35,15 +37,13 @@ public class MultiplayerHost extends Multiplayer {
      * @param connection the connection just established.
      */
     public void connected(Connection connection) {
-        connection.setTimeout(TIMEOUT*10);
+        connection.setTimeout(TIMEOUT*100);
         System.out.println("New Connection: "+connection.getRemoteAddressTCP());
         connection.sendTCP(serverPacket);
+        for (Connection con : connections) { con.sendTCP(serverPacket); }
         this.connections.add(connection);
-        for (Connection con : connections) {
-            System.out.println("Sending to server packet update to "+con.getRemoteAddressTCP());
-            con.sendTCP(serverPacket); }
-        
-        ++serverPacket.playerID;
+        serverPacket.playerID = connections.size();
+
     }
 
     /**
@@ -53,4 +53,27 @@ public class MultiplayerHost extends Multiplayer {
      */
     public void disconnected(Connection connection) { connections.remove(connection);}
 
+
+    /**
+     * Broadcasts a game packet to all player connections playing together.
+     *
+     * @param player the local player
+     * @param board the board being played
+     */
+    private void broadcastGamePacket(Player player, Boards board) {
+        GamePacket packet = new GamePacket();
+        packet.robotLoc = player.getRobot().getLoc();
+        for (Connection connection : connections) { connection.sendTCP(packet); }
+    }
+
+    /**
+     * Broadcasts a message to all player connections playing together.
+     *
+     * @param message text message to broadcast.
+     */
+    private void broadcastMessagePacket(String message) {
+        MessagePacket packet = new MessagePacket();
+        packet.message = message;
+        for (Connection connection : connections) { connection.sendTCP(packet); }
+    }
 }

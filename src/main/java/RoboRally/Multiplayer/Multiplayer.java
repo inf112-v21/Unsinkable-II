@@ -1,7 +1,6 @@
 package RoboRally.Multiplayer;
 
 import RoboRally.Game.Board.Boards;
-import RoboRally.Game.Objects.Player;
 import RoboRally.Multiplayer.Packets.ServerPacket;
 import RoboRally.Multiplayer.Packets.GamePacket;
 import RoboRally.Multiplayer.Packets.MessagePacket;
@@ -42,9 +41,9 @@ public abstract class Multiplayer extends Listener implements Networking {
     public void received(Connection connection, Object transmission) {
         if (transmission instanceof ServerPacket) {
             this.serverPacket = (ServerPacket) transmission;
-            start = true;
-            System.out.println("Received from Server " + serverPacket.boardSelection.toString());
-
+            if (start) { app.getGame().addPlayer(serverPacket.playerID);}
+            else start = true;
+            System.out.println("New Player " + serverPacket.playerID);
         }
         else if (transmission instanceof GamePacket) {
             // TODO: Send gamepacket to update game state
@@ -55,20 +54,6 @@ public abstract class Multiplayer extends Listener implements Networking {
             System.out.println(connection+" from "+packet.userName+" "+" received " + packet.message); // TODO: Display message in GUI
         }
 
-    }
-
-    @Override
-    public void broadcastGamePacket(Player player, Boards board) {
-        GamePacket packet = new GamePacket();
-        packet.robotLoc = player.getRobot().getLoc();
-        for (Connection connection : connections) { connection.sendTCP(packet); }
-    }
-
-    @Override
-    public void broadcastMessagePacket(String message) {
-        MessagePacket packet = new MessagePacket();
-        packet.message = message;
-        for (Connection connection : connections) { connection.sendTCP(packet); }
     }
 
     @Override

@@ -1,50 +1,35 @@
 package RoboRally.Game.Engine;
 
-import RoboRally.GUI.Screens.Game.PlayerView;
 import RoboRally.Game.Board.Board;
 import RoboRally.Game.Cards.ProgramCard;
 import RoboRally.Game.Board.Boards;
 import RoboRally.Game.Objects.Player;
 import RoboRally.Game.Objects.Robot;
-import RoboRally.Multiplayer.Packets.ServerPacket;
 import RoboRally.RoboRallyApp;
 
-import java.util.LinkedList;
 import java.util.List;
 
 /**
  * The RoboRally game logic
  */
 public abstract class RoboRallyGame implements RoboRally {
-    protected final RoboRallyApp app;
-    protected final boolean stopGame;
-    protected final List<Player> players;
-    protected final Boards boardSelection;
-    protected final Board board;
-    protected final Player myPlayer;
+    protected RoboRallyApp app;
+    protected boolean stopGame;
+    protected List<Player> players;
+    protected Boards boardSelection;
+    protected Board board;
+    protected Player myPlayer;
     protected int roundNumber;
 
-
-    public RoboRallyGame(RoboRallyApp app, Boards boardSelection, int playerID) {
-        this.app = app;
-        this.roundNumber = 0;
-        this.stopGame = false;
-        this.players = new LinkedList<>();
-        this.boardSelection = boardSelection;
-        this.board = new Board(boardSelection);
-        this.myPlayer = addPlayer(playerID); // After board
-    }
 
     /**
      * Executes a full round.
      *
      * @return true if round was completed, false otherwise.
      */
-    protected boolean round() {
+    protected void round() {
 
         // TODO: Round logic goes here.
-
-        return true;
     }
 
     //================================================================
@@ -58,10 +43,10 @@ public abstract class RoboRallyGame implements RoboRally {
      */
     public Player addPlayer(int playerID) {
         if (players.size() < 8) {
+
             Player newPlayer = new Player(playerID);
             board.addNewPlayer(newPlayer);
             players.add(newPlayer);
-
             return players.get(players.size() - 1);
         }
         else { return null; }
