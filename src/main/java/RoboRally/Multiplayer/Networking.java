@@ -4,6 +4,7 @@ import RoboRally.Game.Board.Boards;
 import RoboRally.Game.Objects.Player;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.EndPoint;
+import com.jcraft.jogg.Packet;
 
 public interface Networking {
 
@@ -14,11 +15,11 @@ public interface Networking {
 
 
     /**
-     * Sends a message to a specific player connection.
+     * Sends a packet to a specific player connection.
      *
      * @param connection player connection to send packet.
-     * @param message text message to send.
+     * @param packet packet to send.
      */
-    void sendMessagePacket(Connection connection, String message);
+    void sendPacket(Connection connection, Packet packet);
 
 }

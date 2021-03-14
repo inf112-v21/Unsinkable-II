@@ -1,21 +1,28 @@
 package RoboRally.Game.Objects;
 
+import RoboRally.Game.Cards.ProgramCard;
 import RoboRally.Game.Direction;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Vector2;
+
+import java.util.LinkedList;
+import java.util.Queue;
 
 public class Robot implements IRobot {
 
     private Piece piece;
     private Direction direction;
     private Vector2 location;
-    public final int registers, cache, damage;
+    private Queue<ProgramCard> registers;
+    private final int numRegisters, cacheSize, damage;
+
 
     public Robot() {
-        this.registers = 5;
-        this.cache = 9;
+        this.numRegisters = 5;
+        this.cacheSize = 9;
         this.damage = 0;
         this.location = new Vector2();
+        this.registers = new LinkedList<>();
         this.direction = Direction.NORTH;
     }
 
@@ -25,7 +32,10 @@ public class Robot implements IRobot {
     }
 
     @Override
-    public int getHealth() { return cache - damage; }
+    public Piece getPiece() {  return this.piece; }
+
+    @Override
+    public int getHealth() { return cacheSize - damage; }
 
     @Override
     public Vector2 getLoc() { return location; }
@@ -38,6 +48,12 @@ public class Robot implements IRobot {
 
     @Override
     public void setDirection(Direction dir) { this.direction = dir; }
+
+    @Override
+    public Queue<ProgramCard> getRegisters() { return this.registers; }
+
+    @Override
+    public void setRegisters(Queue<ProgramCard> registers) { this.registers = registers; }
 
     @Override
     public TiledMapTileLayer.Cell getCell() { return piece.getCell(); }

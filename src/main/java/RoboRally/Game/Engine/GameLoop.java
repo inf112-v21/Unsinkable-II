@@ -6,6 +6,8 @@ import RoboRally.RoboRallyApp;
 
 import java.util.LinkedList;
 
+import static java.lang.Thread.sleep;
+
 
 public class GameLoop extends RoboRallyGame implements Runnable {
 
@@ -17,18 +19,26 @@ public class GameLoop extends RoboRallyGame implements Runnable {
         this.players = new LinkedList<>();
         this.boardSelection = boardSelection;
         this.board = new Board(boardSelection);
+        this.nextRound = true;
+        this.roundSent = false;
 
-        for (int i = 0; i < playerID; ++i) { addPlayer(i); }
+        for (int i = 1; i < playerID; ++i) { addPlayer(i); }
         this.myPlayer = addPlayer(playerID);
     }
 
     @Override
     public void run() {
-        System.out.println("Starting...");
+        System.out.println("Starting " + Thread.currentThread().getName() + "...");
         while (!stopGame) {
-            System.out.println("Starting Round "+roundNumber);
-            round();
-            ++roundNumber;
+            while (nextRound) {
+                System.out.println("Starting Round " + roundNumber);
+                nextRound = false;
+                round();
+                ++roundNumber;
+            }
+
+            try { sleep(1000); }
+            catch (InterruptedException e) { System.out.println(Thread.currentThread().getName() + " sleep error."); }
         }
     }
 

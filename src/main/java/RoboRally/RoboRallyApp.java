@@ -13,6 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import RoboRally.GUI.Screens.Menu.TitleScreen;
+import com.esotericsoftware.kryonet.Connection;
 
 /**
  * RoboRally application entry point. This is the top-level GUI class that
@@ -37,8 +38,9 @@ public class RoboRallyApp extends Game {
     private Stage stage;
     private MenuScreen titleScreen;
 
-    private Multiplayer server, myConnection;
-    public GameLoop game;
+    private MultiplayerHost server;
+    private MultiplayerClient myConnection;
+    private GameLoop game;
     protected Thread gameThread;
 
     @Override
@@ -79,9 +81,7 @@ public class RoboRallyApp extends Game {
     */
     public void joinNewGame(String hostIP) {
         this.myConnection = new MultiplayerClient(this, hostIP);
-        while (!myConnection.start) {
-
-        }
+        while (!myConnection.start) { }
         System.out.println("I am player "+myConnection.startPacket.playerID);
         startGame(myConnection.startPacket.boardSelection, myConnection.startPacket.playerID);
 
@@ -89,9 +89,16 @@ public class RoboRallyApp extends Game {
 
     public void startGame(Boards boardSelection, int playerID) {
         this.game = new GameLoop(this, boardSelection, playerID);
-        this.gameThread = new Thread(game);
+        this.gameThread = new Thread(game, "Game Thread");
+        gameThread.start();
         this.setScreen(new PlayerView(this));
     }
+
+
+    /**
+     * @return the local client
+     */
+    public MultiplayerClient getLocalClient() { return this.myConnection; }
 
     /**
      * @return the RoboRally game being played.

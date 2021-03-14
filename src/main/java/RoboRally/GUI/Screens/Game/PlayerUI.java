@@ -14,6 +14,9 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 
+/**
+ * Player User Interface.
+ */
 public class PlayerUI {
     private final RoboRallyApp app;
     private final Table table;
@@ -24,6 +27,11 @@ public class PlayerUI {
     private final float WIDTH = 1200f;
     private final float HEIGHT = 1600f;
 
+    /**
+     * Creates a new player UI.
+     *
+     * @param app the app
+     */
     public PlayerUI(RoboRallyApp app) {
         this.app = app;
         this.stageViewport = new FitViewport(1200, 1600);
@@ -40,8 +48,16 @@ public class PlayerUI {
         stage.addActor(table);
     }
 
+    /**
+     * Gets stage.
+     *
+     * @return the stage
+     */
     public Stage getStage() { return this.stage; }
 
+    /**
+     * Dispose.
+     */
     public void dispose(){ stage.dispose(); }
 
     private void addCardButtons() {
@@ -58,7 +74,7 @@ public class PlayerUI {
         return new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                app.getGame().ExecuteProgramCard(app.getGame().getMyPlayer(), app.getGame().getMyPlayer().getHand().get(index)); // TODO: DEMO CODE. REPLACE!!!
+                // TODO: What should happen when a player clicks the card button?
             }
         };
     }
@@ -67,9 +83,7 @@ public class PlayerUI {
         Button button = new TextButton("Run", app.getGUI_SKIN());
         button.addListener(new ClickListener() {
             @Override
-            public void clicked(InputEvent event, float x, float y) {
-            }
-        } );
+            public void clicked(InputEvent event, float x, float y) { app.getGame().attemptRun(); } } );
 
         table.add(button).size(WIDTH/10, HEIGHT/8);
     }

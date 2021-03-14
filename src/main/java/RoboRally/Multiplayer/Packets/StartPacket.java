@@ -8,4 +8,11 @@ import RoboRally.Game.Board.Boards;
 public class StartPacket extends Packet {
     public int playerID;
     public Boards boardSelection;
+
+    public StartPacket() {}
+
+    public StartPacket(int playerID, Boards boardSelection) {
+        this.playerID = playerID;
+        this.boardSelection = boardSelection;
+    }
 }

@@ -5,6 +5,7 @@ import RoboRally.Game.Cards.ProgramCard;
 import RoboRally.Game.Board.Boards;
 import RoboRally.Game.Objects.Player;
 import RoboRally.Game.Objects.Robot;
+import RoboRally.Multiplayer.Packets.GamePacket;
 import RoboRally.RoboRallyApp;
 
 import java.util.List;
@@ -20,12 +21,11 @@ public abstract class RoboRallyGame implements RoboRally {
     protected Board board;
     protected Player myPlayer;
     protected int roundNumber;
+    protected boolean nextRound, roundSent;
 
 
     /**
      * Executes a full round.
-     *
-     * @return true if round was completed, false otherwise.
      */
     protected void round() {
 
@@ -37,42 +37,59 @@ public abstract class RoboRallyGame implements RoboRally {
     //================================================================
 
     /**
+     * Attempt run.
+     */
+    public void attemptRun() {
+        if(!roundSent) {
+            app.getLocalClient().getClient().sendTCP(new GamePacket(
+                    roundNumber,
+                    myPlayer.getID(),
+                    myPlayer.getRobot().getLoc(),
+                    myPlayer.getRobot().getRegisters())); // TODO: Replace with card selection from player hand.
+            roundSent = true;
+        }
+    }
+
+    /**
+     * Process round and update all robot.
+     *
+     * @param roundPackets the game round packets
+     */
+    public void updateAllRobotRegisters(List<GamePacket> roundPackets) {
+        for (GamePacket packet : roundPackets) {
+            players.get(packet.playerID-1).getRobot().setRegisters(packet.registers);
+        }
+        for (Player player : players) {
+            executeProgramCard(player.getRobot(), player.getRobot().getRegisters().poll());
+        }
+    }
+
+    /**
      * Adds a new player to the game.
      *
      * @return the Player added.
      */
     public Player addPlayer(int playerID) {
         if (players.size() < 8) {
-
             Player newPlayer = new Player(playerID);
             board.addNewPlayer(newPlayer);
             players.add(newPlayer);
-            return players.get(players.size() - 1);
+            return newPlayer;
         }
         else { return null; }
     }
 
     /**
-     * Moves a player's robot according to the program card.
+     * Executes a robot's next registry and moves the robot according to the program card.
      *
-     * @param player who controls robot.
-     * @param card that contains robot instructions to be executed.
+     * @param robot the robot executing the program card.
+     * @param card the program card containing the program instructions for the robot to execute.
      */
-    public void ExecuteProgramCard(Player player, ProgramCard card) {
-        board.removeRobot(player.getRobot());
-        playProgramCard(player.getRobot(), card);
-        board.putRobot(player);
-    }
-
-    /**
-     * Executes a robot's next registry.
-     *
-     * @param robot the robot executing its program.
-     * @param card the program.
-     */
-    private void playProgramCard(Robot robot, ProgramCard card) {
-        if (card.getSteps() != 0) { move(robot, card); }
-        else { rotate(robot, card); }
+    public void executeProgramCard(Robot robot, ProgramCard card) {
+        board.removeRobot(robot);
+        move(robot, card);
+        rotate(robot, card);
+        board.putRobot(robot);
     }
 
     /**
@@ -97,10 +114,14 @@ public abstract class RoboRallyGame implements RoboRally {
         robot.getCell().setRotation(robot.getDirection().getDirection()); // Rotates robot Cell
     }
 
-
     //================================================================
     //                            Getters
     //================================================================
+
+    /**
+     * @return the local player.
+     */
+    public Player getMyPlayer() { return myPlayer; }
 
     /**
      * @return the list of current players.
@@ -111,11 +132,6 @@ public abstract class RoboRallyGame implements RoboRally {
      * @return the current board.
      */
     public Board getBoard() { return this.board; }
-
-    /**
-     * @return the local player.
-     */
-    public Player getMyPlayer() { return myPlayer; }
 
 
 

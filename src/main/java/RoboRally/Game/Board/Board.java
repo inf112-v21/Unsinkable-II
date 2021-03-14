@@ -8,7 +8,9 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.math.Vector2;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Board Reader class that reads and manages the chosen board and its layers.
@@ -19,8 +21,9 @@ public class Board {
 
     private final TiledMap board;
     private final Vector2[] startLocs;
+    private final Set<Vector2> holeLocs;
     private final TiledMapTileLayer boardLayer, playerLayer, startLayer, wallLayer, laserWallLayer, laserLayer;
-    private final TiledMapTileLayer flagLayer, holeLayer, conveyor1Layer, gearLayer, repairLayer, upgradeLayer;
+    private final TiledMapTileLayer flagLayer, holeLayer, conveyorLayer, gearLayer, repairLayer, upgradeLayer;
 
     public Board(Boards gameBoard) {
         this.board = new TmxMapLoader().load(gameBoard.getPath());
@@ -30,7 +33,7 @@ public class Board {
         this.flagLayer = (TiledMapTileLayer) board.getLayers().get("Flag");
         this.holeLayer = (TiledMapTileLayer) board.getLayers().get("Hole");
         this.laserLayer = (TiledMapTileLayer) board.getLayers().get("Laser");
-        this.conveyor1Layer = (TiledMapTileLayer) board.getLayers().get("Conveyor1");
+        this.conveyorLayer = (TiledMapTileLayer) board.getLayers().get("Conveyor");
         this.gearLayer = (TiledMapTileLayer) board.getLayers().get("Gear");
         this.repairLayer = (TiledMapTileLayer) board.getLayers().get("Repair");
         this.upgradeLayer = (TiledMapTileLayer) board.getLayers().get("Upgrade");
@@ -39,6 +42,7 @@ public class Board {
 
         this.startLocs = new Vector2[8];
         findStart();
+        holeLocs = new HashSet<>(); { findLayerTiles(holeLayer); }
     }
 
     /**
@@ -60,18 +64,18 @@ public class Board {
      * @param player player to be added to the board
      */
     public void addNewPlayer(Player player) {
-        player.getRobot().setLoc(startLocs[player.getID()]);
-        putRobot(player);
-        playerLayer.setCell((int) player.getRobot().getLoc().x, (int) player.getRobot().getLoc().y, player.getPiece().getCell());
+        player.getRobot().setLoc(startLocs[player.getID()-1]);
+        putRobot(player.getRobot());
+        playerLayer.setCell((int) player.getRobot().getLoc().x, (int) player.getRobot().getLoc().y, player.getRobot().getPiece().getCell());
     }
 
     /**
-     * Adds a visual representation of the robot to the game board.
      *
-     * @param robot to be added.
+     *
+     * @param
      */
-    private void addRobot(Robot robot, TiledMapTileLayer.Cell cell) {
-        playerLayer.setCell((int) robot.getLoc().x, (int) robot.getLoc().y, cell);
+    private void setPlayerLayerTile(Vector2 loc, TiledMapTileLayer.Cell cell) {
+        playerLayer.setCell((int) loc.x, (int) loc.y, cell);
     }
 
 
@@ -80,14 +84,14 @@ public class Board {
      *
      * @param robot to be removed.
      */
-    public void removeRobot(Robot robot) { addRobot(robot, null); }
+    public void removeRobot(Robot robot) { setPlayerLayerTile(robot.getLoc(), null); }
 
     /**
-     * public wrapper for addRobot.
+     * Adds a visual representation of the robot to the game board.
      *
-     * @param player who controls the robot.
+     * @param robot to be added.
      */
-    public void putRobot(Player player) { addRobot(player.getRobot(), player.getPiece().getCell()); }
+    public void putRobot(Robot robot) { setPlayerLayerTile(robot.getLoc(), robot.getPiece().getCell()); }
 
     /**
      * Finds all locations of objects in the tiled layer.
@@ -95,7 +99,7 @@ public class Board {
      * @param layer the layer to be searched for objects.
      * @return a list of locations
      */
-    private List<Vector2> find(TiledMapTileLayer layer) {
+    private List<Vector2> findLayerTiles(TiledMapTileLayer layer) {
         List<Vector2> list = new ArrayList<>();
         for (int x = 0; x < layer.getWidth(); ++x) {
             for (int y = 0; y < layer.getHeight(); ++y) {

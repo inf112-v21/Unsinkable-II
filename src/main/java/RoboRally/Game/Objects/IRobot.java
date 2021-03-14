@@ -1,8 +1,11 @@
 package RoboRally.Game.Objects;
 
+import RoboRally.Game.Cards.ProgramCard;
 import RoboRally.Game.Direction;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Vector2;
+
+import java.util.Queue;
 
 public interface IRobot {
 
@@ -26,6 +29,10 @@ public interface IRobot {
      */
     void setLoc(Vector2 newLoc);
 
+    Queue<ProgramCard> getRegisters();
+
+    void setRegisters(Queue<ProgramCard> hand);
+
     /**
      * @return robot normal cell.
      */
@@ -40,6 +47,8 @@ public interface IRobot {
      * @return robot won cell.
      */
     TiledMapTileLayer.Cell getWonCell();
+
+    Piece getPiece();
 
     int getHealth();
 }

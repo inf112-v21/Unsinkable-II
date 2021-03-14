@@ -46,15 +46,15 @@ public class PlayerView extends InputAdapter implements Screen {
 
     @Override
     public void render(float delta) {
-        //clear the screen
+        // Clear the screen
         Gdx.gl.glClearColor(0,0,0,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        // Render board
+        // Render the board
         renderer.getBatch().setProjectionMatrix(camera.combined);
         renderer.render();
 
-        // Draw UI
+        // Draw the UI
         renderer.getBatch().setProjectionMatrix(sheet.getStage().getCamera().combined);
         sheet.getStage().act(delta);
         sheet.getStage().draw();

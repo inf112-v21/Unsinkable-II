@@ -1,13 +1,13 @@
 package RoboRally.Multiplayer;
 
 import RoboRally.Game.Board.Boards;
-import RoboRally.Game.Objects.Player;
 import RoboRally.Multiplayer.Packets.GamePacket;
 import RoboRally.Multiplayer.Packets.MessagePacket;
 import RoboRally.Multiplayer.Packets.StartPacket;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Server;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 
 /**
@@ -26,9 +26,8 @@ public class MultiplayerHost extends Multiplayer {
         server.addListener(this);
 
         connections = new HashSet<>();
-        startPacket = new StartPacket();
-        startPacket.boardSelection = board;
-        startPacket.playerID = connections.size();
+        startPacket = new StartPacket(0, board);
+        roundGamePackets = new ArrayList<>();
     }
 
     /**
@@ -38,12 +37,23 @@ public class MultiplayerHost extends Multiplayer {
      */
     public void connected(Connection connection) {
         connection.setTimeout(TIMEOUT*100);
-        System.out.println("New Connection: "+connection.getRemoteAddressTCP());
-        connection.sendTCP(startPacket);
-        for (Connection con : connections) { con.sendTCP(startPacket); }
         this.connections.add(connection);
+        connection.setName("Player " + connections.size());
         startPacket.playerID = connections.size();
+        System.out.println("New Connection: "+connection.getRemoteAddressTCP());
+        for (Connection con : connections) { con.sendTCP(startPacket); }
+    }
 
+    @Override
+    public void received(Connection connection, Object transmission) {
+        if (transmission instanceof GamePacket) {
+            roundGamePackets.add((GamePacket) transmission);
+            System.out.println("Server received round packet from "+connection);
+            if (roundGamePackets.size() == connections.size()) {
+                broadcastGamePackets();
+                roundGamePackets = new ArrayList<>();
+            }
+        }
     }
 
     /**
@@ -56,14 +66,12 @@ public class MultiplayerHost extends Multiplayer {
 
     /**
      * Broadcasts a game packet to all player connections playing together.
-     *
-     * @param player the local player
-     * @param board the board being played
      */
-    private void broadcastGamePacket(Player player, Boards board) {
-        GamePacket packet = new GamePacket();
-        packet.robotLoc = player.getRobot().getLoc();
-        for (Connection connection : connections) { connection.sendTCP(packet); }
+    private void broadcastGamePackets() {
+        System.out.println("Broadcasting round packets");
+        for (Connection connection : connections) {
+            for (GamePacket packet : roundGamePackets) { connection.sendTCP(packet); }
+        }
     }
 
     /**
