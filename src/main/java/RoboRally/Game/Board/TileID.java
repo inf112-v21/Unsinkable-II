@@ -11,59 +11,59 @@ public enum TileID {
     /**
      * Start positions.
      */
-    Start1(121),
-    Start2(122),
-    Start3(123),
-    Start4(124),
-    Start5(129),
-    Start6(130),
-    Start7(131),
-    Start8(132),
+    START_1(121),
+    START_2(122),
+    START_3(123),
+    START_4(124),
+    START_5(129),
+    START_6(130),
+    START_7(131),
+    START_8(132),
 
     /**
      * Flags.
      */
-    Flag1(55),
-    Flag2(63),
-    Flag3(71),
-    Flag4(79),
+    FLAG_1(55),
+    FLAG_2(63),
+    FLAG_3(71),
+    FLAG_4(79),
 
     /**
      * Holes.
      */
-    Hole(6),
+    HOLE(6),
 
     /**
      * Fast Conveyor belts.
      */
-    FastConveyorN(13),
-    FastConveyorE(14),
-    FastConveyorWtoS(17),
-    FastConveyorNtoW(18),
-    FastConveyorNtoE(19),
-    FastConveyorEtoS(20),
-    FastConveyorS(21),
-    FastConveyorW(22),
-    FastConveyorStoE(25),
-    FastConveyorEtoN(26),
-    FastConveyorWtoN(27),
-    FastConveyorStoW(28),
+    BELT_FAST_N(13),
+    BELT_FAST_E(14),
+    BELT_FAST_W_TO_S(17),
+    BELT_FAST_N_TO_W(18),
+    BELT_FAST_N_TO_E(19),
+    BELT_FAST_E_TO_S(20),
+    BELT_FAST_S(21),
+    BELT_FAST_W(22),
+    BELT_FAST_S_TO_E(25),
+    BELT_FAST_E_TO_N(26),
+    BELT_FAST_W_TO_N(27),
+    BELT_FAST_S_TO_W(28),
 
     /**
-     * Normal Conveyor belts
+     * Normal BELT_ belts
      */
-    ConveyorWtoS(33),
-    ConveyorNtoW(34),
-    ConveyorNtoE(35),
-    ConveyorEtoS(36),
-    ConveyorStoE(41),
-    ConveyorEtoN(42),
-    ConveyorWtoN(43),
-    ConveyorStoW(44),
-    ConveyorN(49),
-    ConveyorS(50),
-    ConveyorW(51),
-    ConveyorE(52),
+    BELT_W_TO_S(33),
+    BELT_N_TO_W(34),
+    BELT_N_TO_E(35),
+    BELT_E_TO_S(36),
+    BELT_S_TO_E(41),
+    BELT_E_TO_N(42),
+    BELT_W_TO_N(43),
+    BELT_S_TO_W(44),
+    BELT_N(49),
+    BELT_S(50),
+    BELT_W(51),
+    BELT_E(52),
 
     /**
      * Special Normal Conveyor belts
@@ -72,47 +72,55 @@ public enum TileID {
      * Y = indirection two
      * Z = direction out
      */
-    ConveyorSWN(57),
-    ConveyorWNE(58),
-    ConveyorNES(59),
-    ConveyorESW(60),
-    ConveyorNSE(61),
-    ConveyorEWS(62),
-    ConveyorSEN(65),
-    ConveyorWSE(66),
-    ConveyorNWS(67),
-    ConveyorENW(68),
-    ConveyorWEN(69),
-    ConveyorNSW(70),
+    BELT_SWN(57),
+    BELT_WNE(58),
+    BELT_NES(59),
+    BELT_ESW(60),
+    BELT_NSE(61),
+    BELT_EWS(62),
+    BELT_SEN(65),
+    BELT_WSE(66),
+    BELT_NWS(67),
+    BELT_ENW(68),
+    BELT_WEN(69),
+    BELT_NSW(70),
 
     /**
-     * Lasers
+     * Laser beams
      */
-    LaserH(39), //added +1
-    LaserW(47), //added +1
-    LaserCross(40), //added +1
+    LASER_HORIZONTAL(39),
+    LASER_VERTICAL(47),
+    LASER_CROSSED(40),
 
     /**
      * Walls
      */
-    /**
-     * Corners
-     */
-    WallCornerSE(8),
-    WallCornerNE(16),
-    WallCornerNW(24),
-    WallCornerSW(32)
+    WALL_E(23),
+    WALL_S(29),
+    WALL_W(30),
+    WALL_N(31),
 
-    /**
-     * Ordinary Walls
-     */
+    WALL_SE(8),
+    WALL_NE(16),
+    WALL_NW(24),
+    WALL_SW(32),
 
-    /**
-     * LaserWalls
-     */
-    ;
+    LASER_WALL_S(37),
+    LASER_WALL_W(38),
+    LASER_WALL_N(45),
+    LASER_WALL_E(46),
 
-    public final static List<TileID> startPositions = Arrays.asList(Start1, Start2, Start3, Start4, Start5, Start6, Start7, Start8);
+    LASER_WALL_DOUBLE_S(87),
+    LASER_WALL_DOUBLE_W(93),
+    LASER_WALL_DOUBLE_N(94),
+    LASER_WALL_DOUBLE_E(95);
+
+
+    public final static List<TileID> START_POSITIONS = Arrays.asList(START_1, START_2, START_3, START_4, START_5, START_6, START_7, START_8);
+    public final static List<TileID> WALLS_NORTH = Arrays.asList(WALL_N, WALL_NE, WALL_NW, LASER_WALL_N, LASER_WALL_DOUBLE_N);
+    public final static List<TileID> WALLS_WEST = Arrays.asList(WALL_W, WALL_NW, WALL_SW, LASER_WALL_W, LASER_WALL_DOUBLE_W);
+    public final static List<TileID> WALLS_SOUTH = Arrays.asList(WALL_S, WALL_SW, WALL_SE, LASER_WALL_S, LASER_WALL_DOUBLE_S);
+    public final static List<TileID> WALLS_EAST = Arrays.asList(WALL_E, WALL_SE, WALL_NE, LASER_WALL_E, LASER_WALL_DOUBLE_E);
 
     private final int id;
 
