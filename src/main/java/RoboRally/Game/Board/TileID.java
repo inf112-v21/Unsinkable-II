@@ -159,7 +159,7 @@ public enum TileID {
             BELT_S.getId(), BELT_E_TO_S.getId(), BELT_W_TO_S.getId(), BELT_S_E_TURN_R.getId(), BELT_S_W_TURN_L.getId(),
             BELT_S_W_TURN_L_E_TURN_R.getId());
     public final static Set<Integer> BELT_EAST = Set.of(
-            BELT_E.getId(), BELT_S_TO_E.getId(), BELT_N_TO_E.getId(), BELT_E_S_TURN_L.getId(), BELT_E_S_TURN_L.getId(),
+            BELT_E.getId(), BELT_S_TO_E.getId(), BELT_N_TO_E.getId(),  BELT_E_N_TURN_R.getId(), BELT_E_S_TURN_L.getId(),
             BELT_E_S_TURN_L_N_TURN_R.getId());
     public final static Set<Integer> BELT_WEST = Set.of(
             BELT_W.getId(), BELT_S_TO_W.getId(), BELT_N_TO_W.getId(), BELT_W_S_TURN_R.getId(), BELT_W_N_TURN_L.getId(),
@@ -168,17 +168,18 @@ public enum TileID {
     /**
      * Fast belts
      */
-    public final static List<TileID> BELT_FAST_NORTH = Arrays.asList(
-            BELT_FAST_E_TO_N, BELT_FAST_W_TO_N, BELT_FAST_N, BELT_FAST_N_W_TURN_R);
-    public final static List<TileID> BELT_FAST_SOUTH = Arrays.asList(
-            BELT_FAST_S, BELT_FAST_E_TO_S, BELT_FAST_W_TO_S,
-            BELT_FAST_S_W_TURN_L_E_TURN_R, BELT_FAST_S_W_TURN_L, BELT_S_E_TURN_R);
-    public final static List<TileID> BELT_FAST_EAST = Arrays.asList(
-            BELT_FAST_E, BELT_FAST_S_TO_E, BELT_FAST_N_TO_E,
-            BELT_E_N_TURN_R, BELT_E_S_TURN_L_N_TURN_R, BELT_E_S_TURN_L);
-    public final static List<TileID> BELT_FAST_WEST = Arrays.asList(
-            BELT_FAST_W, BELT_FAST_S_TO_W, BELT_FAST_N_TO_W,
-            BELT_FAST_W_N_TURN_L, BELT_FAST_W_S_TURN_R, BELT_W_S_TURN_R_N_TURN_L);
+    public final static Set<Integer> BELT_FAST_NORTH = Set.of(
+            BELT_FAST_E_TO_N.getId(), BELT_FAST_W_TO_N.getId(), BELT_FAST_N.getId(),
+            BELT_FAST_N_W_TURN_R.getId(), BELT_FAST_N_W_TURN_R_E_TURN_L.getId(),BELT_FAST_N_E_TURN_L.getId());
+    public final static Set<Integer> BELT_FAST_SOUTH = Set.of(
+            BELT_FAST_S.getId(), BELT_FAST_E_TO_S.getId(), BELT_FAST_W_TO_S.getId(),
+            BELT_FAST_S_W_TURN_L_E_TURN_R.getId(), BELT_FAST_S_W_TURN_L.getId(), BELT_FAST_S_E_TURN_R.getId());
+    public final static Set<Integer> BELT_FAST_EAST = Set.of(
+            BELT_FAST_E.getId(), BELT_FAST_S_TO_E.getId(), BELT_FAST_N_TO_E.getId(),
+            BELT_FAST_E_N_TURN_R.getId(), BELT_FAST_E_S_TURN_L_N_TURN_R.getId(), BELT_FAST_E_S_TURN_L.getId());
+    public final static Set<Integer> BELT_FAST_WEST = Set.of(
+            BELT_FAST_W.getId(), BELT_FAST_S_TO_W.getId(), BELT_FAST_N_TO_W.getId(),
+            BELT_FAST_W_N_TURN_L.getId(), BELT_FAST_W_S_TURN_R.getId(), BELT_FAST_W_S_TURN_R_N_TURN_L.getId());
 
 
 
