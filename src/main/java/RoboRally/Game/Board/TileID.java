@@ -112,6 +112,10 @@ public enum TileID {
     LASER_VERTICAL(47),
     LASER_CROSSED(40),
 
+    LASER_DOUBLE_HORIZONTAL(102),
+    LASER_DOUBLE_VERTICAL(103),
+    LASER_DOUBLE_CROSSED(101),
+
     /**
      * Walls
      */
@@ -139,8 +143,14 @@ public enum TileID {
     /**
      * Start positions
      */
-    public final static List<TileID> START_POSITIONS = Arrays.asList(START_1, START_2, START_3, START_4, START_5, START_6, START_7, START_8);
+    public final static List<TileID> START_POSITIONS = Arrays.asList(START_1, START_2, START_3, START_4, START_5,
+            START_6, START_7, START_8);
 
+    /**
+     *
+     */
+    public final static List<TileID> FLAGS = Arrays.asList(FLAG_1, FLAG_2, FLAG_3, FLAG_4);
+    
     /**
      * Walls
      */
@@ -154,6 +164,23 @@ public enum TileID {
      */
     public final static List<TileID> BELT_NORTH = Arrays.asList(BELT_E_TO_N, BELT_W_TO_N, BELT_N, BELT_SWN, BELT_WEN, BELT_SEN);
     public final static List<TileID> BELT_SOUTH = Arrays.asList(BELT_S, BELT_E_TO_S, BELT_W_TO_S, BELT_EWS, BELT_NES, BELT_NWS);
+    public final static List<TileID> BELT_EAST = Arrays.asList(BELT_E, BELT_S_TO_E, BELT_N_TO_E, BELT_NSE, BELT_WNE, BELT_WSE);
+    public final static List<TileID> BELT_WEST = Arrays.asList(BELT_W, BELT_S_TO_W, BELT_N_TO_W, BELT_NSW, BELT_ENW, BELT_ESW);
+
+    /**
+     * Fast belts
+     */
+    public final static List<TileID> BELT_FAST_NORTH = Arrays.asList(BELT_FAST_E_TO_N, BELT_FAST_W_TO_N, BELT_FAST_N,
+            BELT_FAST_SWN, BELT_FAST_WEN, BELT_FAST_SEN);
+    public final static List<TileID> BELT_FAST_SOUTH = Arrays.asList(BELT_FAST_S, BELT_FAST_E_TO_S, BELT_FAST_W_TO_S,
+            BELT_FAST_WES, BELT_FAST_NES, BELT_FAST_NWS);
+    public final static List<TileID> BELT_FAST_EAST = Arrays.asList(BELT_FAST_E, BELT_FAST_S_TO_E, BELT_FAST_N_TO_E,
+            BELT_FAST_NSE, BELT_FAST_WNE, BELT_FAST_WSE);
+    public final static List<TileID> BELT_FAST_WEST = Arrays.asList(BELT_FAST_W, BELT_FAST_S_TO_W, BELT_FAST_N_TO_W,
+            BELT_FAST_NSW, BELT_FAST_NEW, BELT_FAST_ESW);
+
+
+
 
     private final int id;
 
