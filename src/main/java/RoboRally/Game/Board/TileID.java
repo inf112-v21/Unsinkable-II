@@ -150,7 +150,7 @@ public enum TileID {
      *
      */
     public final static List<TileID> FLAGS = Arrays.asList(FLAG_1, FLAG_2, FLAG_3, FLAG_4);
-    
+
     /**
      * Walls
      */

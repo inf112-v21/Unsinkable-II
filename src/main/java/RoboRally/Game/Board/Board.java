@@ -114,14 +114,14 @@ public class Board {
             for (int y = 0; y < startLayer.getHeight(); ++y) {
                 if (startLayer.getCell(x, y) != null) {
                     int id = startLayer.getCell( x, y).getTile().getId();
-                    if (id == TileID.Start1.getId()) { startLocs[0] = new Vector2(x, y); }
-                    else if (id == TileID.Start2.getId()) { startLocs[1] = new Vector2(x, y); }
-                    else if (id == TileID.Start3.getId()) { startLocs[2] = new Vector2(x, y); }
-                    else if (id == TileID.Start4.getId()) { startLocs[3] = new Vector2(x, y); }
-                    else if (id == TileID.Start5.getId()) { startLocs[4] = new Vector2(x, y); }
-                    else if (id == TileID.Start6.getId()) { startLocs[5] = new Vector2(x, y); }
-                    else if (id == TileID.Start7.getId()) { startLocs[6] = new Vector2(x, y); }
-                    else if (id == TileID.Start8.getId()) { startLocs[7] = new Vector2(x, y); }
+                    if (id == TileID.START_1.getId()) { startLocs[0] = new Vector2(x, y); }
+                    else if (id == TileID.START_2.getId()) { startLocs[1] = new Vector2(x, y); }
+                    else if (id == TileID.START_3.getId()) { startLocs[2] = new Vector2(x, y); }
+                    else if (id == TileID.START_4.getId()) { startLocs[3] = new Vector2(x, y); }
+                    else if (id == TileID.START_5.getId()) { startLocs[4] = new Vector2(x, y); }
+                    else if (id == TileID.START_6.getId()) { startLocs[5] = new Vector2(x, y); }
+                    else if (id == TileID.START_7.getId()) { startLocs[6] = new Vector2(x, y); }
+                    else if (id == TileID.START_8.getId()) { startLocs[7] = new Vector2(x, y); }
                 }
             }
         }
