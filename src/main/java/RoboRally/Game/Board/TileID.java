@@ -50,6 +50,26 @@ public enum TileID {
     BELT_FAST_S_TO_W(28),
 
     /**
+     * Special Fast Conveyer belts
+     * Where <>XYZ reads
+     * X = indirection one
+     * Y = indirection two
+     * Z = direction out
+     */
+    BELT_FAST_SWN(73),
+    BELT_FAST_WNE(74),
+    BELT_FAST_NES(75),
+    BELT_FAST_ESW(76),
+    BELT_FAST_SEN(77),
+    BELT_FAST_WSE(78),
+    BELT_FAST_NSE(81),
+    BELT_FAST_WES(82),
+    BELT_FAST_NSW(83),
+    BELT_FAST_WEN(84),
+    BELT_FAST_NEW(85),
+    BELT_FAST_NWS(86),
+
+    /**
      * Normal BELT_ belts
      */
     BELT_W_TO_S(33),
@@ -116,11 +136,24 @@ public enum TileID {
     LASER_WALL_DOUBLE_E(95);
 
 
+    /**
+     * Start positions
+     */
     public final static List<TileID> START_POSITIONS = Arrays.asList(START_1, START_2, START_3, START_4, START_5, START_6, START_7, START_8);
+
+    /**
+     * Walls
+     */
     public final static List<TileID> WALLS_NORTH = Arrays.asList(WALL_N, WALL_NE, WALL_NW, LASER_WALL_N, LASER_WALL_DOUBLE_N);
     public final static List<TileID> WALLS_WEST = Arrays.asList(WALL_W, WALL_NW, WALL_SW, LASER_WALL_W, LASER_WALL_DOUBLE_W);
     public final static List<TileID> WALLS_SOUTH = Arrays.asList(WALL_S, WALL_SW, WALL_SE, LASER_WALL_S, LASER_WALL_DOUBLE_S);
     public final static List<TileID> WALLS_EAST = Arrays.asList(WALL_E, WALL_SE, WALL_NE, LASER_WALL_E, LASER_WALL_DOUBLE_E);
+
+    /**
+     * Normal belts
+     */
+    public final static List<TileID> BELT_NORTH = Arrays.asList(BELT_E_TO_N, BELT_W_TO_N, BELT_N, BELT_SWN, BELT_WEN, BELT_SEN);
+    public final static List<TileID> BELT_SOUTH = Arrays.asList(BELT_S, BELT_E_TO_S, BELT_W_TO_S, BELT_EWS, BELT_NES, BELT_NWS);
 
     private final int id;
 
