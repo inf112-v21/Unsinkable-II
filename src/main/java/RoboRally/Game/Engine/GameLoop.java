@@ -9,7 +9,7 @@ import java.util.LinkedList;
 import static java.lang.Thread.sleep;
 
 
-public class GameLoop extends RoboRallyGame implements Runnable {
+public class GameLoop extends RoboRallyGame {
 
     public GameLoop(RoboRallyApp app, Boards boardSelection, int playerID) {
 
