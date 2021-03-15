@@ -1,7 +1,7 @@
 package RoboRally.Multiplayer;
 
 import RoboRally.Game.Board.Boards;
-import RoboRally.Multiplayer.Packets.GamePacket;
+import RoboRally.Multiplayer.Packets.RoundPacket;
 import RoboRally.Multiplayer.Packets.MessagePacket;
 import RoboRally.Multiplayer.Packets.StartPacket;
 import com.esotericsoftware.kryonet.Connection;
@@ -27,7 +27,7 @@ public class MultiplayerHost extends Multiplayer {
 
         connections = new HashSet<>();
         startPacket = new StartPacket(0, board);
-        roundGamePackets = new ArrayList<>();
+        roundPackets = new ArrayList<>();
     }
 
     /**
@@ -46,12 +46,12 @@ public class MultiplayerHost extends Multiplayer {
 
     @Override
     public void received(Connection connection, Object transmission) {
-        if (transmission instanceof GamePacket) {
-            roundGamePackets.add((GamePacket) transmission);
+        if (transmission instanceof RoundPacket) {
+            roundPackets.add((RoundPacket) transmission);
             System.out.println("Server received round packet from "+connection);
-            if (roundGamePackets.size() == connections.size()) {
+            if (roundPackets.size() == connections.size()) {
                 broadcastGamePackets();
-                roundGamePackets = new ArrayList<>();
+                roundPackets = new ArrayList<>();
             }
         }
     }
@@ -70,7 +70,7 @@ public class MultiplayerHost extends Multiplayer {
     private void broadcastGamePackets() {
         System.out.println("Broadcasting round packets");
         for (Connection connection : connections) {
-            for (GamePacket packet : roundGamePackets) { connection.sendTCP(packet); }
+            for (RoundPacket packet : roundPackets) { connection.sendTCP(packet); }
         }
     }
 

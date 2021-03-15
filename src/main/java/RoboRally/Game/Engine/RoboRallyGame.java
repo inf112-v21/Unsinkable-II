@@ -5,7 +5,7 @@ import RoboRally.Game.Cards.ProgramCard;
 import RoboRally.Game.Board.Boards;
 import RoboRally.Game.Objects.Player;
 import RoboRally.Game.Objects.Robot;
-import RoboRally.Multiplayer.Packets.GamePacket;
+import RoboRally.Multiplayer.Packets.RoundPacket;
 import RoboRally.RoboRallyApp;
 
 import java.util.List;
@@ -40,8 +40,8 @@ public abstract class RoboRallyGame implements RoboRally {
      * Attempt run.
      */
     public void attemptRun() {
-        if(!roundSent) {
-            app.getLocalClient().getClient().sendTCP(new GamePacket(
+        if (!roundSent) {
+            app.getLocalClient().getClient().sendTCP(new RoundPacket(
                     roundNumber,
                     myPlayer.getID(),
                     myPlayer.getRobot().getLoc(),
@@ -55,8 +55,8 @@ public abstract class RoboRallyGame implements RoboRally {
      *
      * @param roundPackets the game round packets
      */
-    public void updateAllRobotRegisters(List<GamePacket> roundPackets) {
-        for (GamePacket packet : roundPackets) {
+    public void updateAllRobotRegisters(List<RoundPacket> roundPackets) {
+        for (RoundPacket packet : roundPackets) {
             players.get(packet.playerID-1).getRobot().setRegisters(packet.registers);
         }
         for (Player player : players) {
@@ -86,10 +86,12 @@ public abstract class RoboRallyGame implements RoboRally {
      * @param card the program card containing the program instructions for the robot to execute.
      */
     public void executeProgramCard(Robot robot, ProgramCard card) {
-        board.removeRobot(robot);
-        move(robot, card);
-        rotate(robot, card);
-        board.putRobot(robot);
+        if (board.checkForWalls(robot)) {
+            board.removeRobot(robot);
+            move(robot, card);
+            rotate(robot, card);
+            board.putRobot(robot);
+        }
     }
 
     /**
