@@ -1,5 +1,6 @@
 package RoboRally.Game.Board;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 
@@ -104,6 +105,10 @@ public enum TileID {
     LASER_VERTICAL(47),
     LASER_CROSSED(40),
 
+    LASER_DOUBLE_HORIZONTAL(102),
+    LASER_DOUBLE_VERTICAL(103),
+    LASER_DOUBLE_CROSSED(101),
+
     /**
      * Walls
      */
@@ -129,10 +134,55 @@ public enum TileID {
 
 
     public final static List<TileID> START_POSITIONS = List.of(START_1, START_2, START_3, START_4, START_5, START_6, START_7, START_8);
-    public final static Set<Integer> WALLS_NORTH = Set.of(WALL_N.getId(), WALL_NE.getId(), WALL_NW.getId(), LASER_WALL_N.getId(), LASER_WALL_DOUBLE_N.getId());
-    public final static Set<Integer> WALLS_WEST = Set.of(WALL_W.getId(), WALL_NW.getId(), WALL_SW.getId(), LASER_WALL_W.getId(), LASER_WALL_DOUBLE_W.getId());
-    public final static Set<Integer> WALLS_SOUTH = Set.of(WALL_S.getId(), WALL_SW.getId(), WALL_SE.getId(), LASER_WALL_S.getId(), LASER_WALL_DOUBLE_S.getId());
-    public final static Set<Integer> WALLS_EAST = Set.of(WALL_E.getId(), WALL_SE.getId(), WALL_NE.getId(), LASER_WALL_E.getId(), LASER_WALL_DOUBLE_E.getId());
+
+    /**
+     *Flags
+     */
+    public final static List<TileID> FLAGS = Arrays.asList(FLAG_1, FLAG_2, FLAG_3, FLAG_4);
+
+    public final static Set<Integer> WALLS_NORTH = Set.of(WALL_N.getId(), WALL_NE.getId(), WALL_NW.getId(),
+            LASER_WALL_N.getId(), LASER_WALL_DOUBLE_N.getId());
+    public final static Set<Integer> WALLS_WEST = Set.of(WALL_W.getId(), WALL_NW.getId(), WALL_SW.getId(),
+            LASER_WALL_W.getId(), LASER_WALL_DOUBLE_W.getId());
+    public final static Set<Integer> WALLS_SOUTH = Set.of(WALL_S.getId(), WALL_SW.getId(), WALL_SE.getId(),
+            LASER_WALL_S.getId(), LASER_WALL_DOUBLE_S.getId());
+    public final static Set<Integer> WALLS_EAST = Set.of(WALL_E.getId(), WALL_SE.getId(), WALL_NE.getId(),
+            LASER_WALL_E.getId(), LASER_WALL_DOUBLE_E.getId());
+
+    /**
+     * Normal belts
+     */
+    public final static Set<Integer> BELT_NORTH = Set.of(
+            BELT_E_TO_N.getId(), BELT_W_TO_N.getId(), BELT_N.getId(), BELT_N_E_TURN_L.getId(), BELT_N_W_TURN_R.getId(),
+            BELT_N_W_TURN_R_E_TURN_L.getId());
+    public final static Set<Integer> BELT_SOUTH = Set.of(
+            BELT_S.getId(), BELT_E_TO_S.getId(), BELT_W_TO_S.getId(), BELT_S_E_TURN_R.getId(), BELT_S_W_TURN_L.getId(),
+            BELT_S_W_TURN_L_E_TURN_R.getId());
+    public final static Set<Integer> BELT_EAST = Set.of(
+            BELT_E.getId(), BELT_S_TO_E.getId(), BELT_N_TO_E.getId(), BELT_E_S_TURN_L.getId(), BELT_E_S_TURN_L.getId(),
+            BELT_E_S_TURN_L_N_TURN_R.getId());
+    public final static Set<Integer> BELT_WEST = Set.of(
+            BELT_W.getId(), BELT_S_TO_W.getId(), BELT_N_TO_W.getId(), BELT_W_S_TURN_R.getId(), BELT_W_N_TURN_L.getId(),
+            BELT_W_S_TURN_R_N_TURN_L.getId());
+
+    /**
+     * Fast belts
+     */
+    public final static List<TileID> BELT_FAST_NORTH = Arrays.asList(
+            BELT_FAST_E_TO_N, BELT_FAST_W_TO_N, BELT_FAST_N, BELT_FAST_N_W_TURN_R);
+    public final static List<TileID> BELT_FAST_SOUTH = Arrays.asList(
+            BELT_FAST_S, BELT_FAST_E_TO_S, BELT_FAST_W_TO_S,
+            BELT_FAST_S_W_TURN_L_E_TURN_R, BELT_FAST_S_W_TURN_L, BELT_S_E_TURN_R);
+    public final static List<TileID> BELT_FAST_EAST = Arrays.asList(
+            BELT_FAST_E, BELT_FAST_S_TO_E, BELT_FAST_N_TO_E,
+            BELT_E_N_TURN_R, BELT_E_S_TURN_L_N_TURN_R, BELT_E_S_TURN_L);
+    public final static List<TileID> BELT_FAST_WEST = Arrays.asList(
+            BELT_FAST_W, BELT_FAST_S_TO_W, BELT_FAST_N_TO_W,
+            BELT_FAST_W_N_TURN_L, BELT_FAST_W_S_TURN_R, BELT_W_S_TURN_R_N_TURN_L);
+
+
+
+
 
     private final int id;
 
