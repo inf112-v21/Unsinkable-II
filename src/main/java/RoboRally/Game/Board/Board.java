@@ -142,27 +142,6 @@ public class Board {
         return array;
     }
 
-    public boolean checkForWalls(Robot robot) {
-        if (robot.getDirection() == Direction.NORTH && northWalls.contains(robot.getLoc())) { return false; }
-        else if (robot.getDirection() == Direction.WEST && westWalls.contains(robot.getLoc())) { return false; }
-        else if (robot.getDirection() == Direction.SOUTH && southWalls.contains(robot.getLoc())) { return false; }
-        else if (robot.getDirection() == Direction.EAST && eastWalls.contains(robot.getLoc())) { return false; }
-        else { return true; }
-    }
-
-    /**
-     * Checks if a robot has landed in a hole
-     *
-     * @param robot - the robot that checks for a hole
-     * @return true if robot is in hole
-     */
-    public boolean checkForHoles(Robot robot){ return holeLocs.contains(robot.getLoc()); }
-
-    public TiledMap getBoard() { return this.board;}
-
-    public int getBoardWidth() { return boardLayer.getWidth(); }
-    public int getBoardHeight() { return boardLayer.getHeight(); }
-
     /**
      * Locates and places all walls in respective lists
      */
@@ -180,4 +159,27 @@ public class Board {
                 westWalls.add(wall);}
         }
     }
+
+    public boolean checkForWalls(Robot robot) {
+        if (robot.getDirection() == Direction.NORTH && northWalls.contains(robot.getLoc())) { return false; }
+        else if (robot.getDirection() == Direction.WEST && westWalls.contains(robot.getLoc())) { return false; }
+        else if (robot.getDirection() == Direction.SOUTH && southWalls.contains(robot.getLoc())) { return false; }
+        else if (robot.getDirection() == Direction.EAST && eastWalls.contains(robot.getLoc())) { return false; }
+        else { return true; }
+    }
+
+    /**
+     * Checks if a robot has landed in a hole
+     *
+     * @param robot - the robot that checks for a hole
+     * @return true if robot is in hole
+     */
+    public boolean checkForHoles(Robot robot){ return holeLocs.contains(robot.getLoc()); } //TODO: unimplemented
+
+    public TiledMap getBoard() { return this.board;}
+
+    public int getBoardWidth() { return boardLayer.getWidth(); }
+    public int getBoardHeight() { return boardLayer.getHeight(); }
+
+
 }
