@@ -7,7 +7,7 @@ import com.badlogic.gdx.math.Vector2;
 
 import java.util.Queue;
 
-public interface IRobot {
+public interface IRobot extends IObject{
 
     /**
      * @return the direction the robot is facing.
@@ -18,11 +18,6 @@ public interface IRobot {
      * @param dir the new direction the robot is facing.
      */
     void setDirection(Direction dir);
-
-    /**
-     * @return the robot's current location.
-     */
-    Vector2 getLoc();
 
     /**
      * @param newLoc the new robot location.
