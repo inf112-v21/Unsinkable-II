@@ -43,12 +43,29 @@ public interface IRobot extends IObject{
      */
     TiledMapTileLayer.Cell getWonCell();
 
+    /**
+     * @return
+     */
     Piece getPiece();
 
+    /**
+     * @return
+     */
     int getHealth();
+
+    /**
+     *
+     * @return life of robot
+     */
+    int getLife();
+
+    /**
+     *takes away one life from robot
+     */
+    void setLifeMinusOne();
 
     /**
      * gives the Robot one damage when encountering a hazard.
      */
-    void setDamage();
+    void setDamagePlussOne();
 }

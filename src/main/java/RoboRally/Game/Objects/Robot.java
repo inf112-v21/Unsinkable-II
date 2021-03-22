@@ -40,7 +40,13 @@ public class Robot implements IRobot {
     public int getHealth() { return cacheSize - damage; }
 
     @Override
-    public void setDamage() { damage += 1; }
+    public int getLife() { return life; }
+
+    @Override
+    public void setLifeMinusOne() { life -= 1; }
+
+    @Override
+    public void setDamagePlussOne() { damage += 1; }
 
     @Override
     public Vector2 getLoc() { return location; }
