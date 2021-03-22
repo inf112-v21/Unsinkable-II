@@ -1,9 +1,11 @@
 package RoboRally.Multiplayer;
 
+import RoboRally.Multiplayer.Packets.PlayerHandPacket;
 import RoboRally.Multiplayer.Packets.RoundPacket;
 import RoboRally.Multiplayer.Packets.MessagePacket;
 import RoboRally.Multiplayer.Packets.StartPacket;
 import RoboRally.RoboRallyApp;
+
 import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.Connection;
 
@@ -43,6 +45,11 @@ public class MultiplayerClient extends Multiplayer {
             if(start) { app.getGame().addPlayer(startPacket.playerID);}
             else start = true;
             System.out.println("New Player " + startPacket.playerID);
+        }
+        else if (transmission instanceof PlayerHandPacket) {
+            PlayerHandPacket hand = (PlayerHandPacket) transmission;
+            app.getGame().getMyPlayer().setHand(hand.cards);
+            System.out.println("Received hand "+hand.cards.toString());
         }
         else if (transmission instanceof RoundPacket) {
             roundPackets.add((RoundPacket) transmission);

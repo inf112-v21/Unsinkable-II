@@ -45,7 +45,9 @@ public abstract class RoboRallyGame implements RoboRally {
                     roundNumber,
                     myPlayer.getID(),
                     myPlayer.getRobot().getLoc(),
-                    myPlayer.getRobot().getRegisters())); // TODO: Replace with card selection from player hand.
+                    myPlayer.getRobot().getRegisters(),
+                    myPlayer.getHand())
+                    ); // TODO: Replace with card selection from player hand.
             roundSent = true;
         }
     }
