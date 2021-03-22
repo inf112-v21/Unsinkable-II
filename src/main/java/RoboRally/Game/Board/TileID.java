@@ -140,6 +140,9 @@ public enum TileID {
      */
     public final static List<TileID> FLAGS = Arrays.asList(FLAG_1, FLAG_2, FLAG_3, FLAG_4);
 
+    /**
+     * Walls
+     */
     public final static Set<Integer> WALLS_NORTH = Set.of(WALL_N.getId(), WALL_NE.getId(), WALL_NW.getId(),
             LASER_WALL_N.getId(), LASER_WALL_DOUBLE_N.getId());
     public final static Set<Integer> WALLS_WEST = Set.of(WALL_W.getId(), WALL_NW.getId(), WALL_SW.getId(),

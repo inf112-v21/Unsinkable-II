@@ -11,6 +11,7 @@ import com.badlogic.gdx.math.Vector2;
 import java.util.HashSet;
 import java.util.Set;
 
+
 /**
  * Board Reader class that reads and manages the chosen board and its layers.
  *
@@ -22,8 +23,9 @@ public class Board {
     private final Vector2[] startLocs;
     private final Set<Vector2> bounds, holeLocs, repairLocs, upgradeLocs;
     private Set<Vector2> northWalls, westWalls, southWalls, eastWalls;
-    private final TiledMapTileLayer boardLayer, playerLayer, startLayer, wallLayer, laserWallLayer, laserLayer;
-    private final TiledMapTileLayer flagLayer, holeLayer, conveyorLayer, gearLayer, repairLayer, upgradeLayer;
+    private final TiledMapTileLayer boardLayer, playerLayer, startLayer, wallLayer, laserWallLayer, laserLayer,
+            flagLayer, holeLayer, conveyorLayer, gearLayer, repairLayer, upgradeLayer;
+
 
 
     public Board(Boards gameBoard) {
@@ -48,11 +50,15 @@ public class Board {
         this.upgradeLocs = findAllTiles(upgradeLayer);
 
 
-        //this.northWalls = ;
+        //this.northWalls = ; //TODO: En superstupid løsning på dette er å legge alle veggene inn i sine egne layers, og så bruke getall();
         //this.westWalls = ;
         //this.southWalls = ;
         //this.eastWalls = ;
+
+        System.out.println("North walls: " + TileID.WALLS_NORTH);
+
     }
+
 
     /**
      * Checks if the robot is inside the map bounds.
