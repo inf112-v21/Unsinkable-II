@@ -150,6 +150,13 @@ public class Board {
         else { return true; }
     }
 
+    /**
+     * Checks if a robot has landed in a hole
+     * @param robot - the robot that checks for a hole
+     * @return true if robot is in hole
+     */
+    public boolean checkForHoles(Robot robot){ return holeLocs.contains(robot.getLoc()); }
+
     public TiledMap getBoard() { return this.board;}
 
     public int getBoardWidth() { return boardLayer.getWidth(); }
@@ -158,7 +165,7 @@ public class Board {
     /**
      * Locates and places all walls in respective lists
      */
-    private void findAllWalls (){
+    private void findAllWalls (){//TODO: Should be refactored out of class
         Set<Vector2> walls = findAllTiles(wallLayer);
         for (Vector2 wall : walls){
             int wallID = wallLayer.getCell((int) wall.x, (int) wall.y).getTile().getId();

@@ -106,7 +106,7 @@ public class RoboRallyApp extends Game {
     /**
      * @return the RoboRally game stage.
      */
-    public Stage getStage() { return stage; }
+    public Stage getStage() { return stage; } //TODO: unimplemented
 
     /**
      * @return the name of the design group.
