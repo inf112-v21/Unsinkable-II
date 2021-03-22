@@ -50,12 +50,18 @@ public class Board {
         this.upgradeLocs = findAllTiles(upgradeLayer);
 
 
-        //this.northWalls = ; //TODO: En superstupid løsning på dette er å legge alle veggene inn i sine egne layers, og så bruke getall();
-        //this.westWalls = ;
-        //this.southWalls = ;
-        //this.eastWalls = ;
+        this.northWalls = new HashSet<>();
+        this.westWalls = new HashSet<>();
+        this.southWalls = new HashSet<>();
+        this.eastWalls = new HashSet<>();
 
-        System.out.println("North walls: " + TileID.WALLS_NORTH);
+        findAllWalls();
+
+
+        System.out.println("North walls: " + northWalls);
+        System.out.println("South walls " + southWalls);
+        System.out.println("East walls: " + eastWalls);
+        System.out.println("West walls " + westWalls);
 
     }
 
@@ -149,4 +155,21 @@ public class Board {
     public int getBoardWidth() { return boardLayer.getWidth(); }
     public int getBoardHeight() { return boardLayer.getHeight(); }
 
+    /**
+     * Locates and places all walls in respective lists
+     */
+    private void findAllWalls (){
+        Set<Vector2> walls = findAllTiles(wallLayer);
+        for (Vector2 wall : walls){
+            int wallID = wallLayer.getCell((int) wall.x, (int) wall.y).getTile().getId();
+            if(TileID.WALLS_NORTH.contains(wallID)){
+                northWalls.add(wall);}
+            if(TileID.WALLS_EAST.contains(wallID)){
+                eastWalls.add(wall);}
+            if(TileID.WALLS_SOUTH.contains(wallID)){
+                southWalls.add(wall);}
+            if (TileID.WALLS_WEST.contains(wallID)){
+                westWalls.add(wall);}
+        }
+    }
 }
