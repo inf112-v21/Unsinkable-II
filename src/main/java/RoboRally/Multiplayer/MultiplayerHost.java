@@ -1,6 +1,8 @@
-package RoboRally.Multiplayer;
+    package RoboRally.Multiplayer;
 
 import RoboRally.Game.Board.Boards;
+import RoboRally.Game.Cards.ProgrammingDeck;
+import RoboRally.Multiplayer.Packets.PlayerHandPacket;
 import RoboRally.Multiplayer.Packets.RoundPacket;
 import RoboRally.Multiplayer.Packets.MessagePacket;
 import RoboRally.Multiplayer.Packets.StartPacket;
@@ -15,7 +17,7 @@ import java.util.HashSet;
  */
 public class MultiplayerHost extends Multiplayer {
     private final Server server;
-
+    private ProgrammingDeck deck;
 
     public MultiplayerHost(Boards board) {
         this.server = new Server();
@@ -28,6 +30,8 @@ public class MultiplayerHost extends Multiplayer {
         connections = new HashSet<>();
         startPacket = new StartPacket(0, board);
         roundPackets = new ArrayList<>();
+
+        deck = new ProgrammingDeck();
     }
 
     /**
@@ -36,18 +40,21 @@ public class MultiplayerHost extends Multiplayer {
      * @param connection the connection just established.
      */
     public void connected(Connection connection) {
-        connection.setTimeout(TIMEOUT*100);
+        connection.setTimeout(TIMEOUT*100); // TODO: Enough?
         this.connections.add(connection);
         connection.setName("Player " + connections.size());
         startPacket.playerID = connections.size();
         System.out.println("New Connection: "+connection.getRemoteAddressTCP());
         for (Connection con : connections) { con.sendTCP(startPacket); }
+        PlayerHandPacket hand = new PlayerHandPacket(deck.getHand(9));
+        connection.sendTCP(hand);
     }
 
     @Override
     public void received(Connection connection, Object transmission) {
         if (transmission instanceof RoundPacket) {
             roundPackets.add((RoundPacket) transmission);
+            deck.returnCards(roundPackets.get(roundPackets.size()-1).tossedCards);
             System.out.println("Server received round packet from "+connection);
             if (roundPackets.size() == connections.size()) {
                 broadcastGamePackets();

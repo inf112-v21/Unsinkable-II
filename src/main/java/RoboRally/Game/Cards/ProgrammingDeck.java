@@ -3,10 +3,7 @@ package RoboRally.Game.Cards;
 
 import RoboRally.Game.Objects.Robot;
 
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Stack;
+import java.util.*;
 
 /**
  * Class to maintain a deck of programming cards according to the RoboRally game rules.
@@ -19,13 +16,14 @@ public class ProgrammingDeck {
     public ProgrammingDeck(){
         this.programCardDeck = ProgramCard.getNewDeck();
         this.thrownCards = new LinkedList<>();
+        shuffle();
     }
 
     
     /**
      * Shuffles a deck of program cards.
      */
-    public void shuffle() { Collections.shuffle(getDeck()); }
+    public void shuffle() { Collections.shuffle(this.programCardDeck); }
 
     /**
      * Draw a card from the deck.
@@ -54,9 +52,16 @@ public class ProgrammingDeck {
     public void throwCards(List<ProgramCard> thrownCards) { this.thrownCards.addAll(thrownCards); }
 
     /**
-     * @return the deck of programCards
+     * @param num number of cards in hand.
+     * @return the hand.
      */
-    private Stack<ProgramCard> getDeck() { return this.programCardDeck; }
+    public List<ProgramCard> getHand(int num) {
+        List<ProgramCard> hand = new LinkedList<>();
+        for (int i = 0; i < num; ++i) { hand.add(drawCard()); }
+        return hand;
+    }
+
+    public void returnCards(List<ProgramCard> tossedCards) { this.thrownCards.addAll(tossedCards); }
 
     /**
      * @return the number of cards currently in the deck.
