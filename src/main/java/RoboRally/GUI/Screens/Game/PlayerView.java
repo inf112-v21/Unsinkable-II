@@ -28,7 +28,7 @@ public class PlayerView extends InputAdapter implements Screen {
         this.sheet = new PlayerUI(app);
 
         camera = new OrthographicCamera();
-        camera.setToOrtho(false, app.getGame().getBoard().getBoardWidth() *scale, app.getGame().getBoard().getBoardHeight());
+        camera.setToOrtho(false, app.getGame().getBoard().getBoardWidth() * scale, app.getGame().getBoard().getBoardHeight());
         camera.position.x = app.getGame().getBoard().getBoardWidth();
         camera.position.y = app.getGame().getBoard().getBoardHeight()/2f;
         //camera.zoom = scale;
