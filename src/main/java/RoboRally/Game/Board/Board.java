@@ -152,6 +152,7 @@ public class Board {
 
     /**
      * Checks if a robot has landed in a hole
+     *
      * @param robot - the robot that checks for a hole
      * @return true if robot is in hole
      */
