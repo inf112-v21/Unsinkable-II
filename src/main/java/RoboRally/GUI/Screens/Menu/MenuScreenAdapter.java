@@ -19,7 +19,7 @@ public abstract class MenuScreenAdapter implements MenuScreen {
     protected final RoboRallyApp app;
     protected final Stage stage;
     protected Label heading;
-    protected Table table;
+    protected final Table table;
     protected static final int widgetWidth = 250; //TODO:
 
     public MenuScreenAdapter(RoboRallyApp app) {

@@ -4,7 +4,6 @@ import RoboRally.GUI.Screens.Menu.MenuScreen;
 import RoboRally.GUI.Screens.Game.PlayerView;
 import RoboRally.Game.Board.Boards;
 import RoboRally.Game.Engine.GameLoop;
-import RoboRally.Multiplayer.Multiplayer;
 import RoboRally.Multiplayer.MultiplayerClient;
 import RoboRally.Multiplayer.MultiplayerHost;
 import com.badlogic.gdx.Game;
@@ -13,7 +12,6 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import RoboRally.GUI.Screens.Menu.TitleScreen;
-import com.esotericsoftware.kryonet.Connection;
 
 /**
  * RoboRally application entry point. This is the top-level GUI class that

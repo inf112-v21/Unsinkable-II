@@ -47,7 +47,6 @@ public class Board {
         this.repairLocs = findAllTiles(repairLayer);
         this.upgradeLocs = findAllTiles(upgradeLayer);
 
-
         //this.northWalls = ;
         //this.westWalls = ;
         //this.southWalls = ;

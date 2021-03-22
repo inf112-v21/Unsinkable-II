@@ -2,6 +2,7 @@ package RoboRally.GUI.Screens.Game;
 
 import RoboRally.Game.Cards.ProgramCard;
 import RoboRally.RoboRallyApp;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -24,8 +25,8 @@ public class PlayerUI {
     private final FitViewport stageViewport;
     private final Button[] cardButtons;
 
-    private final float WIDTH = 1200f;
-    private final float HEIGHT = 1600f;
+    private final float WIDTH = Gdx.graphics.getWidth();
+    private final float HEIGHT = Gdx.graphics.getHeight();
 
     /**
      * Creates a new player UI.
@@ -34,12 +35,12 @@ public class PlayerUI {
      */
     public PlayerUI(RoboRallyApp app) {
         this.app = app;
-        this.stageViewport = new FitViewport(1200, 1600);
+        this.stageViewport = new FitViewport(WIDTH, HEIGHT);
         this.stage = new Stage(stageViewport);
 
         this.table = new Table();
         table.setFillParent(true);
-        table.bottom();
+        table.bottom().right();
 
         this.cardButtons = new Button[9];
         addRunButton();

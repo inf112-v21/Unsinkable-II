@@ -1,6 +1,5 @@
 package RoboRally.GUI.Screens.Game;
 
-import RoboRally.Game.Board.Board;
 import RoboRally.RoboRallyApp;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputAdapter;
@@ -17,7 +16,7 @@ public class PlayerView extends InputAdapter implements Screen {
     private final OrthogonalTiledMapRenderer renderer;
     private final OrthographicCamera camera;
     private final PlayerUI sheet;
-    private final float scale = 1.15f;
+    private final float scale = 2f;
 
     /**
      * Instantiates a new RoboRally screen.
@@ -29,10 +28,11 @@ public class PlayerView extends InputAdapter implements Screen {
         this.sheet = new PlayerUI(app);
 
         camera = new OrthographicCamera();
-        camera.setToOrtho(false, app.getGame().getBoard().getBoardWidth(), app.getGame().getBoard().getBoardHeight());
-        camera.position.x = app.getGame().getBoard().getBoardWidth() /2f;
-        camera.position.y = app.getGame().getBoard().getBoardHeight() /(2f * scale);
-        camera.zoom = scale;
+        camera.setToOrtho(false, app.getGame().getBoard().getBoardWidth() *scale, app.getGame().getBoard().getBoardHeight());
+        camera.position.x = app.getGame().getBoard().getBoardWidth();
+        camera.position.y = app.getGame().getBoard().getBoardHeight()/2f;
+        //camera.zoom = scale;
+
         camera.update();
 
         renderer = new OrthogonalTiledMapRenderer(app.getGame().getBoard().getBoard(),  1f/ RoboRallyApp.TILE_SIZE);
