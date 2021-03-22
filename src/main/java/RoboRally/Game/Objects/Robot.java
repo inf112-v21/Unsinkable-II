@@ -15,7 +15,7 @@ public class Robot implements IRobot {
     private Vector2 location;
     private Queue<ProgramCard> registers;
     private final int numRegisters, cacheSize;
-    private int damage;
+    private int damage, life;
 
 
     public Robot() {
@@ -25,6 +25,7 @@ public class Robot implements IRobot {
         this.location = new Vector2();
         this.registers = new LinkedList<>();
         this.direction = Direction.NORTH;
+        this.life = 3;
     }
 
     public Robot(Piece piece) {
