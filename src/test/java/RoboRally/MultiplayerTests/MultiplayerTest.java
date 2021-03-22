@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 
 public class MultiplayerTest {
 
-    private RoboRallyApp app = new RoboRallyApp();
+    private final RoboRallyApp app = new RoboRallyApp();
 
 
     @Test

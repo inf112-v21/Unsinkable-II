@@ -9,7 +9,7 @@ public enum Direction {
     SOUTH(0,-1, 2),
     EAST(1,0, 3);
 
-    public static Direction[] DIRECTIONS = new Direction[] {NORTH, WEST, SOUTH, EAST};
+    public final static Direction[] DIRECTIONS = new Direction[] {NORTH, WEST, SOUTH, EAST};
 
     private final int x, y, direction;
 

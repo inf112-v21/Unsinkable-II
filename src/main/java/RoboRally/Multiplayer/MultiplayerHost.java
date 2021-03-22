@@ -61,8 +61,7 @@ public class MultiplayerHost extends Multiplayer {
      *
      * @param connection the disconnected connection.
      */
-    public void disconnected(Connection connection) { connections.remove(connection);}
-
+    public void disconnected(Connection connection) { connections.remove(connection); }
 
     /**
      * Broadcasts a game packet to all player connections playing together.

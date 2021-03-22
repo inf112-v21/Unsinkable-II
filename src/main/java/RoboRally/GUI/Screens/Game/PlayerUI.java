@@ -2,6 +2,7 @@ package RoboRally.GUI.Screens.Game;
 
 import RoboRally.Game.Cards.ProgramCard;
 import RoboRally.RoboRallyApp;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -24,8 +25,8 @@ public class PlayerUI {
     private final FitViewport stageViewport;
     private final Button[] cardButtons;
 
-    private final float WIDTH = 1200f;
-    private final float HEIGHT = 1600f;
+    private final float width = Gdx.graphics.getWidth();
+    private final float height = Gdx.graphics.getHeight();
 
     /**
      * Creates a new player UI.
@@ -34,16 +35,16 @@ public class PlayerUI {
      */
     public PlayerUI(RoboRallyApp app) {
         this.app = app;
-        this.stageViewport = new FitViewport(1200, 1600);
+        this.stageViewport = new FitViewport(width, height);
         this.stage = new Stage(stageViewport);
 
         this.table = new Table();
         table.setFillParent(true);
-        table.bottom();
+        table.right();
 
         this.cardButtons = new Button[9];
+        addSelectCardButtons();
         addRunButton();
-        addCardButtons();
 
         stage.addActor(table);
     }
@@ -60,12 +61,13 @@ public class PlayerUI {
      */
     public void dispose(){ stage.dispose(); }
 
-    private void addCardButtons() {
+    private void addSelectCardButtons() {
         for (int i = 0; i < 9; ++i) {
             int index = i;
             Button button = new ImageButton(new TextureRegionDrawable(new TextureRegion(new Texture(ProgramCard.BACK.getPath()))));
             button.addListener(cardListener(index));
-            table.add(button).size(WIDTH/11.5f, HEIGHT/7); // TODO: Dynamic size variable.
+            table.add(button).size(width /11.5f, height /7); // TODO: Dynamic size variable.
+            if ((i+1) % 3 == 0) { table.row(); }
             cardButtons[i] = button;
         }
     }
@@ -85,7 +87,7 @@ public class PlayerUI {
             @Override
             public void clicked(InputEvent event, float x, float y) { app.getGame().attemptRun(); } } );
 
-        table.add(button).size(WIDTH/10, HEIGHT/8);
+        table.add(button).size(width /10, height /8);
     }
 
 }
