@@ -46,4 +46,9 @@ public interface IRobot extends IObject{
     Piece getPiece();
 
     int getHealth();
+
+    /**
+     * gives the Robot one damage when encountering a hazard.
+     */
+    void setDamage();
 }

@@ -14,7 +14,8 @@ public class Robot implements IRobot {
     private Direction direction;
     private Vector2 location;
     private Queue<ProgramCard> registers;
-    private final int numRegisters, cacheSize, damage;
+    private final int numRegisters, cacheSize;
+    private int damage;
 
 
     public Robot() {
@@ -36,6 +37,9 @@ public class Robot implements IRobot {
 
     @Override
     public int getHealth() { return cacheSize - damage; }
+
+    @Override
+    public void setDamage() { damage += 1; }
 
     @Override
     public Vector2 getLoc() { return location; }
