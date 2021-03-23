@@ -55,4 +55,10 @@ public interface IRobot extends IObject{
      * gives the Robot one damage when encountering a hazard.
      */
     void addDamage();
+
+    /**
+     * adds one to flagCounter
+     */
+    void reachFlag();
+
 }

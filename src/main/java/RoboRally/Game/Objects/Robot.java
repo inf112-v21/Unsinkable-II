@@ -50,6 +50,9 @@ public class Robot implements IRobot {
     public void addDamage() { ++damage; }
 
     @Override
+    public void reachFlag() { nextFLag += 1; }
+
+    @Override
     public Vector2 getLoc() { return location; }
 
     @Override
