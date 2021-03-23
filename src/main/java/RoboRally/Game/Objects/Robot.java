@@ -1,10 +1,12 @@
 package RoboRally.Game.Objects;
 
+import RoboRally.Game.Board.Board;
 import RoboRally.Game.Cards.Card;
 import RoboRally.Game.Direction;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Vector2;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -15,7 +17,7 @@ public class Robot implements IRobot {
     private Vector2 location;
     private Queue<Card> registers;
     private final int numRegisters, cacheSize;
-    private int damage, life;
+    private int damage, life, nextFLag;
 
 
     public Robot() {
@@ -26,6 +28,7 @@ public class Robot implements IRobot {
         this.registers = new LinkedList<>();
         this.direction = Direction.NORTH;
         this.life = 3;
+        this.nextFLag = 1;
     }
 
     public Robot(Piece piece) {

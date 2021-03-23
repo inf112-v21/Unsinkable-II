@@ -8,8 +8,7 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.math.Vector2;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 
 /**
@@ -21,10 +20,11 @@ public class Board {
 
     private final TiledMap board;
     private final Vector2[] startLocs;
-    private final Set<Vector2> bounds, holeLocs, repairLocs, upgradeLocs;
-    private final Set<Vector2> northWalls, westWalls, southWalls, eastWalls;
+    private final Set<Vector2> bounds, holeLocs, repairLocs, upgradeLocs,
+            northWalls, westWalls, southWalls, eastWalls, flaglocs;;
     private final TiledMapTileLayer boardLayer, playerLayer, startLayer, wallLayer, laserWallLayer, laserLayer,
             flagLayer, holeLayer, conveyorLayer, gearLayer, repairLayer, upgradeLayer;
+    private final List<Integer> flagArray = new ArrayList<>();
 
 
 
@@ -48,12 +48,16 @@ public class Board {
         this.holeLocs = findAllTiles(holeLayer);
         this.repairLocs = findAllTiles(repairLayer);
         this.upgradeLocs = findAllTiles(upgradeLayer);
+        this.flaglocs = findAllTiles(flagLayer);
 
         this.northWalls = new HashSet<>();
         this.westWalls = new HashSet<>();
         this.southWalls = new HashSet<>();
         this.eastWalls = new HashSet<>();
+
         findAllWalls();
+        makeSortedFlagArray();
+
     }
 
 
@@ -172,5 +176,24 @@ public class Board {
     public int getBoardWidth() { return boardLayer.getWidth(); }
     public int getBoardHeight() { return boardLayer.getHeight(); }
 
+    private void makeSortedFlagArray() { //Should be a simple insertionsort
+        Vector2[] flagList = new Vector2[flaglocs.size()];
+        for(Vector2 flag : this.flaglocs){
+            int flagID = flagLayer.getCell((int) flag.x, (int) flag.y).getTile().getId();
+            if(flagID == TileID.FLAG_1.getId()){
+                flagList[0] = flag;
+            }
+            else if(flagID == TileID.FLAG_2.getId()){
+                flagList[1] = flag;
+            }
+            else if(flagID == TileID.FLAG_3.getId()){
+                flagList[2] = flag;
+            }
+            else if(flagID == TileID.FLAG_4.getId()){
+                flagList[3] = flag;
+            }
+        }
+    }
 
+    public List<Integer> getFlagArray() { return this.flagArray; }
 }
