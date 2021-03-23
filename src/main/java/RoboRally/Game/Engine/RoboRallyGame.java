@@ -41,7 +41,7 @@ public abstract class RoboRallyGame implements RoboRally {
         }
         else if(card.getSteps() == -1) { board.moveRobot(robot, robot.getDirection().rotate(2)); }
         else { board.rotateRobot(robot, card.getRotation()); }
-        sleep(2000);
+        sleep(1000);
     }
 
     /**
@@ -74,13 +74,13 @@ public abstract class RoboRallyGame implements RoboRally {
      */
     public void attemptRun(Queue<Card> registers, List<Card> playerHand) {
         if (!roundSent) {
+            roundSent = true;
             app.getLocalClient().getClient().sendTCP(new RoundPacket(
                     roundNumber,
                     myPlayer.getID(),
                     myPlayer.getRobot().getLoc(),
                     registers,
                     playerHand));
-            roundSent = true;
         }
     }
 

@@ -113,10 +113,10 @@ public class Board {
         Set<Vector2> walls = findAllLayerTiles(wallLayer);
         for (Vector2 wall : walls){
             int wallID = wallLayer.getCell((int) wall.x, (int) wall.y).getTile().getId();
-            if (TileID.WALLS_NORTH.contains(wallID)) { northWalls.add(wall); System.out.println(wall + " North");}
-            else if (TileID.WALLS_EAST.contains(wallID)) { eastWalls.add(wall); System.out.println(wall + " East");}
-            else if (TileID.WALLS_SOUTH.contains(wallID)) { southWalls.add(wall); System.out.println(wall + " South");}
-            else if (TileID.WALLS_WEST.contains(wallID)) { westWalls.add(wall); System.out.println(wall + " West");}
+            if (TileID.WALLS_NORTH.contains(wallID)) { northWalls.add(wall); }
+            if (TileID.WALLS_EAST.contains(wallID)) { eastWalls.add(wall); }
+            if (TileID.WALLS_SOUTH.contains(wallID)) { southWalls.add(wall); }
+            if (TileID.WALLS_WEST.contains(wallID)) { westWalls.add(wall); }
         }
     }
 
@@ -143,14 +143,16 @@ public class Board {
      * @return true if robot successfully moved, otherwise false.
      */
     public boolean moveRobot(Robot robot, Direction dir) {
-        System.out.println("Moving "+robot.getLoc()+" direction "+dir);
-        if (robotMoved(robot, dir)) {
+        if (robotCanGo(robot, dir)) {
             removeRobot(robot);
             move(robot, dir);
             putRobot(robot);
-            return true;
+            if (inBounds(robot) && !inHole(robot)) {
+                // TODO: Robot loses life and is moved back to start/save.
+                return true;
+            }
         }
-        else { return false; }
+        return false;
     }
 
     /**
@@ -178,7 +180,6 @@ public class Board {
      * Moves a robot according to the program card.
      *
      * @param robot the robot moving.
-     * @return the end vector.
      */
     private void move(Robot robot, Direction dir) {
         robot.getLoc().x += robot.getDirection().getX();
@@ -225,13 +226,16 @@ public class Board {
     //                            Physics checks
     //================================================================
 
-    private boolean robotMoved(Robot robot, Direction dir) {
+    /**
+     * Checks if a robot can go from it's location in a given direction.
+     *
+     * @param robot the robot moving.
+     * @param dir the direction.
+     * @return true if the robot can move freely in the direction, false otherwise.
+     */
+    private boolean robotCanGo(Robot robot, Direction dir) {
         if (!checkForWalls(robot.getLoc(), dir)) {
-            System.out.println("No walls "+robot.getLoc()+" heading "+dir);
-            if (!checkForWalls(findNext(robot.getLoc(), dir),dir.rotate(2))) {
-                System.out.println("No opposite walls "+robot.getLoc()+" heading "+dir.rotate(2));
-                return true;
-            }
+            if (!checkForWalls(findNext(robot.getLoc(), dir),dir.rotate(2))) { return true; }
         }
         return false;
     }
@@ -252,6 +256,13 @@ public class Board {
      */
     private boolean inHole(Robot robot){ return holeLocs.contains(robot.getLoc()); }
 
+    /**
+     * Checks if there is a wall in a direction on a location.
+     *
+     * @param loc the location to check for a wall.
+     * @param dir the direction to check for a wall.
+     * @return true if there is a wall blocking the direction in a location, false if there is no wall.
+     */
     private boolean checkForWalls(Vector2 loc, Direction dir) {
         if (dir == Direction.NORTH && northWalls.contains(loc)) { return true; }
         else if (dir == Direction.WEST && westWalls.contains(loc)) { return true; }
