@@ -61,8 +61,6 @@ public class ProgrammingDeck {
         return hand;
     }
 
-    public void returnCards(List<ProgramCard> tossedCards) { this.thrownCards.addAll(tossedCards); }
-
     /**
      * @return the number of cards currently in the deck.
      */

@@ -7,24 +7,25 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Button;
-import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Player User Interface.
  */
 public class PlayerUI {
+
     private final RoboRallyApp app;
-    private final Table table;
+    private final Table mainTable, playerHandTable, runButtonTable, registryTable;
     private final Stage stage;
     private final FitViewport stageViewport;
-    private final Button[] cardButtons;
-
+    private final ButtonGroup<Button> handButtons;
+    private final List<ProgramCard> hand, registry;
     private final float width = Gdx.graphics.getWidth();
     private final float height = Gdx.graphics.getHeight();
 
@@ -33,21 +34,101 @@ public class PlayerUI {
      *
      * @param app the app
      */
-    public PlayerUI(RoboRallyApp app) {
+    public PlayerUI(RoboRallyApp app, List<ProgramCard> playerHand) {
         this.app = app;
+        this.hand = playerHand;
+
         this.stageViewport = new FitViewport(width, height);
         this.stage = new Stage(stageViewport);
+        
+        this.mainTable = new Table();
+        mainTable.setFillParent(true);
+        mainTable.padLeft(width/2f);
+        mainTable.padTop(height/12f).top();
 
-        this.table = new Table();
-        table.setFillParent(true);
-        table.right();
+        this.handButtons = new ButtonGroup<>();
+        handButtons.setMaxCheckCount(5);
+        handButtons.setMinCheckCount(0);
+        handButtons.setUncheckLast(false);
+        this.playerHandTable = new Table();
+        mainTable.add(addPlayerHandButtons());
+        handButtons.uncheckAll();
+        mainTable.row();
 
-        this.cardButtons = new Button[9];
-        addSelectCardButtons();
-        addRunButton();
+        this.runButtonTable = new Table();
+        runButtonTable.add(addRunButton());
+        mainTable.add(runButtonTable);
+        mainTable.row();
 
-        stage.addActor(table);
+        this.registryTable = new Table();
+        mainTable.add(registryTable);
+        this.registry = new ArrayList<>();
+
+        stage.addActor(mainTable);
     }
+
+    private Table addPlayerHandButtons() {
+        for (int i = 0; i < 9; ++i) {
+            int index = i;
+            if (index % 3 == 0) { playerHandTable.row(); }
+            Button button = new ImageButton(new TextureRegionDrawable(new TextureRegion(new Texture(hand.get(index).getPath()))),
+                    new TextureRegionDrawable(new TextureRegion(new Texture(ProgramCard.BACK.getPath()))),
+                    new TextureRegionDrawable(new TextureRegion(new Texture(ProgramCard.BACK.getPath()))));
+            button.addListener(playerHandListener(index));
+            button.setSize(width /12f, height /6);
+            playerHandTable.add(button).size(width /12f, height /6);
+            handButtons.add(button);
+        }
+        return playerHandTable;
+    }
+
+    private ClickListener playerHandListener(int index) {
+        return new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                if (registry.size() < 5 && !handButtons.getButtons().get(index).isDisabled()) {
+                    registry.add(hand.get(index));
+                    handButtons.getButtons().get(index).setDisabled(true);
+                    addRegistryButton(index);
+                    System.out.println("Registry: "+registry.toString());
+                }
+            }
+        };
+    }
+
+    private void addRegistryButton(int index) {
+        Button button = new ImageButton(new TextureRegionDrawable(new TextureRegion(new Texture(hand.get(index).getPath()))));
+        button.setSize(width /12f, height /6);
+        button.addListener(registryListener(index, button));
+        registryTable.add(button).size(width /12f, height /6);
+    }
+
+    private ClickListener registryListener(int index, Button button) {
+        return new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                handButtons.getButtons().get(index).setDisabled(false);
+                handButtons.getButtons().get(index).setChecked(false);
+                registry.remove(hand.get(index));;
+                registryTable.getCell(button).reset();
+                registryTable.removeActor(button);
+            }
+        };
+    }
+
+    private Button addRunButton() {
+        Button runButton = new TextButton("Run", app.getGUI_SKIN());
+        runButton.setSize(width /6f, height/6f);
+        runButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) { app.getGame().attemptRun(); } } );
+        return runButton;
+    }
+
+    /**
+     * Dispose.
+     */
+    public void dispose(){ stage.dispose(); }
 
     /**
      * Gets stage.
@@ -55,39 +136,5 @@ public class PlayerUI {
      * @return the stage
      */
     public Stage getStage() { return this.stage; }
-
-    /**
-     * Dispose.
-     */
-    public void dispose(){ stage.dispose(); }
-
-    private void addSelectCardButtons() {
-        for (int i = 0; i < 9; ++i) {
-            int index = i;
-            Button button = new ImageButton(new TextureRegionDrawable(new TextureRegion(new Texture(ProgramCard.BACK.getPath()))));
-            button.addListener(cardListener(index));
-            table.add(button).size(width /11.5f, height /7); // TODO: Dynamic size variable.
-            if ((i+1) % 3 == 0) { table.row(); }
-            cardButtons[i] = button;
-        }
-    }
-
-    private ClickListener cardListener(int index) {
-        return new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                // TODO: What should happen when a player clicks the card button?
-            }
-        };
-    }
-
-    private void addRunButton() {
-        Button button = new TextButton("Run", app.getGUI_SKIN());
-        button.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) { app.getGame().attemptRun(); } } );
-
-        table.add(button).size(width /10, height /8);
-    }
 
 }

@@ -15,7 +15,7 @@ public class PlayerView extends InputAdapter implements Screen {
     private final RoboRallyApp app;
     private final OrthogonalTiledMapRenderer renderer;
     private final OrthographicCamera camera;
-    private final PlayerUI sheet;
+    private final PlayerUI playerUI;
     private final float scale = 2f;
 
     /**
@@ -25,20 +25,19 @@ public class PlayerView extends InputAdapter implements Screen {
      */
     public PlayerView(RoboRallyApp app) {
         this.app = app;
-        this.sheet = new PlayerUI(app);
+        this.playerUI = new PlayerUI(app, app.getGame().getMyPlayer().getHand());
 
         camera = new OrthographicCamera();
         camera.setToOrtho(false, app.getGame().getBoard().getBoardWidth() * scale, app.getGame().getBoard().getBoardHeight());
         camera.position.x = app.getGame().getBoard().getBoardWidth();
         camera.position.y = app.getGame().getBoard().getBoardHeight()/2f;
-        //camera.zoom = scale;
 
         camera.update();
 
         renderer = new OrthogonalTiledMapRenderer(app.getGame().getBoard().getBoard(),  1f/ RoboRallyApp.TILE_SIZE);
         renderer.setView(camera);
 
-        Gdx.input.setInputProcessor(sheet.getStage());
+        Gdx.input.setInputProcessor(playerUI.getStage());
     }
 
     @Override
@@ -55,9 +54,9 @@ public class PlayerView extends InputAdapter implements Screen {
         renderer.render();
 
         // Draw the UI
-        renderer.getBatch().setProjectionMatrix(sheet.getStage().getCamera().combined);
-        sheet.getStage().act(delta);
-        sheet.getStage().draw();
+        renderer.getBatch().setProjectionMatrix(playerUI.getStage().getCamera().combined);
+        playerUI.getStage().act(delta);
+        playerUI.getStage().draw();
     }
 
     @Override
@@ -74,7 +73,7 @@ public class PlayerView extends InputAdapter implements Screen {
 
     @Override
     public void dispose() {
-        sheet.dispose();
+        playerUI.dispose();
         renderer.dispose();
     }
 

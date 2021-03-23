@@ -81,6 +81,9 @@ public enum ProgramCard {
     /**
      * @return the name of the card.
      */
-    public String getPath() { return "ProgramCards/Cards/"+this.name+".png"; }
+    public String getPath() {
+        if (this.name == null) { return "ProgramCards/Cards/" + BACK + ".png"; }
+        else { return "ProgramCards/Cards/"+this.name+".png"; }
+    }
 
 }

@@ -22,7 +22,7 @@ public class Board {
     private final TiledMap board;
     private final Vector2[] startLocs;
     private final Set<Vector2> bounds, holeLocs, repairLocs, upgradeLocs;
-    private Set<Vector2> northWalls, westWalls, southWalls, eastWalls;
+    private final Set<Vector2> northWalls, westWalls, southWalls, eastWalls;
     private final TiledMapTileLayer boardLayer, playerLayer, startLayer, wallLayer, laserWallLayer, laserLayer,
             flagLayer, holeLayer, conveyorLayer, gearLayer, repairLayer, upgradeLayer;
 
@@ -49,20 +49,11 @@ public class Board {
         this.repairLocs = findAllTiles(repairLayer);
         this.upgradeLocs = findAllTiles(upgradeLayer);
 
-
         this.northWalls = new HashSet<>();
         this.westWalls = new HashSet<>();
         this.southWalls = new HashSet<>();
         this.eastWalls = new HashSet<>();
-
         findAllWalls();
-
-
-        System.out.println("North walls: " + northWalls);
-        System.out.println("South walls " + southWalls);
-        System.out.println("East walls: " + eastWalls);
-        System.out.println("West walls " + westWalls);
-
     }
 
 
@@ -145,7 +136,7 @@ public class Board {
     /**
      * Locates and places all walls in respective lists
      */
-    private void findAllWalls (){//TODO: Should be refactored out of class
+    private void findAllWalls (){
         Set<Vector2> walls = findAllTiles(wallLayer);
         for (Vector2 wall : walls){
             int wallID = wallLayer.getCell((int) wall.x, (int) wall.y).getTile().getId();

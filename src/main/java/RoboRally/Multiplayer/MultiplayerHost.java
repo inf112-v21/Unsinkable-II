@@ -40,7 +40,7 @@ public class MultiplayerHost extends Multiplayer {
      * @param connection the connection just established.
      */
     public void connected(Connection connection) {
-        connection.setTimeout(TIMEOUT*100); // TODO: Enough?
+        connection.setTimeout(TIMEOUT*1000); // TODO: Enough?
         this.connections.add(connection);
         connection.setName("Player " + connections.size());
         startPacket.playerID = connections.size();
@@ -54,7 +54,7 @@ public class MultiplayerHost extends Multiplayer {
     public void received(Connection connection, Object transmission) {
         if (transmission instanceof RoundPacket) {
             roundPackets.add((RoundPacket) transmission);
-            deck.returnCards(roundPackets.get(roundPackets.size()-1).tossedCards);
+            deck.throwCards(roundPackets.get(roundPackets.size()-1).tossedCards);
             System.out.println("Server received round packet from "+connection);
             if (roundPackets.size() == connections.size()) {
                 broadcastGamePackets();

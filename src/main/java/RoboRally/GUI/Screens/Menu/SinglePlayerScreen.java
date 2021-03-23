@@ -15,12 +15,25 @@ public class SinglePlayerScreen extends MenuScreenAdapter{
         addHeading("Single Player RoboRally");
         this.box = addSelectBox(Boards.ALL_BOARDS, true);
 
-        addButton("Start RoboRally", true, new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) { app.hostNewGame((Boards) box.getSelected()); }
-        });
+        addButton("Start RoboRally", true, StartGameListener());
         addButton("Back", true, BackButtonListener());
     }
 
+    /**
+     * Listener that starts a new game using the selected board.
+     *
+     * @return InputListener for start RoboRally button.
+     */
+    public ClickListener StartGameListener() { return new ClickListener() {
+        @Override
+        public void clicked(InputEvent event, float x, float y) { startPressed(); }
+    }; }
+    /**
+     * Helper method for HostGameListener
+     */
+    private void startPressed() {
+        try { app.hostNewGame((Boards) box.getSelected()); }
+        catch (Exception e) { e.printStackTrace(); }// TODO: Display error message in GUI.
+    }
 
 }

@@ -79,7 +79,7 @@ public class RoboRallyApp extends Game {
     */
     public void joinNewGame(String hostIP) {
         this.myConnection = new MultiplayerClient(this, hostIP);
-        while (!myConnection.start) { }
+        while (!myConnection.start) { } // TODO: Add connecting GUI message.
         System.out.println("I am player "+myConnection.startPacket.playerID);
         startGame(myConnection.startPacket.boardSelection, myConnection.startPacket.playerID);
 
@@ -89,6 +89,7 @@ public class RoboRallyApp extends Game {
         this.game = new GameLoop(this, boardSelection, playerID);
         this.gameThread = new Thread(game, "Game Thread");
         gameThread.start();
+        this.game.getMyPlayer().setHand(myConnection.getHand()); // TODO: refactor
         this.setScreen(new PlayerView(this));
     }
 

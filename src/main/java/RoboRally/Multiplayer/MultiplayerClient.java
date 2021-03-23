@@ -1,5 +1,6 @@
 package RoboRally.Multiplayer;
 
+import RoboRally.Game.Cards.ProgramCard;
 import RoboRally.Multiplayer.Packets.PlayerHandPacket;
 import RoboRally.Multiplayer.Packets.RoundPacket;
 import RoboRally.Multiplayer.Packets.MessagePacket;
@@ -10,12 +11,14 @@ import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.Connection;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Class to create a client connection to a host server.
  */
 public class MultiplayerClient extends Multiplayer {
     private final Client client;
+    private PlayerHandPacket hand;
 
     public MultiplayerClient(RoboRallyApp app, String hostIP) {
         this.app = app;
@@ -47,8 +50,7 @@ public class MultiplayerClient extends Multiplayer {
             System.out.println("New Player " + startPacket.playerID);
         }
         else if (transmission instanceof PlayerHandPacket) {
-            PlayerHandPacket hand = (PlayerHandPacket) transmission;
-            app.getGame().getMyPlayer().setHand(hand.cards);
+            this.hand = (PlayerHandPacket) transmission;
             System.out.println("Received hand "+hand.cards.toString());
         }
         else if (transmission instanceof RoundPacket) {
@@ -65,6 +67,9 @@ public class MultiplayerClient extends Multiplayer {
         }
     }
 
+    public List<ProgramCard> getHand() { return this.hand.cards; }
+
     public Client getClient() { return this.client; }
+
 
 }
