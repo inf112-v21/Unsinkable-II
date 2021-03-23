@@ -167,7 +167,7 @@ public class Board {
      * Checks if a robot has landed in a hole
      *
      * @param robot - the robot that checks for a hole
-     * @return true if robot is in hole, this will destroy the robot (takea away 1 life)
+     * @return true if robot is in hole, this will destroy the robot (take away 1 life)
      */
     public boolean checkForHoles(Robot robot){ return holeLocs.contains(robot.getLoc()); } //TODO: unimplemented
 
