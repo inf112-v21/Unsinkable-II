@@ -9,20 +9,7 @@ import java.util.Queue;
 
 public interface IRobot extends IObject{
 
-    /**
-     * @return the direction the robot is facing.
-     */
-    Direction getDirection();
 
-    /**
-     * @param dir the new direction the robot is facing.
-     */
-    void setDirection(Direction dir);
-
-    /**
-     * @param newLoc the new robot location.
-     */
-    void setLoc(Vector2 newLoc);
 
     Queue<Card> getRegisters();
 
