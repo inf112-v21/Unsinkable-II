@@ -12,7 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
 
-import java.util.ArrayList;
+import java.util.*;
 import java.util.List;
 
 /**
@@ -25,9 +25,11 @@ public class PlayerUI {
     private final Stage stage;
     private final FitViewport stageViewport;
     private final ButtonGroup<Button> handButtons;
-    private final List<ProgramCard> hand, registry;
+    private final List<ProgramCard> hand;
+    private final Map<Integer, Integer> registry;
     private final float width = Gdx.graphics.getWidth();
     private final float height = Gdx.graphics.getHeight();
+    private int order;
 
     /**
      * Creates a new player UI.
@@ -46,6 +48,7 @@ public class PlayerUI {
         mainTable.padLeft(width/2f);
         mainTable.padTop(height/12f).top();
 
+        this.order = 0;
         this.handButtons = new ButtonGroup<>();
         handButtons.setMaxCheckCount(5);
         handButtons.setMinCheckCount(0);
@@ -62,7 +65,7 @@ public class PlayerUI {
 
         this.registryTable = new Table();
         mainTable.add(registryTable);
-        this.registry = new ArrayList<>();
+        this.registry = new HashMap<>();
 
         stage.addActor(mainTable);
     }
@@ -87,7 +90,7 @@ public class PlayerUI {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 if (registry.size() < 5 && !handButtons.getButtons().get(index).isDisabled()) {
-                    registry.add(hand.get(index));
+                    registry.put(index, ++order);
                     handButtons.getButtons().get(index).setDisabled(true);
                     addRegistryButton(index);
                     System.out.println("Registry: "+registry.toString());
@@ -109,7 +112,7 @@ public class PlayerUI {
             public void clicked(InputEvent event, float x, float y) {
                 handButtons.getButtons().get(index).setDisabled(false);
                 handButtons.getButtons().get(index).setChecked(false);
-                registry.remove(hand.get(index));;
+                registry.remove(index);
                 registryTable.getCell(button).reset();
                 registryTable.removeActor(button);
             }
@@ -121,7 +124,10 @@ public class PlayerUI {
         runButton.setSize(width /6f, height/6f);
         runButton.addListener(new ClickListener() {
             @Override
-            public void clicked(InputEvent event, float x, float y) { app.getGame().attemptRun(); } } );
+            public void clicked(InputEvent event, float x, float y) {
+                if (registry.size() == 5) { app.getGame().attemptRun(makeRegisters(), hand);}
+                System.out.println(Arrays.toString(makeRegisters().toArray()));
+            } } );
         return runButton;
     }
 
@@ -136,5 +142,18 @@ public class PlayerUI {
      * @return the stage
      */
     public Stage getStage() { return this.stage; }
+
+    private Queue<ProgramCard> makeRegisters() {
+        List<Integer> list = new LinkedList<>(registry.values());
+        Queue<ProgramCard> queue = new LinkedList<>();
+        Collections.sort(list);
+        for (int value : list) {
+            for (int handIndex : registry.keySet()) {
+                if (registry.get(handIndex) == value) { queue.offer(hand.get(handIndex)); }
+            }
+        }
+        return queue;
+    }
+
 
 }

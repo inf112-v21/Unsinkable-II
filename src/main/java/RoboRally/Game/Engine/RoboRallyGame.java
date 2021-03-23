@@ -9,6 +9,7 @@ import RoboRally.Multiplayer.Packets.RoundPacket;
 import RoboRally.RoboRallyApp;
 
 import java.util.List;
+import java.util.Queue;
 
 /**
  * The RoboRally game logic
@@ -39,15 +40,14 @@ public abstract class RoboRallyGame implements RoboRally {
     /**
      * Attempt run.
      */
-    public void attemptRun() {
+    public void attemptRun(Queue<ProgramCard> registers, List<ProgramCard> playerHand) {
         if (!roundSent) {
             app.getLocalClient().getClient().sendTCP(new RoundPacket(
                     roundNumber,
                     myPlayer.getID(),
                     myPlayer.getRobot().getLoc(),
-                    myPlayer.getRobot().getRegisters(),
-                    myPlayer.getHand())
-                    ); // TODO: Replace with card selection from player hand.
+                    registers,
+                    playerHand));
             roundSent = true;
         }
     }
@@ -61,9 +61,7 @@ public abstract class RoboRallyGame implements RoboRally {
         for (RoundPacket packet : roundPackets) {
             players.get(packet.playerID-1).getRobot().setRegisters(packet.registers);
         }
-        for (Player player : players) {
-            executeProgramCard(player.getRobot(), player.getRobot().getRegisters().poll());
-        }
+        nextRound = true;
     }
 
     /**
