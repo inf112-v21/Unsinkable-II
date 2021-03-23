@@ -17,7 +17,7 @@ import java.util.HashSet;
  */
 public class MultiplayerHost extends Multiplayer {
     private final Server server;
-    private ProgrammingDeck deck;
+    private final ProgrammingDeck deck;
 
     public MultiplayerHost(Boards board) {
         this.server = new Server();

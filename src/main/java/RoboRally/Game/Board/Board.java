@@ -148,6 +148,7 @@ public class Board {
             move(robot, dir);
             putRobot(robot);
             if (inBounds(robot) && !inHole(robot)) {
+                robot.takeLife();
                 // TODO: Robot loses life and is moved back to start/save.
                 return true;
             }
@@ -234,8 +235,8 @@ public class Board {
      * @return true if the robot can move freely in the direction, false otherwise.
      */
     private boolean robotCanGo(Robot robot, Direction dir) {
-        if (!checkForWalls(robot.getLoc(), dir)) {
-            if (!checkForWalls(findNext(robot.getLoc(), dir),dir.rotate(2))) { return true; }
+        if (checkForWalls(robot.getLoc(), dir)) {
+            return checkForWalls(findNext(robot.getLoc(), dir), dir.rotate(2));
         }
         return false;
     }
@@ -264,11 +265,10 @@ public class Board {
      * @return true if there is a wall blocking the direction in a location, false if there is no wall.
      */
     private boolean checkForWalls(Vector2 loc, Direction dir) {
-        if (dir == Direction.NORTH && northWalls.contains(loc)) { return true; }
-        else if (dir == Direction.WEST && westWalls.contains(loc)) { return true; }
-        else if (dir == Direction.SOUTH && southWalls.contains(loc)) { return true; }
-        else if (dir == Direction.EAST && eastWalls.contains(loc)) { return true; }
-        else { return false; }
+        if (dir == Direction.NORTH && northWalls.contains(loc)) { return false; }
+        else if (dir == Direction.WEST && westWalls.contains(loc)) { return false; }
+        else if (dir == Direction.SOUTH && southWalls.contains(loc)) { return false; }
+        else return dir != Direction.EAST || !eastWalls.contains(loc);
     }
 
 

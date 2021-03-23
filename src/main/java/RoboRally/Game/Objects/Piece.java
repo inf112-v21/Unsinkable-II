@@ -12,20 +12,17 @@ import java.util.List;
 /**
  * Enum to handle robot skins.
  */
-public enum Piece { // TODO: Uncomment PIECE3-8 when we have images of 8 robots in 3 states
+public enum Piece {
     PIECE1(1),
     PIECE2(2),
-    //PIECE3(3),
-    //PIECE4(4),
-    //PIECE5(5),
-    //PIECE6(6),
-    //PIECE7(7),
-    //PIECE8(8)
-    ;
+    PIECE3(3),
+    PIECE4(4),
+    PIECE5(5),
+    PIECE6(6),
+    PIECE7(7),
+    PIECE8(8);
 
-    private final static List<Piece> PIECES = Arrays.asList(PIECE1, PIECE2
-            //, PIECE3, PIECE4, PIECE5, PIECE6, PIECE7, PIECE8
-            );
+    private final static List<Piece> PIECES = Arrays.asList(PIECE1, PIECE2, PIECE3, PIECE4, PIECE5, PIECE6, PIECE7, PIECE8);
 
     private final TiledMapTileLayer.Cell cell, diedCell, wonCell;
     private final TextureRegion[][] textures = TextureRegion.split(

@@ -24,7 +24,7 @@ public class RoboRallyApp extends Game {
     //================================================================
     public static final String GAME_TITLE = "RoboRally";
     public static final int TILE_SIZE = 100;
-    public static final String ROBOT_SKINS_PATH = "Robots/RobotsV2.png";
+    public static final String ROBOT_SKINS_PATH = "Robots/RobotsV2.5.png";
 
     private final String groupName = "Unsinkable-II";
     private final String guiSkinPath = "Skin/rusty-robot-ui.json";
@@ -107,7 +107,7 @@ public class RoboRallyApp extends Game {
     /**
      * @return the RoboRally game stage.
      */
-    public Stage getStage() { return stage; } //TODO: unimplemented
+    public Stage getStage() { return stage; }
 
     /**
      * @return the name of the design group.

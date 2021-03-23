@@ -10,6 +10,9 @@ import java.util.Queue;
 public interface IRobot extends IObject{
 
 
+    Vector2 getSpawnLoc();
+
+    void setSpawnLoc(Vector2 newLoc);
 
     Queue<Card> getRegisters();
 
@@ -55,6 +58,8 @@ public interface IRobot extends IObject{
      * gives the Robot one damage when encountering a hazard.
      */
     void addDamage();
+
+    void fixDamage(int damageFixed);
 
     /**
      * adds one to flagCounter

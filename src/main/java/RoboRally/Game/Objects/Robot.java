@@ -12,7 +12,7 @@ public class Robot implements IRobot {
 
     private Piece piece;
     private Direction direction;
-    private Vector2 location;
+    private Vector2 location, spawn;
     private Queue<Card> registers;
     private final int numRegisters, cacheSize;
     private int damage, life, nextFLag;
@@ -50,6 +50,9 @@ public class Robot implements IRobot {
     public void addDamage() { ++damage; }
 
     @Override
+    public void fixDamage(int damageFixed) { damage -= damageFixed; }
+
+    @Override
     public void reachFlag() { nextFLag += 1; }
 
     @Override
@@ -57,6 +60,12 @@ public class Robot implements IRobot {
 
     @Override
     public void setLoc(Vector2 newLoc) { this.location = newLoc; }
+
+    @Override
+    public Vector2 getSpawnLoc() { return location; }
+
+    @Override
+    public void setSpawnLoc(Vector2 newLoc) { this.spawn = newLoc; }
 
     @Override
     public Direction getDirection() { return this.direction; }
