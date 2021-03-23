@@ -1,12 +1,10 @@
 package RoboRally.Game.Objects;
 
-import RoboRally.Game.Board.Board;
 import RoboRally.Game.Cards.Card;
 import RoboRally.Game.Direction;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Vector2;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -50,6 +48,9 @@ public class Robot implements IRobot {
 
     @Override
     public void setDamagePlussOne() { damage += 1; }
+
+    @Override
+    public void reachFlag() { nextFLag += 1; }
 
     @Override
     public Vector2 getLoc() { return location; }

@@ -1,9 +1,7 @@
 package RoboRally.Game.Objects;
 
 import RoboRally.Game.Cards.Card;
-import RoboRally.Game.Direction;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
-import com.badlogic.gdx.math.Vector2;
 
 import java.util.Queue;
 
@@ -55,4 +53,9 @@ public interface IRobot extends IObject{
      * gives the Robot one damage when encountering a hazard.
      */
     void setDamagePlussOne();
+
+    /**
+     * adds one to flagCounter
+     */
+    void reachFlag();
 }

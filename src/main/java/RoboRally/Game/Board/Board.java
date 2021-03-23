@@ -176,7 +176,10 @@ public class Board {
     public int getBoardWidth() { return boardLayer.getWidth(); }
     public int getBoardHeight() { return boardLayer.getHeight(); }
 
-    private void makeSortedFlagArray() { //Should be a simple insertionsort
+    /**
+     * MAkes a sorted array of Flags. Array is sorted from 1 - 4
+     */
+    private void makeSortedFlagArray() {
         Vector2[] flagList = new Vector2[flaglocs.size()];
         for(Vector2 flag : this.flaglocs){
             int flagID = flagLayer.getCell((int) flag.x, (int) flag.y).getTile().getId();
