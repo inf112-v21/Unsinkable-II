@@ -54,7 +54,7 @@ public class MultiplayerHost extends Multiplayer {
     public void received(Connection connection, Object transmission) {
         if (transmission instanceof RoundPacket) {
             roundPackets.add((RoundPacket) transmission);
-            deck.throwCards(roundPackets.get(roundPackets.size()-1).tossedCards);
+            deck.returnThrownCards(roundPackets.get(roundPackets.size()-1).playerHand);
             System.out.println("Server received round packet from "+connection);
             if (roundPackets.size() == connections.size()) {
                 broadcastGamePackets();

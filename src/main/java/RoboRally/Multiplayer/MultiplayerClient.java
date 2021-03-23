@@ -1,6 +1,6 @@
 package RoboRally.Multiplayer;
 
-import RoboRally.Game.Cards.ProgramCard;
+import RoboRally.Game.Cards.Card;
 import RoboRally.Multiplayer.Packets.PlayerHandPacket;
 import RoboRally.Multiplayer.Packets.RoundPacket;
 import RoboRally.Multiplayer.Packets.MessagePacket;
@@ -67,7 +67,7 @@ public class MultiplayerClient extends Multiplayer {
         }
     }
 
-    public List<ProgramCard> getHand() { return this.hand.cards; }
+    public List<Card> getHand() { return this.hand.cards; }
 
     public Client getClient() { return this.client; }
 

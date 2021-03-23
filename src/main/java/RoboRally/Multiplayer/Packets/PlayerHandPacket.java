@@ -1,6 +1,6 @@
 package RoboRally.Multiplayer.Packets;
 
-import RoboRally.Game.Cards.ProgramCard;
+import RoboRally.Game.Cards.Card;
 
 import java.util.List;
 
@@ -8,9 +8,9 @@ import java.util.List;
  * Packet class to distribute programming cards to clients from a shared deck.
  */
 public class PlayerHandPacket extends Packet {
-    public List<ProgramCard> cards;
+    public List<Card> cards;
 
     public PlayerHandPacket() {}
 
-    public PlayerHandPacket(List<ProgramCard> cards) { this.cards = cards; }
+    public PlayerHandPacket(List<Card> cards) { this.cards = cards; }
 }

@@ -1,7 +1,5 @@
 package RoboRally.Game.Cards;
 
-import java.util.Stack;
-
 public enum ProgramCard {
     /**
      * Move a robot in the direction it's facing the number of tiles indicated on the card.
@@ -36,32 +34,17 @@ public enum ProgramCard {
     BACK(0, 0, "Back");
 
 
-    private final int steps, rotation;
+    private final int steps, rotation, priority;
     private final String name;
 
     ProgramCard(int steps, int rotation, String name) {
         this.steps = steps;
         this.rotation = rotation;
         this.name = name;
+        this.priority = 400-(steps*100);
     }
 
-    /**
-     *  Creates an 84 card deck of program cards according to RoboRally rules.
-     *
-     * @return a new Programming card deck.
-     */
-    public static Stack<ProgramCard> getNewDeck() {
-        Stack<ProgramCard> deck = new Stack<>();
-        for (int i = 0; i != 18; ++i) { deck.add(MOVE_1); }
-        for (int i = 0; i != 12; ++i) { deck.add(MOVE_2); }
-        for (int i = 0; i != 6; ++i) { deck.add(MOVE_3); }
-        for (int i = 0; i != 6; ++i) { deck.add(BACK_UP); }
-        for (int i = 0; i != 18; ++i) { deck.add(TURN_LEFT); }
-        for (int i = 0; i != 18; ++i) { deck.add(TURN_RIGHT); }
-        for (int i = 0; i != 6; ++i) { deck.add(U_TURN); }
 
-        return deck;
-    }
 
     /**
      * @return the distance to move.

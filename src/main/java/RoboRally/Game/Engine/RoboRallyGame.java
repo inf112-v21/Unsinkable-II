@@ -1,6 +1,7 @@
 package RoboRally.Game.Engine;
 
 import RoboRally.Game.Board.Board;
+import RoboRally.Game.Cards.Card;
 import RoboRally.Game.Cards.ProgramCard;
 import RoboRally.Game.Board.Boards;
 import RoboRally.Game.Objects.Player;
@@ -24,13 +25,20 @@ public abstract class RoboRallyGame implements RoboRally {
     protected int roundNumber;
     protected boolean nextRound, roundSent;
 
-
     /**
      * Executes a full round.
      */
     protected void round() {
+        /*
+         Reveal Program Card
+         Robot Movement
+         Board Elements Move
+         Resolve Laser Fire
+         Touch Checkpoints
+         */
+        for (int registerNum = 0; registerNum < 5; ++registerNum) {
 
-        // TODO: Round logic goes here.
+        }
     }
 
     //================================================================
@@ -40,7 +48,7 @@ public abstract class RoboRallyGame implements RoboRally {
     /**
      * Attempt run.
      */
-    public void attemptRun(Queue<ProgramCard> registers, List<ProgramCard> playerHand) {
+    public void attemptRun(Queue<Card> registers, List<Card> playerHand) {
         if (!roundSent) {
             app.getLocalClient().getClient().sendTCP(new RoundPacket(
                     roundNumber,

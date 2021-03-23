@@ -1,6 +1,7 @@
 package RoboRally.Multiplayer;
 
 import RoboRally.Game.Board.Boards;
+import RoboRally.Game.Cards.Card;
 import RoboRally.Game.Cards.ProgramCard;
 import RoboRally.Multiplayer.Packets.PlayerHandPacket;
 import RoboRally.Multiplayer.Packets.StartPacket;
@@ -44,6 +45,7 @@ public abstract class Multiplayer extends Listener implements Networking {
         endPoint.getKryo().register(RoundPacket.class);
         endPoint.getKryo().register(LinkedList.class);
         endPoint.getKryo().register(ProgramCard.class);
+        endPoint.getKryo().register(Card.class);
         endPoint.getKryo().register(Vector2.class);
 
         endPoint.getKryo().register(MessagePacket.class);

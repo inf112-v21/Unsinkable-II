@@ -1,5 +1,6 @@
 package RoboRally.GUI.Screens.Game;
 
+import RoboRally.Game.Cards.Card;
 import RoboRally.Game.Cards.ProgramCard;
 import RoboRally.RoboRallyApp;
 import com.badlogic.gdx.Gdx;
@@ -25,7 +26,7 @@ public class PlayerUI {
     private final Stage stage;
     private final FitViewport stageViewport;
     private final ButtonGroup<Button> handButtons;
-    private final List<ProgramCard> hand;
+    private final List<Card> hand;
     private final Map<Integer, Integer> registry;
     private final float width = Gdx.graphics.getWidth();
     private final float height = Gdx.graphics.getHeight();
@@ -36,7 +37,7 @@ public class PlayerUI {
      *
      * @param app the app
      */
-    public PlayerUI(RoboRallyApp app, List<ProgramCard> playerHand) {
+    public PlayerUI(RoboRallyApp app, List<Card> playerHand) {
         this.app = app;
         this.hand = playerHand;
 
@@ -74,7 +75,7 @@ public class PlayerUI {
         for (int i = 0; i < 9; ++i) {
             int index = i;
             if (index % 3 == 0) { playerHandTable.row(); }
-            Button button = new ImageButton(new TextureRegionDrawable(new TextureRegion(new Texture(hand.get(index).getPath()))),
+            Button button = new ImageButton(new TextureRegionDrawable(new TextureRegion(new Texture(hand.get(index).getCardType().getPath()))),
                     new TextureRegionDrawable(new TextureRegion(new Texture(ProgramCard.BACK.getPath()))),
                     new TextureRegionDrawable(new TextureRegion(new Texture(ProgramCard.BACK.getPath()))));
             button.addListener(playerHandListener(index));
@@ -100,7 +101,7 @@ public class PlayerUI {
     }
 
     private void addRegistryButton(int index) {
-        Button button = new ImageButton(new TextureRegionDrawable(new TextureRegion(new Texture(hand.get(index).getPath()))));
+        Button button = new ImageButton(new TextureRegionDrawable(new TextureRegion(new Texture(hand.get(index).getCardType().getPath()))));
         button.setSize(width /12f, height /6);
         button.addListener(registryListener(index, button));
         registryTable.add(button).size(width /12f, height /6);
@@ -143,9 +144,9 @@ public class PlayerUI {
      */
     public Stage getStage() { return this.stage; }
 
-    private Queue<ProgramCard> makeRegisters() {
+    private Queue<Card> makeRegisters() {
         List<Integer> list = new LinkedList<>(registry.values());
-        Queue<ProgramCard> queue = new LinkedList<>();
+        Queue<Card> queue = new LinkedList<>();
         Collections.sort(list);
         for (int value : list) {
             for (int handIndex : registry.keySet()) {

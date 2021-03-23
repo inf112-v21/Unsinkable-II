@@ -9,15 +9,15 @@ public class ProgrammingDeckTest {
     void drawCardReducesStackSize(){
         ProgrammingDeck deck = new ProgrammingDeck();
         assertEquals(84, deck.Size());
-        deck.drawCard();
+        deck.getHand(1);
         assertEquals(83, deck.Size());
     }
 
     @Test
-    void shuffleTest(){
+    void shuffleTest(){ // TODO: This should check again if it fails due to probability constraints.
         ProgrammingDeck deck1 = new ProgrammingDeck();
         deck1.shuffle();
         ProgrammingDeck deck2 = new ProgrammingDeck();
-        assertNotEquals(deck1.drawCard(), deck2.drawCard());
+        assertNotEquals(deck1.getHand(1), deck2.getHand(1));
     }
 }

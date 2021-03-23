@@ -1,6 +1,6 @@
 package RoboRally.Game.Objects;
 
-import RoboRally.Game.Cards.ProgramCard;
+import RoboRally.Game.Cards.Card;
 import RoboRally.Game.Direction;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Vector2;
@@ -24,9 +24,9 @@ public interface IRobot extends IObject{
      */
     void setLoc(Vector2 newLoc);
 
-    Queue<ProgramCard> getRegisters();
+    Queue<Card> getRegisters();
 
-    void setRegisters(Queue<ProgramCard> hand);
+    void setRegisters(Queue<Card> hand);
 
     /**
      * @return robot normal cell.

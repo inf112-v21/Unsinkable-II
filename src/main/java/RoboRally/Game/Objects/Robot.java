@@ -1,6 +1,6 @@
 package RoboRally.Game.Objects;
 
-import RoboRally.Game.Cards.ProgramCard;
+import RoboRally.Game.Cards.Card;
 import RoboRally.Game.Direction;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Vector2;
@@ -13,7 +13,7 @@ public class Robot implements IRobot {
     private Piece piece;
     private Direction direction;
     private Vector2 location;
-    private Queue<ProgramCard> registers;
+    private Queue<Card> registers;
     private final int numRegisters, cacheSize;
     private int damage, life;
 
@@ -61,10 +61,10 @@ public class Robot implements IRobot {
     public void setDirection(Direction dir) { this.direction = dir; }
 
     @Override
-    public Queue<ProgramCard> getRegisters() { return this.registers; }
+    public Queue<Card> getRegisters() { return this.registers; }
 
     @Override
-    public void setRegisters(Queue<ProgramCard> registers) { this.registers = registers; }
+    public void setRegisters(Queue<Card> registers) { this.registers = registers; }
 
     @Override
     public TiledMapTileLayer.Cell getCell() { return piece.getCell(); }
