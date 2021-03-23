@@ -94,7 +94,6 @@ public class PlayerUI {
                     registry.put(index, ++order);
                     handButtons.getButtons().get(index).setDisabled(true);
                     addRegistryButton(index);
-                    System.out.println("Registry: "+registry.toString());
                 }
             }
         };
@@ -126,9 +125,7 @@ public class PlayerUI {
         runButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                if (registry.size() == 5) { app.getGame().attemptRun(makeRegisters(), hand);}
-                System.out.println(Arrays.toString(makeRegisters().toArray()));
-            } } );
+                if (registry.size() == 5) { app.getGame().attemptRun(makeRegisters(), hand);} } } );
         return runButton;
     }
 

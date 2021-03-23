@@ -49,10 +49,10 @@ public interface IRobot extends IObject{
     /**
      *takes away one life from robot
      */
-    void setLifeMinusOne();
+    void takeLife();
 
     /**
      * gives the Robot one damage when encountering a hazard.
      */
-    void setDamagePlussOne();
+    void addDamage();
 }

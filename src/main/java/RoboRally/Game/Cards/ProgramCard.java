@@ -34,17 +34,14 @@ public enum ProgramCard {
     BACK(0, 0, "Back");
 
 
-    private final int steps, rotation, priority;
+    private final int steps, rotation;
     private final String name;
 
     ProgramCard(int steps, int rotation, String name) {
         this.steps = steps;
         this.rotation = rotation;
         this.name = name;
-        this.priority = 400-(steps*100);
     }
-
-
 
     /**
      * @return the distance to move.

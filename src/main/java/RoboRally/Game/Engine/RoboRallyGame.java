@@ -9,8 +9,7 @@ import RoboRally.Game.Objects.Robot;
 import RoboRally.Multiplayer.Packets.RoundPacket;
 import RoboRally.RoboRallyApp;
 
-import java.util.List;
-import java.util.Queue;
+import java.util.*;
 
 /**
  * The RoboRally game logic
@@ -25,21 +24,6 @@ public abstract class RoboRallyGame implements RoboRally {
     protected int roundNumber;
     protected boolean nextRound, roundSent;
 
-    /**
-     * Executes a full round.
-     */
-    protected void round() {
-        /*
-         Reveal Program Card
-         Robot Movement
-         Board Elements Move
-         Resolve Laser Fire
-         Touch Checkpoints
-         */
-        for (int registerNum = 0; registerNum < 5; ++registerNum) {
-
-        }
-    }
 
     //================================================================
     //                            Game Actions

@@ -6,7 +6,6 @@ import com.badlogic.gdx.math.Vector2;
 
 public class TestingLibrary {
 
-
     public static void playProgramCard(Robot robot, ProgramCard card) {
         if (card.getSteps() != 0) { TestingLibrary.updateLocation(robot, card); }
         else { updateHeading(robot, card); }

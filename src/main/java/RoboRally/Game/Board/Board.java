@@ -169,7 +169,7 @@ public class Board {
      * @param robot - the robot that checks for a hole
      * @return true if robot is in hole, this will destroy the robot (take away 1 life)
      */
-    public boolean checkForHoles(Robot robot){ return holeLocs.contains(robot.getLoc()); } //TODO: unimplemented
+    public boolean checkForHoles(Robot robot){ return holeLocs.contains(robot.getLoc()); }
 
     public TiledMap getBoard() { return this.board;}
 
