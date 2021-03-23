@@ -7,19 +7,18 @@ import RoboRally.Game.Objects.Player;
 import RoboRally.Game.Objects.Robot;
 import RoboRally.RoboRallyApp;
 
-import java.util.*;
-
-import static java.lang.Thread.sleep;
-
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.LinkedList;
+import java.util.List;
 
 public class GameLoop extends RoboRallyGame {
 
     public GameLoop(RoboRallyApp app, Boards boardSelection, int playerID) {
-
         this.app = app;
         this.roundNumber = 0;
         this.stopGame = false;
-        this.players = new LinkedList<>();
+        this.players = new ArrayList<>();
         this.boardSelection = boardSelection;
         this.board = new Board(boardSelection);
         this.nextRound = false;
@@ -27,8 +26,8 @@ public class GameLoop extends RoboRallyGame {
 
         for (int i = 1; i < playerID; ++i) { addPlayer(i); }
         this.myPlayer = addPlayer(playerID);
-
     }
+
 
     @Override
     public void run() {
@@ -40,34 +39,42 @@ public class GameLoop extends RoboRallyGame {
                 round();
                 ++roundNumber;
             }
-
-            try { sleep(1000); }
-            catch (InterruptedException e) { System.out.println(Thread.currentThread().getName() + " sleep error."); }
+            sleep(1000);
         }
     }
 
 
     /**
-     * Executes a full round.
+     * Executes all 5 turns for a full round.
      */
     protected void round() {
-        /*
-         Reveal Program Card
-         Robot Movement
-         Board Elements Move
-         Resolve Laser Fire
-         Touch Checkpoints
-         */
         for (int registerNum = 0; registerNum < 5; ++registerNum) {
-            List<Robot> priority = new LinkedList<>();
-            for (Player player : players) { priority.add(player.getRobot()); }
-            priority.sort(Comparator.comparing(robot -> robot.getRegisters().peek().getWeight()));
-            for (Robot robot : priority) {
-                Card card = robot.getRegisters().poll();
-                System.out.println("Robot "+robot.getPiece().name()+" Card "+card.getCardType()+" weight "+card.getWeight());
-                executeProgramCard(robot, card.getCardType());
-            }
+            turn();
         }
     }
+
+    /**
+     * Executes one turn.
+     *
+     * 1. Reveal Program Card
+     * 2. Robot Movement
+     * 3. Board Elements Move
+     * 4. Resolve Laser Fire
+     * 5. Touch Checkpoints
+     */
+    private void turn() {
+        // 1. Reveal Program Cards and find turn order.
+        List<Robot> turnOrder = new LinkedList<>();
+        for (Player player : players) { turnOrder.add(player.getRobot()); }
+        turnOrder.sort(Comparator.comparing(robot -> robot.getRegisters().peek().getWeight(),Comparator.reverseOrder()));
+
+        // 2. Execute movement in order.
+        for (Robot robot : turnOrder) {
+            Card card = robot.getRegisters().poll();
+            System.out.println("Robot "+robot.getPiece().name()+" Card "+card.getCardType()+" weight "+card.getWeight());
+            executeProgramCard(robot, card.getCardType());
+        }
+    }
+
 
 }
