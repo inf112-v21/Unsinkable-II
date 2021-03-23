@@ -113,10 +113,10 @@ public class Board {
         Set<Vector2> walls = findAllLayerTiles(wallLayer);
         for (Vector2 wall : walls){
             int wallID = wallLayer.getCell((int) wall.x, (int) wall.y).getTile().getId();
-            if (TileID.WALLS_NORTH.contains(wallID)) { northWalls.add(wall); }
-            else if (TileID.WALLS_EAST.contains(wallID)) { eastWalls.add(wall); }
-            else if (TileID.WALLS_SOUTH.contains(wallID)) { southWalls.add(wall); }
-            else if (TileID.WALLS_WEST.contains(wallID)) { westWalls.add(wall); }
+            if (TileID.WALLS_NORTH.contains(wallID)) { northWalls.add(wall); System.out.println(wall + " North");}
+            else if (TileID.WALLS_EAST.contains(wallID)) { eastWalls.add(wall); System.out.println(wall + " East");}
+            else if (TileID.WALLS_SOUTH.contains(wallID)) { southWalls.add(wall); System.out.println(wall + " South");}
+            else if (TileID.WALLS_WEST.contains(wallID)) { westWalls.add(wall); System.out.println(wall + " West");}
         }
     }
 

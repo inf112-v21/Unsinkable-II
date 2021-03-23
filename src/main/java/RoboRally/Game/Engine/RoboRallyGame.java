@@ -41,6 +41,7 @@ public abstract class RoboRallyGame implements RoboRally {
         }
         else if(card.getSteps() == -1) { board.moveRobot(robot, robot.getDirection().rotate(2)); }
         else { board.rotateRobot(robot, card.getRotation()); }
+        sleep(2000);
     }
 
     /**
