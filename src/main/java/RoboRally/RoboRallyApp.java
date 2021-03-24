@@ -2,6 +2,8 @@ package RoboRally;
 
 import RoboRally.GUI.Screens.Menu.MenuScreen;
 import RoboRally.GUI.Screens.Game.PlayerView;
+import RoboRally.GUI.Screens.Menu.Multiplayer.MultiplayerHostScreen;
+import RoboRally.GUI.Screens.Menu.Multiplayer.MultiplayerOptionScreen;
 import RoboRally.Game.Board.Boards;
 import RoboRally.Game.Engine.GameLoop;
 import RoboRally.Multiplayer.MultiplayerClient;
@@ -18,7 +20,6 @@ import RoboRally.GUI.Screens.Menu.TitleScreen;
  * the graphics thread runs and is the anchor when switching between screens.
  */
 public class RoboRallyApp extends Game {
-
     //================================================================
     //                         App configuration
     //================================================================
@@ -26,9 +27,13 @@ public class RoboRallyApp extends Game {
     public static final int TILE_SIZE = 100;
     public static final String ROBOT_SKINS_PATH = "Robots/RobotsV2.png";
 
-    private final String groupName = "Unsinkable-II";
-    private final String guiSkinPath = "Skin/rusty-robot-ui.json";
-    private final String logoPath = "Logo/logo.png";
+    protected final String groupName = "Unsinkable-II";
+    protected final String guiSkinPath = "Skin/rusty-robot-ui.json";
+    protected final String logoPath = "Logo/logo.png";
+
+    public static final boolean GUI_DEBUG = true;
+    public static final boolean BACKGROUND = false;
+
     //================================================================
     //                         GUI Objects
     //================================================================
@@ -46,7 +51,11 @@ public class RoboRallyApp extends Game {
         this.GUI_SKIN = new Skin(Gdx.files.internal(guiSkinPath));
         this.stage = new Stage(new ScreenViewport());
         Gdx.input.setInputProcessor(stage);
-        this.titleScreen = new TitleScreen(this);
+        if (GUI_DEBUG) {
+        this.titleScreen = new MultiplayerHostScreen(this);
+        } else {
+            this.titleScreen = new TitleScreen(this);
+        }
         this.setScreen(titleScreen);
     }
 

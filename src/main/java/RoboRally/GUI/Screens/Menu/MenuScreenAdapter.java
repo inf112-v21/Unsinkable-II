@@ -121,7 +121,7 @@ public abstract class MenuScreenAdapter implements MenuScreen {
 
     @Override
     public void render(float delta) {
-        Gdx.gl.glClearColor(150/255f, 200/255f, 230/255f, 1);
+        Gdx.gl.glClearColor(50/255f, 50/255f, 50/255f, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         stage.act();
         stage.draw();

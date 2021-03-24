@@ -15,5 +15,11 @@ public class Card {
     }
 
     public ProgramCard getCardType() { return this.card; }
+
     public int getWeight() { return this.weight; }
+
+    @Override
+    public String toString() {
+        return card.getName();
+    }
 }

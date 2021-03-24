@@ -28,8 +28,12 @@ public class PlayerUI {
     private final ButtonGroup<Button> handButtons;
     private final List<Card> hand;
     private final Map<Integer, Integer> registry;
+
     private final float width = Gdx.graphics.getWidth();
     private final float height = Gdx.graphics.getHeight();
+    private final float cardWidth = width / 13f;
+    private final float cardHeight = height / 6f;
+
     private int order;
 
     /**
@@ -40,47 +44,77 @@ public class PlayerUI {
     public PlayerUI(RoboRallyApp app, List<Card> playerHand) {
         this.app = app;
         this.hand = playerHand;
+        this.order = 0;
 
         this.stageViewport = new FitViewport(width, height);
         this.stage = new Stage(stageViewport);
-        
-        this.mainTable = new Table();
-        mainTable.setFillParent(true);
-        mainTable.padLeft(width/2f);
-        mainTable.padTop(height/12f).top();
 
-        this.order = 0;
+        this.registry = new HashMap<>();
         this.handButtons = new ButtonGroup<>();
-        handButtons.setMaxCheckCount(5);
-        handButtons.setMinCheckCount(0);
-        handButtons.setUncheckLast(false);
+
+        this.mainTable = new Table();
+        this.registryTable = new Table();
+        this.runButtonTable = new Table();
         this.playerHandTable = new Table();
+
+        mainTableSetup();
+        handButtonsSetup();
+        registryTableSetup();
+        mainTable.row();
+        runButtonSetup();
+        mainTable.row();
         mainTable.add(addPlayerHandButtons());
         handButtons.uncheckAll();
-        mainTable.row();
 
-        this.runButtonTable = new Table();
-        runButtonTable.add(addRunButton());
-        mainTable.add(runButtonTable);
-        mainTable.row();
-
-        this.registryTable = new Table();
-        mainTable.add(registryTable);
-        this.registry = new HashMap<>();
+        if (RoboRallyApp.GUI_DEBUG) {
+            mainTable.setDebug(true);
+            registryTable.setDebug(true);
+            playerHandTable.setDebug(true);
+        }
 
         stage.addActor(mainTable);
     }
 
+    private void mainTableSetup() {
+        mainTable.setFillParent(true);
+        mainTable.padLeft(width/2f);
+        mainTable.padTop(height/12f).top();
+    }
+
+    private void handButtonsSetup() {
+        handButtons.setMaxCheckCount(5);
+        handButtons.setMinCheckCount(0);
+        handButtons.setUncheckLast(false);
+    }
+
+    private void registryTableSetup(){
+        registryTable.padRight(cardWidth*5);
+        mainTable.add(registryTable).top();
+    }
+
+    private void runButtonSetup() {
+        runButtonTable.add(addRunButton());
+        mainTable.add(runButtonTable);
+    }
+
     private Table addPlayerHandButtons() {
-        for (int i = 0; i < 9; ++i) {
-            int index = i;
-            if (index % 3 == 0) { playerHandTable.row(); }
-            Button button = new ImageButton(new TextureRegionDrawable(new TextureRegion(new Texture(hand.get(index).getCardType().getPath()))),
-                    new TextureRegionDrawable(new TextureRegion(new Texture(ProgramCard.BACK.getPath()))),
-                    new TextureRegionDrawable(new TextureRegion(new Texture(ProgramCard.BACK.getPath()))));
+        for (int index = 0; index < 9; ++index) {
+            if (index % 3 == 0) {
+                playerHandTable.padRight(cardWidth*2);
+                playerHandTable.row();
+            }
+
+            Button button = new ImageButton(
+                    drawCard(hand.get(index).getCardType()),
+                    drawCard(ProgramCard.BACK),
+                    drawCard(ProgramCard.BACK));
+
             button.addListener(playerHandListener(index));
-            button.setSize(width /12f, height /6);
-            playerHandTable.add(button).size(width /12f, height /6);
+
+            playerHandTable.add(button)
+                    .size(cardWidth, cardHeight)
+                    .padBottom(15);
+
             handButtons.add(button);
         }
         return playerHandTable;
@@ -94,17 +128,21 @@ public class PlayerUI {
                     registry.put(index, ++order);
                     handButtons.getButtons().get(index).setDisabled(true);
                     addRegistryButton(index);
-                    System.out.println("Registry: "+registry.toString());
+                    System.out.println("Registry: " + registry.toString());
                 }
             }
         };
     }
 
     private void addRegistryButton(int index) {
-        Button button = new ImageButton(new TextureRegionDrawable(new TextureRegion(new Texture(hand.get(index).getCardType().getPath()))));
-        button.setSize(width /12f, height /6);
+        Button button = new ImageButton(drawCard(hand.get(index).getCardType()));
+        button.setSize(cardWidth, cardHeight);
         button.addListener(registryListener(index, button));
-        registryTable.add(button).size(width /12f, height /6);
+        registryTable.padRight(registryTable.getPadRight()-cardWidth);
+        registryTable.add(button)
+                .size(cardWidth, cardHeight)
+                .left()
+                .bottom();
     }
 
     private ClickListener registryListener(int index, Button button) {
@@ -116,6 +154,7 @@ public class PlayerUI {
                 registry.remove(index);
                 registryTable.getCell(button).reset();
                 registryTable.removeActor(button);
+                registryTable.padRight(registryTable.getPadRight()+cardWidth);
             }
         };
     }
@@ -156,5 +195,7 @@ public class PlayerUI {
         return queue;
     }
 
-
+    private TextureRegionDrawable drawCard(ProgramCard card) {
+        return new TextureRegionDrawable(new TextureRegion(new Texture(card.getPath())));
+    }
 }
