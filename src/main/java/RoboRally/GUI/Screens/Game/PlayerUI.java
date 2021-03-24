@@ -32,8 +32,10 @@ public class PlayerUI {
 
     private final float width = Gdx.graphics.getWidth();
     private final float height = Gdx.graphics.getHeight();
-    private final float cardWidth = width / 13f;
+
+    private final float cardWidth = width / 16f;
     private final float cardHeight = height / 6f;
+    private final float vertPadding = height / 20f;
 
     private int order;
 
@@ -45,80 +47,76 @@ public class PlayerUI {
     public PlayerUI(RoboRallyApp app, List<Card> playerHand) {
         this.app = app;
         this.hand = playerHand;
-        this.order = 0;
 
         this.stageViewport = new FitViewport(width, height);
         this.stage = new Stage(stageViewport);
 
-        this.registry = new HashMap<>();
-        this.handButtons = new ButtonGroup<>();
-
         this.mainTable = new Table();
-        this.registryTable = new Table();
+        stage.addActor(mainTable);
+
         this.runButtonTable = new Table();
         this.playerHandTable = new Table();
+        this.handButtons = new ButtonGroup<>();
+        this.registryTable = new Table();
+        this.registry = new HashMap<>();
+        this.order = 0;
 
         mainTableSetup();
-        handButtonsSetup();
         registryTableSetup();
-        mainTable.row();
+        handButtonsSetup();
         runButtonSetup();
-        mainTable.row();
-        mainTable.add(addPlayerHandButtons());
-        handButtons.uncheckAll();
-
-        if (Debug.GUI_DEBUG) {
-            mainTable.setDebug(true);
-            registryTable.setDebug(true);
-            playerHandTable.setDebug(true);
-        }
-
-        stage.addActor(mainTable);
     }
 
     private void mainTableSetup() {
         mainTable.setFillParent(true);
         mainTable.padLeft(width/2f);
-        mainTable.padTop(height/12f).top();
+        mainTable.padBottom(vertPadding).bottom();
+        if (Debug.GUI_DEBUG) {
+            mainTable.setDebug(true);
+            registryTable.setDebug(true);
+            playerHandTable.setDebug(true);
+        }
     }
 
     private void handButtonsSetup() {
+        mainTable.row();
         handButtons.setMaxCheckCount(5);
         handButtons.setMinCheckCount(0);
         handButtons.setUncheckLast(false);
+        handButtons.uncheckAll();
+        addPlayerHandButtons();
+        mainTable.add(playerHandTable);
     }
 
     private void registryTableSetup(){
-        registryTable.padRight(cardWidth*5);
-        mainTable.add(registryTable).top();
+        mainTable.row();
+        registryTable.padBottom(vertPadding);
+        mainTable.add(registryTable).left();
     }
 
     private void runButtonSetup() {
+        mainTable.row();
+        runButtonTable.padTop(vertPadding);
         runButtonTable.add(addRunButton());
         mainTable.add(runButtonTable);
     }
 
-    private Table addPlayerHandButtons() {
+    private void addPlayerHandButtons() {
         for (int index = 0; index < 9; ++index) {
             if (index % 3 == 0) {
-                playerHandTable.padRight(cardWidth*2);
+                playerHandTable.padRight(cardWidth);
                 playerHandTable.row();
+                playerHandTable.padLeft(cardWidth);
             }
-
             Button button = new ImageButton(
-                    drawCard(hand.get(index).getCardType()),
-                    drawCard(ProgramCard.BACK),
-                    drawCard(ProgramCard.BACK));
-
+                    makeCard(hand.get(index).getCardType()),
+                    makeCard(ProgramCard.BACK),
+                    makeCard(ProgramCard.BACK));
             button.addListener(playerHandListener(index));
 
-            playerHandTable.add(button)
-                    .size(cardWidth, cardHeight)
-                    .padBottom(15);
-
+            playerHandTable.add(button).size(cardWidth, cardHeight);
             handButtons.add(button);
         }
-        return playerHandTable;
     }
 
     private ClickListener playerHandListener(int index) {
@@ -135,10 +133,9 @@ public class PlayerUI {
     }
 
     private void addRegistryButton(int index) {
-        Button button = new ImageButton(drawCard(hand.get(index).getCardType()));
+        Button button = new ImageButton(makeCard(hand.get(index).getCardType()));
         button.setSize(cardWidth, cardHeight);
         button.addListener(registryListener(index, button));
-        registryTable.padRight(registryTable.getPadRight()-cardWidth);
         registryTable.add(button)
                 .size(cardWidth, cardHeight)
                 .left()
@@ -154,7 +151,6 @@ public class PlayerUI {
                 registry.remove(index);
                 registryTable.getCell(button).reset();
                 registryTable.removeActor(button);
-                registryTable.padRight(registryTable.getPadRight()+cardWidth);
             }
         };
     }
@@ -193,7 +189,7 @@ public class PlayerUI {
         return queue;
     }
 
-    private TextureRegionDrawable drawCard(ProgramCard card) {
+    private TextureRegionDrawable makeCard(ProgramCard card) {
         return new TextureRegionDrawable(new TextureRegion(new Texture(card.getPath())));
     }
 }

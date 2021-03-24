@@ -57,6 +57,7 @@ public class Robot implements IRobot {
             --life;
             damage = 0;
             setLoc(getSpawnLoc());
+            setDirection(Direction.NORTH);
             return true;
         }
         return false;

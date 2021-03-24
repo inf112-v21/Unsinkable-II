@@ -8,7 +8,9 @@ import com.badlogic.gdx.math.Vector2;
 public class BoardActions extends Board {
 
     public BoardActions(Boards gameBoard) {
+
         super(gameBoard);
+
     }
 
     /**
@@ -88,7 +90,6 @@ public class BoardActions extends Board {
     private void rotate(Robot robot, int rotation) {
         removeRobot(robot);
         robot.setDirection(robot.getDirection().rotate(rotation)); // Changes robot direction
-        robot.getCell().setRotation(robot.getDirection().getDirection()); // Rotates robot Cell
         putRobot(robot);
     }
 
@@ -113,7 +114,10 @@ public class BoardActions extends Board {
      *
      * @param robot to be added.
      */
-    private void putRobot(Robot robot) { setPlayerLayerCell(robot.getLoc(), robot.getPiece().getCell()); }
+    private void putRobot(Robot robot) {
+        robot.getCell().setRotation(robot.getDirection().getDirection());
+        setPlayerLayerCell(robot.getLoc(), robot.getPiece().getCell());
+    }
 
     /**
      * Sets the location in the player layer to the cell.

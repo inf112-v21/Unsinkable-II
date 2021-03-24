@@ -31,7 +31,7 @@ public class RoboRallyApp extends Game {
     private final String guiSkinPath = "Skin/rusty-robot-ui.json";
     private final String logoPath = "Logo/logo.png";
 
-    public static final boolean CHEAT_MODE = true;
+    public static final boolean CHEAT_MODE = false;
 
     //================================================================
     //                         GUI Objects
@@ -51,12 +51,10 @@ public class RoboRallyApp extends Game {
         this.stage = new Stage(new ScreenViewport());
         Gdx.input.setInputProcessor(stage);
 
-        if (Debug.GUI_DEBUG) {
-            this.setScreen(new MultiplayerHostScreen(this));
-        } else {
-            this.titleScreen = new TitleScreen(this);
-            this.setScreen(titleScreen);
-        }
+        this.titleScreen = new TitleScreen(this);
+
+        if (Debug.GUI_DEBUG) { this.setScreen(new MultiplayerHostScreen(this)); }
+        else { this.setScreen(titleScreen); }
     }
 
     @Override

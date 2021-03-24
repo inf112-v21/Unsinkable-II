@@ -129,7 +129,8 @@ public abstract class Board {
             case WEST: { return westWalls.contains(loc); }
             case SOUTH: { return southWalls.contains(loc); }
             case EAST: { return eastWalls.contains(loc); }
-        } return false;
+            default: return false;
+        }
     }
 
     /**

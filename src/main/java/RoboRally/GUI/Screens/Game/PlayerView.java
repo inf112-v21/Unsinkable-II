@@ -1,5 +1,6 @@
 package RoboRally.GUI.Screens.Game;
 
+import RoboRally.Debug.CheatMode;
 import RoboRally.Debug.Debug;
 import RoboRally.GUI.RoboRallyApp;
 import com.badlogic.gdx.Gdx;
@@ -19,13 +20,13 @@ public class PlayerView extends InputAdapter implements Screen {
     private final RoboRallyApp app;
     private final OrthogonalTiledMapRenderer renderer;
     private final OrthographicCamera camera;
+    private final PlayerUI playerUI;
 
+    private final float SCALE = 2f;
+
+    private SpriteBatch spriteBatch;
     public static Texture backgroundTexture;
     public static Sprite backgroundSprite;
-    private final Cheats cheats;
-    private SpriteBatch spriteBatch;
-    private final PlayerUI playerUI;
-    private final float scale = 2f;
 
     /**
      * Instantiates a new RoboRally screen.
@@ -37,10 +38,9 @@ public class PlayerView extends InputAdapter implements Screen {
         this.playerUI = new PlayerUI(app, app.getGame().getMyPlayer().getHand());
 
         camera = new OrthographicCamera();
-        camera.setToOrtho(false, app.getGame().getBoard().getBoardWidth() * scale, app.getGame().getBoard().getBoardHeight());
+        camera.setToOrtho(false, app.getGame().getBoard().getBoardWidth() * SCALE, app.getGame().getBoard().getBoardHeight());
         camera.position.x = app.getGame().getBoard().getBoardWidth();
         camera.position.y = app.getGame().getBoard().getBoardHeight()/2f;
-        //camera.zoom = scale;
 
         camera.update();
 
@@ -51,15 +51,13 @@ public class PlayerView extends InputAdapter implements Screen {
         renderer = new OrthogonalTiledMapRenderer(app.getGame().getBoard().getBoard(),  1f/ RoboRallyApp.TILE_SIZE);
         renderer.setView(camera);
 
-        cheats = new Cheats(app);
-
-        if(RoboRallyApp.CHEAT_MODE) { Gdx.input.setInputProcessor(cheats); }
+        if(RoboRallyApp.CHEAT_MODE) { Gdx.input.setInputProcessor(new CheatMode(app)); }
         else Gdx.input.setInputProcessor(playerUI.getStage());
     }
 
     private void loadTextures() {
         backgroundTexture = new Texture("background.png");
-        backgroundSprite =new Sprite(backgroundTexture);
+        backgroundSprite = new Sprite(backgroundTexture);
     }
 
 
@@ -72,8 +70,7 @@ public class PlayerView extends InputAdapter implements Screen {
         Gdx.gl.glClearColor(0,0,0,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        //TODO: temp
-        if(Debug.BACKGROUND) {
+        if(Debug.BACKGROUND) { //TODO: GUI DEBUGGING!
             spriteBatch.begin();
             backgroundSprite.draw(spriteBatch);
             spriteBatch.end();
