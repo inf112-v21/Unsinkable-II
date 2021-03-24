@@ -82,4 +82,8 @@ public class ProgrammingDeck {
      * @return the number of cards currently in the deck.
      */
     public int Size() { return programCardDeck.size(); }
+
+    public Stack<Card> getDeck() {
+        return programCardDeck;
+    }
 }
