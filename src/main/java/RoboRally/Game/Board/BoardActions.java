@@ -5,17 +5,11 @@ import RoboRally.Game.Objects.Robot;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Vector2;
 
-import java.util.Arrays;
-
 public class BoardActions extends Board {
 
     public BoardActions(Boards gameBoard) {
         super(gameBoard);
     }
-
-    //================================================================
-    //                            Robot actions
-    //================================================================
 
     /**
      * Adds a new player robot to the player layer.
@@ -50,25 +44,16 @@ public class BoardActions extends Board {
     }
 
     /**
-     * Rotates a robot a given number of cardinal directions in a counter-clockwise/left turning sequence.
+     * Checks if a robot can go from it's location in a given direction.
      *
-     * @param robot the robot rotating.
-     * @param rotation the number of counter-clockwise cardinals to rotate.
+     * @param robot the robot moving.
+     * @param dir the direction.
+     * @return true if the robot can move freely in the direction, false otherwise.
      */
-    public void rotateRobot(Robot robot, int rotation) {
-        removeRobot(robot);
-        rotate(robot, rotation);
-        putRobot(robot);
+    private boolean robotCanGo(Robot robot, Direction dir) {
+        if (checkForWalls(robot.getLoc(), dir)) { return false; }
+        else { return !checkForWalls(findNext(robot.getLoc(), dir), dir.rotate(2)); }
     }
-
-    /**
-     * Finds the location of the adjacent tile in a specified direction.
-     *
-     * @param loc the start location.
-     * @param dir the direction to head.
-     * @return the destination.
-     */
-    private Vector2 findNext(Vector2 loc, Direction dir) { return new Vector2(loc.x + dir.getX(),loc.y + dir.getY()); }
 
     /**
      * Moves a robot according to the program card.
@@ -79,6 +64,18 @@ public class BoardActions extends Board {
         removeRobot(robot);
         robot.getLoc().x += dir.getX();
         robot.getLoc().y += dir.getY();
+        putRobot(robot);
+    }
+
+    /**
+     * Rotates a robot a given number of cardinal directions in a counter-clockwise/left turning sequence.
+     *
+     * @param robot the robot rotating.
+     * @param rotation the number of counter-clockwise cardinals to rotate.
+     */
+    public void rotateRobot(Robot robot, int rotation) {
+        removeRobot(robot);
+        rotate(robot, rotation);
         putRobot(robot);
     }
 
@@ -94,6 +91,15 @@ public class BoardActions extends Board {
         robot.getCell().setRotation(robot.getDirection().getDirection()); // Rotates robot Cell
         putRobot(robot);
     }
+
+    /**
+     * Finds the location of the adjacent tile in a specified direction.
+     *
+     * @param loc the start location.
+     * @param dir the direction to head.
+     * @return the destination.
+     */
+    private Vector2 findNext(Vector2 loc, Direction dir) { return new Vector2(loc.x + dir.getX(),loc.y + dir.getY()); }
 
     /**
      * Removes a robot representation from the map that is about to change states or move.
@@ -119,22 +125,4 @@ public class BoardActions extends Board {
         playerLayer.setCell((int) loc.x, (int) loc.y, cell);
     }
 
-
-    //================================================================
-    //                            Physics checks
-    //================================================================
-
-    /**
-     * Checks if a robot can go from it's location in a given direction.
-     *
-     * @param robot the robot moving.
-     * @param dir the direction.
-     * @return true if the robot can move freely in the direction, false otherwise.
-     */
-    private boolean robotCanGo(Robot robot, Direction dir) {
-        if (checkForWalls(robot.getLoc(), dir)) {
-            return checkForWalls(findNext(robot.getLoc(), dir), dir.rotate(2));
-        }
-        return false;
-    }
 }

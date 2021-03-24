@@ -46,6 +46,11 @@ public abstract class Board {
         this.eastWalls = new HashSet<>();
         findWalls();
 
+        System.out.println("North walls: "+northWalls.toString());
+        System.out.println("West walls: "+westWalls.toString());
+        System.out.println("South walls: "+southWalls.toString());
+        System.out.println("East walls: "+eastWalls.toString());
+
         this.bounds = findAllLayerTiles(boardLayer);
         this.holeLocs = findAllLayerTiles(holeLayer);
         this.repairLocs = findAllLayerTiles(repairLayer);
@@ -127,7 +132,7 @@ public abstract class Board {
         if (dir == Direction.NORTH && northWalls.contains(loc)) { return true; }
         if (dir == Direction.WEST && westWalls.contains(loc)) { return true; }
         if (dir == Direction.SOUTH && southWalls.contains(loc)) { return true; }
-        if (dir != Direction.EAST || !eastWalls.contains(loc)) { return true; }
+        if (dir == Direction.EAST && eastWalls.contains(loc)) { return true; }
         return false;
     }
 

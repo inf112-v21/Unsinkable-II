@@ -89,11 +89,11 @@ public class PlayerUI {
         return new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                if (registry.size() < 5 && !handButtons.getButtons().get(index).isDisabled()) {
-                    registry.put(index, ++order);
-                    handButtons.getButtons().get(index).setDisabled(true);
-                    addRegistryButton(index);
-                }
+            if (registry.size() < 5 && !handButtons.getButtons().get(index).isDisabled()) {
+                registry.put(index, ++order);
+                handButtons.getButtons().get(index).setDisabled(true);
+                addRegistryButton(index);
+            }
             }
         };
     }
