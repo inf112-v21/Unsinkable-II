@@ -1,5 +1,6 @@
 package RoboRally.Game.Objects;
 
+import RoboRally.Game.Board.TileID;
 import RoboRally.Game.Cards.Card;
 import RoboRally.Game.Direction;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
@@ -7,22 +8,20 @@ import com.badlogic.gdx.math.Vector2;
 
 import java.util.Queue;
 
-public interface IRobot extends IObject{
+public interface IRobot{
 
-    /**
-     * @return the direction the robot is facing.
-     */
+
+    Vector2 getLoc();
+
+    void setLoc(Vector2 newLoc);
+
+    Vector2 getSpawnLoc();
+
+    void setSpawnLoc(Vector2 newLoc);
+
     Direction getDirection();
 
-    /**
-     * @param dir the new direction the robot is facing.
-     */
     void setDirection(Direction dir);
-
-    /**
-     * @param newLoc the new robot location.
-     */
-    void setLoc(Vector2 newLoc);
 
     Queue<Card> getRegisters();
 
@@ -60,12 +59,22 @@ public interface IRobot extends IObject{
     int getLife();
 
     /**
-     *takes away one life from robot
-     */
-    void setLifeMinusOne();
-
-    /**
      * gives the Robot one damage when encountering a hazard.
      */
-    void setDamagePlussOne();
+    void addDamage();
+
+    void fixDamage(int damageFixed);
+
+    /**
+     * Removes one life from robot and resets damage.
+     *
+     * @return true if robot has another life, false if not.
+     */
+    boolean killRobot();
+
+    /**
+     *
+     */
+    TileID getNextFlag();
+
 }

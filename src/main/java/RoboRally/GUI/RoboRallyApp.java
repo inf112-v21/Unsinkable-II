@@ -2,8 +2,6 @@ package RoboRally;
 
 import RoboRally.GUI.Screens.Menu.MenuScreen;
 import RoboRally.GUI.Screens.Game.PlayerView;
-import RoboRally.GUI.Screens.Menu.Multiplayer.MultiplayerHostScreen;
-import RoboRally.GUI.Screens.Menu.Multiplayer.MultiplayerOptionScreen;
 import RoboRally.Game.Board.Boards;
 import RoboRally.Game.Engine.GameLoop;
 import RoboRally.Multiplayer.MultiplayerClient;
@@ -25,7 +23,11 @@ public class RoboRallyApp extends Game {
     //================================================================
     public static final String GAME_TITLE = "RoboRally";
     public static final int TILE_SIZE = 100;
-    public static final String ROBOT_SKINS_PATH = "Robots/RobotsV2.png";
+    public static final String ROBOT_SKINS_PATH = "Robots/RobotsV2.5.png";
+
+    private final String groupName = "Unsinkable-II";
+    private final String guiSkinPath = "Skin/rusty-robot-ui.json";
+    private final String logoPath = "Logo/logo.png";
 
     protected final String groupName = "Unsinkable-II";
     protected final String guiSkinPath = "Skin/rusty-robot-ui.json";
@@ -51,11 +53,13 @@ public class RoboRallyApp extends Game {
         this.GUI_SKIN = new Skin(Gdx.files.internal(guiSkinPath));
         this.stage = new Stage(new ScreenViewport());
         Gdx.input.setInputProcessor(stage);
+
         if (GUI_DEBUG) {
         this.titleScreen = new MultiplayerHostScreen(this);
         } else {
             this.titleScreen = new TitleScreen(this);
         }
+
         this.setScreen(titleScreen);
     }
 
@@ -68,7 +72,6 @@ public class RoboRallyApp extends Game {
 
     @Override
     public void dispose() { stage.dispose(); }
-
 
 
     /**
@@ -88,10 +91,9 @@ public class RoboRallyApp extends Game {
     */
     public void joinNewGame(String hostIP) {
         this.myConnection = new MultiplayerClient(this, hostIP);
-        while (!myConnection.start) { } // TODO: Add connecting GUI message.
+        while (!myConnection.start) { } // TODO: Synchronize and add "connecting..." GUI message.
         System.out.println("I am player "+myConnection.startPacket.playerID);
         startGame(myConnection.startPacket.boardSelection, myConnection.startPacket.playerID);
-
     }
 
     public void startGame(Boards boardSelection, int playerID) {
@@ -116,7 +118,7 @@ public class RoboRallyApp extends Game {
     /**
      * @return the RoboRally game stage.
      */
-    public Stage getStage() { return stage; } //TODO: unimplemented
+    public Stage getStage() { return stage; }
 
     /**
      * @return the name of the design group.

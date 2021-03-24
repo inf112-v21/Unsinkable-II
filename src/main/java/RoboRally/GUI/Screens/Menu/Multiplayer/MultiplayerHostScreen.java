@@ -9,7 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.SelectBox;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 
 import RoboRally.GUI.Screens.Menu.MenuScreenAdapter;
-import RoboRally.RoboRallyApp;
+import RoboRally.GUI.RoboRallyApp;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 import java.io.BufferedReader;

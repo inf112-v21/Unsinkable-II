@@ -5,7 +5,7 @@ import RoboRally.Multiplayer.Packets.PlayerHandPacket;
 import RoboRally.Multiplayer.Packets.RoundPacket;
 import RoboRally.Multiplayer.Packets.MessagePacket;
 import RoboRally.Multiplayer.Packets.StartPacket;
-import RoboRally.RoboRallyApp;
+import RoboRally.GUI.RoboRallyApp;
 
 import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.Connection;

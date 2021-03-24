@@ -10,7 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
-import RoboRally.RoboRallyApp;
+import RoboRally.GUI.RoboRallyApp;
 
 /**
  * Adapter for building GUI menu screens.

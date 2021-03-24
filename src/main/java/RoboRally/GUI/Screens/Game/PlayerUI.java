@@ -2,7 +2,7 @@ package RoboRally.GUI.Screens.Game;
 
 import RoboRally.Game.Cards.Card;
 import RoboRally.Game.Cards.ProgramCard;
-import RoboRally.RoboRallyApp;
+import RoboRally.GUI.RoboRallyApp;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -128,7 +128,6 @@ public class PlayerUI {
                     registry.put(index, ++order);
                     handButtons.getButtons().get(index).setDisabled(true);
                     addRegistryButton(index);
-                    System.out.println("Registry: " + registry.toString());
                 }
             }
         };
@@ -165,9 +164,7 @@ public class PlayerUI {
         runButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                if (registry.size() == 5) { app.getGame().attemptRun(makeRegisters(), hand);}
-                System.out.println(Arrays.toString(makeRegisters().toArray()));
-            } } );
+                if (registry.size() == 5) { app.getGame().attemptRun(makeRegisters(), hand);} } } );
         return runButton;
     }
 

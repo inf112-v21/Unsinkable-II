@@ -3,7 +3,7 @@ package RoboRally.MultiplayerTests;
 import RoboRally.Game.Board.Boards;
 import RoboRally.Multiplayer.MultiplayerClient;
 import RoboRally.Multiplayer.MultiplayerHost;
-import RoboRally.RoboRallyApp;
+import RoboRally.GUI.RoboRallyApp;
 import org.junit.jupiter.api.Test;
 
 public class MultiplayerTest {

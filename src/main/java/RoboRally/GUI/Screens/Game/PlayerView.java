@@ -1,6 +1,6 @@
 package RoboRally.GUI.Screens.Game;
 
-import RoboRally.RoboRallyApp;
+import RoboRally.GUI.RoboRallyApp;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.Screen;

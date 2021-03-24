@@ -1,6 +1,7 @@
 package RoboRally.Game;
 
 import RoboRally.Game.Objects.Robot;
+import com.badlogic.gdx.math.Vector2;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -12,12 +13,13 @@ public class DirectionTest {
     @BeforeEach
     public void setup(){
         robot = new Robot();
-        robot.setLoc(5,5);
+        Vector2 loc = new Vector2(5,5);
+        robot.setLoc(loc);
     }
 
     @Test
     public void moveNorthIncrementsY(){
-        TestingLibrary.move(robot,Direction.NORTH);
+        //move(robot,Direction.NORTH);
 
         assertEquals(5, robot.getLoc().x);
         assertEquals(6, robot.getLoc().y);
@@ -25,7 +27,7 @@ public class DirectionTest {
 
     @Test
     public void moveSouthDecrementsY(){
-        TestingLibrary.move(robot,Direction.SOUTH);
+        //move(robot,Direction.SOUTH);
 
         assertEquals(5, robot.getLoc().x);
         assertEquals(4, robot.getLoc().y);
@@ -33,7 +35,7 @@ public class DirectionTest {
 
     @Test
     public void moveEastIncrementsX(){
-        TestingLibrary.move(robot,Direction.EAST);
+        //move(robot,Direction.EAST);
 
         assertEquals(6, robot.getLoc().x);
         assertEquals(5, robot.getLoc().y);
@@ -41,7 +43,7 @@ public class DirectionTest {
 
     @Test
     public void moveWestDecrementsX() {
-        TestingLibrary.move(robot,Direction.WEST);
+        //move(robot,Direction.WEST);
 
         assertEquals(4, robot.getLoc().x);
         assertEquals(5, robot.getLoc().y);
