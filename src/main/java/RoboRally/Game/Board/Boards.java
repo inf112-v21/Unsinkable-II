@@ -3,7 +3,7 @@ package RoboRally.Game.Board;
 public enum Boards {
     RISKY_EXCHANGE("Maps/RiskyExchange.tmx", "Risky Exchange"),
     CHECKMATE("Maps/Checkmate.tmx", "Checkmate"),
-    TEST("Maps/testmap.tmx", "Test");
+    TEST("Maps/Testmap.tmx", "Test");
 
     public static final Boards[] ALL_BOARDS = new Boards[] { RISKY_EXCHANGE, CHECKMATE, TEST };
 
