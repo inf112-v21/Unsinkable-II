@@ -1,5 +1,6 @@
 package RoboRally.GUI.Screens.Game;
 
+import RoboRally.Debug.Debug;
 import RoboRally.GUI.RoboRallyApp;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputAdapter;
@@ -21,6 +22,7 @@ public class PlayerView extends InputAdapter implements Screen {
 
     public static Texture backgroundTexture;
     public static Sprite backgroundSprite;
+    private final Cheats cheats;
     private SpriteBatch spriteBatch;
     private final PlayerUI playerUI;
     private final float scale = 2f;
@@ -49,7 +51,10 @@ public class PlayerView extends InputAdapter implements Screen {
         renderer = new OrthogonalTiledMapRenderer(app.getGame().getBoard().getBoard(),  1f/ RoboRallyApp.TILE_SIZE);
         renderer.setView(camera);
 
-        Gdx.input.setInputProcessor(playerUI.getStage());
+        cheats = new Cheats(app);
+
+        if(RoboRallyApp.CHEAT_MODE) { Gdx.input.setInputProcessor(cheats); }
+        else Gdx.input.setInputProcessor(playerUI.getStage());
     }
 
     private void loadTextures() {
@@ -68,7 +73,7 @@ public class PlayerView extends InputAdapter implements Screen {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         //TODO: temp
-        if(RoboRallyApp.BACKGROUND) {
+        if(Debug.BACKGROUND) {
             spriteBatch.begin();
             backgroundSprite.draw(spriteBatch);
             spriteBatch.end();

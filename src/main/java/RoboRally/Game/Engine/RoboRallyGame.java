@@ -109,7 +109,7 @@ public abstract class RoboRallyGame implements RoboRally {
     /**
      * @return the current board.
      */
-    public Board getBoard() { return this.board; }
+    public BoardActions getBoard() { return this.board; }
 
 
 }

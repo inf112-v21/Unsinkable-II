@@ -1,7 +1,9 @@
-package RoboRally;
+package RoboRally.GUI;
 
+import RoboRally.Debug.Debug;
 import RoboRally.GUI.Screens.Menu.MenuScreen;
 import RoboRally.GUI.Screens.Game.PlayerView;
+import RoboRally.GUI.Screens.Menu.Multiplayer.MultiplayerHostScreen;
 import RoboRally.Game.Board.Boards;
 import RoboRally.Game.Engine.GameLoop;
 import RoboRally.Multiplayer.MultiplayerClient;
@@ -29,12 +31,7 @@ public class RoboRallyApp extends Game {
     private final String guiSkinPath = "Skin/rusty-robot-ui.json";
     private final String logoPath = "Logo/logo.png";
 
-    protected final String groupName = "Unsinkable-II";
-    protected final String guiSkinPath = "Skin/rusty-robot-ui.json";
-    protected final String logoPath = "Logo/logo.png";
-
-    public static final boolean GUI_DEBUG = true;
-    public static final boolean BACKGROUND = false;
+    public static final boolean CHEAT_MODE = true;
 
     //================================================================
     //                         GUI Objects
@@ -54,13 +51,12 @@ public class RoboRallyApp extends Game {
         this.stage = new Stage(new ScreenViewport());
         Gdx.input.setInputProcessor(stage);
 
-        if (GUI_DEBUG) {
-        this.titleScreen = new MultiplayerHostScreen(this);
+        if (Debug.GUI_DEBUG) {
+            this.setScreen(new MultiplayerHostScreen(this));
         } else {
             this.titleScreen = new TitleScreen(this);
+            this.setScreen(titleScreen);
         }
-
-        this.setScreen(titleScreen);
     }
 
     @Override
