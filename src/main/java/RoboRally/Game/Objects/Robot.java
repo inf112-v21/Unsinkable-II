@@ -1,6 +1,5 @@
 package RoboRally.Game.Objects;
 
-import RoboRally.Game.Board.TileID;
 import RoboRally.Game.Cards.Card;
 import RoboRally.Game.Direction;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
@@ -16,7 +15,7 @@ public class Robot implements IRobot {
     private final Vector2 location, spawn;
     private Queue<Card> registers;
     private final int maxHealth, numRegisters;
-    private int damage, life, nextFLagIndex;
+    private int damage, lives, flag;
 
 
     public Robot() {
@@ -27,8 +26,8 @@ public class Robot implements IRobot {
         this.location = new Vector2();
         this.registers = new LinkedList<>();
         this.direction = Direction.NORTH;
-        this.life = 3;
-        this.nextFLagIndex = 0;
+        this.lives = 3;
+        this.flag = 0;
     }
 
     public Robot(Piece piece) {
@@ -43,7 +42,7 @@ public class Robot implements IRobot {
     public int getHealth() { return maxHealth - damage; }
 
     @Override
-    public int getLife() { return life; }
+    public int getLives() { return lives; }
 
     @Override
     public void addDamage() { ++damage; }
@@ -53,18 +52,23 @@ public class Robot implements IRobot {
 
     @Override
     public boolean killRobot() {
-        if (life > 1) {
-            --life;
+        if (lives > 1) {
+            --lives;
             damage = 0;
             setLoc(getSpawnLoc());
             setDirection(Direction.NORTH);
+            System.out.println(this.getPiece()+" Died and has "+ lives);
             return true;
         }
+        System.out.println(this.getPiece()+" is DEAD and out of life!");
         return false;
     }
 
     @Override
-    public TileID getNextFlag() { return TileID.FLAGS.get(nextFLagIndex); }
+    public int getNextFlag() { return flag; }
+
+    @Override
+    public void setNextFlag() { ++flag; }
 
     @Override
     public Vector2 getLoc() { return location; }

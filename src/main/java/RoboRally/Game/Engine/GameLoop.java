@@ -20,7 +20,7 @@ public class GameLoop extends RoboRallyGame {
         this.stopGame = false;
         this.players = new ArrayList<>();
         this.boardSelection = boardSelection;
-        this.board = new BoardActions(boardSelection);
+        this.board = new BoardActions(app, boardSelection);
         this.nextRound = false;
         this.roundSent = false;
 
@@ -34,8 +34,8 @@ public class GameLoop extends RoboRallyGame {
         System.out.println("Starting " + Thread.currentThread().getName() + "...");
         while (!stopGame) {
             while (nextRound) {
-                System.out.println("Starting Round " + roundNumber);
                 nextRound = false;
+                System.out.println("Starting Round " + roundNumber);
                 round();
                 ++roundNumber;
             }
@@ -73,6 +73,7 @@ public class GameLoop extends RoboRallyGame {
             Card card = robot.getRegisters().poll();
             System.out.println("Robot "+robot.getPiece().name()+" Card "+card.getCardType()+" weight "+card.getWeight());
             executeProgramCard(robot, card.getCardType());
+            board.endOfTurnCheck(robot);
         }
     }
 

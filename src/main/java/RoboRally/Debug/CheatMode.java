@@ -11,20 +11,19 @@ public class CheatMode extends InputAdapter {
     public CheatMode(RoboRallyApp app) { this.app = app; }
 
     private boolean move(boolean forward) {
-        app.getGame().getBoard().moveRobot(
+        if (forward) { app.getGame().getBoard().moveRobot(
                 app.getGame().getMyPlayer().getRobot(),
-                app.getGame().getMyPlayer().getRobot().getDirection());
+                app.getGame().getMyPlayer().getRobot().getDirection()); }
+        else { app.getGame().getBoard().moveRobot(
+                app.getGame().getMyPlayer().getRobot(),
+                app.getGame().getMyPlayer().getRobot().getDirection().rotate(2)); }
+        app.getGame().getBoard().endOfTurnCheck(app.getGame().getMyPlayer().getRobot());
         return true;
     }
 
     private boolean rotate(int rotation) {
         app.getGame().getBoard().rotateRobot(app.getGame().getMyPlayer().getRobot(),rotation);
         return true;
-    }
-
-    @Override
-    public boolean keyDown(int keycode) {
-        return false;
     }
 
     @Override

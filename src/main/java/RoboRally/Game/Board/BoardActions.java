@@ -1,5 +1,6 @@
 package RoboRally.Game.Board;
 
+import RoboRally.GUI.RoboRallyApp;
 import RoboRally.Game.Direction;
 import RoboRally.Game.Objects.Robot;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
@@ -7,11 +8,10 @@ import com.badlogic.gdx.math.Vector2;
 
 public class BoardActions extends Board {
 
-    public BoardActions(Boards gameBoard) {
-
-        super(gameBoard);
-
+    public BoardActions(RoboRallyApp app, Boards gameBoard) {
+        super(app, gameBoard);
     }
+
 
     /**
      * Adds a new player robot to the player layer.
@@ -58,6 +58,15 @@ public class BoardActions extends Board {
     }
 
     /**
+     * Finds the location of the adjacent tile in a specified direction.
+     *
+     * @param loc the start location.
+     * @param dir the direction to head.
+     * @return the destination.
+     */
+    private Vector2 findNext(Vector2 loc, Direction dir) { return new Vector2(loc.x + dir.getX(),loc.y + dir.getY()); }
+
+    /**
      * Moves a robot according to the program card.
      *
      * @param robot the robot moving.
@@ -89,18 +98,9 @@ public class BoardActions extends Board {
      */
     private void rotate(Robot robot, int rotation) {
         removeRobot(robot);
-        robot.setDirection(robot.getDirection().rotate(rotation)); // Changes robot direction
+        robot.setDirection(robot.getDirection().rotate(rotation));
         putRobot(robot);
     }
-
-    /**
-     * Finds the location of the adjacent tile in a specified direction.
-     *
-     * @param loc the start location.
-     * @param dir the direction to head.
-     * @return the destination.
-     */
-    private Vector2 findNext(Vector2 loc, Direction dir) { return new Vector2(loc.x + dir.getX(),loc.y + dir.getY()); }
 
     /**
      * Removes a robot representation from the map that is about to change states or move.

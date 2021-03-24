@@ -5,7 +5,7 @@ public class Card {
     private final int weight;
 
     public Card() {
-        this.card = null;
+        this.card = ProgramCard.BACK;
         this.weight = 0;
     }
 

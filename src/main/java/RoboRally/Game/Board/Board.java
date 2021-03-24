@@ -1,5 +1,6 @@
 package RoboRally.Game.Board;
 
+import RoboRally.GUI.RoboRallyApp;
 import RoboRally.Game.Direction;
 import RoboRally.Game.Objects.Robot;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -16,13 +17,15 @@ import java.util.Set;
  * The Board class reads maps from Tiled (.tmx) files and updates the board and layers accordingly.
  */
 public abstract class Board {
+    protected final RoboRallyApp app;
     protected final TiledMap board;
     protected final Vector2[] startLocs, flagLocs;
     protected final Set<Vector2> bounds, northWalls, westWalls, southWalls, eastWalls, holeLocs, repairLocs, upgradeLocs;
     protected final TiledMapTileLayer boardLayer, playerLayer, startLayer, wallLayer, flagLayer, holeLayer,
             repairLayer, upgradeLayer, laserWallLayer, laserLayer,  conveyorLayer, gearLayer;
 
-    public Board(Boards gameBoard) {
+    public Board(RoboRallyApp app, Boards gameBoard) {
+        this.app = app;
         this.board = new TmxMapLoader().load(gameBoard.getPath());
         this.boardLayer = (TiledMapTileLayer) board.getLayers().get("Board");
         this.playerLayer = (TiledMapTileLayer) board.getLayers().get("Player");
@@ -149,6 +152,18 @@ public abstract class Board {
      */
     protected boolean inHole(Robot robot){ return holeLocs.contains(robot.getLoc()); }
 
+    public void endOfTurnCheck(Robot robot) {
+        onFlag(robot);
+    }
+
+    private void onFlag(Robot robot) {
+        if (flagLocs[robot.getNextFlag()].equals(robot.getLoc())) {
+            robot.setNextFlag();
+            if (robot.getNextFlag() == flagLocs.length) { app.getGame().setWinner(robot); }
+            else { robot.setSpawnLoc(robot.getLoc()); }
+            System.out.println(robot.getPiece().name()+" Collected FLAG "+robot.getNextFlag());
+        }
+    }
 
     //================================================================
     //                            Getters

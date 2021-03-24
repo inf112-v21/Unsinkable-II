@@ -31,7 +31,7 @@ public class RoboRallyApp extends Game {
     private final String guiSkinPath = "Skin/rusty-robot-ui.json";
     private final String logoPath = "Logo/logo.png";
 
-    public static final boolean CHEAT_MODE = false;
+    public static final boolean CHEAT_MODE = true;
 
     //================================================================
     //                         GUI Objects

@@ -54,7 +54,7 @@ public class TitleScreen extends MenuScreenAdapter {
      *
      * @return InputListener for the Options button.
      */
-    private ClickListener OptionsButtonListener() {
+    public ClickListener OptionsButtonListener() {
         return new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {  } // TODO: Options Screen

@@ -1,6 +1,5 @@
 package RoboRally.Game.Objects;
 
-import RoboRally.Game.Board.TileID;
 import RoboRally.Game.Cards.Card;
 import RoboRally.Game.Direction;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
@@ -10,6 +9,8 @@ import java.util.Queue;
 
 public interface IRobot{
 
+
+    void setNextFlag();
 
     Vector2 getLoc();
 
@@ -56,7 +57,7 @@ public interface IRobot{
      *
      * @return life of robot
      */
-    int getLife();
+    int getLives();
 
     /**
      * gives the Robot one damage when encountering a hazard.
@@ -74,7 +75,8 @@ public interface IRobot{
 
     /**
      *
+     * @return
      */
-    TileID getNextFlag();
+    int getNextFlag();
 
 }

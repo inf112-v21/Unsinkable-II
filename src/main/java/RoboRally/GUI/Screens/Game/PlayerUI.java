@@ -67,6 +67,9 @@ public class PlayerUI {
         runButtonSetup();
     }
 
+    /**
+     * Setup for the UI layout main table
+     */
     private void mainTableSetup() {
         mainTable.setFillParent(true);
         mainTable.padLeft(width/2f);
@@ -78,6 +81,14 @@ public class PlayerUI {
         }
     }
 
+    private void runButtonSetup() {
+        mainTable.row();
+        runButtonTable.padTop(vertPadding);
+        runButtonTable.add(addRunButton());
+        runButtonTable.add(addPowerDownButton());
+        mainTable.add(runButtonTable);
+    }
+
     private void handButtonsSetup() {
         mainTable.row();
         handButtons.setMaxCheckCount(5);
@@ -86,19 +97,6 @@ public class PlayerUI {
         handButtons.uncheckAll();
         addPlayerHandButtons();
         mainTable.add(playerHandTable);
-    }
-
-    private void registryTableSetup(){
-        mainTable.row();
-        registryTable.padBottom(vertPadding);
-        mainTable.add(registryTable).left();
-    }
-
-    private void runButtonSetup() {
-        mainTable.row();
-        runButtonTable.padTop(vertPadding);
-        runButtonTable.add(addRunButton());
-        mainTable.add(runButtonTable);
     }
 
     private void addPlayerHandButtons() {
@@ -132,6 +130,15 @@ public class PlayerUI {
         };
     }
 
+    /**
+     * Setup wrapper for the table representing the registry.
+     */
+    private void registryTableSetup(){
+        mainTable.row();
+        registryTable.padBottom(vertPadding);
+        mainTable.add(registryTable).left();
+    }
+
     private void addRegistryButton(int index) {
         Button button = new ImageButton(makeCard(hand.get(index).getCardType()));
         button.setSize(cardWidth, cardHeight);
@@ -157,12 +164,25 @@ public class PlayerUI {
 
     private Button addRunButton() {
         Button runButton = new TextButton("Run", app.getGUI_SKIN());
-        runButton.setSize(width /6f, height/6f);
+        runButton.setSize(cardWidth, cardHeight);
         runButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 if (registry.size() == 5) { app.getGame().attemptRun(makeRegisters(), hand);} } } );
         return runButton;
+    }
+
+    private Button addPowerDownButton() {
+        Button powerDownButton = new TextButton("Power Down", app.getGUI_SKIN());
+        powerDownButton.setSize(cardWidth, cardHeight);
+        Queue<Card> emptyRegisters = new LinkedList<>();
+        for (int i = 0; i < 5; ++i) { emptyRegisters.offer(new Card()); }
+        powerDownButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                if (registry.size() == 0) {
+                    app.getGame().attemptRun(makeRegisters(), hand);} } } );
+        return powerDownButton;
     }
 
     /**
@@ -177,6 +197,11 @@ public class PlayerUI {
      */
     public Stage getStage() { return this.stage; }
 
+    /**
+     *
+     *
+     * @return
+     */
     private Queue<Card> makeRegisters() {
         List<Integer> list = new LinkedList<>(registry.values());
         Queue<Card> queue = new LinkedList<>();

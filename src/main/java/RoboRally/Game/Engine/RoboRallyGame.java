@@ -1,5 +1,6 @@
 package RoboRally.Game.Engine;
 
+import RoboRally.GUI.Screens.Menu.GameOverScreen;
 import RoboRally.Game.Board.BoardActions;
 import RoboRally.Game.Cards.Card;
 import RoboRally.Game.Cards.ProgramCard;
@@ -15,7 +16,7 @@ import java.util.Queue;
 /**
  * The RoboRally game logic
  */
-public abstract class RoboRallyGame implements RoboRally {
+abstract class RoboRallyGame implements RoboRally {
     protected RoboRallyApp app;
     protected boolean stopGame;
     protected List<Player> players;
@@ -40,6 +41,7 @@ public abstract class RoboRallyGame implements RoboRally {
         }
         else if(card.getSteps() == -1) { board.moveRobot(robot, robot.getDirection().rotate(2)); }
         else { board.rotateRobot(robot, card.getRotation()); }
+
         sleep(1000);
     }
 
@@ -95,6 +97,11 @@ public abstract class RoboRallyGame implements RoboRally {
     }
 
     /**
+     * Stops the game loop and ends the game.
+     */
+    public void stopGame() { stopGame = true; }
+
+    /**
      * @return the local player.
      */
     public Player getMyPlayer() { return myPlayer; }
@@ -109,5 +116,10 @@ public abstract class RoboRallyGame implements RoboRally {
      */
     public BoardActions getBoard() { return this.board; }
 
+    public void setWinner(Robot robot) {
+        stopGame();
+        app.getScreen().dispose();
+        app.setScreen(new GameOverScreen(app, robot.getPiece().toString()));
+    }
 
 }

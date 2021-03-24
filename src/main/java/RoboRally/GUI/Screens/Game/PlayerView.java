@@ -24,8 +24,8 @@ public class PlayerView extends InputAdapter implements Screen {
 
     private final float SCALE = 2f;
 
-    private SpriteBatch spriteBatch;
-    public static Texture backgroundTexture;
+    private final SpriteBatch spriteBatch;
+    private final Texture backgroundTexture;
     public static Sprite backgroundSprite;
 
     /**
@@ -44,9 +44,10 @@ public class PlayerView extends InputAdapter implements Screen {
 
         camera.update();
 
-        //TODO: Temp
+        //TODO: Temporary background solution.
         spriteBatch = new SpriteBatch();
-        loadTextures();
+        backgroundTexture = new Texture("background.png"); // TODO: move path
+        backgroundSprite = new Sprite(backgroundTexture);
 
         renderer = new OrthogonalTiledMapRenderer(app.getGame().getBoard().getBoard(),  1f/ RoboRallyApp.TILE_SIZE);
         renderer.setView(camera);
@@ -54,12 +55,6 @@ public class PlayerView extends InputAdapter implements Screen {
         if(RoboRallyApp.CHEAT_MODE) { Gdx.input.setInputProcessor(new CheatMode(app)); }
         else Gdx.input.setInputProcessor(playerUI.getStage());
     }
-
-    private void loadTextures() {
-        backgroundTexture = new Texture("background.png");
-        backgroundSprite = new Sprite(backgroundTexture);
-    }
-
 
     @Override
     public void show() {}

@@ -18,9 +18,9 @@ import RoboRally.GUI.RoboRallyApp;
 public abstract class MenuScreenAdapter implements MenuScreen {
     protected final RoboRallyApp app;
     protected final Stage stage;
-    protected Label heading;
     protected final Table table;
-    protected static final int widgetWidth = 250; //TODO:
+    protected Label heading;
+    protected final int WIDGET_WIDTH = 250;
 
     public MenuScreenAdapter(RoboRallyApp app) {
         this.app = app;
@@ -75,14 +75,14 @@ public abstract class MenuScreenAdapter implements MenuScreen {
         TextButton button = new TextButton(buttonText, app.getGUI_SKIN());
         button.addListener(listener);
         if (newRow) { table.row(); }
-        table.add(button).width(widgetWidth);
+        table.add(button).width(WIDGET_WIDTH);
         return button;
     }
 
     @Override
     public TextField addTextField(String fieldText, boolean newRow) {
         TextField field = new TextField(fieldText, app.getGUI_SKIN());
-        field.setWidth(widgetWidth);
+        field.setWidth(WIDGET_WIDTH);
         if (newRow) { table.row(); }
         table.add(field);
         return field;
@@ -93,7 +93,7 @@ public abstract class MenuScreenAdapter implements MenuScreen {
         SelectBox<Object> box = new SelectBox<>(app.getGUI_SKIN());
         box.setItems(objects);
         if (newRow) { table.row(); }
-        table.add(box).width(widgetWidth);
+        table.add(box).width(WIDGET_WIDTH);
         return box;
     }
 
