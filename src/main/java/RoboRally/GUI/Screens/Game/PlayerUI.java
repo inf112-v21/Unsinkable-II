@@ -2,7 +2,7 @@ package RoboRally.GUI.Screens.Game;
 
 import RoboRally.Game.Cards.Card;
 import RoboRally.Game.Cards.ProgramCard;
-import RoboRally.RoboRallyApp;
+import RoboRally.GUI.RoboRallyApp;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;

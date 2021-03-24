@@ -1,4 +1,4 @@
-package RoboRally;
+package RoboRally.GUI;
 
 import RoboRally.GUI.Screens.Menu.MenuScreen;
 import RoboRally.GUI.Screens.Game.PlayerView;
@@ -29,6 +29,7 @@ public class RoboRallyApp extends Game {
     private final String groupName = "Unsinkable-II";
     private final String guiSkinPath = "Skin/rusty-robot-ui.json";
     private final String logoPath = "Logo/logo.png";
+
     //================================================================
     //                         GUI Objects
     //================================================================

@@ -1,7 +1,5 @@
 package RoboRally.Multiplayer;
 
-import RoboRally.Game.Board.Boards;
-import RoboRally.Game.Objects.Player;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.EndPoint;
 import com.jcraft.jogg.Packet;

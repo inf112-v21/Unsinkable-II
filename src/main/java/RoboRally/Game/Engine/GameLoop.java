@@ -5,7 +5,7 @@ import RoboRally.Game.Board.Boards;
 import RoboRally.Game.Cards.Card;
 import RoboRally.Game.Objects.Player;
 import RoboRally.Game.Objects.Robot;
-import RoboRally.RoboRallyApp;
+import RoboRally.GUI.RoboRallyApp;
 
 import java.util.ArrayList;
 import java.util.Comparator;

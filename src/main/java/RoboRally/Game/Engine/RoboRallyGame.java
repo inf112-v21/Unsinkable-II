@@ -7,7 +7,7 @@ import RoboRally.Game.Board.Boards;
 import RoboRally.Game.Objects.Player;
 import RoboRally.Game.Objects.Robot;
 import RoboRally.Multiplayer.Packets.RoundPacket;
-import RoboRally.RoboRallyApp;
+import RoboRally.GUI.RoboRallyApp;
 
 import java.util.List;
 import java.util.Queue;

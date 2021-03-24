@@ -149,7 +149,7 @@ public class Board {
             putRobot(robot);
             if (inBounds(robot) && !inHole(robot)) {
                 robot.takeLife();
-                // TODO: Robot loses life and is moved back to start/save.
+                // TODO: Robot iss moved back to spawn point.
                 return true;
             }
         }
@@ -242,6 +242,21 @@ public class Board {
     }
 
     /**
+     * Checks if there is a wall in a direction on a location.
+     *
+     * @param loc the location to check for a wall.
+     * @param dir the direction to check for a wall.
+     * @return true if there is a wall blocking the direction in a location, false if there is no wall.
+     */
+    private boolean checkForWalls(Vector2 loc, Direction dir) {
+        if (dir == Direction.NORTH && northWalls.contains(loc)) { return true; }
+        if (dir == Direction.WEST && westWalls.contains(loc)) { return true; }
+        if (dir == Direction.SOUTH && southWalls.contains(loc)) { return true; }
+        if (dir != Direction.EAST || !eastWalls.contains(loc)) { return true; }
+        return false;
+    }
+
+    /**
      * Checks if the robot is inside the map bounds.
      *
      * @param robot to check if in bounds.
@@ -256,21 +271,6 @@ public class Board {
      * @return true if robot is in hole, this will destroy the robot (take away 1 life)
      */
     private boolean inHole(Robot robot){ return holeLocs.contains(robot.getLoc()); }
-
-    /**
-     * Checks if there is a wall in a direction on a location.
-     *
-     * @param loc the location to check for a wall.
-     * @param dir the direction to check for a wall.
-     * @return true if there is a wall blocking the direction in a location, false if there is no wall.
-     */
-    private boolean checkForWalls(Vector2 loc, Direction dir) {
-        if (dir == Direction.NORTH && northWalls.contains(loc)) { return false; }
-        else if (dir == Direction.WEST && westWalls.contains(loc)) { return false; }
-        else if (dir == Direction.SOUTH && southWalls.contains(loc)) { return false; }
-        else return dir != Direction.EAST || !eastWalls.contains(loc);
-    }
-
 
     //================================================================
     //                            Getters

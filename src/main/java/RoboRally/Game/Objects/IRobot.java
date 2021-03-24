@@ -1,7 +1,6 @@
 package RoboRally.Game.Objects;
 
 import RoboRally.Game.Cards.Card;
-import RoboRally.Game.Direction;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Vector2;
 

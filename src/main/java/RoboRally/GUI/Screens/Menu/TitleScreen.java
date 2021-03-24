@@ -1,8 +1,9 @@
 package RoboRally.GUI.Screens.Menu;
 
 import RoboRally.GUI.Screens.Menu.Multiplayer.MultiplayerOptionScreen;
+import RoboRally.GUI.RoboRallyApp;
+
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import RoboRally.RoboRallyApp;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 /**
