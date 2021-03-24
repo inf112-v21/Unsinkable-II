@@ -3,6 +3,8 @@ package RoboRally.Game.Cards;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
+import java.util.Stack;
+
 public class ProgrammingDeckTest {
 
     @Test
@@ -14,10 +16,21 @@ public class ProgrammingDeckTest {
     }
 
     @Test
-    void shuffleTest(){ // TODO: This should check again if it fails due to probability constraints.
-        ProgrammingDeck deck1 = new ProgrammingDeck();
-        deck1.shuffle();
-        ProgrammingDeck deck2 = new ProgrammingDeck();
-        assertNotEquals(deck1.getHand(1), deck2.getHand(1));
+    void testCardsAreShuffled() {
+        Stack<Card> shuffled = new ProgrammingDeck().getDeck();
+        Stack<Card> unshuffled = ProgrammingDeck.getNewDeck();
+
+        boolean[] equalsPerCard = new boolean[shuffled.size()];
+        for (int i = 0; i < shuffled.size(); i++) {
+            equalsPerCard[i] = shuffled.get(i).getCardType().equals(unshuffled.get(i).getCardType());
+        }
+        boolean areEqual = true;
+        for (boolean b : equalsPerCard) {
+            if (!b) {
+                areEqual = false;
+                break;
+            }
+        }
+        assertFalse(areEqual);
     }
 }
