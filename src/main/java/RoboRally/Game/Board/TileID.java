@@ -138,7 +138,7 @@ public enum TileID {
     /**
      *Flags
      */
-    public final static List<TileID> FLAGS = Arrays.asList(FLAG_1, FLAG_2, FLAG_3, FLAG_4);
+    public final static List<TileID> FLAGS = List.of(FLAG_1, FLAG_2, FLAG_3, FLAG_4);
 
     /**
      * Walls

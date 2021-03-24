@@ -1,17 +1,27 @@
 package RoboRally.Game.Objects;
 
+import RoboRally.Game.Board.TileID;
 import RoboRally.Game.Cards.Card;
+import RoboRally.Game.Direction;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Vector2;
 
 import java.util.Queue;
 
-public interface IRobot extends IObject{
+public interface IRobot{
 
+
+    Vector2 getLoc();
+
+    void setLoc(Vector2 newLoc);
 
     Vector2 getSpawnLoc();
 
     void setSpawnLoc(Vector2 newLoc);
+
+    Direction getDirection();
+
+    void setDirection(Direction dir);
 
     Queue<Card> getRegisters();
 
@@ -49,7 +59,7 @@ public interface IRobot extends IObject{
     int getLife();
 
     /**
-     *takes away one life from robot
+     * takes away one life from robot
      */
     void takeLife();
 
@@ -61,8 +71,8 @@ public interface IRobot extends IObject{
     void fixDamage(int damageFixed);
 
     /**
-     * adds one to flagCounter
+     *
      */
-    void reachFlag();
+    TileID getNextFlag();
 
 }

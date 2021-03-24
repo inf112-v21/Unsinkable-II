@@ -1,5 +1,6 @@
 package RoboRally.Game.Objects;
 
+import RoboRally.Game.Board.TileID;
 import RoboRally.Game.Cards.Card;
 import RoboRally.Game.Direction;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
@@ -14,8 +15,8 @@ public class Robot implements IRobot {
     private Direction direction;
     private Vector2 location, spawn;
     private Queue<Card> registers;
-    private final int numRegisters, cacheSize;
-    private int damage, life, nextFLag;
+    private int cacheSize, numRegisters;
+    private int damage, life, nextFLagIndex;
 
 
     public Robot() {
@@ -26,7 +27,7 @@ public class Robot implements IRobot {
         this.registers = new LinkedList<>();
         this.direction = Direction.NORTH;
         this.life = 3;
-        this.nextFLag = 1;
+        this.nextFLagIndex = 0;
     }
 
     public Robot(Piece piece) {
@@ -53,7 +54,7 @@ public class Robot implements IRobot {
     public void fixDamage(int damageFixed) { damage -= damageFixed; }
 
     @Override
-    public void reachFlag() { nextFLag += 1; }
+    public TileID getNextFlag() { return TileID.FLAGS.get(nextFLagIndex); }
 
     @Override
     public Vector2 getLoc() { return location; }

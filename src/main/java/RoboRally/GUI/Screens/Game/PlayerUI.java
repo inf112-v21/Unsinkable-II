@@ -72,8 +72,7 @@ public class PlayerUI {
     }
 
     private Table addPlayerHandButtons() {
-        for (int i = 0; i < 9; ++i) {
-            int index = i;
+        for (int index = 0; index < 9; ++index) {
             if (index % 3 == 0) { playerHandTable.row(); }
             Button button = new ImageButton(new TextureRegionDrawable(new TextureRegion(new Texture(hand.get(index).getCardType().getPath()))),
                     new TextureRegionDrawable(new TextureRegion(new Texture(ProgramCard.BACK.getPath()))),
