@@ -13,16 +13,17 @@ public class Robot implements IRobot {
 
     private Piece piece;
     private Direction direction;
-    private Vector2 location, spawn;
+    private final Vector2 location, spawn;
     private Queue<Card> registers;
-    private int cacheSize, numRegisters;
+    private final int maxHealth, numRegisters;
     private int damage, life, nextFLagIndex;
 
 
     public Robot() {
         this.numRegisters = 5;
-        this.cacheSize = 9;
+        this.maxHealth = 9;
         this.damage = 0;
+        this.spawn = new Vector2();
         this.location = new Vector2();
         this.registers = new LinkedList<>();
         this.direction = Direction.NORTH;
@@ -39,19 +40,27 @@ public class Robot implements IRobot {
     public Piece getPiece() {  return this.piece; }
 
     @Override
-    public int getHealth() { return cacheSize - damage; }
+    public int getHealth() { return maxHealth - damage; }
 
     @Override
     public int getLife() { return life; }
 
     @Override
-    public void takeLife() { --life; }
-
-    @Override
     public void addDamage() { ++damage; }
 
     @Override
-    public void fixDamage(int damageFixed) { damage -= damageFixed; }
+    public void fixDamage(int damageFixed) { --damage; }
+
+    @Override
+    public boolean killRobot() {
+        if (life > 1) {
+            --life;
+            damage = 0;
+            setLoc(getSpawnLoc());
+            return true;
+        }
+        return false;
+    }
 
     @Override
     public TileID getNextFlag() { return TileID.FLAGS.get(nextFLagIndex); }
@@ -60,13 +69,13 @@ public class Robot implements IRobot {
     public Vector2 getLoc() { return location; }
 
     @Override
-    public void setLoc(Vector2 newLoc) { this.location = newLoc; }
+    public void setLoc(Vector2 newLoc) { this.location.set(newLoc); }
 
     @Override
-    public Vector2 getSpawnLoc() { return location; }
+    public Vector2 getSpawnLoc() { return spawn; }
 
     @Override
-    public void setSpawnLoc(Vector2 newLoc) { this.spawn = newLoc; }
+    public void setSpawnLoc(Vector2 newLoc) { this.spawn.set(newLoc); }
 
     @Override
     public Direction getDirection() { return this.direction; }
@@ -88,13 +97,4 @@ public class Robot implements IRobot {
 
     @Override
     public TiledMapTileLayer.Cell getWonCell() { return piece.getWonCell(); }
-
-
-    /**
-     * For JUnit testing ONLY!
-     *
-     * @param x
-     * @param y
-     */
-    public void setLoc(float x, float y) { this.location.x = x; this.location.y = y; }
 }

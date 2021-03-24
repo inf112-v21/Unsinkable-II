@@ -1,6 +1,7 @@
 package RoboRally.Game.Engine;
 
 import RoboRally.Game.Board.Board;
+import RoboRally.Game.Board.BoardActions;
 import RoboRally.Game.Cards.Card;
 import RoboRally.Game.Cards.ProgramCard;
 import RoboRally.Game.Board.Boards;
@@ -21,7 +22,7 @@ public abstract class RoboRallyGame implements RoboRally {
     protected boolean stopGame;
     protected List<Player> players;
     protected Boards boardSelection;
-    protected Board board;
+    protected BoardActions board;
     protected Player myPlayer;
     protected int roundNumber;
     protected boolean nextRound, roundSent;

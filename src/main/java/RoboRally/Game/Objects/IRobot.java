@@ -59,16 +59,18 @@ public interface IRobot{
     int getLife();
 
     /**
-     * takes away one life from robot
-     */
-    void takeLife();
-
-    /**
      * gives the Robot one damage when encountering a hazard.
      */
     void addDamage();
 
     void fixDamage(int damageFixed);
+
+    /**
+     * Removes one life from robot and resets damage.
+     *
+     * @return true if robot has another life, false if not.
+     */
+    boolean killRobot();
 
     /**
      *

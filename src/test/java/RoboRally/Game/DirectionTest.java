@@ -1,6 +1,7 @@
 package RoboRally.Game;
 
 import RoboRally.Game.Objects.Robot;
+import com.badlogic.gdx.math.Vector2;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -12,7 +13,8 @@ public class DirectionTest {
     @BeforeEach
     public void setup(){
         robot = new Robot();
-        robot.setLoc(5,5);
+        Vector2 loc = new Vector2(5,5);
+        robot.setLoc(loc);
     }
 
     @Test

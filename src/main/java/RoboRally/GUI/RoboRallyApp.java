@@ -62,7 +62,6 @@ public class RoboRallyApp extends Game {
     public void dispose() { stage.dispose(); }
 
 
-
     /**
      * Host a new multiplayer game.
      *
@@ -80,10 +79,9 @@ public class RoboRallyApp extends Game {
     */
     public void joinNewGame(String hostIP) {
         this.myConnection = new MultiplayerClient(this, hostIP);
-        while (!myConnection.start) { } // TODO: Add connecting GUI message.
+        while (!myConnection.start) { } // TODO: Synchronize and add "connecting..." GUI message.
         System.out.println("I am player "+myConnection.startPacket.playerID);
         startGame(myConnection.startPacket.boardSelection, myConnection.startPacket.playerID);
-
     }
 
     public void startGame(Boards boardSelection, int playerID) {

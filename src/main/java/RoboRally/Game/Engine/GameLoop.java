@@ -1,6 +1,6 @@
 package RoboRally.Game.Engine;
 
-import RoboRally.Game.Board.Board;
+import RoboRally.Game.Board.BoardActions;
 import RoboRally.Game.Board.Boards;
 import RoboRally.Game.Cards.Card;
 import RoboRally.Game.Objects.Player;
@@ -20,7 +20,7 @@ public class GameLoop extends RoboRallyGame {
         this.stopGame = false;
         this.players = new ArrayList<>();
         this.boardSelection = boardSelection;
-        this.board = new Board(boardSelection);
+        this.board = new BoardActions(boardSelection);
         this.nextRound = false;
         this.roundSent = false;
 
