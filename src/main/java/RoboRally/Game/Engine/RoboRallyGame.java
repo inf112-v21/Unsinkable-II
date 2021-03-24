@@ -1,6 +1,5 @@
 package RoboRally.Game.Engine;
 
-import RoboRally.Game.Board.Board;
 import RoboRally.Game.Board.BoardActions;
 import RoboRally.Game.Cards.Card;
 import RoboRally.Game.Cards.ProgramCard;
@@ -12,7 +11,6 @@ import RoboRally.GUI.RoboRallyApp;
 
 import java.util.List;
 import java.util.Queue;
-
 
 /**
  * The RoboRally game logic

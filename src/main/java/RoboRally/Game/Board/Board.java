@@ -10,8 +10,6 @@ import com.badlogic.gdx.math.Vector2;
 import java.util.HashSet;
 import java.util.Set;
 
-import static RoboRally.Game.Direction.NORTH;
-
 /**
  * Board Reader class that reads and manages the chosen board and its layers.
  *
@@ -47,6 +45,11 @@ public abstract class Board {
         this.southWalls = new HashSet<>();
         this.eastWalls = new HashSet<>();
         findWalls();
+
+        System.out.println("North walls: "+northWalls.toString());
+        System.out.println("West walls: "+westWalls.toString());
+        System.out.println("South walls: "+southWalls.toString());
+        System.out.println("East walls: "+eastWalls.toString());
 
         this.bounds = findAllLayerTiles(boardLayer);
         this.holeLocs = findAllLayerTiles(holeLayer);
@@ -126,12 +129,11 @@ public abstract class Board {
      * @return true if there is a wall blocking the direction in a location, false if there is no wall.
      */
     protected boolean checkForWalls(Vector2 loc, Direction dir) {
-        switch (dir) {
-            case NORTH: { return northWalls.contains(loc); }
-            case WEST:  { return westWalls.contains(loc);  }
-            case SOUTH: { return southWalls.contains(loc); }
-            case EAST:  { return eastWalls.contains(loc);  }
-        } return false;
+        if (dir == Direction.NORTH && northWalls.contains(loc)) { return true; }
+        if (dir == Direction.WEST && westWalls.contains(loc)) { return true; }
+        if (dir == Direction.SOUTH && southWalls.contains(loc)) { return true; }
+        if (dir == Direction.EAST && eastWalls.contains(loc)) { return true; }
+        return false;
     }
 
     /**
