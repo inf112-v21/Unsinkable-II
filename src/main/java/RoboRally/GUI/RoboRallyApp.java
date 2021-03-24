@@ -8,6 +8,7 @@ import RoboRally.Game.Board.Boards;
 import RoboRally.Game.Engine.GameLoop;
 import RoboRally.Multiplayer.MultiplayerClient;
 import RoboRally.Multiplayer.MultiplayerHost;
+import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -47,6 +48,11 @@ public class RoboRallyApp extends Game {
 
     @Override
     public void create() {
+        if (Gdx.app.getType() == Application.ApplicationType.HeadlessDesktop) {
+            // no need to run the below code in headless mode
+            // remember to respect this if statement if critical non gui/rendering code is added here
+            return;
+        }
         this.GUI_SKIN = new Skin(Gdx.files.internal(guiSkinPath));
         this.stage = new Stage(new ScreenViewport());
         Gdx.input.setInputProcessor(stage);
@@ -59,6 +65,10 @@ public class RoboRallyApp extends Game {
 
     @Override
     public void render () {
+        if (Gdx.app.getType() == Application.ApplicationType.HeadlessDesktop) {
+            // rendering is not needed in headless mode
+            return;
+        }
         super.render();
         stage.act();
         stage.draw();
