@@ -123,7 +123,9 @@ User stories ligger etter Sprint 2 i Project board på Git-Hub.
 [Project board](https://github.com/inf112-v21/Unsinkable-II/issues)
 
 ### Retrospect
-[Retrospect 2](documentation/deliverables/CompulsaryAssignment2/Retrospect.md)
+[Retrospect for sprint 2](documentation/deliverables/CompulsaryAssignment2/Retrospect.md)
+
+[Retrospect for sprint 3](documentation/deliverables/CompulsaryAssignment3/Retrospect_sprint_3.md)
 
 ### Git
 [Git instructions](documentation/CONTRIBUTING.md)
