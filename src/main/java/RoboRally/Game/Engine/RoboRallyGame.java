@@ -55,11 +55,7 @@ abstract class RoboRallyGame implements RoboRally {
         catch (InterruptedException e) { System.out.println(Thread.currentThread().getName() + " sleep error."); }
     }
 
-    /**
-     * Adds a new player to the game.
-     *
-     * @return the Player added.
-     */
+    @Override
     public Player addPlayer(int playerID) {
         if (players.size() < 8) {
             Player newPlayer = new Player(playerID);
@@ -70,9 +66,7 @@ abstract class RoboRallyGame implements RoboRally {
         else { return null; }
     }
 
-    /**
-     * Attempt run.
-     */
+    @Override
     public void attemptRun(Queue<Card> registers, List<Card> playerHand) {
         if (!roundSent) {
             roundSent = true;
@@ -85,37 +79,26 @@ abstract class RoboRallyGame implements RoboRally {
         }
     }
 
-    /**
-     * Process round and update all robot.
-     *
-     * @param roundPackets the game round packets
-     */
+    @Override
     public void updateAllRobotRegisters(List<RoundPacket> roundPackets) {
         for (RoundPacket packet : roundPackets) { players.get(packet.playerID-1).getRobot().setRegisters(packet.registers); }
         nextRound = true;
         roundSent = false;
     }
 
-    /**
-     * Stops the game loop and ends the game.
-     */
+    @Override
     public void stopGame() { stopGame = true; }
 
-    /**
-     * @return the local player.
-     */
+    @Override
     public Player getMyPlayer() { return myPlayer; }
 
-    /**
-     * @return the list of current players.
-     */
+    @Override
     public List<Player> getPlayers() { return this.players; }
 
-    /**
-     * @return the current board.
-     */
+    @Override
     public BoardActions getBoard() { return this.board; }
 
+    @Override
     public void setWinner(Robot robot) {
         stopGame();
         app.getScreen().dispose();
