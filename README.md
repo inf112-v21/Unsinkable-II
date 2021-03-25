@@ -114,13 +114,8 @@ See [issues](https://github.com/inf112-v21/Unsinkable-II/issues)
 [Mar/22/2001](documentation/deliverables/minutesOfMeetings/minutes_22.03.21.md)
 
 ### User Stories
-[User Story 1](documentation/deliverables/compulsoryAssignment1/userStories/UserStory1.md)
-
-[User Story 2](documentation/deliverables/compulsoryAssignment1/userStories/UserStory2.md)
-
-[User Story 3](documentation/deliverables/compulsoryAssignment1/userStories/UserStory3.md)
-
-[User Story 4](documentation/deliverables/compulsoryAssignment1/userStories/UserStory4.md)
+User stories ligger etter Sprint 2 i Project board på Git-Hub.
+[User Stories](https://github.com/inf112-v21/Unsinkable-II/projects)
 
 ### Diagrams
 [Proposed RoboRally.Game flow](documentation/deliverables/compulsoryAssignment1/RoboRally%20Flowchart.pdf)
