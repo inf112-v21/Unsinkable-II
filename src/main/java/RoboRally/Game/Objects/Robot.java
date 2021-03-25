@@ -48,7 +48,7 @@ public class Robot implements IRobot {
     public void addDamage() { ++damage; }
 
     @Override
-    public void fixDamage(int damageFixed) { --damage; }
+    public void fixDamage() { --damage; }
 
     @Override
     public boolean killRobot() {
