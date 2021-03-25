@@ -65,10 +65,10 @@ public class Robot implements IRobot {
     }
 
     @Override
-    public int getNextFlag() { return flag; }
+    public int touchedFlags() { return flag; }
 
     @Override
-    public void setNextFlag() { ++flag; }
+    public void touchFlag() { ++flag; }
 
     @Override
     public Vector2 getLoc() { return location; }

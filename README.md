@@ -17,7 +17,7 @@ University of Bergen.
 6. [About](#About)
 7. [Minutes from meetings](#Meeting Minutes)
 8. [User Stories](#User Stories)
-9. [Diagrams](#Diagram)
+9. [Diagrams](#Diagrams)
 10. [Retrospect](#Retrospect)
 11. [Contributing to Git](#Git)
 

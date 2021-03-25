@@ -180,8 +180,7 @@ public class PlayerUI {
         powerDownButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                if (registry.size() == 0) {
-                    app.getGame().attemptRun(makeRegisters(), hand);} } } );
+                if (registry.size() == 0) { app.getGame().attemptRun(emptyRegisters, hand);} } } );
         return powerDownButton;
     }
 
@@ -198,9 +197,9 @@ public class PlayerUI {
     public Stage getStage() { return this.stage; }
 
     /**
+     * Creates the registry of cards
      *
-     *
-     * @return
+     * @return the queue of ordered cards
      */
     private Queue<Card> makeRegisters() {
         List<Integer> list = new LinkedList<>(registry.values());

@@ -9,7 +9,9 @@ import com.badlogic.gdx.math.Vector2;
 public class BoardActions extends Board {
 
     public BoardActions(RoboRallyApp app, Boards gameBoard) {
+
         super(app, gameBoard);
+
     }
 
 
@@ -40,7 +42,7 @@ public class BoardActions extends Board {
         return true;
     }
 
-    private boolean stepCheck(Robot robot) {
+    public boolean stepCheck(Robot robot) {
         if (!inBounds(robot) || inHole(robot)) {
             removeRobot(robot);
             robot.killRobot();

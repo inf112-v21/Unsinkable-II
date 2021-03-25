@@ -17,7 +17,7 @@ import static org.mockito.Mockito.mock;
  */
 public class GdxTestExtension implements BeforeAllCallback {
     @Override
-    public void beforeAll(ExtensionContext context) throws Exception {
+    public void beforeAll(ExtensionContext context) {
         HeadlessApplicationConfiguration conf = new HeadlessApplicationConfiguration();
         new HeadlessApplication(new RoboRallyApp(), conf);
         Gdx.gl = mock(GL20.class);

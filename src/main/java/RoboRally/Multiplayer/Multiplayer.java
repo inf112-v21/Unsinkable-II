@@ -36,7 +36,7 @@ public abstract class Multiplayer extends Listener implements Networking {
     /**
      * Common registration method for host and clients.
      *
-     * @param endPoint
+     * @param endPoint the endpoint connection
      */
     @Override
     public void register(EndPoint endPoint) {
