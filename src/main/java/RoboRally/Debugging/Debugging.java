@@ -29,5 +29,5 @@ public class Debugging {
 
     public static boolean isGuiDebug() { return GUI_DEBUG; }
 
-    public static boolean isBACKGROUND() { return BACKGROUND; }
+    public static boolean isBackground() { return BACKGROUND; }
 }
