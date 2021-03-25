@@ -10,24 +10,10 @@ public class MultiplayerTest {
 
     private final RoboRallyApp app = new RoboRallyApp();
 
-
     @Test
     public void ClientCanConnectToHost() {
         MultiplayerHost mph = new MultiplayerHost(Boards.CHECKMATE);
         MultiplayerClient mpc = new MultiplayerClient(app, "localhost");
     }
-
-    @Test
-    public void ClientCanSendPacket() {}
-
-    @Test
-    public void HostCanSendPacket() {}
-
-    @Test
-    public void ClientCanReceivePacket() {}
-
-    @Test
-    public void HostCanReceivePacket() {}
-
 
 }

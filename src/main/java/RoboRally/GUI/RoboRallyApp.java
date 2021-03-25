@@ -1,6 +1,6 @@
 package RoboRally.GUI;
 
-import RoboRally.Debug.Debug;
+import RoboRally.Debugging.Debugging;
 import RoboRally.GUI.Screens.Menu.MenuScreen;
 import RoboRally.GUI.Screens.Game.PlayerView;
 import RoboRally.GUI.Screens.Menu.Multiplayer.MultiplayerHostScreen;
@@ -32,8 +32,6 @@ public class RoboRallyApp extends Game {
     private final String guiSkinPath = "Skin/rusty-robot-ui.json";
     private final String logoPath = "Logo/logo.png";
 
-    public static final boolean CHEAT_MODE = true;
-
     //================================================================
     //                         GUI Objects
     //================================================================
@@ -59,7 +57,7 @@ public class RoboRallyApp extends Game {
 
         this.titleScreen = new TitleScreen(this);
 
-        if (Debug.GUI_DEBUG) { this.setScreen(new MultiplayerHostScreen(this)); }
+        if (Debugging.GUI_DEBUG) { this.setScreen(new MultiplayerHostScreen(this)); }
         else { this.setScreen(titleScreen); }
     }
 

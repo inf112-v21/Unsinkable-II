@@ -1,6 +1,6 @@
 package RoboRally.GUI.Screens.Game;
 
-import RoboRally.Debug.Debug;
+import RoboRally.Debugging.Debugging;
 import RoboRally.Game.Cards.Card;
 import RoboRally.Game.Cards.ProgramCard;
 import RoboRally.GUI.RoboRallyApp;
@@ -74,7 +74,7 @@ public class PlayerUI {
         mainTable.setFillParent(true);
         mainTable.padLeft(width/2f);
         mainTable.padBottom(vertPadding).bottom();
-        if (Debug.GUI_DEBUG) {
+        if (Debugging.GUI_DEBUG) {
             mainTable.setDebug(true);
             registryTable.setDebug(true);
             playerHandTable.setDebug(true);

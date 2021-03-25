@@ -1,4 +1,4 @@
-package RoboRally.Debug;
+package RoboRally.Debugging;
 
 import RoboRally.GUI.RoboRallyApp;
 import com.badlogic.gdx.Input;
