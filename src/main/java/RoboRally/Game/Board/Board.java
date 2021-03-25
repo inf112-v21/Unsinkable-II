@@ -154,8 +154,13 @@ public abstract class Board {
 
     public void endOfTurnCheck(Robot robot) {
         onFlag(robot);
+        onWrench(robot);
     }
 
+    /**
+     * checks if a robot ends it's turn on a flag
+     * @param robot = the robot that is on the tile.
+     */
     private void onFlag(Robot robot) {
         if (flagLocs[robot.getNextFlag()].equals(robot.getLoc())) {
             robot.setNextFlag();
@@ -163,6 +168,16 @@ public abstract class Board {
             else { robot.setSpawnLoc(robot.getLoc()); }
             System.out.println(robot.getPiece().name()+" Collected FLAG "+robot.getNextFlag());
         }
+    }
+
+    /**
+     * check if a robot is on a wrench
+     * @param robot = the robot that is on the tile
+     */
+    private void onWrench(Robot robot) {
+        if(repairLocs.contains(robot.getLoc()) || upgradeLocs.contains(robot.getLoc())){
+            robot.fixDamage();
+            robot.setSpawnLoc(robot.getLoc());}
     }
 
     //================================================================
