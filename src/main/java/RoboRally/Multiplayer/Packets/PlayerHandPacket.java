@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * Packet class to distribute programming cards to clients from a shared deck.
  */
-public class PlayerHandPacket extends Packet {
+public class PlayerHandPacket {
     public List<Card> cards;
 
     public PlayerHandPacket() {}

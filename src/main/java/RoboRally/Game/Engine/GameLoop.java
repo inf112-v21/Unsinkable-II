@@ -47,8 +47,9 @@ public class GameLoop extends RoboRallyGame {
     /**
      * Executes all 5 turns for a full round.
      */
-    protected void round() {
-        for (int registerNum = 0; registerNum < 5; ++registerNum) {
+    @Override
+    public void round() {
+        for (int turn = 0; turn < 5; ++turn) {
             turn();
         }
     }

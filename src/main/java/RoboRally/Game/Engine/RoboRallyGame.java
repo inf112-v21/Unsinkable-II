@@ -55,7 +55,7 @@ abstract class RoboRallyGame implements RoboRally {
      */
     protected void sleep(int milliseconds) {
         try { Thread.sleep(milliseconds); }
-        catch (InterruptedException e) { System.out.println(Thread.currentThread().getName() + " sleep error."); }
+        catch (InterruptedException e) { System.err.println(Thread.currentThread().getName() + " sleep error."); }
     }
 
     @Override

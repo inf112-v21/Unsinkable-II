@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Queue;
 
 public interface RoboRally extends Runnable {
-    void run();
+
 
     /**
      * Adds a new player to the game.
@@ -52,4 +52,6 @@ public interface RoboRally extends Runnable {
     BoardActions getBoard();
 
     void setWinner(Robot robot);
+
+    void round();
 }

@@ -78,11 +78,7 @@ public class RoboRallyApp extends Game {
     }
 
     @Override
-    public void dispose() {
-        gameThread.interrupt();
-        stage.dispose();
-        Gdx.app.exit();
-    }
+    public void dispose() { Gdx.app.exit(); }
 
 
     /**

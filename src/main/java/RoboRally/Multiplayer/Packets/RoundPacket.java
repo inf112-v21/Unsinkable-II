@@ -9,7 +9,7 @@ import java.util.Queue;
 /**
  * Packet class to distribute data to allow multiplayer.
  */
-public class RoundPacket extends Packet{
+public class RoundPacket {
     public int round;
     public int playerID;
     public Vector2 robotLoc;
