@@ -32,6 +32,8 @@ public class RoboRallyApp extends Game {
     private final String guiSkinPath = "Skin/rusty-robot-ui.json";
     private final String logoPath = "Logo/logo.png";
 
+    public static final boolean DEBUG = true;
+
     //================================================================
     //                         GUI Objects
     //================================================================
@@ -57,7 +59,9 @@ public class RoboRallyApp extends Game {
 
         this.titleScreen = new TitleScreen(this);
 
-        if (Debugging.GUI_DEBUG) { this.setScreen(new MultiplayerHostScreen(this)); }
+        Debugging.setInstance(DEBUG);
+
+        if (Debugging.isGuiDebug()) { this.setScreen(new MultiplayerHostScreen(this)); }
         else { this.setScreen(titleScreen); }
     }
 

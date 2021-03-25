@@ -74,7 +74,7 @@ public class PlayerUI {
         mainTable.setFillParent(true);
         mainTable.padLeft(width/2f);
         mainTable.padBottom(vertPadding).bottom();
-        if (Debugging.GUI_DEBUG) {
+        if (Debugging.isGuiDebug()) {
             mainTable.setDebug(true);
             registryTable.setDebug(true);
             playerHandTable.setDebug(true);
@@ -164,7 +164,7 @@ public class PlayerUI {
 
     private Button addRunButton() {
         Button runButton = new TextButton("Run", app.getGUI_SKIN());
-        runButton.setSize(cardWidth, cardHeight);
+        runButton.setSize(width /6f, height/6f);
         runButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {

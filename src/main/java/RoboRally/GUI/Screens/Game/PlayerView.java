@@ -25,7 +25,6 @@ public class PlayerView extends InputAdapter implements Screen {
     private final float SCALE = 2f;
 
     private final SpriteBatch spriteBatch;
-    private final Texture backgroundTexture;
     public static Sprite backgroundSprite;
 
     /**
@@ -46,13 +45,12 @@ public class PlayerView extends InputAdapter implements Screen {
 
         //TODO: Temporary background solution.
         spriteBatch = new SpriteBatch();
-        backgroundTexture = new Texture("background.png"); // TODO: move path
-        backgroundSprite = new Sprite(backgroundTexture);
+        backgroundSprite = new Sprite(new Texture("background.png")); //TODO: move path
 
         renderer = new OrthogonalTiledMapRenderer(app.getGame().getBoard().getBoard(),  1f/ RoboRallyApp.TILE_SIZE);
         renderer.setView(camera);
 
-        if(Debugging.CHEAT_MODE) { Gdx.input.setInputProcessor(new CheatMode(app)); }
+        if(Debugging.isCheatMode()) { Gdx.input.setInputProcessor(new CheatMode(app)); }
         else Gdx.input.setInputProcessor(playerUI.getStage());
     }
 
@@ -65,7 +63,7 @@ public class PlayerView extends InputAdapter implements Screen {
         Gdx.gl.glClearColor(0,0,0,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-        if(Debugging.BACKGROUND) { //TODO: GUI DEBUGGING!
+        if(Debugging.isBACKGROUND()) { //TODO: GUI DEBUGGING!
             spriteBatch.begin();
             backgroundSprite.draw(spriteBatch);
             spriteBatch.end();
