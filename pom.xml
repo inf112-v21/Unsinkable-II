@@ -135,6 +135,16 @@
                         </goals>
                     </execution>
                 </executions>
+                <configuration>
+                    <createDependencyReducedPom>false</createDependencyReducedPom>
+                    <artifactSet>
+                        <excludes>
+                            <!-- exclude libraries used for testing -->
+                            <exclude>com.badlogicgames.gdx:gdx-backend-headless</exclude>
+                            <exclude>org.mockito:mockito-core</exclude>
+                        </excludes>
+                    </artifactSet>
+                </configuration>
             </plugin>
         </plugins>
         <resources>
