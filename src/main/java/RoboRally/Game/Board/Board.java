@@ -3,6 +3,7 @@ package RoboRally.Game.Board;
 import RoboRally.GUI.RoboRallyApp;
 import RoboRally.Game.Direction;
 import RoboRally.Game.Objects.Robot;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
@@ -163,10 +164,13 @@ public abstract class Board {
      */
     private void onFlag(Robot robot) {
         if (flagLocs[robot.getNextFlag()].equals(robot.getLoc())) {
-            robot.setNextFlag();
-            if (robot.getNextFlag() == flagLocs.length) { app.getGame().setWinner(robot); }
-            else { robot.setSpawnLoc(robot.getLoc()); }
-            System.out.println(robot.getPiece().name()+" Collected FLAG "+robot.getNextFlag());
+            if (robot.getNextFlag() == flagLocs.length-1) { app.getGame().setWinner(robot); }
+            else {
+                robot.setSpawnLoc(robot.getLoc());
+                robot.setNextFlag();
+                System.out.println(robot.getPiece().name()+" Collected FLAG "+robot.getNextFlag());
+            }
+
         }
     }
 

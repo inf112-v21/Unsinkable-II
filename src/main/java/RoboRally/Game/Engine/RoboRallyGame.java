@@ -9,6 +9,7 @@ import RoboRally.Game.Objects.Player;
 import RoboRally.Game.Objects.Robot;
 import RoboRally.Multiplayer.Packets.RoundPacket;
 import RoboRally.GUI.RoboRallyApp;
+import com.badlogic.gdx.Gdx;
 
 import java.util.List;
 import java.util.Queue;
@@ -101,8 +102,10 @@ abstract class RoboRallyGame implements RoboRally {
     @Override
     public void setWinner(Robot robot) {
         stopGame();
-        app.getScreen().dispose();
-        app.setScreen(new GameOverScreen(app, robot.getPiece().toString()));
+        Gdx.app.postRunnable(() -> {
+            app.getScreen().dispose();
+            app.setScreen(new GameOverScreen(app, robot.getPiece().toString()));
+        });
     }
 
 }
