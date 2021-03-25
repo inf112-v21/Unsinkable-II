@@ -7,7 +7,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class RobotTest {
-    Robot robot;
+    IRobot robot;
 
     @BeforeEach
     public void setup(){

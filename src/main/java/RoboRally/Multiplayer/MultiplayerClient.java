@@ -31,13 +31,9 @@ public class MultiplayerClient extends Multiplayer {
         roundPackets = new ArrayList<>();
     }
 
-    public boolean connectTo(String hostIP) {
-        try {
-            client.connect(TIMEOUT, hostIP, tcpPort, udpPort);
-            return true; }
-        catch (Exception e) {
-            System.err.println("Failed to connect to "+hostIP);
-            return false; }
+    public void connectTo(String hostIP) {
+        try { client.connect(TIMEOUT, hostIP, tcpPort, udpPort); }
+        catch (Exception e) { System.err.println("Failed to connect to "+hostIP); }
     }
 
     @Override

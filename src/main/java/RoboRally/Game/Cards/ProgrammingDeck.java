@@ -40,7 +40,10 @@ public class ProgrammingDeck {
     /**
      * Shuffles a deck of program cards.
      */
-    public void shuffle() { Collections.shuffle(this.programCardDeck); }
+    public void shuffle() {
+        this.programCardDeck.addAll(thrownCards);
+         Collections.shuffle(this.programCardDeck);
+    }
 
     /**
      * Draw a card from the deck.

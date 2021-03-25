@@ -101,6 +101,7 @@ public class RoboRallyApp extends Game {
     */
     public void joinNewGame(String hostIP) {
         this.myConnection = new MultiplayerClient(this, hostIP);
+        System.out.println("Waiting for server packet...");
         this.setScreen(new LoadingScreen(this));
         while (!myConnection.start) { } // TODO: Synchronize and add "connecting..." GUI message.
         System.out.println("I am player "+myConnection.startPacket.playerID);

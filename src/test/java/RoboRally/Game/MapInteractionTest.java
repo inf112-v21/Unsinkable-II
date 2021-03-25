@@ -69,34 +69,34 @@ public class MapInteractionTest {
 
     @Test
     public void testRobotRepair() {
-        // we manually run postMoveCheck() since this method is called
+        // we manually run toughCheckpoints() since this method is called
         // in the game loop, which we don't account for here
         int initialHealth = robot.getHealth();
         robot.addDamage();
         ba.rotateRobot(robot, 1);
         ba.moveRobot(robot, Direction.EAST);
-        ba.postMoveCheck(robot);
+        ba.touchCheckpoints(robot);
         ba.rotateRobot(robot, 1);
         ba.moveRobot(robot, Direction.SOUTH);
-        ba.postMoveCheck(robot);
+        ba.touchCheckpoints(robot);
         ba.moveRobot(robot, Direction.SOUTH);
-        ba.postMoveCheck(robot);
+        ba.touchCheckpoints(robot);
         assertEquals(initialHealth, robot.getHealth(), "robot should be repaired");
         assertEquals(robot.getSpawnLoc(), robot.getLoc(), "spawnpoint should be set");
     }
 
     @Test
     public void testRobotWinOnFlag() {
-        int currentFlag = robot.getNextFlag();
+        int currentFlag = robot.touchedFlags();
         ba.moveRobot(robot, Direction.NORTH);
-        ba.postMoveCheck(robot);
+        ba.touchCheckpoints(robot);
         ba.moveRobot(robot, Direction.NORTH);
-        ba.postMoveCheck(robot);
-        assertEquals(currentFlag + 1, robot.getNextFlag(), "one flag captured");
+        ba.touchCheckpoints(robot);
+        assertEquals(currentFlag + 1, robot.touchedFlags(), "one flag captured");
         ba.rotateRobot(robot, 1);
         ba.moveRobot(robot, Direction.EAST);
-        ba.postMoveCheck(robot);
-        assertEquals(currentFlag + 1, robot.getNextFlag(), "two flags captured");
+        ba.touchCheckpoints(robot);
+        assertEquals(currentFlag + 1, robot.touchedFlags(), "two flags captured");
         verify(game).setWinner(robot); // game.setWinner(robot) should be called
     }
 }

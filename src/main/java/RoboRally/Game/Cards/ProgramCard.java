@@ -1,5 +1,7 @@
 package RoboRally.Game.Cards;
 
+import java.util.Objects;
+
 public enum ProgramCard {
     /**
      * Move a robot in the direction it's facing the number of tiles indicated on the card.
@@ -61,9 +63,6 @@ public enum ProgramCard {
     /**
      * @return the name of the card.
      */
-    public String getPath() {
-        if (this.name == null) { return "ProgramCards/Cards/" + BACK + ".png"; }
-        else { return "ProgramCards/Cards/"+this.name+".png"; }
-    }
+    public String getPath() { return "ProgramCards/Cards/" + Objects.requireNonNullElse(this.name, BACK) + ".png"; }
 
 }

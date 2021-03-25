@@ -9,7 +9,6 @@ public class Main {
     /**
      * Runs RoboRallyApp as a libGDX application using Tiled and Kryonet API.
      *
-     * @param args
      */
     public static void main(String[] args) {
         Lwjgl3ApplicationConfiguration cfg = new Lwjgl3ApplicationConfiguration();

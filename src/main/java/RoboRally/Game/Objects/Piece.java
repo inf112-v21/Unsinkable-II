@@ -6,7 +6,6 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.tiles.StaticTiledMapTile;
 
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -22,7 +21,7 @@ public enum Piece {
     PIECE7(7),
     PIECE8(8);
 
-    private final static List<Piece> PIECES = Arrays.asList(PIECE1, PIECE2, PIECE3, PIECE4, PIECE5, PIECE6, PIECE7, PIECE8);
+    private final static List<Piece> PIECES = List.of(PIECE1, PIECE2, PIECE3, PIECE4, PIECE5, PIECE6, PIECE7, PIECE8);
 
     private final TiledMapTileLayer.Cell cell, diedCell, wonCell;
     private final TextureRegion[][] textures = TextureRegion.split(

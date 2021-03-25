@@ -9,6 +9,7 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.math.Vector2;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -156,9 +157,9 @@ public abstract class Board {
      * Checks for side-effects for a given robot after moving. Should be called after a program card has been executed
      * or if a robot has been pushed.
      *
-     * @param robot the robot to check.
+     * @param robots the list of robots to check.
      */
-    public void postMoveCheck(Robot robot) {
+    public void touchCheckpoints(Robot robot) {
         onFlag(robot);
         onRepair(robot);
         onUpgrade(robot);
@@ -170,12 +171,12 @@ public abstract class Board {
      * @param robot = the robot that is on the tile.
      */
     private void onFlag(Robot robot) {
-        if (flagLocs[robot.getNextFlag()].equals(robot.getLoc())) {
-            if (robot.getNextFlag() == flagLocs.length-1) { app.getGame().setWinner(robot); }
+        if (flagLocs[robot.touchedFlags()].equals(robot.getLoc())) {
+            if (robot.touchedFlags() == flagLocs.length-1) { app.getGame().setWinner(robot); }
             else {
                 robot.setSpawnLoc(robot.getLoc());
-                robot.setNextFlag();
-                System.out.println(robot.getPiece().name()+" collected flag "+robot.getNextFlag());
+                robot.touchFlag();
+                System.out.println(robot.getPiece().name()+" collected flag "+robot.touchedFlags());
             }
         }
     }
@@ -207,7 +208,15 @@ public abstract class Board {
 
 
     public void moveBoardElements() {
+        // 1. Express conveyor belts
+        // 2. All conveyor belts
+        // 3. Pushers
+        // 4. Gears
+    }
 
+    public void fireLasers() {
+        // 1. Board lasers
+        // 2. Robot lasers
     }
 
     public TiledMap getBoard() { return this.board;}

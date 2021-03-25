@@ -8,7 +8,11 @@ public class CheatMode extends InputAdapter {
 
     private final RoboRallyApp app;
 
-    public CheatMode(RoboRallyApp app) { this.app = app; }
+    public CheatMode(RoboRallyApp app) {
+
+        this.app = app;
+
+    }
 
     private boolean move(boolean forward) {
         if (forward) { app.getGame().getBoard().moveRobot(
@@ -17,7 +21,7 @@ public class CheatMode extends InputAdapter {
         else { app.getGame().getBoard().moveRobot(
                 app.getGame().getMyPlayer().getRobot(),
                 app.getGame().getMyPlayer().getRobot().getDirection().rotate(2)); }
-        app.getGame().getBoard().postMoveCheck(app.getGame().getMyPlayer().getRobot());
+        app.getGame().getBoard().stepCheck(app.getGame().getMyPlayer().getRobot());
         return true;
     }
 

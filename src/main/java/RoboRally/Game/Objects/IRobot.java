@@ -10,7 +10,7 @@ import java.util.Queue;
 public interface IRobot{
 
 
-    void setNextFlag();
+    void touchFlag();
 
     Vector2 getLoc();
 
@@ -44,12 +44,12 @@ public interface IRobot{
     TiledMapTileLayer.Cell getWonCell();
 
     /**
-     * @return
+     * @return the robot piece.
      */
     Piece getPiece();
 
     /**
-     * @return
+     * @return the robot health
      */
     int getHealth();
 
@@ -74,9 +74,8 @@ public interface IRobot{
     boolean killRobot();
 
     /**
-     *
-     * @return
+     * @return the number of flags successfully touched.
      */
-    int getNextFlag();
+    int touchedFlags();
 
 }
