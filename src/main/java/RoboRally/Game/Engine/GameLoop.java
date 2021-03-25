@@ -39,10 +39,8 @@ public class GameLoop extends RoboRallyGame {
                 round();
                 ++roundNumber;
             }
-            sleep(1000);
         }
     }
-
 
     /**
      * Executes all 5 turns for a full round.
@@ -74,7 +72,7 @@ public class GameLoop extends RoboRallyGame {
             Card card = robot.getRegisters().poll();
             System.out.println("Robot "+robot.getPiece().name()+" Card "+card.getCardType()+" weight "+card.getWeight());
             executeProgramCard(robot, card.getCardType());
-            board.endOfTurnCheck(robot);
+            board.postMoveCheck(robot);
         }
     }
 

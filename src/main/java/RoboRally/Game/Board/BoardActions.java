@@ -35,16 +35,20 @@ public class BoardActions extends Board {
     public boolean moveRobot(Robot robot, Direction dir) {
         if (robotCanGo(robot, dir)) {
             move(robot, dir);
-            if (!inBounds(robot) || inHole(robot)) {
-                removeRobot(robot);
-                robot.killRobot();
-                putRobot(robot);
-                return false;
-            }
+            return stepCheck(robot);
         }
         return true;
     }
 
+    private boolean stepCheck(Robot robot) {
+        if (!inBounds(robot) || inHole(robot)) {
+            removeRobot(robot);
+            robot.killRobot();
+            putRobot(robot);
+            return false;
+        }
+        return true;
+    }
     /**
      * Checks if a robot can go from it's location in a given direction.
      *

@@ -19,16 +19,14 @@ import java.util.Queue;
  */
 abstract class RoboRallyGame implements RoboRally {
     protected RoboRallyApp app;
-    protected volatile boolean stopGame;
-
+    protected Boards boardSelection;
+    protected BoardActions board;
     protected Player myPlayer;
     protected List<Player> players;
 
-    protected Boards boardSelection;
-    protected BoardActions board;
-
     protected int roundNumber;
-    protected boolean nextRound, roundSent;
+
+    protected volatile boolean stopGame, nextRound, roundSent;
 
     /**
      * Executes the robot's program card.
@@ -90,7 +88,7 @@ abstract class RoboRallyGame implements RoboRally {
     }
 
     @Override
-    public void stopGame() { stopGame = true; }
+    public void stopGame() { this.stopGame = true; }
 
     @Override
     public Player getMyPlayer() { return myPlayer; }
@@ -105,6 +103,7 @@ abstract class RoboRallyGame implements RoboRally {
     public void setWinner(Robot robot) {
         stopGame();
         Gdx.app.postRunnable(() -> {
+            System.err.println(app.getScreen().toString());
             app.getScreen().dispose();
             app.setScreen(new GameOverScreen(app, robot.getPiece().toString()));
         });

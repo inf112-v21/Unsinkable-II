@@ -17,7 +17,7 @@ public class CheatMode extends InputAdapter {
         else { app.getGame().getBoard().moveRobot(
                 app.getGame().getMyPlayer().getRobot(),
                 app.getGame().getMyPlayer().getRobot().getDirection().rotate(2)); }
-        app.getGame().getBoard().endOfTurnCheck(app.getGame().getMyPlayer().getRobot());
+        app.getGame().getBoard().postMoveCheck(app.getGame().getMyPlayer().getRobot());
         return true;
     }
 

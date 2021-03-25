@@ -95,7 +95,6 @@ public class PlayerView extends InputAdapter implements Screen {
     public void dispose() {
         playerUI.dispose();
         renderer.dispose();
-        Gdx.app.exit();
     }
 
 }

@@ -34,7 +34,7 @@ public class RoboRallyApp extends Game {
     private final String guiSkinPath = "Skin/rusty-robot-ui.json";
     private final String logoPath = "Logo/logo.png";
 
-    public static final boolean DEBUG = false;
+    public static final boolean DEBUG = true;
 
     //================================================================
     //                         GUI Objects
@@ -46,15 +46,11 @@ public class RoboRallyApp extends Game {
     private MultiplayerHost server;
     private MultiplayerClient myConnection;
     private RoboRally game;
-    protected Thread gameThread;
+    private Thread gameThread;
 
     @Override
     public void create() {
-        if (Gdx.app.getType() == Application.ApplicationType.HeadlessDesktop) {
-            // no need to run the below code in headless mode
-            // remember to respect this if statement if critical non gui/rendering code is added here
-            return;
-        }
+        if (Gdx.app.getType() == Application.ApplicationType.HeadlessDesktop) { return; }
 
         this.GUI_SKIN = new Skin(Gdx.files.internal(guiSkinPath));
         this.stage = new Stage(new ScreenViewport());
@@ -78,7 +74,14 @@ public class RoboRallyApp extends Game {
     }
 
     @Override
-    public void dispose() { Gdx.app.exit(); }
+    public void dispose() {
+        try { gameThread.join(1000, 0); }
+        catch (InterruptedException e) {
+            System.err.println("Failed to stop Game Thread.");
+            gameThread.interrupt();
+        }
+        Gdx.app.exit();
+    }
 
 
     /**

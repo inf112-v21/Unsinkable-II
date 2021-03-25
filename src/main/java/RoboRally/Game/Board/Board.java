@@ -152,13 +152,21 @@ public abstract class Board {
      */
     protected boolean inHole(Robot robot){ return holeLocs.contains(robot.getLoc()); }
 
-    public void endOfTurnCheck(Robot robot) {
+    /**
+     * Checks for side-effects for a given robot after moving. Should be called after a program card has been executed
+     * or if a robot has been pushed.
+     *
+     * @param robot the robot to check.
+     */
+    public void postMoveCheck(Robot robot) {
         onFlag(robot);
-        onWrench(robot);
+        onRepair(robot);
+        onUpgrade(robot);
     }
 
     /**
-     * checks if a robot ends it's turn on a flag
+     * Checks if a robot ends it's turn on a flag
+     *
      * @param robot = the robot that is on the tile.
      */
     private void onFlag(Robot robot) {
@@ -167,25 +175,40 @@ public abstract class Board {
             else {
                 robot.setSpawnLoc(robot.getLoc());
                 robot.setNextFlag();
-                System.out.println(robot.getPiece().name()+" Collected FLAG "+robot.getNextFlag());
+                System.out.println(robot.getPiece().name()+" collected flag "+robot.getNextFlag());
             }
-
         }
     }
 
     /**
-     * check if a robot is on a wrench
-     * @param robot = the robot that is on the tile
+     * Checks if a robot is located on a repair tile.
+     *
+     * @param robot = the robot to check.
      */
-    private void onWrench(Robot robot) {
-        if(repairLocs.contains(robot.getLoc()) || upgradeLocs.contains(robot.getLoc())){
+    private void onRepair(Robot robot) {
+        if(repairLocs.contains(robot.getLoc())) {
             robot.fixDamage();
-            robot.setSpawnLoc(robot.getLoc());}
+            robot.setSpawnLoc(robot.getLoc());
+        }
     }
 
-    //================================================================
-    //                            Getters
-    //================================================================
+    /**
+     * Checks if a robot is located on an upgrade tile.
+     *
+     * @param robot = the robot to check.
+     */
+    private void onUpgrade(Robot robot) {
+        if(upgradeLocs.contains(robot.getLoc())) {
+            robot.fixDamage();
+            robot.setSpawnLoc(robot.getLoc());
+            // TODO: Upgrade card
+        }
+    }
+
+
+    public void moveBoardElements() {
+
+    }
 
     public TiledMap getBoard() { return this.board;}
     public int getBoardWidth() { return boardLayer.getWidth(); }
