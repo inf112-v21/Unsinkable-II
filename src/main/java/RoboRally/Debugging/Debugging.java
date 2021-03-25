@@ -14,10 +14,10 @@ public class Debugging {
     private static Debugging debugging_instance;
 
     private Debugging(boolean active){
-        if (!active){
-            CHEAT_MODE = false;
-            GUI_DEBUG = false;
-            BACKGROUND = false;
+        if (active){
+            CHEAT_MODE = true;
+            GUI_DEBUG = true;
+            BACKGROUND = true;
         }
     }
 

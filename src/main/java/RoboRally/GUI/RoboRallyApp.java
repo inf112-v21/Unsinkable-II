@@ -4,7 +4,7 @@ import RoboRally.Debugging.Debugging;
 import RoboRally.GUI.Screens.Menu.LoadingScreen;
 import RoboRally.GUI.Screens.Menu.MenuScreen;
 import RoboRally.GUI.Screens.Game.PlayerView;
-import RoboRally.GUI.Screens.Menu.Multiplayer.MultiplayerHostScreen;
+import RoboRally.GUI.Screens.Menu.SinglePlayerScreen;
 import RoboRally.Game.Board.Boards;
 import RoboRally.Game.Engine.GameLoop;
 import RoboRally.Game.Engine.RoboRally;
@@ -34,7 +34,7 @@ public class RoboRallyApp extends Game {
     private final String guiSkinPath = "Skin/rusty-robot-ui.json";
     private final String logoPath = "Logo/logo.png";
 
-    public static final boolean DEBUG = true;
+    public static final boolean DEBUG = false;
 
     //================================================================
     //                         GUI Objects
@@ -65,16 +65,13 @@ public class RoboRallyApp extends Game {
 
         Debugging.setInstance(DEBUG);
 
-        if (Debugging.isGuiDebug()) { this.setScreen(new MultiplayerHostScreen(this)); }
+        if (Debugging.isGuiDebug()) { this.setScreen(new SinglePlayerScreen(this)); }
         else { this.setScreen(titleScreen); }
     }
 
     @Override
     public void render () {
-        if (Gdx.app.getType() == Application.ApplicationType.HeadlessDesktop) {
-            // rendering is not needed in headless mode
-            return;
-        }
+        if (Gdx.app.getType() == Application.ApplicationType.HeadlessDesktop) { return; } // Prevents rendering during testing.
         super.render();
         stage.act();
         stage.draw();
@@ -84,6 +81,7 @@ public class RoboRallyApp extends Game {
     public void dispose() {
         gameThread.interrupt();
         stage.dispose();
+        Gdx.app.exit();
     }
 
 

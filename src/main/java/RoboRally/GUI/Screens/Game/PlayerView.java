@@ -4,7 +4,6 @@ import RoboRally.Debugging.CheatMode;
 import RoboRally.Debugging.Debugging;
 import RoboRally.GUI.RoboRallyApp;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
