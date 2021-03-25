@@ -32,7 +32,7 @@ public class BoardTest {
 
     @BeforeEach
     public void putRobot() {
-        ba = new BoardActions(app, Boards.RISKY_EXCHANGE);
+        ba = new BoardActions(app, Boards.JUNIT_TEST_MAP);
         robot = new Robot(Piece.PIECE1);
         ba.addNewPlayer(robot, 1);
         layer = (TiledMapTileLayer) ba.getBoard().getLayers().get("Player");
