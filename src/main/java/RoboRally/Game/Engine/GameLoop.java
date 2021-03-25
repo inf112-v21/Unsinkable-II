@@ -12,7 +12,7 @@ import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 
-public class GameLoop extends RoboRallyGame implements RoboRally {
+public class GameLoop extends RoboRallyGame {
 
     public GameLoop(RoboRallyApp app, Boards boardSelection, int playerID) {
         this.app = app;

@@ -20,13 +20,15 @@ import java.util.Queue;
 abstract class RoboRallyGame implements RoboRally {
     protected RoboRallyApp app;
     protected volatile boolean stopGame;
+
+    protected Player myPlayer;
     protected List<Player> players;
+
     protected Boards boardSelection;
     protected BoardActions board;
-    protected Player myPlayer;
+
     protected int roundNumber;
     protected boolean nextRound, roundSent;
-
 
     /**
      * Executes the robot's program card.
