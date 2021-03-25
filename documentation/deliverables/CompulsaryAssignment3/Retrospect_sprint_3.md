@@ -52,9 +52,12 @@ Dette kan gi en unaturlig høy andel av linjer for dette gruppemedlemmet.
 Gruppen har likevel valgt å fortsette med denne strategien, 
 da det er naturlig at en person har ansvar for protokoller og innkallinger.
 
-Det har også vært et problem for prosjektet med en vak testdekning. 
+Det har også vært et problem for prosjektet med en svak testdekning. 
 Dette problemet kom delvis av at gruppen ikke prioriterte TTD, 
 men heller valgte å legge testene til etterhvert i prosessen, samt utstrakt bruk av manuell testing og print-til-terminal. 
 Dette har gruppen tatt hensyn til, og en av gruppemedlemmene er nå ansvarlig for utvikling av tester. 
 Gruppen regner dette som en løsning på både de problemene som har kommet med commit, 
 samt de problemene som har kommet av manglende testdekning. 
+
+Denne sprinten var den der gruppen kjente mest på kommunikasjonsproblemer. Dette har gruppen løst med klarere tilbakemeldinger
+innad i gruppen.
