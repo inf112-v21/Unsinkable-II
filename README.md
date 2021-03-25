@@ -105,16 +105,17 @@ See [issues](https://github.com/inf112-v21/Unsinkable-II/issues)
 
 [Feb/25/2001](documentation/deliverables/minutesOfMeetings/minutes_25.02.21.md)
 
-[Mar/03/2001](documentation/deliverables/minutesOfMeetings/minutes_03.01.21.md)
+[Mar/01/2001](documentation/deliverables/minutesOfMeetings/minutes_03.01.21.md)
+
+[Mar/08/2001](documentation/deliverables/minutesOfMeetings/minutes_08.03.21.md)
+
+[Mar/15/2001](documentation/deliverables/minutesOfMeetings/minutes_15.03.21.md)
+
+[Mar/22/2001](documentation/deliverables/minutesOfMeetings/minutes_22.03.21.md)
 
 ### User Stories
-[User Story 1](documentation/deliverables/compulsoryAssignment1/userStories/UserStory1.md)
-
-[User Story 2](documentation/deliverables/compulsoryAssignment1/userStories/UserStory2.md)
-
-[User Story 3](documentation/deliverables/compulsoryAssignment1/userStories/UserStory3.md)
-
-[User Story 4](documentation/deliverables/compulsoryAssignment1/userStories/UserStory4.md)
+User stories ligger etter Sprint 2 i Project board på Git-Hub.
+[User Stories](https://github.com/inf112-v21/Unsinkable-II/projects)
 
 ### Diagrams
 [Proposed RoboRally.Game flow](documentation/deliverables/compulsoryAssignment1/RoboRally%20Flowchart.pdf)
@@ -122,7 +123,9 @@ See [issues](https://github.com/inf112-v21/Unsinkable-II/issues)
 [Project board](https://github.com/inf112-v21/Unsinkable-II/issues)
 
 ### Retrospect
-[Retrospect 2](documentation/deliverables/CompulsaryAssignment2/Retrospect.md)
+[Retrospect for sprint 2](documentation/deliverables/CompulsaryAssignment2/Retrospect.md)
+
+[Retrospect for sprint 3](documentation/deliverables/CompulsaryAssignment3/Retrospect_sprint_3.md)
 
 ### Git
 [Git instructions](documentation/CONTRIBUTING.md)
