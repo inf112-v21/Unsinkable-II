@@ -1,6 +1,7 @@
 package RoboRally.GUI;
 
 import RoboRally.Debugging.Debugging;
+import RoboRally.GUI.Screens.Menu.LoadingScreen;
 import RoboRally.GUI.Screens.Menu.MenuScreen;
 import RoboRally.GUI.Screens.Game.PlayerView;
 import RoboRally.GUI.Screens.Menu.Multiplayer.MultiplayerHostScreen;
@@ -80,7 +81,10 @@ public class RoboRallyApp extends Game {
     }
 
     @Override
-    public void dispose() { stage.dispose(); }
+    public void dispose() {
+        gameThread.interrupt();
+        stage.dispose();
+    }
 
 
     /**
@@ -100,6 +104,7 @@ public class RoboRallyApp extends Game {
     */
     public void joinNewGame(String hostIP) {
         this.myConnection = new MultiplayerClient(this, hostIP);
+        this.setScreen(new LoadingScreen(this));
         while (!myConnection.start) { } // TODO: Synchronize and add "connecting..." GUI message.
         System.out.println("I am player "+myConnection.startPacket.playerID);
         startGame(myConnection.startPacket.boardSelection, myConnection.startPacket.playerID);

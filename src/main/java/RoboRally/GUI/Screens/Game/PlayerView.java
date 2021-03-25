@@ -4,6 +4,7 @@ import RoboRally.Debugging.CheatMode;
 import RoboRally.Debugging.Debugging;
 import RoboRally.GUI.RoboRallyApp;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.GL20;
@@ -49,13 +50,13 @@ public class PlayerView extends InputAdapter implements Screen {
 
         renderer = new OrthogonalTiledMapRenderer(app.getGame().getBoard().getBoard(),  1f/ RoboRallyApp.TILE_SIZE);
         renderer.setView(camera);
-
-        if(Debugging.isCheatMode()) { Gdx.input.setInputProcessor(new CheatMode(app)); }
-        else Gdx.input.setInputProcessor(playerUI.getStage());
     }
 
     @Override
-    public void show() {}
+    public void show() {
+        if(Debugging.isCheatMode()) { Gdx.input.setInputProcessor(new CheatMode(app)); }
+        else Gdx.input.setInputProcessor(playerUI.getStage());
+    }
 
     @Override
     public void render(float delta) {
@@ -96,4 +97,5 @@ public class PlayerView extends InputAdapter implements Screen {
         playerUI.dispose();
         renderer.dispose();
     }
+
 }

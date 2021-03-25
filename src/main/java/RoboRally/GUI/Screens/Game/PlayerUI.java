@@ -186,7 +186,7 @@ public class PlayerUI {
     }
 
     /**
-     * Dispose.
+     * Dispose .
      */
     public void dispose(){ stage.dispose(); }
 

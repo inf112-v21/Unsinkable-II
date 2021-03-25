@@ -27,7 +27,7 @@ public abstract class Multiplayer extends Listener implements Networking {
     protected List<RoundPacket> roundPackets;
     public StartPacket startPacket;
     protected RoboRallyApp app;
-    public boolean start = false;
+    public volatile boolean start = false;
 
 
     /**

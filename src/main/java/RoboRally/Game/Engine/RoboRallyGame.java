@@ -19,7 +19,7 @@ import java.util.Queue;
  */
 abstract class RoboRallyGame implements RoboRally {
     protected RoboRallyApp app;
-    protected boolean stopGame;
+    protected volatile boolean stopGame;
     protected List<Player> players;
     protected Boards boardSelection;
     protected BoardActions board;
