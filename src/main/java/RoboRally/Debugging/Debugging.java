@@ -8,8 +8,8 @@ package RoboRally.Debugging;
 public class Debugging {
 
     private static boolean CHEAT_MODE = false;
-    private static boolean GUI_DEBUG = true;
-    private static boolean BACKGROUND = true;
+    private static boolean GUI_DEBUG = false;
+    private static boolean BACKGROUND = false;
 
     private static Debugging debugging_instance;
 
@@ -34,7 +34,7 @@ public class Debugging {
         return GUI_DEBUG;
     }
 
-    public static boolean isBACKGROUND() {
+    public static boolean isBackground() {
         return BACKGROUND;
     }
 }

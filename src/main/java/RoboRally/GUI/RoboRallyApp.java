@@ -6,6 +6,7 @@ import RoboRally.GUI.Screens.Game.PlayerView;
 import RoboRally.GUI.Screens.Menu.Multiplayer.MultiplayerHostScreen;
 import RoboRally.Game.Board.Boards;
 import RoboRally.Game.Engine.GameLoop;
+import RoboRally.Game.Engine.RoboRally;
 import RoboRally.Multiplayer.MultiplayerClient;
 import RoboRally.Multiplayer.MultiplayerHost;
 import com.badlogic.gdx.Application;
@@ -43,7 +44,7 @@ public class RoboRallyApp extends Game {
 
     private MultiplayerHost server;
     private MultiplayerClient myConnection;
-    private GameLoop game;
+    private RoboRally game;
     protected Thread gameThread;
 
     @Override
@@ -53,8 +54,10 @@ public class RoboRallyApp extends Game {
             // remember to respect this if statement if critical non gui/rendering code is added here
             return;
         }
+
         this.GUI_SKIN = new Skin(Gdx.files.internal(guiSkinPath));
         this.stage = new Stage(new ScreenViewport());
+
         Gdx.input.setInputProcessor(stage);
 
         this.titleScreen = new TitleScreen(this);
@@ -119,7 +122,7 @@ public class RoboRallyApp extends Game {
     /**
      * @return the RoboRally game being played.
      */
-    public GameLoop getGame() { return game; }
+    public RoboRally getGame() { return game; }
 
     /**
      * @return the RoboRally game stage.
