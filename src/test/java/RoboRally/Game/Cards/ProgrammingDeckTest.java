@@ -20,10 +20,12 @@ public class ProgrammingDeckTest {
         Stack<Card> shuffled = new ProgrammingDeck().getDeck();
         Stack<Card> unshuffled = ProgrammingDeck.getNewDeck();
 
+        // bool array where each element i tells wether or not shuffled_i == unshuffled_i
         boolean[] equalsPerCard = new boolean[shuffled.size()];
         for (int i = 0; i < shuffled.size(); i++) {
             equalsPerCard[i] = shuffled.get(i).getCardType().equals(unshuffled.get(i).getCardType());
         }
+        // then check is all elements of equalsPerCard are true
         boolean areEqual = true;
         for (boolean b : equalsPerCard) {
             if (!b) {

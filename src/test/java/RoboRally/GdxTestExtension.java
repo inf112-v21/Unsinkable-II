@@ -10,6 +10,11 @@ import org.junit.jupiter.api.extension.ExtensionContext;
 
 import static org.mockito.Mockito.mock;
 
+/**
+ * This class is used with other test classes with the `ExtendsWith` annotation.
+ * It starts the game in headless mode, so that libgdx is initialized, which is
+ * required for some tests.
+ */
 public class GdxTestExtension implements BeforeAllCallback {
     @Override
     public void beforeAll(ExtensionContext context) throws Exception {
