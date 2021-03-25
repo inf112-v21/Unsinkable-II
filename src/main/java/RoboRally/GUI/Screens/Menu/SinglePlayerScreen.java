@@ -1,7 +1,8 @@
 package RoboRally.GUI.Screens.Menu;
 
-import RoboRally.Game.Board.Boards;
 import RoboRally.GUI.RoboRallyApp;
+import RoboRally.Game.Board.Boards;
+
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.SelectBox;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
@@ -11,10 +12,11 @@ public class SinglePlayerScreen extends MenuScreenAdapter{
     private final SelectBox<Object> box;
 
     public SinglePlayerScreen(RoboRallyApp app) {
+
         super(app);
+
         addHeading("Single Player RoboRally");
         this.box = addSelectBox(Boards.ALL_BOARDS, true);
-
         addButton("Start RoboRally", true, StartGameListener());
         addButton("Back", true, BackButtonListener());
     }
@@ -33,7 +35,7 @@ public class SinglePlayerScreen extends MenuScreenAdapter{
      */
     private void startPressed() {
         try { app.hostNewGame((Boards) box.getSelected()); }
-        catch (Exception e) { e.printStackTrace(); }// TODO: Display error message in GUI.
+        catch (Exception e) { System.err.println("Error! Unable to get board selection."); }// TODO: Display error message in GUI.
     }
 
 }

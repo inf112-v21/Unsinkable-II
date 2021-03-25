@@ -1,15 +1,14 @@
 package RoboRally.GUI.Screens.Menu.Multiplayer;
 
+import RoboRally.GUI.RoboRallyApp;
+import RoboRally.GUI.Screens.Menu.MenuScreenAdapter;
 import RoboRally.Game.Board.Boards;
 import RoboRally.Multiplayer.Multiplayer;
+
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.SelectBox;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
-
-import RoboRally.GUI.Screens.Menu.MenuScreenAdapter;
-import RoboRally.GUI.RoboRallyApp;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 import java.io.BufferedReader;
@@ -26,9 +25,9 @@ public class MultiplayerHostScreen extends MenuScreenAdapter {
     private final TextField portField;
     private final SelectBox<Object> box;
 
-    public MultiplayerHostScreen(RoboRallyApp game) {
+    public MultiplayerHostScreen(RoboRallyApp app) {
 
-        super(game);
+        super(app);
 
         addHeading("Host Multiplayer RoboRally");
         this.ip = getIP();
@@ -57,17 +56,6 @@ public class MultiplayerHostScreen extends MenuScreenAdapter {
     }
 
     /**
-     * Helper method for HostGameListener
-     */
-    private void hostPressed() {
-        try {
-            //port = Integer.parseInt(portField.getText()); // TODO: turn back on port field
-            app.hostNewGame((Boards) box.getSelected());
-        }
-        catch (Exception e) { e.printStackTrace(); }// TODO: Display error message in GUI.
-    }
-
-    /**
      * Listener that starts a new host server and a new game using the selected board.
      *
      * @return InputListener for Host RoboRally button.
@@ -77,21 +65,31 @@ public class MultiplayerHostScreen extends MenuScreenAdapter {
             public void clicked(InputEvent event, float x, float y) { hostPressed(); }
         }; }
 
+        /**
+     * Helper method for HostGameListener
+     */
+    private void hostPressed() {
+        try {
+            port = Integer.parseInt(portField.getText()); // TODO: turn back on port field
+            app.hostNewGame((Boards) box.getSelected());
+        }
+        catch (Exception e) { System.err.println("Error! Unable to get board selection."); }// TODO: Display error message in GUI.
+    }
+
     /**
      * Listener that reads integers from the port field.
      *
      * @return InputListener for the port field.
      */
-    public InputListener PortFieldListener() {
-        return new InputListener() {
+    public ClickListener PortFieldListener() {
+        return new ClickListener() {
             @Override
-            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+            public void clicked(InputEvent event, float x, float y) {
                 try { port = Integer.parseInt(portField.getText()); }
-                catch(Exception e) { e.printStackTrace(); } // TODO: Display error message in GUI. Use ipLabel?
+                catch(Exception e) { System.err.println("Error! Unable to get text from field."); }
             }
-            @Override
-            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) { return true; }
         };
+
     }
 
 }

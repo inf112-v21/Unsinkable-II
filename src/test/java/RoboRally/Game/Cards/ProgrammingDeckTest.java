@@ -10,9 +10,9 @@ public class ProgrammingDeckTest {
     @Test
     void drawCardReducesStackSize(){
         ProgrammingDeck deck = new ProgrammingDeck();
-        assertEquals(84, deck.Size());
+        assertEquals(84, deck.getSize());
         deck.getHand(1);
-        assertEquals(83, deck.Size());
+        assertEquals(83, deck.getSize());
     }
 
     @Test

@@ -22,19 +22,12 @@ public class Debugging {
     }
 
     public static void setInstance(boolean active) {
-        if (debugging_instance == null)
-            debugging_instance = new Debugging(active);
+        if (debugging_instance == null) { debugging_instance = new Debugging(active); }
     }
 
-    public static boolean isCheatMode() {
-        return CHEAT_MODE;
-    }
+    public static boolean isCheatMode() { return CHEAT_MODE; }
 
-    public static boolean isGuiDebug() {
-        return GUI_DEBUG;
-    }
+    public static boolean isGuiDebug() { return GUI_DEBUG; }
 
-    public static boolean isBackground() {
-        return BACKGROUND;
-    }
+    public static boolean isBACKGROUND() { return BACKGROUND; }
 }

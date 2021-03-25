@@ -50,7 +50,7 @@ public class ProgrammingDeck {
     private Card drawCard() { return programCardDeck.pop(); }
 
     /**
-     * Should only be used by multiplayer host class.
+     * Should only be used by multiplayer host class to start the game.
      *
      * @param num number of cards in hand.
      * @return the hand.
@@ -62,7 +62,7 @@ public class ProgrammingDeck {
     }
 
     /**
-     * Will be implemented at a later stage, when roundlogic is safe
+     * Should ALWAYS be used after initial distribution of cards.
      *
      * @param robot to be programmed.
      * @return program cards to program robot registry
@@ -83,7 +83,7 @@ public class ProgrammingDeck {
     /**
      * @return the number of cards currently in the deck.
      */
-    public int Size() { return programCardDeck.size(); }
+    public int getSize() { return programCardDeck.size(); }
 
     public Stack<Card> getDeck() {
         return programCardDeck;

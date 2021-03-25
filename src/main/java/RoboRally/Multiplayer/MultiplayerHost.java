@@ -23,7 +23,7 @@ public class MultiplayerHost extends Multiplayer {
         register(server);
         server.start();
         try { server.bind(tcpPort, udpPort); }
-        catch (Exception e) { e.printStackTrace(); }
+        catch (Exception e) { System.err.println("Error! Server is unable to bind ports."); }
         server.addListener(this);
 
         connections = new HashSet<>();

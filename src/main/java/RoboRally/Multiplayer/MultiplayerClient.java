@@ -36,8 +36,7 @@ public class MultiplayerClient extends Multiplayer {
             client.connect(TIMEOUT, hostIP, tcpPort, udpPort);
             return true; }
         catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("Failed to connect to "+hostIP);
+            System.err.println("Failed to connect to "+hostIP);
             return false; }
     }
 
@@ -48,6 +47,7 @@ public class MultiplayerClient extends Multiplayer {
             if(start) { app.getGame().addPlayer(startPacket.playerID);}
             else start = true;
             System.out.println("New Player " + startPacket.playerID);
+            System.out.println("Start is " + start);
         }
         else if (transmission instanceof PlayerHandPacket) {
             this.hand = (PlayerHandPacket) transmission;

@@ -106,6 +106,7 @@ public class RoboRallyApp extends Game {
     }
 
     public void startGame(Boards boardSelection, int playerID) {
+        System.out.println("Starting Game");
         this.game = new GameLoop(this, boardSelection, playerID);
         this.gameThread = new Thread(game, "Game Thread");
         gameThread.start();
