@@ -74,3 +74,8 @@ Denne sprinten tydeliggjorde gruppen sine utfordringer med kommunikasjon. Gruppe
 tone i kommunikasjonen seg imellom, og har da ikke klart å formidle budskapet på en tilstrekkelig måte. Dette har ført til 
 missforståelser som har økt behovet for møtevirksomhet og dermed har gruppen fått mindre tid til utvikling. 
 Dette har gruppen løst med klarere tilbakemeldinger innad i gruppen og mer direkte kommunikasjon. 
+
+###Forandringer i gruppestruktur
+Vegard Haugland har fått ansvar for grafisk design, og kommer fremover til å konsentrere seg om GUI, libgx, assets, og grafikk.
+
+Daniel Liland har fått ansvar for testing, og test-enviroment. Han kommer fremmover til å jobbe mot ett velfungerende testmiljø.
