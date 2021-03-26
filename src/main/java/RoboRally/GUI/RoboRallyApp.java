@@ -28,13 +28,13 @@ public class RoboRallyApp extends Game {
     //================================================================
     public static final String GAME_TITLE = "RoboRally";
     public static final int TILE_SIZE = 100;
-    public static final String ROBOT_SKINS_PATH = "Robots/RobotsV2.5.png";
+    public static final String ROBOT_SKINS_PATH = "Robots/RobotsV3.png";
 
     private final String groupName = "Unsinkable-II";
     private final String guiSkinPath = "Skin/rusty-robot-ui.json";
     private final String logoPath = "Logo/logo.png";
 
-    public static final boolean DEBUG = true;
+    public static final boolean DEBUG = false;
 
     //================================================================
     //                         GUI Objects
