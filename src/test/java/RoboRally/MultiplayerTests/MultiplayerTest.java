@@ -1,33 +1,40 @@
 package RoboRally.MultiplayerTests;
 
+import RoboRally.Game.Board.Boards;
 import RoboRally.Multiplayer.MultiplayerClient;
 import RoboRally.Multiplayer.MultiplayerHost;
+import RoboRally.GUI.RoboRallyApp;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 public class MultiplayerTest {
+    static RoboRallyApp app;
+    static MultiplayerHost host;
+    static MultiplayerClient client;
 
-    @Test
-    public void HostServerStarts() {
-        MultiplayerHost mph = new MultiplayerHost();
+    @BeforeAll
+    public static void setup() {
+        app = new RoboRallyApp();
+        host = new MultiplayerHost(Boards.JUNIT_TEST_MAP);
+        client = new MultiplayerClient(app, "localhost");
+        try { Thread.sleep(500); }
+        catch (InterruptedException e) { System.err.println("Error! Thread interrupted."); }
     }
 
     @Test
-    public void ClientCanConnectToHost() throws InterruptedException {
-        MultiplayerHost mph = new MultiplayerHost();
-        MultiplayerClient mpc = new MultiplayerClient("127.0.0.1", 18888);
-    }
+    public void ClientCanConnectToHost() { assertTrue(client.getClient().isConnected()); }
 
     @Test
-    public void ClientCanSendPacket() {}
+    public void ClientReceivesPacketFromHost() { assertEquals(1, client.startPacket.playerID); }
 
     @Test
-    public void HostCanSendPacket() {}
+    public void ClientReceivesHandFromHost() { assertEquals(9, client.getHand().size()); }
 
-    @Test
-    public void ClientCanReceivePacket() {}
-
-    @Test
-    public void HostCanReceivePacket() {}
-
+    @AfterAll
+    public static void stopServer() { host.getServer().stop(); }
 
 }

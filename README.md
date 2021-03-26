@@ -14,12 +14,12 @@ University of Bergen.
    1. [Testing](#testing)
 4. [Developers](#developers)
 5. [Documents](#documents)
-6. [About](#About)
-7. [Minutes from meetings](#Meeting Minutes)
-8. [User Stories](#User Stories)
-9. [Diagrams](#Diagram)
-10. [Retrospect](#Retrospect)
-11. [Contributing to Git](#Git)
+6. [About](#about)
+7. [Minutes from meetings](#meeting-minutes)
+8. [User Stories](#user-stories)
+9. [Diagrams](#diagrams)
+10. [Retrospect](#retrospect)
+11. [Contributing to Git](#git)
 
 ## Overview
 This project's goal is to make a fully functional and playable version of
@@ -88,9 +88,10 @@ See [issues](https://github.com/inf112-v21/Unsinkable-II/issues)
 ## Contributing:
 
 ### About
-[Unsinkable-II](documentation/deliverables/CompulsoryAssignment1/about.md)
 
-[Group dynamics](documentation/deliverables/CompulsoryAssignment1/ComplulsoryAssignment1.md)
+[Unsinkable-II](documentation/deliverables/Assignment1/about.md)
+
+[Group dynamics](documentation/deliverables/Assignment1/ComplulsoryAssignment1.md)
 
 ### Meeting Minutes
 [Feb/01/2021](documentation/deliverables/MinutesOfMeetings/2021.02.01.md)
@@ -114,18 +115,18 @@ See [issues](https://github.com/inf112-v21/Unsinkable-II/issues)
 [Mar/22/2001](documentation/deliverables/MinutesOfMeetings/minutes_22.03.21.md)
 
 ### User Stories
-User Stories is located online, at 
+User Stories is located online, at
 [User Stories reposatory](https://github.com/inf112-v21/Unsinkable-II/projects)
 
 ### Diagrams
-[Proposed RoboRally.Game flow](documentation/deliverables/CompulsoryAssignment1/RoboRally%20Flowchart.pdf)
+[Proposed RoboRally.Game flow](documentation/deliverables/Assignment1/RoboRally%20Flowchart.pdf)
 
 [Project board](https://github.com/inf112-v21/Unsinkable-II/issues)
 
 ### Retrospect
-[Retrospect for sprint 2](documentation/deliverables/CompulsaryAssignment2/Retrospect.md)
+[Retrospect for sprint 2](documentation/deliverables/Assignment2/Retrospect.md)
 
-[Retrospect for sprint 3](documentation/deliverables/CompulsaryAssignment3/Retrospect_sprint_3.md)
+[Retrospect for sprint 3](documentation/deliverables/Assignment3/Retrospect.md)
 
 ### Git
 [Git instructions](documentation/CONTRIBUTING.md)

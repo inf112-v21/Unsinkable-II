@@ -1,24 +1,81 @@
 package RoboRally.Game.Objects;
 
+import RoboRally.Game.Cards.Card;
 import RoboRally.Game.Direction;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Vector2;
 
-public interface IRobot {
+import java.util.Queue;
 
-    Direction heading();
+public interface IRobot{
 
-    void setHeading(Direction dir);
 
-    void setLoc(Vector2 newLoc);
-
-    void setLoc(float x, float y);
+    void touchFlag();
 
     Vector2 getLoc();
 
-    //TiledMapTileLayer.Cell getCell();
+    void setLoc(Vector2 newLoc);
 
-    //TiledMapTileLayer.Cell getDiedCell();
+    Vector2 getSpawnLoc();
 
-    //TiledMapTileLayer.Cell getWonCell();
+    void setSpawnLoc(Vector2 newLoc);
+
+    Direction getDirection();
+
+    void setDirection(Direction dir);
+
+    Queue<Card> getRegisters();
+
+    void setRegisters(Queue<Card> hand);
+
+    /**
+     * @return robot normal cell.
+     */
+    TiledMapTileLayer.Cell getCell();
+
+    /**
+     * @return robot died cell.
+     */
+    TiledMapTileLayer.Cell getDiedCell();
+
+    /**
+     * @return robot won cell.
+     */
+    TiledMapTileLayer.Cell getWonCell();
+
+    /**
+     * @return the robot piece.
+     */
+    Piece getPiece();
+
+    /**
+     * @return the robot health
+     */
+    int getHealth();
+
+    /**
+     *
+     * @return life of robot
+     */
+    int getLives();
+
+    /**
+     * gives the Robot one damage when encountering a hazard.
+     */
+    void addDamage();
+
+    void fixDamage();
+
+    /**
+     * Removes one life from robot and resets damage.
+     *
+     * @return true if robot has another life, false if not.
+     */
+    boolean killRobot();
+
+    /**
+     * @return the number of flags successfully touched.
+     */
+    int touchedFlags();
+
 }

@@ -36,6 +36,11 @@
             <version>1.9.10</version>
         </dependency>
         <dependency>
+            <groupId>com.badlogicgames.gdx</groupId>
+            <artifactId>gdx-backend-headless</artifactId>
+            <version>1.9.10</version>
+        </dependency>
+        <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
             <version>5.5.2</version>
@@ -106,10 +111,6 @@
                 <version>3.7.1</version>
             </plugin>
             <plugin>
-                <artifactId>maven-project-info-reports-plugin</artifactId>
-                <version>3.0.0</version>
-            </plugin>
-            <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>
                 <version>1.2.1</version>
@@ -130,6 +131,16 @@
                         </goals>
                     </execution>
                 </executions>
+                <configuration>
+                    <createDependencyReducedPom>false</createDependencyReducedPom>
+                    <artifactSet>
+                        <excludes>
+                            <!-- exclude libraries used for testing -->
+                            <exclude>com.badlogicgames.gdx:gdx-backend-headless</exclude>
+                            <exclude>org.mockito:mockito-core</exclude>
+                        </excludes>
+                    </artifactSet>
+                </configuration>
             </plugin>
         </plugins>
         <resources>

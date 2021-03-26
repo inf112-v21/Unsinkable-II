@@ -1,33 +1,25 @@
 package RoboRally.Game.Objects;
 
-import RoboRally.Game.Cards.ProgramCard;
-import RoboRally.Game.Objects.Piece;
-import RoboRally.Game.Objects.Robot;
+import RoboRally.Game.Cards.Card;
 
-
-import java.util.ArrayList;
 import java.util.List;
 
 public class Player {
-    private Piece piece;
+    private final int id;
     private final Robot robot;
-    private final List<ProgramCard> hand;
+    private List<Card> hand;
 
     public Player(int id){
-        this.piece = Piece.PIECE1.get(id);
-        hand = new ArrayList<>(5);
-        robot = new Robot();
-
-        //TODO: Temp. Why does it exist? Makes TESTING hand.
-        for (int i = 0; i < 5 ; i++) { hand.add(ProgramCard.MOVE_1); }
+        this.id = id;
+        this.robot = new Robot(Piece.getPieceByID(id));
     }
 
-    public List<ProgramCard> getHand() { return this.hand; }
+    public List<Card> getHand() { return this.hand; }
+
+    public void setHand(List<Card> newHand) { this.hand = newHand; }
+
+    public int getID() { return this.id; }
 
     public Robot getRobot() { return this.robot; }
-
-    public Piece getPiece() {
-        return piece;
-    }
 }
 
