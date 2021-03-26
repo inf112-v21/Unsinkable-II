@@ -77,7 +77,6 @@ Current developers of this project
 ## Documents
 For further documents related to this project and assignments, see
 [documents.md](./documentation/documents.md).
-=======
 
 ## How to run:
 Run 
