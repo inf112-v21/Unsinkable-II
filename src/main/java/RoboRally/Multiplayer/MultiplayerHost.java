@@ -86,4 +86,6 @@ public class MultiplayerHost extends Multiplayer {
         roundPackets = new ArrayList<>();
     }
 
+    public Server getServer() { return server; }
+
 }

@@ -8,9 +8,8 @@ import java.util.Set;
  */
 public enum TileID {
 
-    /**
-     * Start positions.
-     */
+
+    // Start
     START_1(121),
     START_2(122),
     START_3(123),
@@ -20,22 +19,19 @@ public enum TileID {
     START_7(131),
     START_8(132),
 
-    /**
-     * Flags.
-     */
+
+    //Flags
     FLAG_1(55),
     FLAG_2(63),
     FLAG_3(71),
     FLAG_4(79),
 
-    /**
-     * Holes.
-     */
+
+    //Holes
     HOLE(6),
 
-    /**
-     * Fast Conveyor belts.
-     */
+
+    // Fast Conveyor belts
     BELT_FAST_N(13),
     BELT_FAST_E(14),
     BELT_FAST_W_TO_S(17),
@@ -49,9 +45,8 @@ public enum TileID {
     BELT_FAST_W_TO_N(27),
     BELT_FAST_S_TO_W(28),
 
-    /**
-     * Normal conveyor belts
-     */
+
+    // Normal conveyor belts
     BELT_W_TO_S(33),
     BELT_N_TO_W(34),
     BELT_N_TO_E(35),
@@ -65,9 +60,8 @@ public enum TileID {
     BELT_W(51),
     BELT_E(52),
 
-    /**
-     * Special Normal Conveyor belts
-     */
+
+    // Special Normal Conveyor belts
     BELT_N_E_TURN_L(57),
     BELT_E_S_TURN_L(58),
     BELT_S_W_TURN_L(59),
@@ -81,9 +75,8 @@ public enum TileID {
     BELT_N_W_TURN_R_E_TURN_L(69),
     BELT_W_S_TURN_R_N_TURN_L(70),
 
-    /**
-     * Special Fast Conveyor belts
-     */
+
+    //Special Fast Conveyor belts
     BELT_FAST_N_E_TURN_L(73),
     BELT_FAST_E_S_TURN_L(74),
     BELT_FAST_S_W_TURN_L(75),
@@ -97,20 +90,23 @@ public enum TileID {
     BELT_FAST_N_W_TURN_R_E_TURN_L(85),
     BELT_FAST_W_S_TURN_R_N_TURN_L(86),
 
-    /**
-     * Laser beams
-     */
+    // Laser beams
     LASER_HORIZONTAL(39),
     LASER_VERTICAL(47),
     LASER_CROSSED(40),
 
+    // Double laser beams
     LASER_DOUBLE_HORIZONTAL(102),
     LASER_DOUBLE_VERTICAL(103),
     LASER_DOUBLE_CROSSED(101),
 
-    /**
-     * Walls
-     */
+
+    // Gears
+    GEAR_LEFT(53),
+    GEAR_RIGHT(54),
+
+
+    // Walls
     WALL_E(23),
     WALL_S(29),
     WALL_W(30),
@@ -132,64 +128,51 @@ public enum TileID {
     LASER_WALL_DOUBLE_E(95);
 
 
-    public final static List<TileID> START_POSITIONS = List.of(START_1, START_2, START_3, START_4, START_5, START_6, START_7, START_8);
-
-    /**
-     *Flags
-     */
-    public final static List<TileID> FLAGS = List.of(FLAG_1, FLAG_2, FLAG_3, FLAG_4);
-
-    /**
-     * Walls
-     */
-    public final static Set<Integer> WALLS_NORTH = Set.of(WALL_N.getId(), WALL_NE.getId(), WALL_NW.getId(),
+    public static final List<TileID> START_POSITIONS = List.of(START_1, START_2, START_3, START_4, START_5, START_6, START_7, START_8);
+    
+    public static final Set<Integer> WALLS_NORTH = Set.of(WALL_N.getId(), WALL_NE.getId(), WALL_NW.getId(),
             LASER_WALL_N.getId(), LASER_WALL_DOUBLE_N.getId());
-    public final static Set<Integer> WALLS_WEST = Set.of(WALL_W.getId(), WALL_NW.getId(), WALL_SW.getId(),
+    public static final Set<Integer> WALLS_WEST = Set.of(WALL_W.getId(), WALL_NW.getId(), WALL_SW.getId(),
             LASER_WALL_W.getId(), LASER_WALL_DOUBLE_W.getId());
-    public final static Set<Integer> WALLS_SOUTH = Set.of(WALL_S.getId(), WALL_SW.getId(), WALL_SE.getId(),
+    public static final Set<Integer> WALLS_SOUTH = Set.of(WALL_S.getId(), WALL_SW.getId(), WALL_SE.getId(),
             LASER_WALL_S.getId(), LASER_WALL_DOUBLE_S.getId());
-    public final static Set<Integer> WALLS_EAST = Set.of(WALL_E.getId(), WALL_SE.getId(), WALL_NE.getId(),
+    public static final Set<Integer> WALLS_EAST = Set.of(WALL_E.getId(), WALL_SE.getId(), WALL_NE.getId(),
             LASER_WALL_E.getId(), LASER_WALL_DOUBLE_E.getId());
 
-    /**
-     * Normal belts
-     */
-    public final static Set<Integer> BELT_NORTH = Set.of(
+    public static final Set<Integer> BELT_NORTH = Set.of(
             BELT_E_TO_N.getId(), BELT_W_TO_N.getId(), BELT_N.getId(), BELT_N_E_TURN_L.getId(), BELT_N_W_TURN_R.getId(),
             BELT_N_W_TURN_R_E_TURN_L.getId());
-    public final static Set<Integer> BELT_SOUTH = Set.of(
+    public static final Set<Integer> BELT_SOUTH = Set.of(
             BELT_S.getId(), BELT_E_TO_S.getId(), BELT_W_TO_S.getId(), BELT_S_E_TURN_R.getId(), BELT_S_W_TURN_L.getId(),
             BELT_S_W_TURN_L_E_TURN_R.getId());
-    public final static Set<Integer> BELT_EAST = Set.of(
+    public static final Set<Integer> BELT_EAST = Set.of(
             BELT_E.getId(), BELT_S_TO_E.getId(), BELT_N_TO_E.getId(),  BELT_E_N_TURN_R.getId(), BELT_E_S_TURN_L.getId(),
             BELT_E_S_TURN_L_N_TURN_R.getId());
-    public final static Set<Integer> BELT_WEST = Set.of(
+    public static final Set<Integer> BELT_WEST = Set.of(
             BELT_W.getId(), BELT_S_TO_W.getId(), BELT_N_TO_W.getId(), BELT_W_S_TURN_R.getId(), BELT_W_N_TURN_L.getId(),
             BELT_W_S_TURN_R_N_TURN_L.getId());
 
-    /**
-     * Fast belts
-     */
-    public final static Set<Integer> BELT_FAST_NORTH = Set.of(
+    public static final Set<Integer> BELT_FAST_NORTH = Set.of(
             BELT_FAST_E_TO_N.getId(), BELT_FAST_W_TO_N.getId(), BELT_FAST_N.getId(),
             BELT_FAST_N_W_TURN_R.getId(), BELT_FAST_N_W_TURN_R_E_TURN_L.getId(),BELT_FAST_N_E_TURN_L.getId());
-    public final static Set<Integer> BELT_FAST_SOUTH = Set.of(
+    public static final Set<Integer> BELT_FAST_SOUTH = Set.of(
             BELT_FAST_S.getId(), BELT_FAST_E_TO_S.getId(), BELT_FAST_W_TO_S.getId(),
             BELT_FAST_S_W_TURN_L_E_TURN_R.getId(), BELT_FAST_S_W_TURN_L.getId(), BELT_FAST_S_E_TURN_R.getId());
-    public final static Set<Integer> BELT_FAST_EAST = Set.of(
+    public static final Set<Integer> BELT_FAST_EAST = Set.of(
             BELT_FAST_E.getId(), BELT_FAST_S_TO_E.getId(), BELT_FAST_N_TO_E.getId(),
             BELT_FAST_E_N_TURN_R.getId(), BELT_FAST_E_S_TURN_L_N_TURN_R.getId(), BELT_FAST_E_S_TURN_L.getId());
-    public final static Set<Integer> BELT_FAST_WEST = Set.of(
+    public static final Set<Integer> BELT_FAST_WEST = Set.of(
             BELT_FAST_W.getId(), BELT_FAST_S_TO_W.getId(), BELT_FAST_N_TO_W.getId(),
             BELT_FAST_W_N_TURN_L.getId(), BELT_FAST_W_S_TURN_R.getId(), BELT_FAST_W_S_TURN_R_N_TURN_L.getId());
 
 
-
-
-
     private final int id;
 
-    TileID(int id) { this.id = id; }
+    TileID(int id) {
+
+        this.id = id;
+
+    }
 
     public int getId() { return this.id; }
 }

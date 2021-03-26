@@ -1,6 +1,7 @@
 package RoboRally.Debugging;
 
 import RoboRally.GUI.RoboRallyApp;
+import RoboRally.Game.Cards.ProgramCard;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
 
@@ -21,12 +22,12 @@ public class CheatMode extends InputAdapter {
         else { app.getGame().getBoard().moveRobot(
                 app.getGame().getMyPlayer().getRobot(),
                 app.getGame().getMyPlayer().getRobot().getDirection().rotate(2)); }
-        app.getGame().getBoard().stepCheck(app.getGame().getMyPlayer().getRobot());
+        app.getGame().getBoard().checkStep(app.getGame().getMyPlayer().getRobot());
         return true;
     }
 
-    private boolean rotate(int rotation) {
-        app.getGame().getBoard().rotateRobot(app.getGame().getMyPlayer().getRobot(),rotation);
+    private boolean rotate(ProgramCard card) {
+        app.getGame().getBoard().rotateRobot(app.getGame().getMyPlayer().getRobot(), card);
         return true;
     }
 
@@ -35,8 +36,8 @@ public class CheatMode extends InputAdapter {
         switch (keycode) {
             case Input.Keys.W: { return move(true); }
             case Input.Keys.S: { return move(false); }
-            case Input.Keys.A: { return rotate(1); }
-            case Input.Keys.D: { return rotate(3); }
+            case Input.Keys.A: { return rotate(ProgramCard.TURN_LEFT); }
+            case Input.Keys.D: { return rotate(ProgramCard.TURN_RIGHT); }
         } return false;
     }
 

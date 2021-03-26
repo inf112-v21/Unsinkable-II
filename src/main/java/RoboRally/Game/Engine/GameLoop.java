@@ -39,6 +39,7 @@ public class GameLoop extends RoboRallyGame {
                 round();
                 ++roundNumber;
             }
+            sleep(1000);
         }
     }
 
@@ -66,17 +67,19 @@ public class GameLoop extends RoboRallyGame {
         // 2. Execute movement in order.
         for (Robot robot : turnOrder) {
             Card card = robot.getRegisters().poll();
-            System.out.println("Robot "+robot.getPiece().name()+" Card "+card.getCardType()+" weight "+card.getWeight());
-            executeProgramCard(robot, card.getCardType());
+            executeProgramCard(robot, card.getValue());
         }
+
         // 3. Board elements moves
-        board.moveBoardElements();
+        board.moveBoardElements(turnOrder);
 
         // 4. Laser fire
-        board.fireLasers();
+        board.fireLasers(turnOrder);
+        sleep(2000);
+        board.clearLasers();
 
         // 5. Touch checkpoints
-        for (Robot robot : turnOrder) { board.touchCheckpoints(robot); }
+        board.touchCheckpoints(turnOrder);
     }
 
 

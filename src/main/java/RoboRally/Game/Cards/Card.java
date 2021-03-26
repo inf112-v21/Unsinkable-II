@@ -5,7 +5,7 @@ public class Card {
     private final int weight;
 
     public Card() {
-        this.card = ProgramCard.BACK;
+        this.card = ProgramCard.BACKSIDE;
         this.weight = 0;
     }
 
@@ -14,7 +14,7 @@ public class Card {
         this.weight = weight;
     }
 
-    public ProgramCard getCardType() { return this.card; }
+    public ProgramCard getValue() { return this.card; }
 
     public int getWeight() { return this.weight; }
 

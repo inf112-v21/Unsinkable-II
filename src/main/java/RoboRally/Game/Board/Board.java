@@ -9,7 +9,6 @@ import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.math.Vector2;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 /**
@@ -21,13 +20,15 @@ public abstract class Board {
     protected final RoboRallyApp app;
     protected final TiledMap board;
     protected final Vector2[] startLocs, flagLocs;
-    protected final Set<Vector2> bounds, northWalls, westWalls, southWalls, eastWalls, holeLocs, repairLocs, upgradeLocs;
+    protected final Set<Vector2> bounds, northWalls, westWalls, southWalls, eastWalls, holes, repairSites,
+            upgradeSites, leftGears, rightGears;
     protected final TiledMapTileLayer boardLayer, playerLayer, startLayer, wallLayer, flagLayer, holeLayer,
             repairLayer, upgradeLayer, laserWallLayer, laserLayer,  conveyorLayer, gearLayer;
 
     public Board(RoboRallyApp app, Boards gameBoard) {
         this.app = app;
         this.board = new TmxMapLoader().load(gameBoard.getPath());
+
         this.boardLayer = (TiledMapTileLayer) board.getLayers().get("Board");
         this.playerLayer = (TiledMapTileLayer) board.getLayers().get("Player");
         this.startLayer = (TiledMapTileLayer) board.getLayers().get("Start");
@@ -51,9 +52,13 @@ public abstract class Board {
         findWalls();
 
         this.bounds = findAllLayerTiles(boardLayer);
-        this.holeLocs = findAllLayerTiles(holeLayer);
-        this.repairLocs = findAllLayerTiles(repairLayer);
-        this.upgradeLocs = findAllLayerTiles(upgradeLayer);
+        this.holes = findAllLayerTiles(holeLayer);
+        this.repairSites = findAllLayerTiles(repairLayer);
+        this.upgradeSites = findAllLayerTiles(upgradeLayer);
+
+        this.leftGears = new HashSet<>();
+        this.rightGears = new HashSet<>();
+        findGears();
     }
 
     /**
@@ -110,8 +115,7 @@ public abstract class Board {
      * Locates and places all walls in respective lists
      */
     private void findWalls(){
-        Set<Vector2> walls = findAllLayerTiles(wallLayer);
-        for (Vector2 wall : walls){
+        for (Vector2 wall : findAllLayerTiles(wallLayer)){
             int wallID = wallLayer.getCell((int) wall.x, (int) wall.y).getTile().getId();
             if (TileID.WALLS_NORTH.contains(wallID)) { northWalls.add(wall); }
             if (TileID.WALLS_EAST.contains(wallID)) { eastWalls.add(wall); }
@@ -120,6 +124,15 @@ public abstract class Board {
         }
     }
 
+    private void findGears() {
+        for (Vector2 gear : findAllLayerTiles(gearLayer)) {
+            int gearID = gearLayer.getCell((int) gear.x, (int) gear.y).getTile().getId();
+            if (gearID == TileID.GEAR_LEFT.getId()) { leftGears.add(gear); }
+            else { rightGears.add(gear); }
+        }
+    }
+
+
     /**
      * Checks if there is a wall in a direction on a location.
      *
@@ -127,7 +140,7 @@ public abstract class Board {
      * @param dir the direction to check for a wall.
      * @return true if there is a wall blocking the direction in a location, false if there is no wall.
      */
-    protected boolean checkForWalls(Vector2 loc, Direction dir) {
+    protected boolean facingWall(Vector2 loc, Direction dir) {
         switch (dir) {
             case NORTH: { return northWalls.contains(loc); }
             case WEST: { return westWalls.contains(loc); }
@@ -140,10 +153,10 @@ public abstract class Board {
     /**
      * Checks if the robot is inside the map bounds.
      *
-     * @param robot to check if in bounds.
-     * @return true if robot location is in bounds, otherwise false.
+     * @param loc to check is in bounds.
+     * @return true if location is in bounds, otherwise false.
      */
-    protected boolean inBounds(Robot robot){ return bounds.contains(robot.getLoc()); }
+    protected boolean inBounds(Vector2 loc){ return bounds.contains(loc); }
 
     /**
      * Checks if a robot has landed in a hole
@@ -151,26 +164,14 @@ public abstract class Board {
      * @param robot - the robot that checks for a hole
      * @return true if robot is in hole, this will destroy the robot (take away 1 life)
      */
-    protected boolean inHole(Robot robot){ return holeLocs.contains(robot.getLoc()); }
-
-    /**
-     * Checks for side-effects for a given robot after moving. Should be called after a program card has been executed
-     * or if a robot has been pushed.
-     *
-     * @param robots the list of robots to check.
-     */
-    public void touchCheckpoints(Robot robot) {
-        onFlag(robot);
-        onRepair(robot);
-        onUpgrade(robot);
-    }
+    protected boolean inHole(Robot robot){ return holes.contains(robot.getLoc()); }
 
     /**
      * Checks if a robot ends it's turn on a flag
      *
      * @param robot = the robot that is on the tile.
      */
-    private void onFlag(Robot robot) {
+    protected void onFlag(Robot robot) {
         if (flagLocs[robot.touchedFlags()].equals(robot.getLoc())) {
             if (robot.touchedFlags() == flagLocs.length-1) { app.getGame().setWinner(robot); }
             else {
@@ -186,8 +187,8 @@ public abstract class Board {
      *
      * @param robot = the robot to check.
      */
-    private void onRepair(Robot robot) {
-        if(repairLocs.contains(robot.getLoc())) {
+    protected void onRepair(Robot robot) {
+        if(repairSites.contains(robot.getLoc())) {
             robot.fixDamage();
             robot.setSpawnLoc(robot.getLoc());
         }
@@ -198,28 +199,19 @@ public abstract class Board {
      *
      * @param robot = the robot to check.
      */
-    private void onUpgrade(Robot robot) {
-        if(upgradeLocs.contains(robot.getLoc())) {
+    protected void onUpgrade(Robot robot) {
+        if(upgradeSites.contains(robot.getLoc())) {
             robot.fixDamage();
             robot.setSpawnLoc(robot.getLoc());
             // TODO: Upgrade card
         }
     }
 
-
-    public void moveBoardElements() {
-        // 1. Express conveyor belts
-        // 2. All conveyor belts
-        // 3. Pushers
-        // 4. Gears
-    }
-
-    public void fireLasers() {
-        // 1. Board lasers
-        // 2. Robot lasers
-    }
+    protected Set<Vector2> getPlayerLocs() { return findAllLayerTiles(playerLayer); }
+    protected Set<Vector2> getLaserWalls() { return findAllLayerTiles(laserWallLayer); }
 
     public TiledMap getBoard() { return this.board;}
     public int getBoardWidth() { return boardLayer.getWidth(); }
     public int getBoardHeight() { return boardLayer.getHeight(); }
+
 }

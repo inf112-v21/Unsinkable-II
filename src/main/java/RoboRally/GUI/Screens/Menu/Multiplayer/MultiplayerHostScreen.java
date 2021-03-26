@@ -70,10 +70,10 @@ public class MultiplayerHostScreen extends MenuScreenAdapter {
      */
     private void hostPressed() {
         try {
-            port = Integer.parseInt(portField.getText()); // TODO: turn back on port field
+            //port = Integer.parseInt(portField.getText()); // TODO: turn back on port field
             app.hostNewGame((Boards) box.getSelected());
         }
-        catch (Exception e) { System.err.println("Error! Unable to get board selection."); }// TODO: Display error message in GUI.
+        catch (Exception e) { e.printStackTrace(); System.err.println("Error! Unable to get board selection. "); }// TODO: Display error message in GUI.
     }
 
     /**

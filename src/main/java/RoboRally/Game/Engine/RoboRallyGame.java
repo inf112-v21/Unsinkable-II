@@ -37,11 +37,12 @@ abstract class RoboRallyGame implements RoboRally {
     protected void executeProgramCard(Robot robot, ProgramCard card) {
         if(card.getSteps() > 0) {
             boolean moved = board.moveRobot(robot, robot.getDirection());
+            sleep(500);
             if(moved && card.getSteps() == 3) { executeProgramCard(robot, ProgramCard.MOVE_2); }
             else if(moved && card.getSteps() == 2) { executeProgramCard(robot, ProgramCard.MOVE_1); }
         }
         else if(card.getSteps() == -1) { board.moveRobot(robot, robot.getDirection().rotate(2)); }
-        else { board.rotateRobot(robot, card.getRotation()); }
+        else { board.rotateRobot(robot, card); }
 
         sleep(1000);
     }
@@ -103,7 +104,6 @@ abstract class RoboRallyGame implements RoboRally {
     public void setWinner(Robot robot) {
         stopGame();
         Gdx.app.postRunnable(() -> {
-            System.err.println(app.getScreen().toString());
             app.getScreen().dispose();
             app.setScreen(new GameOverScreen(app, robot.getPiece().toString()));
         });

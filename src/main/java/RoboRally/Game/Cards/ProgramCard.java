@@ -33,7 +33,7 @@ public enum ProgramCard {
     /**
      * Backside. Neutral card.
      */
-    BACK(0, 0, "Back");
+    BACKSIDE(0, 0, "Back");
 
 
     private final int steps, rotation;
@@ -63,6 +63,6 @@ public enum ProgramCard {
     /**
      * @return the name of the card.
      */
-    public String getPath() { return "ProgramCards/Cards/" + Objects.requireNonNullElse(this.name, BACK) + ".png"; }
+    public String getPath() { return "ProgramCards/Cards/" + Objects.requireNonNullElse(this.name, BACKSIDE) + ".png"; }
 
 }

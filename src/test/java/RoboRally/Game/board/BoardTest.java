@@ -3,6 +3,7 @@ package RoboRally.Game.board;
 import RoboRally.GUI.RoboRallyApp;
 import RoboRally.Game.Board.BoardActions;
 import RoboRally.Game.Board.Boards;
+import RoboRally.Game.Cards.ProgramCard;
 import RoboRally.Game.Direction;
 import RoboRally.Game.Objects.Piece;
 import RoboRally.Game.Objects.Robot;
@@ -50,7 +51,7 @@ public class BoardTest {
         ba.moveRobot(robot, Direction.NORTH);
         assertEquals(prevY + 1, robot.getLoc().y);
         float prevX = robot.getLoc().x;
-        ba.rotateRobot(robot, -1);
+        ba.rotateRobot(robot, ProgramCard.TURN_LEFT);
         ba.moveRobot(robot, Direction.WEST);
         assertEquals(prevX - 1, robot.getLoc().x);
     }

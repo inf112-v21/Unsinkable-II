@@ -23,7 +23,7 @@ public class ProgrammingDeckTest {
         // bool array where each element i tells wether or not shuffled_i == unshuffled_i
         boolean[] equalsPerCard = new boolean[shuffled.size()];
         for (int i = 0; i < shuffled.size(); i++) {
-            equalsPerCard[i] = shuffled.get(i).getCardType().equals(unshuffled.get(i).getCardType());
+            equalsPerCard[i] = shuffled.get(i).getValue().equals(unshuffled.get(i).getValue());
         }
         // then check is all elements of equalsPerCard are true
         boolean areEqual = true;
