@@ -76,7 +76,7 @@ public class MapInteractionTest {
 
     @Test
     public void testRobotRepair() {
-        // we manually run toughCheckpoints() since this method is called
+        // we manually run touchCheckpoints() since this method is called
         // in the game loop, which we don't account for here
         int initialHealth = robot.getHealth();
         robot.addDamage();
