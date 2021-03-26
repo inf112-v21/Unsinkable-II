@@ -3,10 +3,7 @@ package RoboRally.Multiplayer;
 import RoboRally.Game.Board.Boards;
 import RoboRally.Game.Cards.Card;
 import RoboRally.Game.Cards.ProgramCard;
-import RoboRally.Multiplayer.Packets.PlayerHandPacket;
-import RoboRally.Multiplayer.Packets.StartPacket;
-import RoboRally.Multiplayer.Packets.RoundPacket;
-import RoboRally.Multiplayer.Packets.MessagePacket;
+import RoboRally.Multiplayer.Packets.*;
 import RoboRally.GUI.RoboRallyApp;
 import com.badlogic.gdx.math.Vector2;
 import com.esotericsoftware.kryonet.Connection;
@@ -25,7 +22,6 @@ public abstract class Multiplayer extends Listener implements Networking {
     protected RoboRallyApp app;
     protected Set<Connection> connections;
     protected List<RoundPacket> roundPackets;
-    protected List<List<RoundPacket>> oldRoundPackets;
     public StartPacket startPacket;
 
     public volatile boolean start = false;
@@ -42,6 +38,7 @@ public abstract class Multiplayer extends Listener implements Networking {
         endPoint.getKryo().register(Boards.class);
 
         endPoint.getKryo().register(PlayerHandPacket.class);
+        endPoint.getKryo().register(RequestHandPacket.class);
 
         endPoint.getKryo().register(RoundPacket.class);
         endPoint.getKryo().register(LinkedList.class);

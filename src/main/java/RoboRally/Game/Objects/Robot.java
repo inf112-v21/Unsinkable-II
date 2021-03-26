@@ -5,26 +5,25 @@ import RoboRally.Game.Direction;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Vector2;
 
+import java.util.Deque;
 import java.util.LinkedList;
-import java.util.Queue;
 
 public class Robot implements IRobot {
 
     private Piece piece;
     private Direction direction;
     private final Vector2 location, spawn;
-    private Queue<Card> registers;
-    private final int maxHealth, numRegisters;
+    private Deque<Card> registers;
+    private Deque<Card> usedRegisters;
     private int damage, lives, flag;
 
 
     public Robot() {
-        this.numRegisters = 5;
-        this.maxHealth = 9;
         this.damage = 0;
         this.spawn = new Vector2();
         this.location = new Vector2();
         this.registers = new LinkedList<>();
+        this.usedRegisters = new LinkedList<>();
         this.direction = Direction.NORTH;
         this.lives = 3;
         this.flag = 0;
@@ -39,16 +38,19 @@ public class Robot implements IRobot {
     public Piece getPiece() {  return this.piece; }
 
     @Override
-    public int getHealth() { return maxHealth - damage; }
+    public int getHealth() { return 9 - damage; }
 
     @Override
     public int getLives() { return lives; }
 
     @Override
-    public void addDamage() { ++damage; }
+    public void addDamage() { ++this.damage; }
 
     @Override
-    public void fixDamage() { --damage; }
+    public void fixDamage() { --this.damage; }
+
+    @Override
+    public void fixAllDamage() { this.damage = 0; }
 
     @Override
     public boolean killRobot() {
@@ -89,10 +91,26 @@ public class Robot implements IRobot {
     public void setDirection(Direction dir) { this.direction = dir; }
 
     @Override
-    public Queue<Card> getRegisters() { return this.registers; }
+    public int openRegisters() { return Math.max(0, getHealth() - 5); }
 
     @Override
-    public void setRegisters(Queue<Card> registers) { this.registers = registers; }
+    public Deque<Card> getRegisters() { return this.registers; }
+
+    @Override
+    public Deque<Card> getUsedRegisters() { return this.usedRegisters; }
+
+    public Card getNextRegistry() {
+        usedRegisters.push(registers.pop());
+        return usedRegisters.peek();
+    }
+
+    public void wipeRegisters() {
+        for (int i = 0; i < openRegisters(); ++i) { getUsedRegisters().pop(); }
+        for (Card card : usedRegisters) { registers.push(card); }
+    }
+
+    @Override
+    public void setRegisters(Deque<Card> registers) { this.registers = registers; }
 
     @Override
     public TiledMapTileLayer.Cell getCell() { return piece.getCell(); }

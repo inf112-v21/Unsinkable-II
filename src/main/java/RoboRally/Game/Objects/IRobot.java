@@ -5,6 +5,7 @@ import RoboRally.Game.Direction;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Vector2;
 
+import java.util.Deque;
 import java.util.Queue;
 
 public interface IRobot{
@@ -24,9 +25,13 @@ public interface IRobot{
 
     void setDirection(Direction dir);
 
-    Queue<Card> getRegisters();
+    int openRegisters();
 
-    void setRegisters(Queue<Card> hand);
+    Deque<Card> getRegisters();
+
+    Deque<Card> getUsedRegisters();
+
+    void setRegisters(Deque<Card> hand);
 
     /**
      * @return robot normal cell.
@@ -65,6 +70,8 @@ public interface IRobot{
     void addDamage();
 
     void fixDamage();
+
+    void fixAllDamage();
 
     /**
      * Removes one life from robot and resets damage.

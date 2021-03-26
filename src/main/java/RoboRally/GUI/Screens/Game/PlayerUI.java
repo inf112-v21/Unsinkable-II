@@ -23,7 +23,10 @@ import java.util.List;
 public class PlayerUI {
 
     private final RoboRallyApp app;
-    private final Table mainTable, playerHandTable, runButtonTable, registryTable;
+    private final Table mainTable;
+    private Table playerHandTable;
+    private final Table runButtonTable;
+    private final Table registryTable;
     private final Stage stage;
     private final FitViewport stageViewport;
     private final ButtonGroup<Button> handButtons;
@@ -117,6 +120,22 @@ public class PlayerUI {
         }
     }
 
+    /**
+     * Clears the player hand table.
+     */
+    private void clearHandTable() {
+        playerHandTable.clearChildren();
+        playerHandTable.padTop(height/2f);
+    }
+
+    /**
+     * Clears the player hand table.
+     */
+    private void clearRegistryTable() {
+        registryTable.clearChildren();
+        registryTable.padTop(cardHeight);
+    }
+
     private ClickListener playerHandListener(int index) {
         return new ClickListener() {
             @Override
@@ -168,14 +187,17 @@ public class PlayerUI {
         runButton.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                if (registry.size() == 5) { app.getGame().attemptRun(makeRegisters(), hand);} } } );
+                if (registry.size() == 5) {
+                    app.getGame().attemptRun(makeRegisters(), hand);
+                    clearHandTable();
+                } } } );
         return runButton;
     }
 
     private Button addPowerDownButton() {
         Button powerDownButton = new TextButton("Power Down", app.getGameSkin());
         powerDownButton.setSize(cardWidth, cardHeight);
-        Queue<Card> emptyRegisters = new LinkedList<>();
+        Deque<Card> emptyRegisters = new LinkedList<>();
         for (int i = 0; i < 5; ++i) { emptyRegisters.offer(new Card()); }
         powerDownButton.addListener(new ClickListener() {
             @Override
@@ -201,9 +223,9 @@ public class PlayerUI {
      *
      * @return the queue of ordered cards
      */
-    private Queue<Card> makeRegisters() {
+    private Deque<Card> makeRegisters() {
         List<Integer> list = new LinkedList<>(registry.values());
-        Queue<Card> queue = new LinkedList<>();
+        Deque<Card> queue = new LinkedList<>();
         Collections.sort(list);
         for (int value : list) {
             for (int handIndex : registry.keySet()) {

@@ -6,6 +6,7 @@ import RoboRally.Game.Objects.Player;
 import RoboRally.Game.Objects.Robot;
 import RoboRally.Multiplayer.Packets.RoundPacket;
 
+import java.util.Deque;
 import java.util.List;
 import java.util.Queue;
 
@@ -22,7 +23,7 @@ public interface RoboRally extends Runnable {
     /**
      * Attempt run.
      */
-    void attemptRun(Queue<Card> registers, List<Card> playerHand);
+    void attemptRun(Deque<Card> registers, List<Card> playerHand);
 
     /**
      * Process round and update all robot.

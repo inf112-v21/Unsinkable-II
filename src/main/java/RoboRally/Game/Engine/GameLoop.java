@@ -19,6 +19,7 @@ public class GameLoop extends RoboRallyGame {
         this.roundNumber = 0;
         this.stopGame = false;
         this.players = new ArrayList<>();
+        this.robots = new ArrayList<>();
         this.boardSelection = boardSelection;
         this.board = new BoardActions(app, boardSelection);
         this.nextRound = false;
@@ -47,7 +48,11 @@ public class GameLoop extends RoboRallyGame {
      * Executes all 5 turns for a full round.
      */
     @Override
-    public void round() { for (int turn = 0; turn < 5; ++turn) { turn(); } }
+    public void round() {
+        requestHand();
+        for (int turn = 0; turn < 5; ++turn) { turn(); }
+        board.endOfTurn(robots);
+    }
 
     /**
      * Executes one turn.
@@ -65,10 +70,7 @@ public class GameLoop extends RoboRallyGame {
         turnOrder.sort(Comparator.comparing(robot -> robot.getRegisters().peek().getWeight(),Comparator.reverseOrder()));
 
         // 2. Execute movement in order.
-        for (Robot robot : turnOrder) {
-            Card card = robot.getRegisters().poll();
-            executeProgramCard(robot, card.getValue());
-        }
+        for (Robot robot : turnOrder) { executeProgramCard(robot, robot.getNextRegistry().getValue()); }
 
         // 3. Board elements moves
         board.moveBoardElements(turnOrder);

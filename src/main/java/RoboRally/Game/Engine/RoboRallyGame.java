@@ -7,10 +7,12 @@ import RoboRally.Game.Cards.ProgramCard;
 import RoboRally.Game.Board.Boards;
 import RoboRally.Game.Objects.Player;
 import RoboRally.Game.Objects.Robot;
+import RoboRally.Multiplayer.Packets.RequestHandPacket;
 import RoboRally.Multiplayer.Packets.RoundPacket;
 import RoboRally.GUI.RoboRallyApp;
 import com.badlogic.gdx.Gdx;
 
+import java.util.Deque;
 import java.util.List;
 import java.util.Queue;
 
@@ -23,6 +25,7 @@ abstract class RoboRallyGame implements RoboRally {
     protected BoardActions board;
     protected Player myPlayer;
     protected List<Player> players;
+    protected List<Robot> robots;
 
     protected int roundNumber;
 
@@ -37,14 +40,13 @@ abstract class RoboRallyGame implements RoboRally {
     protected void executeProgramCard(Robot robot, ProgramCard card) {
         if(card.getSteps() > 0) {
             boolean moved = board.moveRobot(robot, robot.getDirection());
-            sleep(500);
+            sleep(250);
             if(moved && card.getSteps() == 3) { executeProgramCard(robot, ProgramCard.MOVE_2); }
             else if(moved && card.getSteps() == 2) { executeProgramCard(robot, ProgramCard.MOVE_1); }
         }
         else if(card.getSteps() == -1) { board.moveRobot(robot, robot.getDirection().rotate(2)); }
         else { board.rotateRobot(robot, card); }
-
-        sleep(1000);
+        sleep(500);
     }
 
     /**
@@ -63,13 +65,14 @@ abstract class RoboRallyGame implements RoboRally {
             Player newPlayer = new Player(playerID);
             board.addNewPlayer(newPlayer.getRobot(), playerID);
             players.add(newPlayer);
+            robots.add(newPlayer.getRobot());
             return newPlayer;
         }
         else { return null; }
     }
 
     @Override
-    public void attemptRun(Queue<Card> registers, List<Card> playerHand) {
+    public void attemptRun(Deque<Card> registers, List<Card> playerHand) {
         if (!roundSent) {
             roundSent = true;
             app.getLocalClient().getClient().sendTCP(new RoundPacket(
@@ -87,6 +90,11 @@ abstract class RoboRallyGame implements RoboRally {
         nextRound = true;
         roundSent = false;
     }
+
+    protected void requestHand() {
+        app.getLocalClient().getClient().sendTCP(new RequestHandPacket(this.myPlayer.getRobot().getHealth()));
+    }
+
 
     @Override
     public void stopGame() { this.stopGame = true; }

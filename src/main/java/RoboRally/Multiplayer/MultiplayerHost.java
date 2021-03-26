@@ -3,6 +3,7 @@ package RoboRally.Multiplayer;
 import RoboRally.Game.Board.Boards;
 import RoboRally.Game.Cards.ProgrammingDeck;
 import RoboRally.Multiplayer.Packets.PlayerHandPacket;
+import RoboRally.Multiplayer.Packets.RequestHandPacket;
 import RoboRally.Multiplayer.Packets.RoundPacket;
 import RoboRally.Multiplayer.Packets.StartPacket;
 import com.esotericsoftware.kryonet.Connection;
@@ -28,7 +29,6 @@ public class MultiplayerHost extends Multiplayer {
 
         connections = new HashSet<>();
         startPacket = new StartPacket(0, board);
-        oldRoundPackets = new ArrayList<>();
         roundPackets = new ArrayList<>();
 
         deck = new ProgrammingDeck();
@@ -41,15 +41,14 @@ public class MultiplayerHost extends Multiplayer {
      */
     @Override
     public void connected(Connection connection) {
-        connection.setTimeout(TIMEOUT*1000); // TODO: Enough?
+        connection.setTimeout(TIMEOUT*1000); // TODO: How much timeout is enough? Check how Kryonet sends timeout handshakes
         this.connections.add(connection);
         connection.setName("Player " + connections.size());
         System.out.println("New Connection: "+connection.getRemoteAddressTCP());
 
         startPacket.playerID = connections.size();
         for (Connection con : connections) { con.sendTCP(startPacket); }
-        PlayerHandPacket hand = new PlayerHandPacket(deck.getHand(9));
-        connection.sendTCP(hand);
+        connection.sendTCP(new PlayerHandPacket(deck.getHand(9)));
     }
 
     /**
@@ -62,9 +61,12 @@ public class MultiplayerHost extends Multiplayer {
     public void received(Connection connection, Object transmission) {
         if (transmission instanceof RoundPacket) {
             roundPackets.add((RoundPacket) transmission);
-            deck.returnThrownCards(roundPackets.get(roundPackets.size()-1).playerHand);
             System.out.println("Server received round packet from "+connection);
             if (roundPackets.size() == connections.size()) { broadcastGamePackets(); }
+        }
+        if (transmission instanceof RequestHandPacket) {
+            int numCards = ((RequestHandPacket) transmission).handSize;
+            connection.sendTCP(new PlayerHandPacket((deck.getHand(numCards))));
         }
     }
 
@@ -84,7 +86,6 @@ public class MultiplayerHost extends Multiplayer {
         for (Connection connection : connections) {
             for (RoundPacket packet : roundPackets) { connection.sendTCP(packet); }
         }
-        roundPackets = new ArrayList<>();
     }
 
     public Server getServer() { return server; }

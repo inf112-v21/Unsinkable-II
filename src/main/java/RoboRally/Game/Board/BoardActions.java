@@ -257,4 +257,20 @@ public class BoardActions extends Board {
         }
     }
 
+    public void endOfTurn(List<Robot> robots) {
+        // Radiation damage
+
+        // Repair sites - includes flag and upgrade
+
+        // Wipe registers
+        wipeRobots(robots);
+
+        // Continue power down?
+
+        // Return dead robots
+
+    }
+
+    private void wipeRobots(List<Robot> robots) { for (Robot robot : robots) { robot.wipeRegisters(); } }
+
 }

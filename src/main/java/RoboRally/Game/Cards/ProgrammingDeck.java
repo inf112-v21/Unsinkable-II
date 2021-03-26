@@ -53,26 +53,12 @@ public class ProgrammingDeck {
     private Card drawCard() { return programCardDeck.pop(); }
 
     /**
-     * Should only be used by multiplayer host class to start the game.
-     *
      * @param num number of cards in hand.
      * @return the hand.
      */
     public List<Card> getHand(int num) {
         List<Card> hand = new LinkedList<>();
         for (int i = 0; i < num; ++i) { hand.add(drawCard()); }
-        return hand;
-    }
-
-    /**
-     * Should ALWAYS be used after initial distribution of cards.
-     *
-     * @param robot to be programmed.
-     * @return program cards to program robot registry
-     */
-    public List<Card> getHand(Robot robot) {
-        List<Card> hand = new LinkedList<>();
-        for (int i = 0; i < robot.getHealth(); ++i) { hand.add(drawCard()); }
         return hand;
     }
 
