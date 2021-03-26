@@ -7,7 +7,7 @@ package RoboRally.Debugging;
  */
 public class Debugging {
 
-    private static boolean CHEAT_MODE = false;
+    private static boolean CHEAT_MODE = true;
     private static boolean GUI_DEBUG = false;
     private static boolean BACKGROUND = false;
 

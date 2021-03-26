@@ -11,15 +11,9 @@ import java.util.List;
 
 public class BoardActions extends Board {
 
-    private final TiledMapTileLayer.Cell verticalLaser, horizontalLaser;
-
     public BoardActions(RoboRallyApp app, Boards gameBoard) {
 
         super(app, gameBoard);
-        verticalLaser = new TiledMapTileLayer.Cell();
-        verticalLaser.setTile(board.getTileSets().getTileSet(0).getTile(TileID.LASER_VERTICAL.getId()));
-        horizontalLaser = new TiledMapTileLayer.Cell();
-        horizontalLaser.setTile(board.getTileSets().getTileSet(0).getTile(TileID.LASER_HORIZONTAL.getId()));
 
     }
 
@@ -50,6 +44,13 @@ public class BoardActions extends Board {
         return true;
     }
 
+    /**
+     * Performs checks that need to be performed after each step a robot makes to determine if
+     * the robot took damage or died.
+     *
+     * @param robot the robot moving.
+     * @return true if robot can still move.
+     */
     public boolean checkStep(Robot robot) {
         if (!inBounds(robot.getLoc()) || inHole(robot)) {
             removeRobot(robot);
@@ -144,6 +145,11 @@ public class BoardActions extends Board {
         playerLayer.setCell((int) loc.x, (int) loc.y, cell);
     }
 
+    /**
+     * Performs the actions of board elements on a list of robots.
+     *
+     * @param robots the list of robots.
+     */
     public void moveBoardElements(List<Robot> robots) {
         // 1. Express conveyor belts
 
@@ -158,6 +164,11 @@ public class BoardActions extends Board {
         }
     }
 
+    /**
+     * Fire all board lasers.
+     *
+     * @param robots the list of shooting robots.
+     */
     public void fireLasers(List<Robot> robots) {
         // 1. Board lasers
         for (Vector2 loc : getLaserWalls()) { fireWallLasers(loc); }
@@ -166,12 +177,22 @@ public class BoardActions extends Board {
         for (Robot robot : robots) { fireRobotLasers(robot); }
     }
 
+    /**
+     * Fires robot lasers.
+     *
+     * @param robot the robot shooting.
+     */
     private void fireRobotLasers(Robot robot) {
         if (canGo(robot.getLoc(), robot.getDirection())) {
             shoot(findNext(robot.getLoc(), robot.getDirection()), robot.getDirection());
         }
     }
 
+    /**
+     * Fires wall lasers.
+     *
+     * @param loc the wall laser location.
+     */
     private void fireWallLasers(Vector2 loc) {
         int id = laserWallLayer.getCell((int) loc.x, (int) loc.y).getTile().getId();
         if (id == TileID.LASER_WALL_N.getId()) { shoot(loc, Direction.SOUTH); }
@@ -180,6 +201,12 @@ public class BoardActions extends Board {
         if (id == TileID.LASER_WALL_E.getId()) { shoot(loc, Direction.WEST); }
     }
 
+    /**
+     * Recursively shoots a laser beam and adds it to the laserLayer.
+     *
+     * @param loc the current location of the shot.
+     * @param dir the direction of the shot.
+     */
     private void shoot(Vector2 loc, Direction dir) {
         if (occupied(loc)) {
             addLaser(loc, dir);
@@ -194,20 +221,11 @@ public class BoardActions extends Board {
     }
 
     /**
-     * Checks for side-effects for a given robot after moving. Should be called after a program card has been executed
-     * or if a robot has been pushed.
+     * Checks if a location is occupied by a robot.
      *
-     * @param robots the list of robots to check.
+     * @param loc the location to check.
+     * @return true if location is occupied by a robot.
      */
-    public void touchCheckpoints(List<Robot> robots) {
-        for (Robot robot : robots) {
-            onFlag(robot);
-            onRepair(robot);
-            onUpgrade(robot);
-        }
-    }
-
-
     private boolean occupied(Vector2 loc) { return getPlayerLocs().contains(loc); }
 
     /**
@@ -225,6 +243,18 @@ public class BoardActions extends Board {
      */
     public void clearLasers() { for (Vector2 loc : getLaserBeams()) { laserLayer.setCell((int) loc.x, (int) loc.y, null);} }
 
-
+    /**
+     * Checks for side-effects for a given robot after moving. Should be called after a program card has been executed
+     * or if a robot has been pushed.
+     *
+     * @param robots the list of robots to check.
+     */
+    public void touchCheckpoints(List<Robot> robots) {
+        for (Robot robot : robots) {
+            onFlag(robot);
+            onRepair(robot);
+            onUpgrade(robot);
+        }
+    }
 
 }

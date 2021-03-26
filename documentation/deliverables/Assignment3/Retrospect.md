@@ -1,14 +1,14 @@
 ## Retrospect Sprint 3
-Sprint 3 har krevd mer deltagelse fra gruppen. Gjennom denne sprinten har gruppen ferdigstilt sitt MVP, 
-og gått gått gjennom gruppestruktur og ansvarsområder. 
-Dette var også den sprinten der det ble vist frem demo, 
-samt at gruppen har presenterte metodikk og gruppestruktur til resten av klassen.
+Sprint 3 har krevd mer synkronisert deltagelse fra gruppen. Gjennom denne sprinten har gruppen ferdigstilt sitt MVP, 
+og gått gått gjennom og oppdatert gruppestruktur og ansvarsområder etter behov or erfaring. 
+Dette var også den sprinten der det ble vist frem demo, samt at gruppen har presenterte metodikk og gruppestruktur
+til resten av klassen.
 
 ### Presentasjon av gruppen
 Deler av denne sprinten ble brukt til å planlegge, gjennomføre og diskutere gruppepresentasjon. 
-Gruppen regnet tidlig i prosessen ut at det største problemet med denne presentasjonen var tid. 
+Gruppen innsåg tidlig i prosessen at den største utfordringen med presentasjonen var tid. 
 Med en presentasjonperiode på fem minutter, innsåg gruppen at det ikke var mulig å gi en fullgod presentasjon 
-dersom hvert gruppemedlem skulle presentere sitt ansvarsområde.
+av arbeidet vårt dersom hvert gruppemedlem skulle presentere sitt ansvarsområde.
 Presentasjonen ble delt i to deler, der gruppens møteleder presenterte gruppen og metodikk; 
 og gruppens grafiske leder gikk gjennom prosjektet, og prosjektstrukturen.
 

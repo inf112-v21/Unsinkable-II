@@ -24,6 +24,7 @@ public abstract class Board {
             upgradeSites, leftGears, rightGears;
     protected final TiledMapTileLayer boardLayer, playerLayer, startLayer, wallLayer, flagLayer, holeLayer,
             repairLayer, upgradeLayer, laserWallLayer, laserLayer,  conveyorLayer, gearLayer;
+    protected final TiledMapTileLayer.Cell verticalLaser, horizontalLaser;
 
     public Board(RoboRallyApp app, Boards gameBoard) {
         this.app = app;
@@ -41,6 +42,11 @@ public abstract class Board {
         this.upgradeLayer = (TiledMapTileLayer) board.getLayers().get("Upgrade");
         this.laserWallLayer = (TiledMapTileLayer) board.getLayers().get("LaserWall");
         this.wallLayer = (TiledMapTileLayer) board.getLayers().get("Wall");
+
+        verticalLaser = new TiledMapTileLayer.Cell();
+        verticalLaser.setTile(board.getTileSets().getTileSet(0).getTile(TileID.LASER_VERTICAL.getId()));
+        horizontalLaser = new TiledMapTileLayer.Cell();
+        horizontalLaser.setTile(board.getTileSets().getTileSet(0).getTile(TileID.LASER_HORIZONTAL.getId()));
 
         this.startLocs = findStart();
         this.flagLocs = findFlags();

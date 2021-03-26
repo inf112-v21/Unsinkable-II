@@ -26,8 +26,8 @@ public class RoboRallyApp extends Game {
     //================================================================
     //                         App configuration
     //================================================================
-    public static final String GAME_TITLE = "RoboRally";
     public static final int TILE_SIZE = 100;
+    public static final String GAME_TITLE = "RoboRally";
     public static final String ROBOT_SKINS_PATH = "Robots/RobotsV2.5.png";
 
     private final String groupName = "Unsinkable-II";

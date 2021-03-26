@@ -125,7 +125,7 @@ User stories ligger etter Sprint 2 i Project board på Git-Hub.
 ### Retrospect
 [Retrospect for sprint 2](documentation/deliverables/Assignment2/Retrospect.md)
 
-[Retrospect for sprint 3](documentation/deliverables/Assignment3/Retrospect_sprint_3.md)
+[Retrospect for sprint 3](documentation/deliverables/Assignment3/Retrospect.md)
 
 ### Git
 [Git instructions](documentation/CONTRIBUTING.md)
