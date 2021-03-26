@@ -20,6 +20,7 @@ University of Bergen.
 9. [Diagrams](#diagrams)
 10. [Retrospect](#retrospect)
 11. [Contributing to Git](#git)
+12. [Debugging](#debugging)
 
 ## Overview
 This project's goal is to make a fully functional and playable version of
@@ -129,3 +130,7 @@ User Stories is located online, at
 
 ### Git
 [Git instructions](documentation/CONTRIBUTING.md)
+
+### Debugging
+In RoboRallyApp enable debugging by setting public static final boolean DEBUG = false; => public static final boolean DEBUG = true;
+Debugging can be customized by changing values in Debugging.java
