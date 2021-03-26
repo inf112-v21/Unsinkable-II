@@ -46,6 +46,7 @@ public class PlayerView extends InputAdapter implements Screen {
         //TODO: Temporary background solution.
         spriteBatch = new SpriteBatch();
         backgroundSprite = new Sprite(new Texture("background.png")); //TODO: move path
+        backgroundSprite.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
         renderer = new OrthogonalTiledMapRenderer(app.getGame().getBoard().getBoard(),  1f/ RoboRallyApp.TILE_SIZE);
         renderer.setView(camera);
