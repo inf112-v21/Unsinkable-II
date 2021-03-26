@@ -114,8 +114,8 @@ See [issues](https://github.com/inf112-v21/Unsinkable-II/issues)
 [Mar/22/2001](documentation/deliverables/minutesOfMeetings/minutes_22.03.21.md)
 
 ### User Stories
-User stories ligger etter Sprint 2 i Project board på Git-Hub.
-[User Stories](https://github.com/inf112-v21/Unsinkable-II/projects)
+User Stories is located online, at 
+[User Stories reposatory](https://github.com/inf112-v21/Unsinkable-II/projects)
 
 ### Diagrams
 [Proposed RoboRally.Game flow](documentation/deliverables/compulsoryAssignment1/RoboRally%20Flowchart.pdf)
