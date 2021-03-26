@@ -54,13 +54,10 @@ public class RoboRallyApp extends Game {
 
         this.GUI_SKIN = new Skin(Gdx.files.internal(guiSkinPath));
         this.stage = new Stage(new ScreenViewport());
-
+        this.titleScreen = new TitleScreen(this);
         Gdx.input.setInputProcessor(stage);
 
-        this.titleScreen = new TitleScreen(this);
-
         Debugging.setInstance(DEBUG);
-
         if (Debugging.isGuiDebug()) { this.setScreen(new SinglePlayerScreen(this)); }
         else { this.setScreen(titleScreen); }
     }
@@ -76,13 +73,9 @@ public class RoboRallyApp extends Game {
     @Override
     public void dispose() {
         try { gameThread.join(1000, 0); }
-        catch (InterruptedException e) {
-            System.err.println("Failed to stop Game Thread.");
-            gameThread.interrupt();
-        }
-        Gdx.app.exit();
+        catch (InterruptedException e) { gameThread.interrupt(); }
+        finally { Gdx.app.exit(); }
     }
-
 
     /**
      * Host a new multiplayer game.
@@ -109,8 +102,7 @@ public class RoboRallyApp extends Game {
                 System.err.println("Error! Unable to join game.");
                 this.setScreen(titleScreen);
             }
-
-        } // TODO: Synchronize threads and handle with manager.
+        }
         System.out.println("I am player "+myConnection.startPacket.playerID);
         startGame(myConnection.startPacket.boardSelection, myConnection.startPacket.playerID);
     }
@@ -127,7 +119,6 @@ public class RoboRallyApp extends Game {
         this.game.getMyPlayer().setHand(myConnection.getHand()); // TODO: refactor
         this.setScreen(new PlayerView(this));
     }
-
 
     /**
      * @return the local client
