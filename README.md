@@ -21,7 +21,7 @@ University of Bergen.
 10. [Retrospect](#retrospect)
 11. [Contributing to Git](#git)
 12. [Debugging](#debugging)
-13. [Features](#features)
+13. [Features](#implemented-features)
 
 ## Overview
 This project's goal is to make a fully functional and playable version of
