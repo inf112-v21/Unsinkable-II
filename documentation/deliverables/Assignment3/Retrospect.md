@@ -1,4 +1,6 @@
 ## Retrospect Sprint 3
+
+### Introduksjon
 Sprint 3 har krevd mer synkronisert deltagelse fra gruppen. Gjennom denne sprinten har gruppen ferdigstilt sitt MVP, 
 og gått gått gjennom og oppdatert gruppestruktur og ansvarsområder etter behov og erfaring. 
 Dette var også den sprinten der det ble vist frem demo, samt at gruppen har presenterte metodikk og gruppestruktur
