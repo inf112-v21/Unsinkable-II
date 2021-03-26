@@ -21,6 +21,7 @@ University of Bergen.
 10. [Retrospect](#retrospect)
 11. [Contributing to Git](#git)
 12. [Debugging](#debugging)
+13. [Features](#features)
 
 ## Overview
 This project's goal is to make a fully functional and playable version of
@@ -135,3 +136,18 @@ User Stories is located online, at
 ### Debugging
 In RoboRallyApp enable debugging by setting public static final boolean DEBUG = false; => public static final boolean DEBUG = true;
 Debugging can be customized by changing values in Debugging.java
+
+###Implemented features 
+- Game board is visible.
+- Pieces shown for all players.
+- Pieces can be moved.
+- Pieces can visit flags.
+- Multiple of machines can play at the same time.
+- Cards can be dealt to players.
+- Player can choose 5 of 9 cards.
+- Pieces move from chosen cards.
+- Lasers for Robots and walls, but no damage.
+- Walls that stops robots and lasers.
+- Gears that rotate a robot.
+- Power down button.
+
