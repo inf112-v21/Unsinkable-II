@@ -88,37 +88,37 @@ See [issues](https://github.com/inf112-v21/Unsinkable-II/issues)
 ## Contributing:
 
 ### About
-[Unsinkable-II](documentation/deliverables/compulsoryAssignment1/about.md)
+[Unsinkable-II](documentation/deliverables/CompulsoryAssignment1/about.md)
 
-[Group dynamics](documentation/deliverables/compulsoryAssignment1/ComplulsoryAssignment1.md)
+[Group dynamics](documentation/deliverables/CompulsoryAssignment1/ComplulsoryAssignment1.md)
 
 ### Meeting Minutes
-[Feb/01/2021](documentation/deliverables/minutesOfMeetings/2021.02.01.md)
+[Feb/01/2021](documentation/deliverables/MinutesOfMeetings/2021.02.01.md)
 
-[Feb/04/2021](documentation/deliverables/minutesOfMeetings/2021.02.04.md)
+[Feb/04/2021](documentation/deliverables/MinutesOfMeetings/2021.02.04.md)
 
-[Feb/08/2021](documentation/deliverables/minutesOfMeetings/2021.02.08.md)
+[Feb/08/2021](documentation/deliverables/MinutesOfMeetings/2021.02.08.md)
 
-[Feb/11/2021](documentation/deliverables/minutesOfMeetings/2021.02.11.md)
+[Feb/11/2021](documentation/deliverables/MinutesOfMeetings/2021.02.11.md)
 
-[Feb/15/2001](documentation/deliverables/minutesOfMeetings/minutes_15.02.21.md)
+[Feb/15/2001](documentation/deliverables/MinutesOfMeetings/minutes_15.02.21.md)
 
-[Feb/25/2001](documentation/deliverables/minutesOfMeetings/minutes_25.02.21.md)
+[Feb/25/2001](documentation/deliverables/MinutesOfMeetings/minutes_25.02.21.md)
 
-[Mar/01/2001](documentation/deliverables/minutesOfMeetings/minutes_03.01.21.md)
+[Mar/01/2001](documentation/deliverables/MinutesOfMeetings/minutes_03.01.21.md)
 
-[Mar/08/2001](documentation/deliverables/minutesOfMeetings/minutes_08.03.21.md)
+[Mar/08/2001](documentation/deliverables/MinutesOfMeetings/minutes_08.03.21.md)
 
-[Mar/15/2001](documentation/deliverables/minutesOfMeetings/minutes_15.03.21.md)
+[Mar/15/2001](documentation/deliverables/MinutesOfMeetings/minutes_15.03.21.md)
 
-[Mar/22/2001](documentation/deliverables/minutesOfMeetings/minutes_22.03.21.md)
+[Mar/22/2001](documentation/deliverables/MinutesOfMeetings/minutes_22.03.21.md)
 
 ### User Stories
 User Stories is located online, at 
 [User Stories reposatory](https://github.com/inf112-v21/Unsinkable-II/projects)
 
 ### Diagrams
-[Proposed RoboRally.Game flow](documentation/deliverables/compulsoryAssignment1/RoboRally%20Flowchart.pdf)
+[Proposed RoboRally.Game flow](documentation/deliverables/CompulsoryAssignment1/RoboRally%20Flowchart.pdf)
 
 [Project board](https://github.com/inf112-v21/Unsinkable-II/issues)
 
