@@ -18,6 +18,4 @@ public enum Boards {
     public String getPath() { return this.path; }
     public String getName() { return this.name; }
 
-
-
 }

@@ -9,6 +9,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class MultiplayerTest {
     static RoboRallyApp app;
@@ -17,31 +18,21 @@ public class MultiplayerTest {
 
     @BeforeAll
     public static void setup() {
-    app = new RoboRallyApp();
-    host = new MultiplayerHost(Boards.JUNIT_TEST_MAP);
-    client = new MultiplayerClient(app, "localhost");
-    }
-
-    @Test
-    public void ClientCanConnectToHost() {
+        app = new RoboRallyApp();
+        host = new MultiplayerHost(Boards.JUNIT_TEST_MAP);
+        client = new MultiplayerClient(app, "localhost");
         try { Thread.sleep(500); }
-        catch (InterruptedException e) {  }
-        assertEquals(true, client.getClient().isConnected());
+        catch (InterruptedException e) { System.err.println("Error! Thread interrupted."); }
     }
 
     @Test
-    public void ClientReceivesPacketFromHost() {
-        try {Thread.sleep(500); }
-        catch (InterruptedException e) {  }
-        assertEquals(1, client.startPacket.playerID);
-    }
+    public void ClientCanConnectToHost() { assertTrue(client.getClient().isConnected()); }
 
     @Test
-    public void ClientReceivesHandFromHost() {
-        try {Thread.sleep(500); }
-        catch (InterruptedException e) {  }
-        assertEquals(9, client.getHand().size());
-    }
+    public void ClientReceivesPacketFromHost() { assertEquals(1, client.startPacket.playerID); }
+
+    @Test
+    public void ClientReceivesHandFromHost() { assertEquals(9, client.getHand().size()); }
 
     @AfterAll
     public static void stopServer() { host.getServer().stop(); }

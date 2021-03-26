@@ -14,6 +14,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -40,6 +41,7 @@ public class MapInteractionTest {
     public void reset() {
         ba = new BoardActions(app, Boards.JUNIT_TEST_MAP);
         robot = new Robot(Piece.PIECE1);
+        robots = new ArrayList<>();
         robots.add(robot);
         ba.addNewPlayer(robot, 1);
         spawnLoc = robot.getLoc().cpy();
