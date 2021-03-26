@@ -19,7 +19,7 @@ public class BoardActions extends Board {
         verticalLaser = new TiledMapTileLayer.Cell();
         verticalLaser.setTile(board.getTileSets().getTileSet(0).getTile(TileID.LASER_VERTICAL.getId()));
         horizontalLaser = new TiledMapTileLayer.Cell();
-        verticalLaser.setTile(board.getTileSets().getTileSet(0).getTile(TileID.LASER_HORIZONTAL.getId()));
+        horizontalLaser.setTile(board.getTileSets().getTileSet(0).getTile(TileID.LASER_HORIZONTAL.getId()));
 
     }
 
@@ -43,7 +43,7 @@ public class BoardActions extends Board {
      * @return true if robot successfully moved, otherwise false.
      */
     public boolean moveRobot(Robot robot, Direction dir) {
-        if (robotCanGo(robot, dir)) {
+        if (canGo(robot.getLoc(), dir)) {
             move(robot, dir);
             return checkStep(robot);
         }
@@ -61,15 +61,15 @@ public class BoardActions extends Board {
     }
 
     /**
-     * Checks if a robot can go from it's location in a given direction.
+     * Checks if walls prevents movement from a location to the next in a given direction.
      *
-     * @param robot the robot moving.
-     * @param dir the direction.
+     * @param from the location moving from.
+     * @param dir the direction .
      * @return true if the robot can move freely in the direction, false otherwise.
      */
-    private boolean robotCanGo(Robot robot, Direction dir) {
-        if (facingWall(robot.getLoc(), dir)) { return false; }
-        else { return !facingWall(findNext(robot.getLoc(), dir), dir.rotate(2)); }
+    private boolean canGo(Vector2 from, Direction dir) {
+        if (facingWall(from, dir)) { return false; }
+        else { return !facingWall(findNext(from, dir), dir.rotate(2)); }
     }
 
     /**
@@ -160,13 +160,19 @@ public class BoardActions extends Board {
 
     public void fireLasers(List<Robot> robots) {
         // 1. Board lasers
-        for (Vector2 loc : getLaserWalls()) { fireLaserWall(loc); }
+        for (Vector2 loc : getLaserWalls()) { fireWallLasers(loc); }
 
         // 2. Robot lasers
-        for (Robot robot : robots) { shoot(robot.getLoc(), robot.getDirection()); }
+        for (Robot robot : robots) { fireRobotLasers(robot); }
     }
 
-    private void fireLaserWall(Vector2 loc) {
+    private void fireRobotLasers(Robot robot) {
+        if (canGo(robot.getLoc(), robot.getDirection())) {
+            shoot(findNext(robot.getLoc(), robot.getDirection()), robot.getDirection());
+        }
+    }
+
+    private void fireWallLasers(Vector2 loc) {
         int id = laserWallLayer.getCell((int) loc.x, (int) loc.y).getTile().getId();
         if (id == TileID.LASER_WALL_N.getId()) { shoot(loc, Direction.SOUTH); }
         if (id == TileID.LASER_WALL_W.getId()) { shoot(loc, Direction.EAST);  }
@@ -175,16 +181,16 @@ public class BoardActions extends Board {
     }
 
     private void shoot(Vector2 loc, Direction dir) {
-        System.out.println("Shooting "+loc+" "+dir.toString());
         if (occupied(loc)) {
+            addLaser(loc, dir);
             // TODO: damage robot
         }
-        else if (facingWall(loc, dir)) { addLaser(loc, dir); }
-        else {
+        else if (canGo(loc, dir)) {
             addLaser(loc, dir);
-            if (inBounds(findNext(loc, dir)))
-            shoot(findNext(loc, dir), dir);
+            if (inBounds(findNext(loc, dir))) { shoot(findNext(loc, dir), dir);} addLaser(loc, dir);
         }
+        else { addLaser(loc, dir); }
+
     }
 
     /**
@@ -217,7 +223,7 @@ public class BoardActions extends Board {
     /**
      * Removes all lasers from the laser layer.
      */
-    public void clearLasers() { for (Vector2 loc : getLaserWalls()) { laserLayer.setCell((int) loc.x, (int) loc.y, null);} }
+    public void clearLasers() { for (Vector2 loc : getLaserBeams()) { laserLayer.setCell((int) loc.x, (int) loc.y, null);} }
 
 
 

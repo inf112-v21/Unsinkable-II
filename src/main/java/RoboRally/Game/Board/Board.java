@@ -209,6 +209,7 @@ public abstract class Board {
 
     protected Set<Vector2> getPlayerLocs() { return findAllLayerTiles(playerLayer); }
     protected Set<Vector2> getLaserWalls() { return findAllLayerTiles(laserWallLayer); }
+    protected Set<Vector2> getLaserBeams() { return findAllLayerTiles(laserLayer); }
 
     public TiledMap getBoard() { return this.board;}
     public int getBoardWidth() { return boardLayer.getWidth(); }
