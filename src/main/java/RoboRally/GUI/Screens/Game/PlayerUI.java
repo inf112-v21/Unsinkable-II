@@ -163,7 +163,7 @@ public class PlayerUI {
     }
 
     private Button addRunButton() {
-        Button runButton = new TextButton("Run", app.getGUI_SKIN());
+        Button runButton = new TextButton("Run", app.getGameSkin());
         runButton.setSize(width /6f, height/6f);
         runButton.addListener(new ClickListener() {
             @Override
@@ -173,7 +173,7 @@ public class PlayerUI {
     }
 
     private Button addPowerDownButton() {
-        Button powerDownButton = new TextButton("Power Down", app.getGUI_SKIN());
+        Button powerDownButton = new TextButton("Power Down", app.getGameSkin());
         powerDownButton.setSize(cardWidth, cardHeight);
         Queue<Card> emptyRegisters = new LinkedList<>();
         for (int i = 0; i < 5; ++i) { emptyRegisters.offer(new Card()); }

@@ -45,7 +45,7 @@ public abstract class MenuScreenAdapter implements MenuScreen {
     @Override
     public void addTitle(String titleText) {
         Label.LabelStyle titleStyle = new Label.LabelStyle();
-        titleStyle.font = app.getGUI_SKIN().getFont("title");
+        titleStyle.font = app.getTextSkin().getFont("title");
         Label title = new Label(titleText, titleStyle);
         title.setFontScale(0.6f);
         table.row();
@@ -54,7 +54,7 @@ public abstract class MenuScreenAdapter implements MenuScreen {
 
     @Override
     public void addHeading(String headingText) {
-        this.heading = new Label(headingText, app.getGUI_SKIN());
+        this.heading = new Label(headingText, app.getTextSkin());
         heading.setFontScale(2f);
         heading.setAlignment(Align.center);
         table.row();
@@ -63,7 +63,7 @@ public abstract class MenuScreenAdapter implements MenuScreen {
 
     @Override
     public Label addLabel(String text, boolean newRow) {
-        Label label = new Label(text, app.getGUI_SKIN());
+        Label label = new Label(text, app.getMenuSkin());
         label.setWidth(getCenterWidth() /2f);
         if (newRow) { table.row(); }
         table.add(label);
@@ -72,7 +72,7 @@ public abstract class MenuScreenAdapter implements MenuScreen {
 
     @Override
     public TextButton addButton(String buttonText, boolean newRow, InputListener listener) {
-        TextButton button = new TextButton(buttonText, app.getGUI_SKIN());
+        TextButton button = new TextButton(buttonText, app.getMenuSkin());
         button.addListener(listener);
         if (newRow) { table.row(); }
         table.add(button).width(WIDGET_WIDTH);
@@ -81,7 +81,7 @@ public abstract class MenuScreenAdapter implements MenuScreen {
 
     @Override
     public TextField addTextField(String fieldText, boolean newRow) {
-        TextField field = new TextField(fieldText, app.getGUI_SKIN());
+        TextField field = new TextField(fieldText, app.getMenuSkin());
         field.setWidth(WIDGET_WIDTH);
         if (newRow) { table.row(); }
         table.add(field);
@@ -90,7 +90,7 @@ public abstract class MenuScreenAdapter implements MenuScreen {
 
     @Override
     public SelectBox<Object> addSelectBox(Object[] objects, boolean newRow) {
-        SelectBox<Object> box = new SelectBox<>(app.getGUI_SKIN());
+        SelectBox<Object> box = new SelectBox<>(app.getMenuSkin());
         box.setItems(objects);
         if (newRow) { table.row(); }
         table.add(box).width(WIDGET_WIDTH);

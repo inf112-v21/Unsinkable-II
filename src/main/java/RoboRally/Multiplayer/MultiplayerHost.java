@@ -28,6 +28,7 @@ public class MultiplayerHost extends Multiplayer {
 
         connections = new HashSet<>();
         startPacket = new StartPacket(0, board);
+        oldRoundPackets = new ArrayList<>();
         roundPackets = new ArrayList<>();
 
         deck = new ProgrammingDeck();

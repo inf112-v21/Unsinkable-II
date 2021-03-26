@@ -20,18 +20,16 @@ import java.util.Set;
 
 public abstract class Multiplayer extends Listener implements Networking {
 
-    protected RoboRallyApp app;
-
     public static final int udpPort = 18888;
     public static final int tcpPort = 18888;
+    protected RoboRallyApp app;
     protected Set<Connection> connections;
-
-    protected final int TIMEOUT = 5000;
-
     protected List<RoundPacket> roundPackets;
+    protected List<List<RoundPacket>> oldRoundPackets;
     public StartPacket startPacket;
 
     public volatile boolean start = false;
+    protected static final int TIMEOUT = 5000;
 
     /**
      * Common registration method for host and clients.

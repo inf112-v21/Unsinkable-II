@@ -23,6 +23,7 @@ import RoboRally.GUI.Screens.Menu.TitleScreen;
  * the graphics thread runs and is the anchor when switching between screens.
  */
 public class RoboRallyApp extends Game {
+
     //================================================================
     //                         App configuration
     //================================================================
@@ -31,7 +32,9 @@ public class RoboRallyApp extends Game {
     public static final String ROBOT_SKINS_PATH = "Robots/RobotsV3.png";
 
     private final String groupName = "Unsinkable-II";
-    private final String guiSkinPath = "Skin/rusty-robot-ui.json";
+    private final String menuSkinPath = "Skins/clean-crispy/skin/clean-crispy-ui.json";
+    private final String textSkinPath = "Skins/rusty-robot/skin/rusty-robot-ui.json";
+    private final String gameSkinPath = "Skins/star-soldier/skin/star-soldier-ui.json";
     private final String logoPath = "Logo/logo.png";
 
     public static final boolean DEBUG = false;
@@ -39,7 +42,7 @@ public class RoboRallyApp extends Game {
     //================================================================
     //                         GUI Objects
     //================================================================
-    private Skin GUI_SKIN;
+    private Skin menuSkin, textSkin, gameSkin;
     private Stage stage;
     private MenuScreen titleScreen;
 
@@ -52,7 +55,10 @@ public class RoboRallyApp extends Game {
     public void create() {
         if (Gdx.app.getType() == Application.ApplicationType.HeadlessDesktop) { return; }
 
-        this.GUI_SKIN = new Skin(Gdx.files.internal(guiSkinPath));
+        this.menuSkin = new Skin(Gdx.files.internal(menuSkinPath));
+        this.textSkin = new Skin(Gdx.files.internal(textSkinPath));
+        this.gameSkin = new Skin(Gdx.files.internal(gameSkinPath));
+
         this.stage = new Stage(new ScreenViewport());
         this.titleScreen = new TitleScreen(this);
         Gdx.input.setInputProcessor(stage);
@@ -96,7 +102,7 @@ public class RoboRallyApp extends Game {
         this.myConnection = new MultiplayerClient(this, hostIP);
         System.out.println("Waiting for server packet...");
         this.setScreen(new LoadingScreen(this));
-        while (!myConnection.start) {
+        while (!myConnection.start) { // TODO: Add timer to prevent infinite loop if connection fails.
             try { Thread.sleep(100); }
             catch (InterruptedException e) {
                 System.err.println("Error! Unable to join game.");
@@ -115,6 +121,7 @@ public class RoboRallyApp extends Game {
     public void startGame(Boards boardSelection, int playerID) {
         this.game = new GameLoop(this, boardSelection, playerID);
         this.gameThread = new Thread(game, "Game Thread");
+        gameThread.setDaemon(true);
         gameThread.start();
         this.game.getMyPlayer().setHand(myConnection.getHand()); // TODO: refactor
         this.setScreen(new PlayerView(this));
@@ -146,9 +153,19 @@ public class RoboRallyApp extends Game {
     public String getLogoPath() { return this.logoPath; }
 
     /**
-     * @return the GUI skin being used by the application.
+     * @return the GUI skin being used in the menus.
      */
-    public Skin getGUI_SKIN() { return this.GUI_SKIN; }
+    public Skin getMenuSkin() { return this.menuSkin; }
+
+    /**
+     * @return the GUI skin being used in the game.
+     */
+    public Skin getTextSkin() { return this.gameSkin; }
+
+    /**
+     * @return the GUI skin being used in the game.
+     */
+    public Skin getGameSkin() { return this.gameSkin; }
 
     /**
      * @return the title screen starting point of the application GUI.

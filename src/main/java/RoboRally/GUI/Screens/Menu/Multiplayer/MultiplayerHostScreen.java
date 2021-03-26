@@ -51,7 +51,7 @@ public class MultiplayerHostScreen extends MenuScreenAdapter {
             BufferedReader reader = new BufferedReader(new InputStreamReader(url_name.openStream()));
             systemIP += reader.readLine().trim();
         }
-        catch (Exception e) { e.printStackTrace(); } // TODO: If bot is down, try another. If both are down internet is down.
+        catch (Exception e) { System.err.println("Error! IP service is currently unavailable."); }
         return systemIP;
     }
 
@@ -70,10 +70,10 @@ public class MultiplayerHostScreen extends MenuScreenAdapter {
      */
     private void hostPressed() {
         try {
-            //port = Integer.parseInt(portField.getText()); // TODO: turn back on port field
+            port = Integer.parseInt(portField.getText()); // TODO: Fully utilize port field.
             app.hostNewGame((Boards) box.getSelected());
         }
-        catch (Exception e) { e.printStackTrace(); System.err.println("Error! Unable to get board selection. "); }// TODO: Display error message in GUI.
+        catch (Exception e) { System.err.println("Error! Unable to get board selection."); }// TODO: Display error message in GUI.
     }
 
     /**
@@ -86,10 +86,8 @@ public class MultiplayerHostScreen extends MenuScreenAdapter {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 try { port = Integer.parseInt(portField.getText()); }
-                catch(Exception e) { System.err.println("Error! Unable to get text from field."); }
-            }
+                catch(Exception e) { System.err.println("Error! Unable to get text from field."); }     }
         };
-
     }
 
 }
