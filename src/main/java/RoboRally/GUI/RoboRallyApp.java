@@ -103,11 +103,23 @@ public class RoboRallyApp extends Game {
         this.myConnection = new MultiplayerClient(this, hostIP);
         System.out.println("Waiting for server packet...");
         this.setScreen(new LoadingScreen(this));
-        while (!myConnection.start) { } // TODO: Synchronize and add "connecting..." GUI message.
+        while (!myConnection.start) {
+            try { Thread.sleep(100); }
+            catch (InterruptedException e) {
+                System.err.println("Error! Unable to join game.");
+                this.setScreen(titleScreen);
+            }
+
+        } // TODO: Synchronize threads and handle with manager.
         System.out.println("I am player "+myConnection.startPacket.playerID);
         startGame(myConnection.startPacket.boardSelection, myConnection.startPacket.playerID);
     }
 
+    /**
+     * Starts a new RoboRally game instance and starts the game loop thread.
+     * @param boardSelection the selected board to play on.
+     * @param playerID the player ID of the local player.
+     */
     public void startGame(Boards boardSelection, int playerID) {
         this.game = new GameLoop(this, boardSelection, playerID);
         this.gameThread = new Thread(game, "Game Thread");

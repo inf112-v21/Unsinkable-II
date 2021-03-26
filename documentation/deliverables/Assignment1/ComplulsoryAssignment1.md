@@ -3,7 +3,7 @@
 ## Deloppgave 1: Organiser teamet
 Teamet har fått navnet Unsinkable-II.
 
-De ulike medlemmene har dokumentert sin kompetanse i "TheTeam.md". 
+De ulike medlemmene har dokumentert sin kompetanse i [The dev Team](./documentation/deliverables/Assignment1/about.md). 
 
 Temet har fordelt seg i følgende roller:
 

@@ -230,8 +230,8 @@ public class BoardActions extends Board {
 
     /**
      * Adds a laser
-     * @param loc
-     * @param dir
+     * @param loc the location to add a laser
+     * @param dir the direction
      */
     private void addLaser(Vector2 loc, Direction dir) {
         if (dir.equals(Direction.WEST) || dir.equals(Direction.EAST)) laserLayer.setCell((int) loc.x, (int) loc.y, horizontalLaser);
