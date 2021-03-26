@@ -88,6 +88,7 @@ See [issues](https://github.com/inf112-v21/Unsinkable-II/issues)
 ## Contributing:
 
 ### About
+
 [Unsinkable-II](documentation/deliverables/Assignment1/about.md)
 
 [Group dynamics](documentation/deliverables/Assignment1/ComplulsoryAssignment1.md)
