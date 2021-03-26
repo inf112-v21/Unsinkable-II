@@ -43,7 +43,6 @@ public class MultiplayerClient extends Multiplayer {
             if(start) { app.getGame().addPlayer(startPacket.playerID);}
             else start = true;
             System.out.println("New Player " + startPacket.playerID);
-            System.out.println("Start is " + start);
         }
         else if (transmission instanceof PlayerHandPacket) {
             this.hand = (PlayerHandPacket) transmission;

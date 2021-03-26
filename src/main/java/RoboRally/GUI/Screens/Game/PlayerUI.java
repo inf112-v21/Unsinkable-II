@@ -35,7 +35,7 @@ public class PlayerUI {
 
     private final float cardWidth = width / 16f;
     private final float cardHeight = height / 6f;
-    private final float vertPadding = height / 20f;
+    private final float vertPadding = height / 16f;
 
     private int order;
 

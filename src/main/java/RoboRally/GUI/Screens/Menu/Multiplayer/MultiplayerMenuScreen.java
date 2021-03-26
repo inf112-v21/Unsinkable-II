@@ -8,10 +8,10 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 /**
  * The multiplayer option screen.
  */
-public class MultiplayerOptionScreen extends MenuScreenAdapter {
+public class MultiplayerMenuScreen extends MenuScreenAdapter {
 
 
-    public MultiplayerOptionScreen(RoboRallyApp game) {
+    public MultiplayerMenuScreen(RoboRallyApp game) {
         super(game);
         addHeading("Multiplayer");
         addButton("Host", true, HostButtonListener());

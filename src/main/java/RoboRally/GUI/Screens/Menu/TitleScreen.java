@@ -1,6 +1,6 @@
 package RoboRally.GUI.Screens.Menu;
 
-import RoboRally.GUI.Screens.Menu.Multiplayer.MultiplayerOptionScreen;
+import RoboRally.GUI.Screens.Menu.Multiplayer.MultiplayerMenuScreen;
 import RoboRally.GUI.RoboRallyApp;
 
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -38,14 +38,14 @@ public class TitleScreen extends MenuScreenAdapter {
     }
 
     /**
-     * Listener that switches to the MultiplayerOptionScreen when the Multiplayer button is pressed.
+     * Listener that switches to the MultiplayerMenuScreen when the Multiplayer button is pressed.
      *
      * @return InputListener for the Multiplayer button
      */
     public ClickListener MultiplayerButtonListener() {
         return new ClickListener() {
             @Override
-            public void clicked(InputEvent event, float x, float y) { app.setScreen(new MultiplayerOptionScreen(app)); }
+            public void clicked(InputEvent event, float x, float y) { app.setScreen(new MultiplayerMenuScreen(app)); }
         };
     }
 
