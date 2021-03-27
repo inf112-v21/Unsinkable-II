@@ -161,20 +161,6 @@ public class PlayerUI {
         };
     }
 
-
-
-    private Button addPowerDownButton() {
-        Button powerDownButton = new TextButton("Power Down", app.getGameSkin());
-        powerDownButton.setSize(cardWidth, cardHeight);
-        Deque<Card> emptyRegisters = new LinkedList<>();
-        for (int i = 0; i < 5; ++i) { emptyRegisters.offer(new Card()); }
-        powerDownButton.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                if (registry.size() == 0) { app.getGame().attemptRun(emptyRegisters, hand);} } } );
-        return powerDownButton;
-    }
-
     /**
      * Clears the player hand table.
      */
@@ -222,25 +208,40 @@ public class PlayerUI {
         return new TextureRegionDrawable(new TextureRegion(new Texture(card.getPath())));
     }
 
-    private Button addRunButton() {
-        Button runButton = new TextButton("Run", app.getGameSkin());
-        runButton.setSize(width /6f, height/6f);
-        runButton.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                if (registry.size() == 5) {
-                    app.getGame().attemptRun(makeRegisters(), hand);
-                    resetHand();
-                }} });
-        return runButton;
-    }
-
     private void runButtonSetup() {
         mainTable.row();
         runButtonTable.padTop(vertPadding);
         runButtonTable.add(addRunButton());
         runButtonTable.add(addPowerDownButton());
         mainTable.add(runButtonTable);
+    }
+
+    private Button addRunButton() {
+        Button runButton = new TextButton("Run", app.getGameSkin());
+        runButton.setSize(width /6f, height/6f);
+        runButton.addListener(runButtonListener(false));
+        return runButton;
+    }
+
+    private Button addPowerDownButton() {
+        Button powerDownButton = new TextButton("Power Down", app.getGameSkin());
+        powerDownButton.setSize(cardWidth, cardHeight);
+        Deque<Card> emptyRegisters = new LinkedList<>();
+        for (int i = 0; i < 5; ++i) { emptyRegisters.offer(new Card()); }
+        powerDownButton.addListener(runButtonListener(true));
+        return powerDownButton;
+    }
+
+    private ClickListener runButtonListener(boolean powerDown) {
+        return new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                if (registry.size() == 5) {
+                    app.getGame().attemptRun(makeRegisters(), hand, powerDown);
+                    resetHand();
+                }
+            }
+        };
     }
 
     /**

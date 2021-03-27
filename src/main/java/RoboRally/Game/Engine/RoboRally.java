@@ -23,7 +23,7 @@ public interface RoboRally extends Runnable {
     /**
      * Attempt run.
      */
-    void attemptRun(Deque<Card> registers, List<Card> playerHand);
+    void attemptRun(Deque<Card> registers, List<Card> playerHand, boolean powerDown);
 
     /**
      * Process round and update all robot.

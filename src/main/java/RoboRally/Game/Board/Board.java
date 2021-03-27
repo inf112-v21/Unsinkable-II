@@ -20,11 +20,12 @@ public abstract class Board {
     protected final RoboRallyApp app;
     protected final TiledMap board;
     protected final Vector2[] startLocs, flagLocs;
-    protected final Set<Vector2> bounds, northWalls, westWalls, southWalls, eastWalls, holes, repairSites,
-            upgradeSites, leftGears, rightGears;
+    protected final Set<Vector2> bounds,  holes, repairSites, upgradeSites, leftGears, rightGears,
+            northWalls, westWalls, southWalls, eastWalls,
+            northBelts, westBelts, southBelts, eastBelts, northFastBelts, westFastBelts, southFastBelts, eastFastBelts;
     protected final TiledMapTileLayer boardLayer, playerLayer, startLayer, wallLayer, flagLayer, holeLayer,
             repairLayer, upgradeLayer, laserWallLayer, laserLayer,  conveyorLayer, gearLayer;
-    protected final TiledMapTileLayer.Cell verticalLaser, horizontalLaser;
+    protected final TiledMapTileLayer.Cell verticalLaser, horizontalLaser, crossedLaser;
 
     public Board(RoboRallyApp app, Boards gameBoard) {
         this.app = app;
@@ -47,6 +48,8 @@ public abstract class Board {
         verticalLaser.setTile(board.getTileSets().getTileSet(0).getTile(TileID.LASER_VERTICAL.getId()));
         horizontalLaser = new TiledMapTileLayer.Cell();
         horizontalLaser.setTile(board.getTileSets().getTileSet(0).getTile(TileID.LASER_HORIZONTAL.getId()));
+        crossedLaser = new TiledMapTileLayer.Cell();
+        crossedLaser.setTile(board.getTileSets().getTileSet(0).getTile(TileID.LASER_CROSSED.getId()));
 
         this.startLocs = findStart();
         this.flagLocs = findFlags();
@@ -56,6 +59,16 @@ public abstract class Board {
         this.southWalls = new HashSet<>();
         this.eastWalls = new HashSet<>();
         findWalls();
+
+        this.northBelts = new HashSet<>();
+        this.westBelts = new HashSet<>();
+        this.southBelts = new HashSet<>();
+        this.eastBelts = new HashSet<>();
+        this.northFastBelts = new HashSet<>();
+        this.westFastBelts = new HashSet<>();
+        this.southFastBelts = new HashSet<>();
+        this.eastFastBelts = new HashSet<>();
+        findBelts();
 
         this.bounds = findAllLayerTiles(boardLayer);
         this.holes = findAllLayerTiles(holeLayer);
@@ -120,13 +133,27 @@ public abstract class Board {
     /**
      * Locates and places all walls in respective lists
      */
-    private void findWalls(){
-        for (Vector2 wall : findAllLayerTiles(wallLayer)){
+    private void findWalls() {
+        for (Vector2 wall : findAllLayerTiles(wallLayer)) {
             int wallID = wallLayer.getCell((int) wall.x, (int) wall.y).getTile().getId();
             if (TileID.WALLS_NORTH.contains(wallID)) { northWalls.add(wall); }
             if (TileID.WALLS_EAST.contains(wallID)) { eastWalls.add(wall); }
             if (TileID.WALLS_SOUTH.contains(wallID)) { southWalls.add(wall); }
             if (TileID.WALLS_WEST.contains(wallID)) { westWalls.add(wall); }
+        }
+    }
+
+    private void findBelts() {
+        for (Vector2 belt : findAllLayerTiles(conveyorLayer)) {
+            int beltID = conveyorLayer.getCell((int) belt.x, (int) belt.y).getTile().getId();
+            if (TileID.BELTS_NORTH.contains(beltID)) { northBelts.add(belt); }
+            else if (TileID.BELTS_WEST.contains(beltID)) { westBelts.add(belt); }
+            else if (TileID.BELTS_SOUTH.contains(beltID)) { southBelts.add(belt); }
+            else if (TileID.BELTS_EAST.contains(beltID)) { eastBelts.add(belt); }
+            else if (TileID.BELTS_FAST_NORTH.contains(beltID)) { northFastBelts.add(belt); northBelts.add(belt); }
+            else if (TileID.BELTS_FAST_WEST.contains(beltID)) { westFastBelts.add(belt); westBelts.add(belt); }
+            else if (TileID.BELTS_FAST_SOUTH.contains(beltID)) { southFastBelts.add(belt); southBelts.add(belt); }
+            else if (TileID.BELTS_FAST_EAST.contains(beltID)) { eastFastBelts.add(belt); eastBelts.add(belt); }
         }
     }
 

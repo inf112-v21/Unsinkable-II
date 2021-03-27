@@ -79,6 +79,7 @@ public class GameLoop extends RoboRallyGame {
         board.fireLasers(turnOrder);
         sleep(2000);
         board.clearLasers();
+        sleep(1000);
 
         // 5. Touch checkpoints
         board.touchCheckpoints(turnOrder);

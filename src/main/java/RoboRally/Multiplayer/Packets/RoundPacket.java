@@ -13,15 +13,17 @@ import java.util.Queue;
 public class RoundPacket {
     public int round;
     public int playerID;
+    public boolean powerDown;
     public Vector2 robotLoc;
     public Deque<Card> registers;
     public List<Card> playerHand;
 
     public RoundPacket() {}
 
-    public RoundPacket(int round, int playerID, Vector2 robotLoc, Deque<Card> registers, List<Card> playerHand) {
+    public RoundPacket(int round, int playerID, boolean powerDown, Vector2 robotLoc, Deque<Card> registers, List<Card> playerHand) {
         this.round = round;
         this.playerID = playerID;
+        this.powerDown = powerDown;
         this.robotLoc = robotLoc;
         this.registers = registers;
         this.playerHand = playerHand;

@@ -72,12 +72,13 @@ abstract class RoboRallyGame implements RoboRally {
     }
 
     @Override
-    public void attemptRun(Deque<Card> registers, List<Card> playerHand) {
+    public void attemptRun(Deque<Card> registers, List<Card> playerHand, boolean powerDown) {
         if (!roundSent) {
             roundSent = true;
             app.getLocalClient().getClient().sendTCP(new RoundPacket(
                     roundNumber,
                     myPlayer.getID(),
+                    powerDown,
                     myPlayer.getRobot().getLoc(),
                     registers,
                     playerHand));

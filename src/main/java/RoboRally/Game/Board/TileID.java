@@ -139,29 +139,29 @@ public enum TileID {
     public static final Set<Integer> WALLS_EAST = Set.of(WALL_E.getId(), WALL_SE.getId(), WALL_NE.getId(),
             LASER_WALL_E.getId(), LASER_WALL_DOUBLE_E.getId());
 
-    public static final Set<Integer> BELT_NORTH = Set.of(
+    public static final Set<Integer> BELTS_NORTH = Set.of(
             BELT_E_TO_N.getId(), BELT_W_TO_N.getId(), BELT_N.getId(), BELT_N_E_TURN_L.getId(), BELT_N_W_TURN_R.getId(),
             BELT_N_W_TURN_R_E_TURN_L.getId());
-    public static final Set<Integer> BELT_SOUTH = Set.of(
+    public static final Set<Integer> BELTS_SOUTH = Set.of(
             BELT_S.getId(), BELT_E_TO_S.getId(), BELT_W_TO_S.getId(), BELT_S_E_TURN_R.getId(), BELT_S_W_TURN_L.getId(),
             BELT_S_W_TURN_L_E_TURN_R.getId());
-    public static final Set<Integer> BELT_EAST = Set.of(
+    public static final Set<Integer> BELTS_EAST = Set.of(
             BELT_E.getId(), BELT_S_TO_E.getId(), BELT_N_TO_E.getId(),  BELT_E_N_TURN_R.getId(), BELT_E_S_TURN_L.getId(),
             BELT_E_S_TURN_L_N_TURN_R.getId());
-    public static final Set<Integer> BELT_WEST = Set.of(
+    public static final Set<Integer> BELTS_WEST = Set.of(
             BELT_W.getId(), BELT_S_TO_W.getId(), BELT_N_TO_W.getId(), BELT_W_S_TURN_R.getId(), BELT_W_N_TURN_L.getId(),
             BELT_W_S_TURN_R_N_TURN_L.getId());
 
-    public static final Set<Integer> BELT_FAST_NORTH = Set.of(
+    public static final Set<Integer> BELTS_FAST_NORTH = Set.of(
             BELT_FAST_E_TO_N.getId(), BELT_FAST_W_TO_N.getId(), BELT_FAST_N.getId(),
             BELT_FAST_N_W_TURN_R.getId(), BELT_FAST_N_W_TURN_R_E_TURN_L.getId(),BELT_FAST_N_E_TURN_L.getId());
-    public static final Set<Integer> BELT_FAST_SOUTH = Set.of(
+    public static final Set<Integer> BELTS_FAST_SOUTH = Set.of(
             BELT_FAST_S.getId(), BELT_FAST_E_TO_S.getId(), BELT_FAST_W_TO_S.getId(),
             BELT_FAST_S_W_TURN_L_E_TURN_R.getId(), BELT_FAST_S_W_TURN_L.getId(), BELT_FAST_S_E_TURN_R.getId());
-    public static final Set<Integer> BELT_FAST_EAST = Set.of(
+    public static final Set<Integer> BELTS_FAST_EAST = Set.of(
             BELT_FAST_E.getId(), BELT_FAST_S_TO_E.getId(), BELT_FAST_N_TO_E.getId(),
             BELT_FAST_E_N_TURN_R.getId(), BELT_FAST_E_S_TURN_L_N_TURN_R.getId(), BELT_FAST_E_S_TURN_L.getId());
-    public static final Set<Integer> BELT_FAST_WEST = Set.of(
+    public static final Set<Integer> BELTS_FAST_WEST = Set.of(
             BELT_FAST_W.getId(), BELT_FAST_S_TO_W.getId(), BELT_FAST_N_TO_W.getId(),
             BELT_FAST_W_N_TURN_L.getId(), BELT_FAST_W_S_TURN_R.getId(), BELT_FAST_W_S_TURN_R_N_TURN_L.getId());
 

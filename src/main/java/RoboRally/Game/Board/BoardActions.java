@@ -153,8 +153,22 @@ public class BoardActions extends Board {
      */
     public void moveBoardElements(List<Robot> robots) {
         // 1. Express conveyor belts
+        for (Robot robot : robots) {
+            if (northFastBelts.contains(robot.getLoc())) { move(robot, Direction.NORTH); }
+            if (westFastBelts.contains(robot.getLoc())) { move(robot, Direction.WEST); }
+            if (southFastBelts.contains(robot.getLoc())) { move(robot, Direction.SOUTH); }
+            if (eastFastBelts.contains(robot.getLoc())) { move(robot, Direction.EAST); }
+            // TODO: Rotate robots with turning belts
+        }
 
         // 2. All conveyor belts
+        for (Robot robot : robots) {
+            if (northBelts.contains(robot.getLoc())) { move(robot, Direction.NORTH); }
+            if (westBelts.contains(robot.getLoc())) { move(robot, Direction.WEST); }
+            if (southBelts.contains(robot.getLoc())) { move(robot, Direction.SOUTH); }
+            if (eastBelts.contains(robot.getLoc())) { move(robot, Direction.EAST); }
+            // TODO: Rotate robots with turning belts
+        }
 
         // 3. Pushers
 

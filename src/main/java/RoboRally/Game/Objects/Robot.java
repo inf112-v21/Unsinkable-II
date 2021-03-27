@@ -10,21 +10,24 @@ import java.util.LinkedList;
 
 public class Robot implements IRobot {
 
-    private Piece piece;
-    private Direction direction;
+
     private final Vector2 location, spawn;
+    private final Deque<Card> usedRegisters;
     private Deque<Card> registers;
-    private Deque<Card> usedRegisters;
-    private int damage, lives, flag;
+    private Direction direction;
+    private Piece piece;
+    private boolean powerDown;
+    private  int damage, lives, flag;
 
 
     public Robot() {
-        this.damage = 0;
         this.spawn = new Vector2();
         this.location = new Vector2();
         this.registers = new LinkedList<>();
         this.usedRegisters = new LinkedList<>();
         this.direction = Direction.NORTH;
+        this.powerDown = false;
+        this.damage = 0;
         this.lives = 3;
         this.flag = 0;
     }
@@ -99,11 +102,13 @@ public class Robot implements IRobot {
     @Override
     public Deque<Card> getUsedRegisters() { return this.usedRegisters; }
 
+    @Override
     public Card getNextRegistry() {
         usedRegisters.push(registers.pop());
         return usedRegisters.peek();
     }
 
+    @Override
     public void wipeRegisters() {
         for (int i = 0; i < openRegisters(); ++i) { getUsedRegisters().pop(); }
         for (Card card : usedRegisters) { registers.push(card); }
@@ -111,6 +116,12 @@ public class Robot implements IRobot {
 
     @Override
     public void setRegisters(Deque<Card> registers) { this.registers = registers; }
+
+    @Override
+    public boolean isPoweredDown() { return this.powerDown; }
+
+    @Override
+    public void togglePowerDown() { this.powerDown = !powerDown; }
 
     @Override
     public TiledMapTileLayer.Cell getCell() { return piece.getCell(); }
