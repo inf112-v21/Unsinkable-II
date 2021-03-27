@@ -16,7 +16,7 @@ public class Robot implements IRobot {
     private Deque<Card> registers;
     private Direction direction;
     private Piece piece;
-    private boolean powerDown;
+    private boolean powerDown, destroyed;
     private  int damage, lives, flag;
 
 
@@ -27,6 +27,7 @@ public class Robot implements IRobot {
         this.usedRegisters = new LinkedList<>();
         this.direction = Direction.NORTH;
         this.powerDown = false;
+        this.destroyed = false;
         this.damage = 0;
         this.lives = 3;
         this.flag = 0;
@@ -47,21 +48,25 @@ public class Robot implements IRobot {
     public int getLives() { return lives; }
 
     @Override
-    public void addDamage() { ++this.damage; }
+    public void addDamage() {
+        if (damage < 9) { ++this.damage; }
+        else { destroyed = true; }
+    }
 
     @Override
-    public void fixDamage() { --this.damage; }
+    public void fixDamage() { if (damage > 0) { --this.damage; } }
 
     @Override
     public void fixAllDamage() { this.damage = 0; }
 
     @Override
-    public boolean killRobot() {
+    public boolean killRobot(Direction dir) {
         if (lives > 1) {
             --lives;
             damage = 0;
             setLoc(getSpawnLoc());
-            setDirection(Direction.NORTH);
+            setDirection(dir);
+            destroyed = false;
             System.out.println(this.getPiece()+" Died and has "+ lives);
             return true;
         }

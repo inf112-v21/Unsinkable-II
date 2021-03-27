@@ -86,7 +86,7 @@ public interface IRobot{
      *
      * @return true if robot has another life, false if not.
      */
-    boolean killRobot();
+    boolean killRobot(Direction dir);
 
     /**
      * @return the number of flags successfully touched.

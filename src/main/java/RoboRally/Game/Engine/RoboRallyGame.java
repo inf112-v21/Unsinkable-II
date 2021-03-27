@@ -111,6 +111,9 @@ abstract class RoboRallyGame implements RoboRally {
     public List<Player> getPlayers() { return this.players; }
 
     @Override
+    public List<Robot> getRobots() { return this.robots; }
+
+    @Override
     public BoardActions getBoard() { return this.board; }
 
     @Override

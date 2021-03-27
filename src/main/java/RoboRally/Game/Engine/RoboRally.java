@@ -47,6 +47,8 @@ public interface RoboRally extends Runnable {
      */
     List<Player> getPlayers();
 
+    List<Robot> getRobots();
+
     /**
      * @return the current board.
      */

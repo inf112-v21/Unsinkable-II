@@ -2,15 +2,10 @@ package RoboRally.Game.Engine;
 
 import RoboRally.Game.Board.BoardActions;
 import RoboRally.Game.Board.Boards;
-import RoboRally.Game.Cards.Card;
-import RoboRally.Game.Objects.Player;
 import RoboRally.Game.Objects.Robot;
 import RoboRally.GUI.RoboRallyApp;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 public class GameLoop extends RoboRallyGame {
 
@@ -51,39 +46,38 @@ public class GameLoop extends RoboRallyGame {
     public void round() {
         for (int turn = 0; turn < 5; ++turn) { turn(); }
         board.endOfTurn(robots);
-
     }
 
     /**
      * Executes one turn.
      *
-     * 1. Reveal Program Card
+     * 1. Reveal Program Card and determine the order robots execute their program card.
      * 2. Robot Movement
      * 3. Board Elements Move
      * 4. Resolve Laser Fire
      * 5. Touch Checkpoints
      */
     private void turn() {
-        // 1. Reveal Program Cards and find turn order.
-        List<Robot> turnOrder = new LinkedList<>();
-        for (Player player : players) { turnOrder.add(player.getRobot()); }
-        turnOrder.sort(Comparator.comparing(robot -> robot.getRegisters().peek().getWeight(),Comparator.reverseOrder()));
-
-        // 2. Execute movement in order.
-        for (Robot robot : turnOrder) { executeProgramCard(robot, robot.getNextRegistry().getValue()); }
-
-        // 3. Board elements moves
-        board.moveBoardElements(turnOrder);
-
-        // 4. Laser fire
-        board.fireLasers(turnOrder);
-        sleep(2000);
-        board.clearLasers();
+        for (Robot robot : getRobotTurnOrder()) { executeProgramCard(robot, robot.getNextRegistry().getValue()); }
+        board.moveBoardElements(getRobots());
+        sleep(250);
+        board.fireLasers(getRobots());
         sleep(1000);
-
-        // 5. Touch checkpoints
-        board.touchCheckpoints(turnOrder);
+        board.clearLasers();
+        sleep(250);
+        board.touchCheckpoints(getRobots());
     }
+
+    /**
+     * @return the ordered queue of robots.
+     */
+    private PriorityQueue<Robot> getRobotTurnOrder() {
+        PriorityQueue<Robot> turnOrder = new PriorityQueue<>(Comparator.comparing(robot ->
+                Objects.requireNonNull(robot.getRegisters().peek()).getWeight(),Comparator.reverseOrder()));
+        turnOrder.addAll(getRobots());
+        return turnOrder;
+    }
+
 
 
 }

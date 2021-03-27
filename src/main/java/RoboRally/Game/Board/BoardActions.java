@@ -55,7 +55,7 @@ public class BoardActions extends Board {
     public boolean checkStep(Robot robot) {
         if (!inBounds(robot.getLoc()) || inHole(robot)) {
             removeRobot(robot);
-            robot.killRobot();
+            robot.killRobot(Direction.NORTH);
             putRobot(robot);
             return false;
         }
@@ -71,7 +71,7 @@ public class BoardActions extends Board {
      */
     private boolean canGo(Vector2 from, Direction dir) {
         if (facingWall(from, dir)) { return false; }
-        else { return !facingWall(findNext(from, dir), dir.rotate(2)); }
+        else { return !facingWall(getNextLoc(from, dir), dir.rotate(2)); }
     }
 
     /**
@@ -81,7 +81,7 @@ public class BoardActions extends Board {
      * @param dir the direction to head.
      * @return the destination.
      */
-    private Vector2 findNext(Vector2 loc, Direction dir) { return new Vector2(loc.x + dir.getX(),loc.y + dir.getY()); }
+    private Vector2 getNextLoc(Vector2 loc, Direction dir) { return new Vector2(loc.x + dir.getX(),loc.y + dir.getY()); }
 
     /**
      * Moves a robot according to the program card.
@@ -148,80 +148,101 @@ public class BoardActions extends Board {
 
     /**
      * Performs the actions of board elements on a list of robots.
+     * 1. Express conveyor belts
+     * 2. All conveyor belts
+     * 3. Pushers
+     * 4. Gears
      *
      * @param robots the list of robots.
      */
     public void moveBoardElements(List<Robot> robots) {
-        // 1. Express conveyor belts
-        for (Robot robot : robots) { moveFastBelts(robot); }
+        moveFastBelts(robots);
+        moveAllBelts(robots);
+        rotateGears(robots);
+    }
 
-        // 2. All conveyor belts
-        for (Robot robot : robots) { moveAllBelts(robot); }
-
-        // 3. Pushers
-
-        // 4. Gears
+    /**
+     * Rotates all gears.
+     *
+     * @param robots the list of robots.
+     */
+    private void rotateGears(List<Robot> robots) {
         for (Robot robot : robots) {
             if (leftGears.contains(robot.getLoc())) { rotate(robot, ProgramCard.TURN_LEFT.getRotation());}
             if (rightGears.contains(robot.getLoc())) { rotate(robot, ProgramCard.TURN_RIGHT.getRotation());}
         }
     }
 
-    private void moveFastBelts(Robot robot) {
-        if (northFastBelts.contains(robot.getLoc())) { move(robot, Direction.NORTH);}
-        else if (westFastBelts.contains(robot.getLoc())) { move(robot, Direction.WEST); }
-        else if (southFastBelts.contains(robot.getLoc())) { move(robot, Direction.SOUTH); }
-        else if (eastFastBelts.contains(robot.getLoc())) { move(robot, Direction.EAST); }
-
-        if (leftTurnFastBelts.contains(robot.getLoc())) { rotateRobot(robot, ProgramCard.TURN_LEFT);}
-        else if (rightTurnFastBelts.contains(robot.getLoc())) { rotateRobot(robot, ProgramCard.TURN_RIGHT);}
-    }
-
-    private void moveAllBelts(Robot robot) {
-        if (northBelts.contains(robot.getLoc())) { move(robot, Direction.NORTH); }
-        else if (westBelts.contains(robot.getLoc())) { move(robot, Direction.WEST); }
-        else if (southBelts.contains(robot.getLoc())) { move(robot, Direction.SOUTH); }
-        else if (eastBelts.contains(robot.getLoc())) { move(robot, Direction.EAST); }
-
-        if (leftTurnBelts.contains(robot.getLoc())) { rotateRobot(robot, ProgramCard.TURN_LEFT);}
-        else if (rightTurnBelts.contains(robot.getLoc())) { rotateRobot(robot, ProgramCard.TURN_RIGHT);}
-    }
-
     /**
-     * Fire all board lasers.
+     * Moves all robots currently located on a fast (double) conveyor belt
+     * one tile and then rotates applicable robots.
      *
-     * @param robots the list of shooting robots.
+     * @param robots the list of robots.
      */
-    public void fireLasers(List<Robot> robots) {
-        // 1. Board lasers
-        for (Vector2 loc : getLaserWalls()) { fireWallLasers(loc); }
+    private void moveFastBelts(List<Robot> robots) {
+        for (Robot robot : robots) {
+            if (northFastBelts.contains(robot.getLoc())) { move(robot, Direction.NORTH);}
+            else if (westFastBelts.contains(robot.getLoc())) { move(robot, Direction.WEST); }
+            else if (southFastBelts.contains(robot.getLoc())) { move(robot, Direction.SOUTH); }
+            else if (eastFastBelts.contains(robot.getLoc())) { move(robot, Direction.EAST); }
 
-        // 2. Robot lasers
-        for (Robot robot : robots) { fireRobotLasers(robot); }
-    }
-
-    /**
-     * Fires robot lasers.
-     *
-     * @param robot the robot shooting.
-     */
-    private void fireRobotLasers(Robot robot) {
-        if (canGo(robot.getLoc(), robot.getDirection())) {
-            shoot(findNext(robot.getLoc(), robot.getDirection()), robot.getDirection());
+            if (leftTurnFastBelts.contains(robot.getLoc())) { rotateRobot(robot, ProgramCard.TURN_LEFT);}
+            else if (rightTurnFastBelts.contains(robot.getLoc())) { rotateRobot(robot, ProgramCard.TURN_RIGHT);}
         }
     }
 
     /**
-     * Fires wall lasers.
+     * Moves all robots currently located on any conveyor belt one
+     * tile and then rotates applicable robots.
      *
-     * @param loc the wall laser location.
+     * @param robots the list of robots.
      */
-    private void fireWallLasers(Vector2 loc) {
-        int id = laserWallLayer.getCell((int) loc.x, (int) loc.y).getTile().getId();
-        if (id == TileID.LASER_WALL_N.getId()) { shoot(loc, Direction.SOUTH); }
-        if (id == TileID.LASER_WALL_W.getId()) { shoot(loc, Direction.EAST);  }
-        if (id == TileID.LASER_WALL_S.getId()) { shoot(loc, Direction.NORTH); }
-        if (id == TileID.LASER_WALL_E.getId()) { shoot(loc, Direction.WEST); }
+    private void moveAllBelts(List<Robot> robots) {
+        for (Robot robot : robots) {
+            if (northBelts.contains(robot.getLoc())) { move(robot, Direction.NORTH); }
+            else if (westBelts.contains(robot.getLoc())) { move(robot, Direction.WEST); }
+            else if (southBelts.contains(robot.getLoc())) { move(robot, Direction.SOUTH); }
+            else if (eastBelts.contains(robot.getLoc())) { move(robot, Direction.EAST); }
+
+            if (leftTurnBelts.contains(robot.getLoc())) { rotateRobot(robot, ProgramCard.TURN_LEFT);}
+            else if (rightTurnBelts.contains(robot.getLoc())) { rotateRobot(robot, ProgramCard.TURN_RIGHT);}
+        }
+    }
+
+    /**
+     * Fires all board lasers then robot lasers.
+     *
+     * @param robots the list of shooting robots.
+     */
+    public void fireLasers(List<Robot> robots) {
+        fireWallLasers();
+        fireRobotLasers(robots);
+    }
+
+    /**
+     * Fires all robot lasers.
+     *
+     * @param robots list of robots shooting laser.
+     */
+    private void fireRobotLasers(List<Robot> robots) {
+        for (Robot robot : robots) {
+            if (canGo(robot.getLoc(), robot.getDirection())) {
+                shoot(getNextLoc(robot.getLoc(), robot.getDirection()), robot.getDirection());
+            }
+        }
+    }
+
+    /**
+     * Fires all wall lasers.
+     */
+    private void fireWallLasers() {
+        for (Vector2 loc : getLaserWalls()) {
+            int id = laserWallLayer.getCell((int) loc.x, (int) loc.y).getTile().getId();
+            if (id == TileID.LASER_WALL_N.getId()) { shoot(loc, Direction.SOUTH); }
+            if (id == TileID.LASER_WALL_W.getId()) { shoot(loc, Direction.EAST);  }
+            if (id == TileID.LASER_WALL_S.getId()) { shoot(loc, Direction.NORTH); }
+            if (id == TileID.LASER_WALL_E.getId()) { shoot(loc, Direction.WEST); }
+        }
     }
 
     /**
@@ -233,14 +254,18 @@ public class BoardActions extends Board {
     private void shoot(Vector2 loc, Direction dir) {
         if (occupied(loc)) {
             addLaser(loc, dir);
-            // TODO: damage robot
+            doDamage(loc);
         }
         else if (canGo(loc, dir)) {
             addLaser(loc, dir);
-            if (inBounds(findNext(loc, dir))) { shoot(findNext(loc, dir), dir);} addLaser(loc, dir);
+            if (inBounds(getNextLoc(loc, dir))) { shoot(getNextLoc(loc, dir), dir);} addLaser(loc, dir);
         }
         else { addLaser(loc, dir); }
 
+    }
+
+    private void doDamage(Vector2 loc) {
+        for (Robot robot : app.getGame().getRobots()) { if (robot.getLoc().equals(loc)) { robot.addDamage(); } }
     }
 
     /**
@@ -280,20 +305,28 @@ public class BoardActions extends Board {
         }
     }
 
+    /**
+     * Performs end of turn checks.
+     *
+     * 1. Repair sites - includes flag and upgrade
+     * 2. Wipe registers
+     * 3. Continue power down?
+     * 4. Return dead robots
+     *
+     * @param robots the list of robots.
+     */
     public void endOfTurn(List<Robot> robots) {
-        // Radiation damage
-
-        // Repair sites - includes flag and upgrade
-
-        // Wipe registers
         wipeRobots(robots);
-        Gdx.app.postRunnable(() -> { app.getUI().clearRegistry(); });
-        // Continue power down?
-
-        // Return dead robots
-
     }
 
-    private void wipeRobots(List<Robot> robots) { for (Robot robot : robots) { robot.wipeRegisters(); } }
+    /**
+     * Wipes robot registers.
+     *
+     * @param robots the list of robots to wipe.
+     */
+    private void wipeRobots(List<Robot> robots) {
+        for (Robot robot : robots) { robot.wipeRegisters(); }
+        Gdx.app.postRunnable(() -> app.getUI().clearRegistry());
+    }
 
 }

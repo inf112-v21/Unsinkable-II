@@ -33,11 +33,12 @@ public class PlayerUI {
     private final Map<Integer, Integer> registry;
     private final float width = Gdx.graphics.getWidth();
     private final float height = Gdx.graphics.getHeight();
-    private final float cardWidth = width / 16f;
-    private final float cardHeight = height / 6f;
-    private final float registerPadding = height / 20f;
-    private final float handPadding = height / 32f;
-    private final float bottomPadding = height / 10f;
+
+    private final float CARD_WIDTH = width / 16f;
+    private final float CARD_HEIGHT = height / 6f;
+    private final float REGISTER_PADDING = height / 20f;
+    private final float HAND_PADDING = height / 32f;
+    private final float BOTTOM_PADDING = height / 10f;
 
     private List<Card> hand;
     private int order;
@@ -69,7 +70,7 @@ public class PlayerUI {
         registryTableSetup();
         mainTable.row();
         mainTable.add(playerHandTable);
-        playerHandTable.padBottom(handPadding);
+        playerHandTable.padBottom(HAND_PADDING);
         runButtonSetup();
     }
 
@@ -79,7 +80,7 @@ public class PlayerUI {
     private void mainTableSetup() {
         mainTable.setFillParent(true);
         mainTable.padLeft(width/2f);
-        mainTable.padBottom(bottomPadding).bottom();
+        mainTable.padBottom(BOTTOM_PADDING).bottom();
         if (Debugging.isGuiDebug()) {
             mainTable.setDebug(true);
             registryTable.setDebug(true);
@@ -101,9 +102,9 @@ public class PlayerUI {
     private void addPlayerHandButtons() {
         for (int index = 0; index < hand.size(); ++index) {
             if (index % 3 == 0) {
-                playerHandTable.padRight(cardWidth);
+                playerHandTable.padRight(CARD_WIDTH);
                 playerHandTable.row();
-                playerHandTable.padLeft(cardWidth);
+                playerHandTable.padLeft(CARD_WIDTH);
             }
             Button button = new ImageButton(
                     makeCard(hand.get(index).getValue()),
@@ -111,7 +112,7 @@ public class PlayerUI {
                     makeCard(ProgramCard.BACKSIDE));
             button.addListener(playerHandListener(index));
 
-            playerHandTable.add(button).size(cardWidth, cardHeight);
+            playerHandTable.add(button).size(CARD_WIDTH, CARD_HEIGHT);
             handButtons.add(button);
             if (Debugging.isGuiDebug()) { button.debug(); }
         }
@@ -135,16 +136,16 @@ public class PlayerUI {
      */
     private void registryTableSetup(){
         mainTable.row();
-        registryTable.padBottom(registerPadding);
+        registryTable.padBottom(REGISTER_PADDING);
         mainTable.add(registryTable).left();
     }
 
     private void addRegistryButton(int index) {
         Button button = new ImageButton(makeCard(hand.get(index).getValue()));
-        button.setSize(cardWidth, cardHeight);
+        button.setSize(CARD_WIDTH, CARD_HEIGHT);
         button.addListener(registryListener(index, button));
         registryTable.add(button)
-                .size(cardWidth, cardHeight)
+                .size(CARD_WIDTH, CARD_HEIGHT)
                 .left()
                 .bottom();
         registryButtons.add(button);

@@ -2,6 +2,7 @@ package RoboRally.Game.Objects;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import RoboRally.Game.Direction;
 import com.badlogic.gdx.math.Vector2;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -32,12 +33,12 @@ public class RobotTest {
         int initialLives = robot.getLives();
         robot.addDamage();
         assertEquals(robot.getHealth(), initialHealth - 1);
-        assertTrue(robot.killRobot());
+        assertTrue(robot.killRobot(Direction.NORTH));
         assertEquals(robot.getLives(), initialLives - 1);
 
         boolean killSuccess = false;
         for (int i = 0; i <= robot.getLives(); i++) {
-            killSuccess = robot.killRobot();
+            killSuccess = robot.killRobot(Direction.NORTH);
         }
         assertFalse(killSuccess);
     }
