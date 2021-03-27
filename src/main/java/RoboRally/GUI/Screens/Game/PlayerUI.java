@@ -214,7 +214,6 @@ public class PlayerUI {
 
     private void runButtonSetup() {
         mainTable.row();
-        //runButtonTable.padBottom(vertPadding);
         runButtonTable.add(addRunButton());
         runButtonTable.add(addPowerDownButton());
         mainTable.add(runButtonTable);

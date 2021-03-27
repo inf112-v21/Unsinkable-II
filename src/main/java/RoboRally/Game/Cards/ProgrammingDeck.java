@@ -10,7 +10,7 @@ import java.util.*;
  */
 public class ProgrammingDeck {
 
-    private final Stack<Card> programCardDeck;
+    private final Deque<Card> programCardDeck;
     private final List<Card> thrownCards;
 
     public ProgrammingDeck(){
@@ -24,8 +24,8 @@ public class ProgrammingDeck {
      *
      * @return a new Programming card deck.
      */
-    public static Stack<Card> getNewDeck() {
-        Stack<Card> deck = new Stack<>();
+    public static Deque<Card> getNewDeck() {
+        Deque<Card> deck = new LinkedList<>();
         for (int i = 0; i != 18; ++i) { deck.add(new Card(ProgramCard.MOVE_1, 200+i)); }
         for (int i = 0; i != 12; ++i) { deck.add(new Card(ProgramCard.MOVE_2, 300+i)); }
         for (int i = 0; i != 6; ++i) { deck.add(new Card(ProgramCard.MOVE_3, 400+i)); }
@@ -42,7 +42,7 @@ public class ProgrammingDeck {
      */
     public void shuffle() {
         this.programCardDeck.addAll(thrownCards);
-         Collections.shuffle(this.programCardDeck);
+         Collections.shuffle((List<?>) this.programCardDeck);
     }
 
     /**
@@ -74,7 +74,7 @@ public class ProgrammingDeck {
      */
     public int getSize() { return programCardDeck.size(); }
 
-    public Stack<Card> getDeck() {
+    public Deque<Card> getDeck() {
         return programCardDeck;
     }
 }
