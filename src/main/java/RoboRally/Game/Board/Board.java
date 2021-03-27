@@ -20,8 +20,9 @@ public abstract class Board {
     protected final RoboRallyApp app;
     protected final TiledMap board;
     protected final Vector2[] startLocs, flagLocs;
-    protected final Set<Vector2> bounds,  holes, repairSites, upgradeSites, leftGears, rightGears,
-            northWalls, westWalls, southWalls, eastWalls,
+    protected final Set<Vector2> northWalls, westWalls, southWalls, eastWalls,
+            bounds,  holes, repairSites, upgradeSites, leftGears, rightGears,
+            leftTurnBelts, rightTurnBelts, leftTurnFastBelts, rightTurnFastBelts,
             northBelts, westBelts, southBelts, eastBelts, northFastBelts, westFastBelts, southFastBelts, eastFastBelts;
     protected final TiledMapTileLayer boardLayer, playerLayer, startLayer, wallLayer, flagLayer, holeLayer,
             repairLayer, upgradeLayer, laserWallLayer, laserLayer,  conveyorLayer, gearLayer;
@@ -68,6 +69,10 @@ public abstract class Board {
         this.westFastBelts = new HashSet<>();
         this.southFastBelts = new HashSet<>();
         this.eastFastBelts = new HashSet<>();
+        this.leftTurnBelts = new HashSet<>();
+        this.rightTurnBelts = new HashSet<>();
+        this.leftTurnFastBelts = new HashSet<>();
+        this.rightTurnFastBelts = new HashSet<>();
         findBelts();
 
         this.bounds = findAllLayerTiles(boardLayer);
@@ -154,6 +159,11 @@ public abstract class Board {
             else if (TileID.BELTS_FAST_WEST.contains(beltID)) { westFastBelts.add(belt); westBelts.add(belt); }
             else if (TileID.BELTS_FAST_SOUTH.contains(beltID)) { southFastBelts.add(belt); southBelts.add(belt); }
             else if (TileID.BELTS_FAST_EAST.contains(beltID)) { eastFastBelts.add(belt); eastBelts.add(belt); }
+
+            if (TileID.BELTS_LEFT.contains(beltID)) { leftTurnBelts.add(belt); }
+            else if (TileID.BELTS_RIGHT.contains(beltID)) { leftTurnBelts.add(belt); }
+            else if (TileID.BELTS_FAST_LEFT.contains(beltID)) { leftTurnFastBelts.add(belt); }
+            else if (TileID.BELTS_FAST_RIGHT.contains(beltID)) { rightTurnFastBelts.add(belt); }
         }
     }
 
@@ -161,7 +171,7 @@ public abstract class Board {
         for (Vector2 gear : findAllLayerTiles(gearLayer)) {
             int gearID = gearLayer.getCell((int) gear.x, (int) gear.y).getTile().getId();
             if (gearID == TileID.GEAR_LEFT.getId()) { leftGears.add(gear); }
-            else { rightGears.add(gear); }
+            if (gearID == TileID.GEAR_RIGHT.getId()) { rightGears.add(gear); }
         }
     }
 

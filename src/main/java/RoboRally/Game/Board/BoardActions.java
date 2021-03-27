@@ -153,22 +153,10 @@ public class BoardActions extends Board {
      */
     public void moveBoardElements(List<Robot> robots) {
         // 1. Express conveyor belts
-        for (Robot robot : robots) {
-            if (northFastBelts.contains(robot.getLoc())) { move(robot, Direction.NORTH); }
-            if (westFastBelts.contains(robot.getLoc())) { move(robot, Direction.WEST); }
-            if (southFastBelts.contains(robot.getLoc())) { move(robot, Direction.SOUTH); }
-            if (eastFastBelts.contains(robot.getLoc())) { move(robot, Direction.EAST); }
-            // TODO: Rotate robots with turning belts
-        }
+        for (Robot robot : robots) { moveFastBelts(robot); }
 
         // 2. All conveyor belts
-        for (Robot robot : robots) {
-            if (northBelts.contains(robot.getLoc())) { move(robot, Direction.NORTH); }
-            if (westBelts.contains(robot.getLoc())) { move(robot, Direction.WEST); }
-            if (southBelts.contains(robot.getLoc())) { move(robot, Direction.SOUTH); }
-            if (eastBelts.contains(robot.getLoc())) { move(robot, Direction.EAST); }
-            // TODO: Rotate robots with turning belts
-        }
+        for (Robot robot : robots) { moveAllBelts(robot); }
 
         // 3. Pushers
 
@@ -177,6 +165,26 @@ public class BoardActions extends Board {
             if (leftGears.contains(robot.getLoc())) { rotate(robot, ProgramCard.TURN_LEFT.getRotation());}
             if (rightGears.contains(robot.getLoc())) { rotate(robot, ProgramCard.TURN_RIGHT.getRotation());}
         }
+    }
+
+    private void moveFastBelts(Robot robot) {
+        if (northFastBelts.contains(robot.getLoc())) { move(robot, Direction.NORTH);}
+        else if (westFastBelts.contains(robot.getLoc())) { move(robot, Direction.WEST); }
+        else if (southFastBelts.contains(robot.getLoc())) { move(robot, Direction.SOUTH); }
+        else if (eastFastBelts.contains(robot.getLoc())) { move(robot, Direction.EAST); }
+
+        if (leftTurnFastBelts.contains(robot.getLoc())) { rotateRobot(robot, ProgramCard.TURN_LEFT);}
+        else if (rightTurnFastBelts.contains(robot.getLoc())) { rotateRobot(robot, ProgramCard.TURN_RIGHT);}
+    }
+
+    private void moveAllBelts(Robot robot) {
+        if (northBelts.contains(robot.getLoc())) { move(robot, Direction.NORTH); }
+        else if (westBelts.contains(robot.getLoc())) { move(robot, Direction.WEST); }
+        else if (southBelts.contains(robot.getLoc())) { move(robot, Direction.SOUTH); }
+        else if (eastBelts.contains(robot.getLoc())) { move(robot, Direction.EAST); }
+
+        if (leftTurnBelts.contains(robot.getLoc())) { rotateRobot(robot, ProgramCard.TURN_LEFT);}
+        else if (rightTurnBelts.contains(robot.getLoc())) { rotateRobot(robot, ProgramCard.TURN_RIGHT);}
     }
 
     /**

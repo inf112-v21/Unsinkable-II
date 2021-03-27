@@ -38,7 +38,7 @@ public class RoboRallyApp extends Game {
     private final String gameSkinPath = "Skins/star-soldier/skin/star-soldier-ui.json";
     private final String logoPath = "Logo/logo.png";
 
-    public static final boolean DEBUG = true;
+    public static final boolean DEBUG = false;
 
     //================================================================
     //                         GUI Objects

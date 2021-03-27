@@ -35,7 +35,9 @@ public class PlayerUI {
     private final float height = Gdx.graphics.getHeight();
     private final float cardWidth = width / 16f;
     private final float cardHeight = height / 6f;
-    private final float vertPadding = height / 16f;
+    private final float registerPadding = height / 20f;
+    private final float handPadding = height / 32f;
+    private final float bottomPadding = height / 10f;
 
     private List<Card> hand;
     private int order;
@@ -46,7 +48,6 @@ public class PlayerUI {
      * @param app the app
      */
     public PlayerUI(RoboRallyApp app) {
-        System.out.println("Making UI");
         this.app = app;
         this.hand = new ArrayList<>();
 
@@ -68,6 +69,7 @@ public class PlayerUI {
         registryTableSetup();
         mainTable.row();
         mainTable.add(playerHandTable);
+        playerHandTable.padBottom(handPadding);
         runButtonSetup();
     }
 
@@ -77,7 +79,7 @@ public class PlayerUI {
     private void mainTableSetup() {
         mainTable.setFillParent(true);
         mainTable.padLeft(width/2f);
-        mainTable.padBottom(vertPadding).bottom();
+        mainTable.padBottom(bottomPadding).bottom();
         if (Debugging.isGuiDebug()) {
             mainTable.setDebug(true);
             registryTable.setDebug(true);
@@ -110,8 +112,8 @@ public class PlayerUI {
             button.addListener(playerHandListener(index));
 
             playerHandTable.add(button).size(cardWidth, cardHeight);
-            button.debug();
             handButtons.add(button);
+            if (Debugging.isGuiDebug()) { button.debug(); }
         }
     }
 
@@ -133,7 +135,7 @@ public class PlayerUI {
      */
     private void registryTableSetup(){
         mainTable.row();
-        registryTable.padBottom(vertPadding);
+        registryTable.padBottom(registerPadding);
         mainTable.add(registryTable).left();
     }
 
@@ -146,6 +148,7 @@ public class PlayerUI {
                 .left()
                 .bottom();
         registryButtons.add(button);
+        if (Debugging.isGuiDebug()) { button.debug(); }
     }
 
     private ClickListener registryListener(int index, Button button) {
@@ -210,7 +213,7 @@ public class PlayerUI {
 
     private void runButtonSetup() {
         mainTable.row();
-        runButtonTable.padTop(vertPadding);
+        //runButtonTable.padBottom(vertPadding);
         runButtonTable.add(addRunButton());
         runButtonTable.add(addPowerDownButton());
         mainTable.add(runButtonTable);
@@ -218,17 +221,15 @@ public class PlayerUI {
 
     private Button addRunButton() {
         Button runButton = new TextButton("Run", app.getGameSkin());
-        runButton.setSize(width /6f, height/6f);
         runButton.addListener(runButtonListener(false));
+        if (Debugging.isGuiDebug()) { runButton.debug(); }
         return runButton;
     }
 
     private Button addPowerDownButton() {
         Button powerDownButton = new TextButton("Power Down", app.getGameSkin());
-        powerDownButton.setSize(cardWidth, cardHeight);
-        Deque<Card> emptyRegisters = new LinkedList<>();
-        for (int i = 0; i < 5; ++i) { emptyRegisters.offer(new Card()); }
         powerDownButton.addListener(runButtonListener(true));
+        if (Debugging.isGuiDebug()) { powerDownButton.debug(); }
         return powerDownButton;
     }
 

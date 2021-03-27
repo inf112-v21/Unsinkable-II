@@ -165,6 +165,14 @@ public enum TileID {
             BELT_FAST_W.getId(), BELT_FAST_S_TO_W.getId(), BELT_FAST_N_TO_W.getId(),
             BELT_FAST_W_N_TURN_L.getId(), BELT_FAST_W_S_TURN_R.getId(), BELT_FAST_W_S_TURN_R_N_TURN_L.getId());
 
+    public static final Set<Integer> BELTS_LEFT = Set.of(
+            BELT_W_TO_S.getId(), BELT_N_TO_W.getId(), BELT_N_TO_E.getId(), BELT_E_TO_S.getId());
+    public static final Set<Integer> BELTS_FAST_LEFT = Set.of(
+            BELT_FAST_W_TO_S.getId(), BELT_FAST_N_TO_W.getId(), BELT_FAST_N_TO_E.getId(), BELT_FAST_E_TO_S.getId());
+    public static final Set<Integer> BELTS_RIGHT = Set.of(
+            BELT_S_TO_E.getId(), BELT_E_TO_N.getId(), BELT_W_TO_N.getId(), BELT_S_TO_W.getId());
+    public static final Set<Integer> BELTS_FAST_RIGHT = Set.of(
+            BELT_FAST_S_TO_E.getId(), BELT_FAST_E_TO_N.getId(), BELT_FAST_W_TO_N.getId(), BELT_FAST_S_TO_W.getId());
 
     private final int id;
 
