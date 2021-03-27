@@ -42,9 +42,9 @@ public class MultiplayerHost extends Multiplayer {
     @Override
     public void connected(Connection connection) {
         connection.setTimeout(TIMEOUT*1000); // TODO: How much timeout is enough? Check how Kryonet sends timeout handshakes
+        connection.setName("Player "+(connections.size()+1));
         this.connections.add(connection);
-        connection.setName("Player " + connections.size());
-        System.out.println("New Connection: "+connection.getRemoteAddressTCP());
+        System.out.println("Server: New Connection: "+connection.getRemoteAddressTCP());
         startPacket.playerID = connections.size();
         for (Connection con : connections) { con.sendTCP(startPacket); }
     }
@@ -58,13 +58,17 @@ public class MultiplayerHost extends Multiplayer {
     @Override
     public void received(Connection connection, Object transmission) {
         if (transmission instanceof RoundPacket) {
-            roundPackets.add((RoundPacket) transmission);
-            System.out.println("Server received round packet from "+connection);
-            if (roundPackets.size() == connections.size()) { broadcastGamePackets(); }
-            roundPackets = new ArrayList<>();
+            RoundPacket round = (RoundPacket) transmission;
+            roundPackets.add(round);
+            System.out.println("Server: Received round packet from "+connection+" currently "+roundPackets.size()+" out of "+connections.size());
+            if (roundPackets.size() == connections.size()) {
+                broadcastGamePackets();
+                roundPackets = new ArrayList<>();
+            }
         }
         if (transmission instanceof RequestHandPacket) {
             int numCards = ((RequestHandPacket) transmission).handSize;
+            System.out.println("Server: "+connection+" requested "+numCards+" cards");
             connection.sendTCP(new PlayerHandPacket((deck.getHand(numCards))));
         }
     }
@@ -81,7 +85,7 @@ public class MultiplayerHost extends Multiplayer {
      * Broadcasts every player's game packet to all player connections.
      */
     private void broadcastGamePackets() {
-        System.out.println("Broadcasting round packets");
+        System.out.println("Server: Broadcasting round packets");
         for (Connection connection : connections) {
             for (RoundPacket packet : roundPackets) { connection.sendTCP(packet); }
         }

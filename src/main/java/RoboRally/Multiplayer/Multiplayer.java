@@ -24,7 +24,7 @@ public abstract class Multiplayer extends Listener implements Networking {
     protected List<RoundPacket> roundPackets;
     public StartPacket startPacket;
 
-    public volatile boolean start = false;
+    public volatile boolean start;
     protected static final int TIMEOUT = 5000;
 
     /**
@@ -43,7 +43,7 @@ public abstract class Multiplayer extends Listener implements Networking {
         endPoint.getKryo().register(ProgramCard.class);
         endPoint.getKryo().register(Card.class);
         endPoint.getKryo().register(Vector2.class);
-        
+
         endPoint.getKryo().register(MessagePacket.class);
     }
 

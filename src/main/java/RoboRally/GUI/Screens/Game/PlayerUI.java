@@ -42,6 +42,7 @@ public class PlayerUI {
 
     private List<Card> hand;
     private int order;
+    private boolean registryActive, runButtonActive;
 
     /**
      * Creates a new player UI.
@@ -64,6 +65,8 @@ public class PlayerUI {
         this.registryButtons = new ButtonGroup<>();
         this.registryTable = new Table();
         this.registry = new HashMap<>();
+        this.registryActive = true;
+        this.runButtonActive = true;
         this.order = 0;
 
         mainTableSetup();
@@ -75,7 +78,7 @@ public class PlayerUI {
     }
 
     /**
-     * Setup for the UI layout main table
+     * Setup for the main table UI layout.
      */
     private void mainTableSetup() {
         mainTable.setFillParent(true);
@@ -88,8 +91,9 @@ public class PlayerUI {
         }
     }
 
-
-
+    /**
+     * Sets up the button group for the player hand.
+     */
     private void handButtonsSetup() {
         handButtons.setMaxCheckCount(5);
         handButtons.setMinCheckCount(0);
@@ -99,6 +103,9 @@ public class PlayerUI {
 
     }
 
+    /**
+     * Sets up the player hand cards represented as a 3x3 grid of image buttons.
+     */
     private void addPlayerHandButtons() {
         for (int index = 0; index < hand.size(); ++index) {
             if (index % 3 == 0) {
@@ -118,6 +125,7 @@ public class PlayerUI {
         }
     }
 
+
     private ClickListener playerHandListener(int index) {
         return new ClickListener() {
             @Override
@@ -125,7 +133,7 @@ public class PlayerUI {
                 if (registry.size() < 5 && !handButtons.getButtons().get(index).isDisabled()) {
                     registry.put(index, ++order);
                     handButtons.getButtons().get(index).setDisabled(true);
-                    addRegistryButton(index);
+                    addToRegistry(index);
                 }
             }
         };
@@ -140,7 +148,12 @@ public class PlayerUI {
         mainTable.add(registryTable).left();
     }
 
-    private void addRegistryButton(int index) {
+    /**
+     * Adds a card from the player hand to the registry.
+     *
+     * @param index
+     */
+    private void addToRegistry(int index) {
         Button button = new ImageButton(makeCard(hand.get(index).getValue()));
         button.setSize(CARD_WIDTH, CARD_HEIGHT);
         button.addListener(registryListener(index, button));
@@ -156,17 +169,19 @@ public class PlayerUI {
         return new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                handButtons.getButtons().get(index).setDisabled(false);
-                handButtons.getButtons().get(index).setChecked(false);
-                registry.remove(index);
-                registryTable.getCell(button).reset();
-                registryTable.removeActor(button);
+                if (registryActive) {
+                    handButtons.getButtons().get(index).setDisabled(false);
+                    handButtons.getButtons().get(index).setChecked(false);
+                    registry.remove(index);
+                    registryTable.getCell(button).reset();
+                    registryTable.removeActor(button);
+                }
             }
         };
     }
 
     /**
-     * Clears the player hand table.
+     * Clears the player hand.
      */
     private void resetHand() {
         handButtons.clear();
@@ -179,6 +194,8 @@ public class PlayerUI {
         playerHandTable.padTop(0);
         handButtons.clear();
         handButtonsSetup();
+        registryActive = true;
+        runButtonActive = true;
     }
 
     /**
@@ -237,7 +254,9 @@ public class PlayerUI {
         return new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                if (registry.size() == 5) {
+                if (runButtonActive && registry.size() == 5) {
+                    runButtonActive = false;
+                    registryActive = false;
                     app.getGame().attemptRun(makeRegisters(), hand, powerDown);
                     resetHand();
                 }
