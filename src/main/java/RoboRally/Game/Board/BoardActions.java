@@ -4,6 +4,7 @@ import RoboRally.GUI.RoboRallyApp;
 import RoboRally.Game.Cards.ProgramCard;
 import RoboRally.Game.Direction;
 import RoboRally.Game.Objects.Robot;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Vector2;
 
@@ -264,7 +265,7 @@ public class BoardActions extends Board {
 
         // Wipe registers
         wipeRobots(robots);
-
+        Gdx.app.postRunnable(() -> { app.getUI().clearRegistry(); });
         // Continue power down?
 
         // Return dead robots

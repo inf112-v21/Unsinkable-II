@@ -179,17 +179,13 @@ public class PlayerUI {
      * Clears the player hand table.
      */
     private void resetHand() {
-        for (Button card : handButtons.getButtons()) {
-            playerHandTable.getCell(card).reset();
-            playerHandTable.removeActor(card);
-        }
+        handButtons.clear();
         playerHandTable.clearChildren();
         playerHandTable.padTop(height/2f);
     }
 
     public void updateHand(List<Card> hand) {
         this.hand = hand;
-        clearRegistry();
         playerHandTable.padTop(0);
         handButtons.clear();
         handButtonsSetup();
@@ -198,13 +194,10 @@ public class PlayerUI {
     /**
      * Clears the player hand table.
      */
-    private void clearRegistry() {
+    public void clearRegistry() {
         registry.clear();
         order = 0;
-        for (Button register : registryButtons.getButtons()) {
-            registryTable.getCell(register).reset();
-            registryTable.removeActor(register);
-        }
+        registryButtons.clear();
         registryTable.clearChildren();
     }
 

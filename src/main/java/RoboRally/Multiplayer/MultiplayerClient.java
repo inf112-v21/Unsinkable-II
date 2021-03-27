@@ -52,7 +52,7 @@ public class MultiplayerClient extends Multiplayer {
         }
         else if (transmission instanceof RoundPacket) {
             roundPackets.add((RoundPacket) transmission);
-            System.out.println("Received round packet from player " + roundPackets.get(roundPackets.size()-1).playerID);
+            System.out.println("Received round packet from " + connection);
             if (roundPackets.size() == app.getGame().getPlayers().size()) {
                 app.getGame().updateAllRobotRegisters(roundPackets);
                 roundPackets = new ArrayList<>();

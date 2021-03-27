@@ -45,10 +45,8 @@ public class MultiplayerHost extends Multiplayer {
         this.connections.add(connection);
         connection.setName("Player " + connections.size());
         System.out.println("New Connection: "+connection.getRemoteAddressTCP());
-
         startPacket.playerID = connections.size();
         for (Connection con : connections) { con.sendTCP(startPacket); }
-        //connection.sendTCP(new PlayerHandPacket(deck.getHand(9)));
     }
 
     /**
@@ -63,6 +61,7 @@ public class MultiplayerHost extends Multiplayer {
             roundPackets.add((RoundPacket) transmission);
             System.out.println("Server received round packet from "+connection);
             if (roundPackets.size() == connections.size()) { broadcastGamePackets(); }
+            roundPackets = new ArrayList<>();
         }
         if (transmission instanceof RequestHandPacket) {
             int numCards = ((RequestHandPacket) transmission).handSize;
