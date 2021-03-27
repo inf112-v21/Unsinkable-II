@@ -24,22 +24,20 @@ public class PlayerUI {
 
     private final RoboRallyApp app;
     private final Table mainTable;
-    private Table playerHandTable;
+    private final Table playerHandTable;
     private final Table runButtonTable;
     private final Table registryTable;
     private final Stage stage;
     private final FitViewport stageViewport;
-    private final ButtonGroup<Button> handButtons;
-    private final List<Card> hand;
+    private final ButtonGroup<Button> handButtons, registryButtons;
     private final Map<Integer, Integer> registry;
-
     private final float width = Gdx.graphics.getWidth();
     private final float height = Gdx.graphics.getHeight();
-
     private final float cardWidth = width / 16f;
     private final float cardHeight = height / 6f;
     private final float vertPadding = height / 16f;
 
+    private List<Card> hand;
     private int order;
 
     /**
@@ -47,9 +45,10 @@ public class PlayerUI {
      *
      * @param app the app
      */
-    public PlayerUI(RoboRallyApp app, List<Card> playerHand) {
+    public PlayerUI(RoboRallyApp app) {
+        System.out.println("Making UI");
         this.app = app;
-        this.hand = playerHand;
+        this.hand = new ArrayList<>();
 
         this.stageViewport = new FitViewport(width, height);
         this.stage = new Stage(stageViewport);
@@ -60,13 +59,15 @@ public class PlayerUI {
         this.runButtonTable = new Table();
         this.playerHandTable = new Table();
         this.handButtons = new ButtonGroup<>();
+        this.registryButtons = new ButtonGroup<>();
         this.registryTable = new Table();
         this.registry = new HashMap<>();
         this.order = 0;
 
         mainTableSetup();
         registryTableSetup();
-        handButtonsSetup();
+        mainTable.row();
+        mainTable.add(playerHandTable);
         runButtonSetup();
     }
 
@@ -84,26 +85,19 @@ public class PlayerUI {
         }
     }
 
-    private void runButtonSetup() {
-        mainTable.row();
-        runButtonTable.padTop(vertPadding);
-        runButtonTable.add(addRunButton());
-        runButtonTable.add(addPowerDownButton());
-        mainTable.add(runButtonTable);
-    }
+
 
     private void handButtonsSetup() {
-        mainTable.row();
         handButtons.setMaxCheckCount(5);
         handButtons.setMinCheckCount(0);
         handButtons.setUncheckLast(false);
         handButtons.uncheckAll();
         addPlayerHandButtons();
-        mainTable.add(playerHandTable);
+
     }
 
     private void addPlayerHandButtons() {
-        for (int index = 0; index < 9; ++index) {
+        for (int index = 0; index < hand.size(); ++index) {
             if (index % 3 == 0) {
                 playerHandTable.padRight(cardWidth);
                 playerHandTable.row();
@@ -116,35 +110,20 @@ public class PlayerUI {
             button.addListener(playerHandListener(index));
 
             playerHandTable.add(button).size(cardWidth, cardHeight);
+            button.debug();
             handButtons.add(button);
         }
-    }
-
-    /**
-     * Clears the player hand table.
-     */
-    private void clearHandTable() {
-        playerHandTable.clearChildren();
-        playerHandTable.padTop(height/2f);
-    }
-
-    /**
-     * Clears the player hand table.
-     */
-    private void clearRegistryTable() {
-        registryTable.clearChildren();
-        registryTable.padTop(cardHeight);
     }
 
     private ClickListener playerHandListener(int index) {
         return new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-            if (registry.size() < 5 && !handButtons.getButtons().get(index).isDisabled()) {
-                registry.put(index, ++order);
-                handButtons.getButtons().get(index).setDisabled(true);
-                addRegistryButton(index);
-            }
+                if (registry.size() < 5 && !handButtons.getButtons().get(index).isDisabled()) {
+                    registry.put(index, ++order);
+                    handButtons.getButtons().get(index).setDisabled(true);
+                    addRegistryButton(index);
+                }
             }
         };
     }
@@ -166,6 +145,7 @@ public class PlayerUI {
                 .size(cardWidth, cardHeight)
                 .left()
                 .bottom();
+        registryButtons.add(button);
     }
 
     private ClickListener registryListener(int index, Button button) {
@@ -181,18 +161,7 @@ public class PlayerUI {
         };
     }
 
-    private Button addRunButton() {
-        Button runButton = new TextButton("Run", app.getGameSkin());
-        runButton.setSize(width /6f, height/6f);
-        runButton.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                if (registry.size() == 5) {
-                    app.getGame().attemptRun(makeRegisters(), hand);
-                    clearHandTable();
-                } } } );
-        return runButton;
-    }
+
 
     private Button addPowerDownButton() {
         Button powerDownButton = new TextButton("Power Down", app.getGameSkin());
@@ -207,16 +176,37 @@ public class PlayerUI {
     }
 
     /**
-     * Dispose .
+     * Clears the player hand table.
      */
-    public void dispose(){ stage.dispose(); }
+    private void resetHand() {
+        for (Button card : handButtons.getButtons()) {
+            playerHandTable.getCell(card).reset();
+            playerHandTable.removeActor(card);
+        }
+        playerHandTable.clearChildren();
+        playerHandTable.padTop(height/2f);
+    }
+
+    public void updateHand(List<Card> hand) {
+        this.hand = hand;
+        clearRegistry();
+        playerHandTable.padTop(0);
+        handButtons.clear();
+        handButtonsSetup();
+    }
 
     /**
-     * Gets stage.
-     *
-     * @return the stage
+     * Clears the player hand table.
      */
-    public Stage getStage() { return this.stage; }
+    private void clearRegistry() {
+        registry.clear();
+        order = 0;
+        for (Button register : registryButtons.getButtons()) {
+            registryTable.getCell(register).reset();
+            registryTable.removeActor(register);
+        }
+        registryTable.clearChildren();
+    }
 
     /**
      * Creates the registry of cards
@@ -225,17 +215,50 @@ public class PlayerUI {
      */
     private Deque<Card> makeRegisters() {
         List<Integer> list = new LinkedList<>(registry.values());
-        Deque<Card> queue = new LinkedList<>();
+        Deque<Card> registers = new LinkedList<>();
         Collections.sort(list);
         for (int value : list) {
             for (int handIndex : registry.keySet()) {
-                if (registry.get(handIndex) == value) { queue.offer(hand.get(handIndex)); }
+                if (registry.get(handIndex) == value) { registers.offer(hand.get(handIndex)); }
             }
         }
-        return queue;
+        return registers;
     }
 
     private TextureRegionDrawable makeCard(ProgramCard card) {
         return new TextureRegionDrawable(new TextureRegion(new Texture(card.getPath())));
     }
+
+    private Button addRunButton() {
+        Button runButton = new TextButton("Run", app.getGameSkin());
+        runButton.setSize(width /6f, height/6f);
+        runButton.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                if (registry.size() == 5) {
+                    app.getGame().attemptRun(makeRegisters(), hand);
+                    resetHand();
+                }} });
+        return runButton;
+    }
+
+    private void runButtonSetup() {
+        mainTable.row();
+        runButtonTable.padTop(vertPadding);
+        runButtonTable.add(addRunButton());
+        runButtonTable.add(addPowerDownButton());
+        mainTable.add(runButtonTable);
+    }
+
+    /**
+     * @return the stage
+     */
+    public Stage getStage() { return this.stage; }
+
+    /**
+     * Dispose .
+     */
+    public void dispose(){ stage.dispose(); }
+
+
 }

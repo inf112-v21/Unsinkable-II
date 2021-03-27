@@ -8,7 +8,7 @@ package RoboRally.Debugging;
 public class Debugging {
 
     private static boolean CHEAT_MODE = false;
-    private static boolean GUI_DEBUG = false;
+    private static boolean GUI_DEBUG = true;
     private static boolean DISABLE_BACKGROUND = false;
 
     private static Debugging debugging_instance;

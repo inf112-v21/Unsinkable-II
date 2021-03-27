@@ -19,6 +19,7 @@ import java.util.List;
 public class MultiplayerClient extends Multiplayer {
     private final Client client;
     private PlayerHandPacket hand;
+    public volatile boolean receivedNewHand;
 
     public MultiplayerClient(RoboRallyApp app, String hostIP) {
         this.app = app;
@@ -27,7 +28,7 @@ public class MultiplayerClient extends Multiplayer {
         this.client.start();
         client.addListener(this);
         connectTo(hostIP);
-
+        receivedNewHand = false;
         roundPackets = new ArrayList<>();
     }
 
@@ -46,6 +47,7 @@ public class MultiplayerClient extends Multiplayer {
         }
         else if (transmission instanceof PlayerHandPacket) {
             this.hand = (PlayerHandPacket) transmission;
+            receivedNewHand = true;
             System.out.println("Received hand "+hand.cards.toString());
         }
         else if (transmission instanceof RoundPacket) {
@@ -62,7 +64,10 @@ public class MultiplayerClient extends Multiplayer {
         }
     }
 
-    public List<Card> getHand() { return this.hand.cards; }
+    public List<Card> getHand() {
+        this.receivedNewHand = false;
+        return this.hand.cards;
+    }
 
     public Client getClient() { return this.client; }
 

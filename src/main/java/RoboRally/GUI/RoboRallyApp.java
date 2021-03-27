@@ -1,9 +1,10 @@
 package RoboRally.GUI;
 
 import RoboRally.Debugging.Debugging;
+import RoboRally.GUI.Screens.Game.PlayerUI;
 import RoboRally.GUI.Screens.Menu.LoadingScreen;
 import RoboRally.GUI.Screens.Menu.MenuScreen;
-import RoboRally.GUI.Screens.Game.PlayerView;
+import RoboRally.GUI.Screens.Game.GameScreen;
 import RoboRally.GUI.Screens.Menu.SinglePlayerScreen;
 import RoboRally.Game.Board.Boards;
 import RoboRally.Game.Engine.GameLoop;
@@ -37,7 +38,7 @@ public class RoboRallyApp extends Game {
     private final String gameSkinPath = "Skins/star-soldier/skin/star-soldier-ui.json";
     private final String logoPath = "Logo/logo.png";
 
-    public static final boolean DEBUG = false;
+    public static final boolean DEBUG = true;
 
     //================================================================
     //                         GUI Objects
@@ -45,9 +46,9 @@ public class RoboRallyApp extends Game {
     private Skin menuSkin, textSkin, gameSkin;
     private Stage stage;
     private MenuScreen titleScreen;
-
-    private MultiplayerHost server;
+    private GameScreen gameScreen;
     private MultiplayerClient myConnection;
+    private MultiplayerHost server;
     private RoboRally game;
     private Thread gameThread;
 
@@ -126,8 +127,8 @@ public class RoboRallyApp extends Game {
         this.gameThread = new Thread(game, "Game Thread");
         gameThread.setDaemon(true);
         gameThread.start();
-        this.game.getMyPlayer().setHand(myConnection.getHand()); // TODO: refactor
-        this.setScreen(new PlayerView(this));
+        gameScreen = new GameScreen(this);
+        this.setScreen(gameScreen);
     }
 
     /**
@@ -174,5 +175,10 @@ public class RoboRallyApp extends Game {
      * @return the title screen starting point of the application GUI.
      */
     public MenuScreen getTitleScreen() { return this.titleScreen; }
+
+    /**
+     * @return the title screen starting point of the application GUI.
+     */
+    public PlayerUI getUI() { return this.gameScreen.getUI(); }
 
 }

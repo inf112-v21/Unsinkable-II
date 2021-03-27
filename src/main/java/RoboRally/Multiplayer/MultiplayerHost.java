@@ -48,7 +48,7 @@ public class MultiplayerHost extends Multiplayer {
 
         startPacket.playerID = connections.size();
         for (Connection con : connections) { con.sendTCP(startPacket); }
-        connection.sendTCP(new PlayerHandPacket(deck.getHand(9)));
+        //connection.sendTCP(new PlayerHandPacket(deck.getHand(9)));
     }
 
     /**

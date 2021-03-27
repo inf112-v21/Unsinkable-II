@@ -16,7 +16,7 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 /**
  * The type RoboRally screen.
  */
-public class PlayerView extends InputAdapter implements Screen {
+public class GameScreen extends InputAdapter implements Screen {
     private final RoboRallyApp app;
     private final OrthogonalTiledMapRenderer renderer;
     private final OrthographicCamera camera;
@@ -32,9 +32,9 @@ public class PlayerView extends InputAdapter implements Screen {
      *
      * @param app the RoboRally.game
      */
-    public PlayerView(RoboRallyApp app) {
+    public GameScreen(RoboRallyApp app) {
         this.app = app;
-        this.playerUI = new PlayerUI(app, app.getGame().getMyPlayer().getHand());
+        this.playerUI = new PlayerUI(app);
 
         camera = new OrthographicCamera();
         camera.setToOrtho(false, app.getGame().getBoard().getBoardWidth() * SCALE, app.getGame().getBoard().getBoardHeight());
@@ -98,4 +98,5 @@ public class PlayerView extends InputAdapter implements Screen {
         renderer.dispose();
     }
 
+    public PlayerUI getUI() { return playerUI; }
 }

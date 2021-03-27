@@ -91,8 +91,12 @@ abstract class RoboRallyGame implements RoboRally {
         roundSent = false;
     }
 
-    protected void requestHand() {
+    protected boolean requestHand() {
         app.getLocalClient().getClient().sendTCP(new RequestHandPacket(this.myPlayer.getRobot().getHealth()));
+        while (!app.getLocalClient().receivedNewHand) { sleep(100);}
+        myPlayer.setHand(app.getLocalClient().getHand());
+        Gdx.app.postRunnable(() -> { app.getUI().updateHand(myPlayer.getHand());});
+        return true;
     }
 
 

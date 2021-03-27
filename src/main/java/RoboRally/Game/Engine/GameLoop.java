@@ -34,12 +34,12 @@ public class GameLoop extends RoboRallyGame {
     public void run() {
         System.out.println("Starting " + Thread.currentThread().getName() + "...");
         while (!stopGame) {
-            while (nextRound) {
-                nextRound = false;
-                System.out.println("Starting Round " + roundNumber);
-                round();
-                ++roundNumber;
-            }
+            requestHand();
+            while (!nextRound) { sleep(100); }
+            nextRound = false;
+            System.out.println("Starting Round " + roundNumber);
+            round();
+            ++roundNumber;
             sleep(1000);
         }
     }
@@ -49,9 +49,9 @@ public class GameLoop extends RoboRallyGame {
      */
     @Override
     public void round() {
-        requestHand();
         for (int turn = 0; turn < 5; ++turn) { turn(); }
         board.endOfTurn(robots);
+
     }
 
     /**
