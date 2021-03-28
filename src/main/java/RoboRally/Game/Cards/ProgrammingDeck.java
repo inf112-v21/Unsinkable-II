@@ -1,7 +1,9 @@
 package RoboRally.Game.Cards;
 
-
-import java.util.*;
+import java.util.Collections;
+import java.util.Deque;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Class to maintain a deck of programming cards according to the RoboRally game rules.
@@ -38,7 +40,7 @@ public class ProgrammingDeck {
     /**
      * Shuffles a deck of cards.
      */
-    private void shuffle() {
+    public void shuffle() {
         this.cardDeck.addAll(thrownCards);
         Collections.shuffle((List<?>) this.cardDeck);
     }
@@ -65,7 +67,7 @@ public class ProgrammingDeck {
      *
      * @param thrownCards the list of cards to be returned to the deck.
      */
-    public void returnThrownCards(List<Card> thrownCards) { this.thrownCards.addAll(thrownCards); }
+    public void returnCards(List<Card> thrownCards) { this.thrownCards.addAll(thrownCards); }
 
     /**
      * @return the number of cards currently in the deck.

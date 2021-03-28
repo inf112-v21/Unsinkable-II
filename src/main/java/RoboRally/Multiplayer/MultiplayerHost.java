@@ -21,7 +21,7 @@ public class MultiplayerHost extends Multiplayer {
     private final Server server;
     private final ProgrammingDeck deck;
     private final int maxPlayers;
-    private Map<Connection, PlayerHandPacket> handPackets;
+    private Map<Connection, Integer> handPackets;
 
     public MultiplayerHost(Boards board) {
         connections = new HashSet<>();
@@ -81,12 +81,12 @@ public class MultiplayerHost extends Multiplayer {
         }
         if (transmission instanceof RequestHandPacket) {
             RequestHandPacket packet = (RequestHandPacket) transmission;
-            deck.returnThrownCards(packet.getTossedCards());
+            deck.returnCards(packet.getTossedCards());
 
             System.out.println("Server: "+connection+" requested "+packet.getHandSize()+" cards and returned "+packet.getTossedCards().toString());
             if (packet.getRound() == 0) { connection.sendTCP(new PlayerHandPacket(deck.getHand(packet.getHandSize()))); }
             else {
-                handPackets.put(connection, new PlayerHandPacket(deck.getHand(packet.getHandSize())));
+                handPackets.put(connection, packet.getHandSize());
                 if (handPackets.size() == connections.size()) { broadcastHandPackets(); }
             }
 
@@ -108,7 +108,8 @@ public class MultiplayerHost extends Multiplayer {
      */
     private void broadcastHandPackets() {
         System.out.println("Server: Broadcasting hand");
-        for (Connection connection : connections) { connection.sendTCP(handPackets.get(connection)); }
+        deck.shuffle();
+        for (Connection connection : connections) { connection.sendTCP( new PlayerHandPacket(deck.getHand(handPackets.get(connection)))); }
         handPackets = new HashMap<>();
     }
 
