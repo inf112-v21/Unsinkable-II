@@ -55,7 +55,7 @@ public class BoardActions extends Board {
     public boolean checkStep(Robot robot) {
         if (!inBounds(robot.getLoc()) || inHole(robot)) {
             removeRobot(robot);
-            robot.killRobot(Direction.NORTH);
+            robot.killRobot();
             putRobot(robot);
             return false;
         }
@@ -316,6 +316,7 @@ public class BoardActions extends Board {
      * @param robots the list of robots.
      */
     public void endOfTurn(List<Robot> robots) {
+
         wipeRobots(robots);
     }
 

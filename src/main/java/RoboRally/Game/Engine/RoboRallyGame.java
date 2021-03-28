@@ -14,7 +14,6 @@ import com.badlogic.gdx.Gdx;
 
 import java.util.Deque;
 import java.util.List;
-import java.util.Queue;
 
 /**
  * The RoboRally game logic
@@ -79,7 +78,6 @@ abstract class RoboRallyGame implements RoboRally {
                     roundNumber,
                     myPlayer.getID(),
                     powerDown,
-                    myPlayer.getRobot().getLoc(),
                     registers,
                     playerHand));
         }
@@ -87,17 +85,18 @@ abstract class RoboRallyGame implements RoboRally {
 
     @Override
     public void updateAllRobotRegisters(List<RoundPacket> roundPackets) {
-        for (RoundPacket packet : roundPackets) { players.get(packet.playerID-1).getRobot().setRegisters(packet.registers); }
+        for (RoundPacket packet : roundPackets) {
+            players.get(packet.getPlayerID() - 1).getRobot().setRegisters(packet.getRegisters());
+        }
         nextRound = true;
         roundSent = false;
     }
 
-    protected boolean requestHand() {
-        app.getLocalClient().getClient().sendTCP(new RequestHandPacket(this.myPlayer.getRobot().getHealth()));
-        while (!app.getLocalClient().receivedNewHand) { sleep(100);}
+    protected void requestHand() {
+        app.getLocalClient().getClient().sendTCP(new RequestHandPacket(roundNumber, this.myPlayer.getRobot().getHealth(), this.myPlayer.getTossedCards()));
+        while (!app.getLocalClient().receivedNewHand) { sleep(100); }
         myPlayer.setHand(app.getLocalClient().getHand());
-        Gdx.app.postRunnable(() -> { app.getUI().updateHand(myPlayer.getHand());});
-        return true;
+        Gdx.app.postRunnable(() -> app.getUI().updateHand(myPlayer.getHand()));
     }
 
 

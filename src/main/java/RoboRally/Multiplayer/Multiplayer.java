@@ -25,7 +25,7 @@ public abstract class Multiplayer extends Listener implements Networking {
     public StartPacket startPacket;
 
     public volatile boolean start;
-    protected static final int TIMEOUT = 5000;
+    protected static final int TIMEOUT = 6000;
 
     /**
      * Common registration method for host and clients.

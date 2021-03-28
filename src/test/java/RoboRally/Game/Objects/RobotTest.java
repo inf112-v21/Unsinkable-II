@@ -33,14 +33,13 @@ public class RobotTest {
         int initialLives = robot.getLives();
         robot.addDamage();
         assertEquals(robot.getHealth(), initialHealth - 1);
-        assertTrue(robot.killRobot(Direction.NORTH));
+        assertFalse(robot.isDestroyed());
         assertEquals(robot.getLives(), initialLives - 1);
 
-        boolean killSuccess = false;
         for (int i = 0; i <= robot.getLives(); i++) {
-            killSuccess = robot.killRobot(Direction.NORTH);
+            robot.killRobot();
         }
-        assertFalse(killSuccess);
+        assertTrue(robot.isDestroyed());
     }
 
 }

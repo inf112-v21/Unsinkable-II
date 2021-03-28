@@ -1,8 +1,6 @@
 package RoboRally.Game.Cards;
 
 
-import RoboRally.Game.Objects.Robot;
-
 import java.util.*;
 
 /**
@@ -10,11 +8,11 @@ import java.util.*;
  */
 public class ProgrammingDeck {
 
-    private final Deque<Card> programCardDeck;
+    private final Deque<Card> cardDeck;
     private final List<Card> thrownCards;
 
     public ProgrammingDeck(){
-        this.programCardDeck = getNewDeck();
+        this.cardDeck = getNewDeck();
         this.thrownCards = new LinkedList<>();
         shuffle();
     }
@@ -38,11 +36,11 @@ public class ProgrammingDeck {
     }
 
     /**
-     * Shuffles a deck of program cards.
+     * Shuffles a deck of cards.
      */
-    public void shuffle() {
-        this.programCardDeck.addAll(thrownCards);
-         Collections.shuffle((List<?>) this.programCardDeck);
+    private void shuffle() {
+        this.cardDeck.addAll(thrownCards);
+        Collections.shuffle((List<?>) this.cardDeck);
     }
 
     /**
@@ -50,7 +48,7 @@ public class ProgrammingDeck {
      *
      * @return the programCard drawn.
      */
-    private Card drawCard() { return programCardDeck.pop(); }
+    private Card drawCard() { return cardDeck.pop(); }
 
     /**
      * @param num number of cards in hand.
@@ -72,9 +70,8 @@ public class ProgrammingDeck {
     /**
      * @return the number of cards currently in the deck.
      */
-    public int getSize() { return programCardDeck.size(); }
+    public int getSize() { return cardDeck.size(); }
 
-    public Deque<Card> getDeck() {
-        return programCardDeck;
-    }
+    public Deque<Card> getDeck() { return cardDeck; }
+
 }

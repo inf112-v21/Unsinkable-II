@@ -41,18 +41,18 @@ public class MultiplayerClient extends Multiplayer {
     public void received(Connection connection, Object transmission) {
         if (transmission instanceof StartPacket) {
             this.startPacket = (StartPacket) transmission;
-            if(start) { app.getGame().addPlayer(startPacket.playerID);}
+            if (start) { app.getGame().addPlayer(startPacket.playerID);}
             else start = true;
-            System.out.println("New Player " + startPacket.playerID);
+            System.out.println("Client: New Player " + startPacket.playerID);
         }
         else if (transmission instanceof PlayerHandPacket) {
             this.hand = (PlayerHandPacket) transmission;
             receivedNewHand = true;
-            System.out.println("Received hand "+hand.cards.toString());
+            System.out.println("Client: Received hand "+hand.cards.toString());
         }
         else if (transmission instanceof RoundPacket) {
             roundPackets.add((RoundPacket) transmission);
-            System.out.println("Received round packet from " + connection);
+            System.out.println("Client: Received round packet from " + connection);
             if (roundPackets.size() == app.getGame().getPlayers().size()) {
                 app.getGame().updateAllRobotRegisters(roundPackets);
                 roundPackets = new ArrayList<>();
@@ -60,7 +60,7 @@ public class MultiplayerClient extends Multiplayer {
         }
         else if (transmission instanceof MessagePacket) {
             MessagePacket packet = (MessagePacket) transmission;
-            System.out.println(connection+" from "+packet.userName+" "+" received " + packet.message); // TODO: Display message in GUI
+            System.out.println("Client: " + connection + " from "+packet.userName + " " + " received " + packet.message); // TODO: Display message in GUI
         }
     }
 

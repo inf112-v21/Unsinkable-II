@@ -1,6 +1,7 @@
 package RoboRally.Game.Objects;
 
 import RoboRally.Game.Cards.Card;
+import RoboRally.Game.Cards.ProgramCard;
 import RoboRally.Game.Direction;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Vector2;
@@ -10,15 +11,13 @@ import java.util.LinkedList;
 
 public class Robot implements IRobot {
 
-
     private final Vector2 location, spawn;
-    private final Deque<Card> usedRegisters;
+    public final Deque<Card> usedRegisters;
     private Deque<Card> registers;
     private Direction direction;
     private Piece piece;
     private boolean powerDown, destroyed;
     private  int damage, lives, flag;
-
 
     public Robot() {
         this.spawn = new Vector2();
@@ -49,8 +48,13 @@ public class Robot implements IRobot {
 
     @Override
     public void addDamage() {
-        if (damage < 9) { ++this.damage; }
-        else { destroyed = true; }
+        if (damage < 9) {
+            ++this.damage;
+            System.out.println(piece.name()+" was damaged and has "+damage+" damage");}
+        else {
+            destroyed = true;
+            System.out.println(piece.name()+" was damaged and destroyed!"); }
+
     }
 
     @Override
@@ -60,18 +64,17 @@ public class Robot implements IRobot {
     public void fixAllDamage() { this.damage = 0; }
 
     @Override
-    public boolean killRobot(Direction dir) {
+    public void killRobot() {
         if (lives > 1) {
             --lives;
             damage = 0;
             setLoc(getSpawnLoc());
-            setDirection(dir);
+            setDirection(Direction.NORTH);
             destroyed = false;
             System.out.println(this.getPiece()+" Died and has "+ lives);
-            return true;
         }
         System.out.println(this.getPiece()+" is DEAD and out of life!");
-        return false;
+        destroyed = true;
     }
 
     @Override
@@ -99,31 +102,28 @@ public class Robot implements IRobot {
     public void setDirection(Direction dir) { this.direction = dir; }
 
     @Override
-    public int openRegisters() { return Math.max(0, getHealth() - 5); }
+    public boolean isDestroyed() { return destroyed; }
 
     @Override
     public Deque<Card> getRegisters() { return this.registers; }
 
     @Override
-    public Deque<Card> getUsedRegisters() { return this.usedRegisters; }
-
-    @Override
     public Card getNextRegistry() {
+        if (powerDown) { return new Card(ProgramCard.BACKSIDE, 0); }
         usedRegisters.push(registers.pop());
+        System.out.println("Registry: "+registers.toString());
+        System.out.println("Used Registry: "+usedRegisters.toString());
         return usedRegisters.peek();
     }
 
     @Override
     public void wipeRegisters() {
-        for (int i = 0; i < openRegisters(); ++i) { getUsedRegisters().pop(); }
+        for (int i = 0; i < Math.max(0, getHealth() - 4); ++i) { usedRegisters.pop(); }
         for (Card card : usedRegisters) { registers.push(card); }
     }
 
     @Override
     public void setRegisters(Deque<Card> registers) { this.registers = registers; }
-
-    @Override
-    public boolean isPoweredDown() { return this.powerDown; }
 
     @Override
     public void togglePowerDown() { this.powerDown = !powerDown; }
@@ -136,4 +136,5 @@ public class Robot implements IRobot {
 
     @Override
     public TiledMapTileLayer.Cell getWonCell() { return piece.getWonCell(); }
+
 }

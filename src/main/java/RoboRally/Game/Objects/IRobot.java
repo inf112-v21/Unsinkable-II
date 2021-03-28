@@ -6,7 +6,6 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Vector2;
 
 import java.util.Deque;
-import java.util.Queue;
 
 public interface IRobot{
 
@@ -25,19 +24,15 @@ public interface IRobot{
 
     void setDirection(Direction dir);
 
-    int openRegisters();
+    boolean isDestroyed();
 
     Deque<Card> getRegisters();
-
-    Deque<Card> getUsedRegisters();
 
     Card getNextRegistry();
 
     void wipeRegisters();
 
     void setRegisters(Deque<Card> hand);
-
-    boolean isPoweredDown();
 
     void togglePowerDown();
 
@@ -84,9 +79,8 @@ public interface IRobot{
     /**
      * Removes one life from robot and resets damage.
      *
-     * @return true if robot has another life, false if not.
      */
-    boolean killRobot(Direction dir);
+    void killRobot();
 
     /**
      * @return the number of flags successfully touched.
