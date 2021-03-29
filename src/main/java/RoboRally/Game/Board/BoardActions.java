@@ -168,7 +168,11 @@ public class BoardActions extends Board {
      */
     public void moveBoardElements(List<Robot> robots) {
         moveFastBelts(robots);
+        try { Thread.sleep(250); }
+        catch (InterruptedException e) { System.err.println("Sleep error in belt movement."); }
         moveAllBelts(robots);
+        try { Thread.sleep(250); }
+        catch (InterruptedException e) { System.err.println("Sleep error in belt movement."); }
         rotateGears(robots);
     }
 
@@ -179,8 +183,8 @@ public class BoardActions extends Board {
      */
     private void rotateGears(List<Robot> robots) {
         for (Robot robot : robots) {
-            if (leftGears.contains(robot.getLoc())) { rotate(robot, ProgramCard.TURN_LEFT.getRotation());}
-            if (rightGears.contains(robot.getLoc())) { rotate(robot, ProgramCard.TURN_RIGHT.getRotation());}
+            if (leftGears.contains(robot.getLoc())) { rotate(robot, ProgramCard.TURN_LEFT.getRotation()); }
+            if (rightGears.contains(robot.getLoc())) { rotate(robot, ProgramCard.TURN_RIGHT.getRotation()); }
         }
     }
 
@@ -196,9 +200,6 @@ public class BoardActions extends Board {
             else if (westFastBelts.contains(robot.getLoc())) { move(robot, Direction.WEST); }
             else if (southFastBelts.contains(robot.getLoc())) { move(robot, Direction.SOUTH); }
             else if (eastFastBelts.contains(robot.getLoc())) { move(robot, Direction.EAST); }
-
-            try { Thread.sleep(250); }
-            catch (InterruptedException e) { System.err.println("Sleep error in belt movement."); }
 
             if (leftTurnFastBelts.contains(robot.getLoc())) { rotateRobot(robot, ProgramCard.TURN_LEFT);}
             else if (rightTurnFastBelts.contains(robot.getLoc())) { rotateRobot(robot, ProgramCard.TURN_RIGHT);}
@@ -217,9 +218,6 @@ public class BoardActions extends Board {
             else if (westBelts.contains(robot.getLoc())) { move(robot, Direction.WEST); }
             else if (southBelts.contains(robot.getLoc())) { move(robot, Direction.SOUTH); }
             else if (eastBelts.contains(robot.getLoc())) { move(robot, Direction.EAST); }
-
-            try { Thread.sleep(125); }
-            catch (InterruptedException e) { System.err.println("Sleep error in belt movement."); }
 
             if (leftTurnBelts.contains(robot.getLoc())) { rotateRobot(robot, ProgramCard.TURN_LEFT);}
             else if (rightTurnBelts.contains(robot.getLoc())) { rotateRobot(robot, ProgramCard.TURN_RIGHT);}
