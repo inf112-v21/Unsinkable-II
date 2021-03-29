@@ -1,5 +1,6 @@
 package RoboRally.Multiplayer;
 
+import RoboRally.Debugging.Debugging;
 import RoboRally.Game.Cards.Card;
 import RoboRally.Multiplayer.Packets.PlayerHandPacket;
 import RoboRally.Multiplayer.Packets.RoundPacket;
@@ -43,16 +44,16 @@ public class MultiplayerClient extends Multiplayer {
             this.startPacket = (StartPacket) transmission;
             if (start) { app.getGame().addPlayer(startPacket.playerID);}
             else start = true;
-            System.out.println("Client: New Player " + startPacket.playerID);
+            if(RoboRallyApp.DEBUG && Debugging.isNetworkAnalysis()) { System.out.println("Client: New Player " + startPacket.playerID); }
         }
         else if (transmission instanceof PlayerHandPacket) {
             this.hand = (PlayerHandPacket) transmission;
             receivedNewHand = true;
-            System.out.println("Client: Received hand "+hand.cards.toString());
+            if(RoboRallyApp.DEBUG && Debugging.isNetworkAnalysis()){ System.out.println("Client: Received hand "+hand.cards.toString()); }
         }
         else if (transmission instanceof RoundPacket) {
             roundPackets.add((RoundPacket) transmission);
-            System.out.println("Client: Received round packet from " + connection);
+            if(RoboRallyApp.DEBUG && Debugging.isNetworkAnalysis()) { System.out.println("Client: Received round packet from " + connection); }
             if (roundPackets.size() == app.getGame().getPlayers().size()) {
                 app.getGame().updateAllRobotRegisters(roundPackets);
                 roundPackets = new ArrayList<>();
@@ -60,7 +61,7 @@ public class MultiplayerClient extends Multiplayer {
         }
         else if (transmission instanceof MessagePacket) {
             MessagePacket packet = (MessagePacket) transmission;
-            System.out.println("Client: " + connection + " from "+packet.userName + " " + " received " + packet.message); // TODO: Display message in GUI
+            if(Debugging.isNetworkAnalysis()) { System.out.println("Client: " + connection + " from "+packet.userName + " " + " received " + packet.message); } // TODO: Display message in GUI
         }
     }
 

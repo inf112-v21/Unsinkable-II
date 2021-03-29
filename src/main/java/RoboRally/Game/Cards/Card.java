@@ -1,6 +1,7 @@
 package RoboRally.Game.Cards;
 
 public class Card {
+
     private final ProgramCard card;
     private final int weight;
 
