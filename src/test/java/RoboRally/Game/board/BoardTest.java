@@ -48,11 +48,11 @@ public class BoardTest {
     @Test
     public void testRobotMovement() {
         float prevY = robot.getLoc().y;
-        ba.moveRobot(robot, Direction.NORTH);
+        ba.moveRobot(robot, Direction.NORTH,false);
         assertEquals(prevY + 1, robot.getLoc().y);
         float prevX = robot.getLoc().x;
         ba.rotateRobot(robot, ProgramCard.TURN_LEFT);
-        ba.moveRobot(robot, Direction.WEST);
+        ba.moveRobot(robot, Direction.WEST,false);
         assertEquals(prevX - 1, robot.getLoc().x);
     }
 }

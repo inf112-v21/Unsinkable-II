@@ -123,6 +123,11 @@ public class PlayerUI {
             handButtons.add(button);
             if (Debugging.isGuiDebug()) { button.debug(); }
         }
+        if (hand.size() == 0) { playerHandTable.padTop(CARD_HEIGHT * 3); }
+        else if (hand.size() < 4) { playerHandTable.padTop(CARD_HEIGHT * 2); }
+        else if (hand.size() < 7) { playerHandTable.padTop(CARD_HEIGHT); }
+
+
     }
 
 

@@ -50,16 +50,16 @@ public class MapInteractionTest {
     @Test
     public void testWallCollision() {
         ba.rotateRobot(robot, ProgramCard.TURN_RIGHT);
-        ba.moveRobot(robot, Direction.WEST);
-        ba.moveRobot(robot, Direction.WEST);
-        ba.moveRobot(robot, Direction.WEST);
+        ba.moveRobot(robot, Direction.WEST,false);
+        ba.moveRobot(robot, Direction.WEST,false);
+        ba.moveRobot(robot, Direction.WEST,false);
         // move 3 tiles, but robot should only move 2 due to collision with a wall
         assertEquals(spawnLoc.x - 2, robot.getLoc().x, "robot should collide with x wall");
 
         ba.rotateRobot(robot, ProgramCard.TURN_LEFT);
-        ba.moveRobot(robot, Direction.NORTH);
-        ba.moveRobot(robot, Direction.NORTH);
-        ba.moveRobot(robot, Direction.NORTH);
+        ba.moveRobot(robot, Direction.NORTH,false);
+        ba.moveRobot(robot, Direction.NORTH,false);
+        ba.moveRobot(robot, Direction.NORTH,false);
         // same as above, but in y direction
         assertEquals(spawnLoc.y + 2, robot.getLoc().y, "robot should collide with y wall");
     }
@@ -68,8 +68,8 @@ public class MapInteractionTest {
     public void testRespawnWhenRobotGoesInHole() {
         int lives = robot.getLives();
         ba.rotateRobot(robot, ProgramCard.U_TURN);
-        ba.moveRobot(robot, Direction.SOUTH);
-        ba.moveRobot(robot, Direction.SOUTH);
+        ba.moveRobot(robot, Direction.SOUTH,false);
+        ba.moveRobot(robot, Direction.SOUTH,false);
         assertEquals(spawnLoc, robot.getLoc(), "robot should respawn");
         assertEquals(lives - 1, robot.getLives(), "robot should lose a life");
     }
@@ -81,12 +81,12 @@ public class MapInteractionTest {
         int initialHealth = robot.getHealth();
         robot.addDamage();
         ba.rotateRobot(robot, ProgramCard.TURN_LEFT);
-        ba.moveRobot(robot, Direction.EAST);
+        ba.moveRobot(robot, Direction.EAST,false);
         ba.touchCheckpoints(robots);
         ba.rotateRobot(robot, ProgramCard.TURN_LEFT);
-        ba.moveRobot(robot, Direction.SOUTH);
+        ba.moveRobot(robot, Direction.SOUTH,false);
         ba.touchCheckpoints(robots);
-        ba.moveRobot(robot, Direction.SOUTH);
+        ba.moveRobot(robot, Direction.SOUTH,false);
         ba.touchCheckpoints(robots);
         assertEquals(initialHealth, robot.getHealth(), "robot should be repaired");
         assertEquals(robot.getSpawnLoc(), robot.getLoc(), "spawnpoint should be set");
@@ -95,13 +95,13 @@ public class MapInteractionTest {
     @Test
     public void testRobotWinOnFlag() {
         int currentFlag = robot.touchedFlags();
-        ba.moveRobot(robot, Direction.NORTH);
+        ba.moveRobot(robot, Direction.NORTH,false);
         ba.touchCheckpoints(robots);
-        ba.moveRobot(robot, Direction.NORTH);
+        ba.moveRobot(robot, Direction.NORTH,false);
         ba.touchCheckpoints(robots);
         assertEquals(currentFlag + 1, robot.touchedFlags(), "one flag captured");
         ba.rotateRobot(robot, ProgramCard.TURN_LEFT);
-        ba.moveRobot(robot, Direction.EAST);
+        ba.moveRobot(robot, Direction.EAST,false);
         ba.touchCheckpoints(robots);
         assertEquals(currentFlag + 1, robot.touchedFlags(), "two flags captured");
         verify(game).setWinner(robot); // game.setWinner(robot) should be called

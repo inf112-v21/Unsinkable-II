@@ -37,12 +37,12 @@ abstract class RoboRallyGame implements RoboRally {
      */
     protected void executeProgramCard(Robot robot, ProgramCard card) {
         if(card.getSteps() > 0) {
-            boolean moved = board.moveRobot(robot, robot.getDirection());
+            boolean moved = board.moveRobot(robot, robot.getDirection(),false);
             sleep(250);
             if(moved && card.getSteps() == 3) { executeProgramCard(robot, ProgramCard.MOVE_2); }
             else if(moved && card.getSteps() == 2) { executeProgramCard(robot, ProgramCard.MOVE_1); }
         }
-        else if(card.getSteps() == -1) { board.moveRobot(robot, robot.getDirection().rotate(2)); }
+        else if(card.getSteps() == -1) { board.moveRobot(robot, robot.getDirection().rotate(2),false); }
         else { board.rotateRobot(robot, card); }
         sleep(500);
     }

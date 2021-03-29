@@ -37,13 +37,24 @@ public class BoardActions extends Board {
      * @param dir the direction the robot is moving.
      * @return true if robot successfully moved, otherwise false.
      */
-    public boolean moveRobot(Robot robot, Direction dir) {
-        if (canGo(robot.getLoc(), dir)) {
-            move(robot, dir);
-            return checkStep(robot);
+    public boolean moveRobot(Robot robot, Direction dir, boolean pushed) {
+        if (!canGo(robot.getLoc(), dir)) { return false; }
+        Vector2 nextLoc = getNextLoc(robot.getLoc(), dir);
+        if (occupied(nextLoc)) {
+            for (Robot r : app.getGame().getRobots()) {
+                if (r.getLoc().equals(nextLoc)) {
+                    if (!moveRobot(r, dir,true)) { return false; }
+                }
+            }
         }
-        return true;
+        move(robot, dir);
+        if (pushed) {
+            checkStep(robot);
+            return true;
+        }
+        else { return checkStep(robot); }
     }
+
 
     /**
      * Performs checks that need to be performed after each step a robot makes to determine if
@@ -277,7 +288,8 @@ public class BoardActions extends Board {
     private boolean occupied(Vector2 loc) { return getPlayerLocs().contains(loc); }
 
     /**
-     * Adds a laser
+     * Adds a laser beam to the board.
+     *
      * @param loc the location to add a laser
      * @param dir the direction
      */
@@ -287,7 +299,7 @@ public class BoardActions extends Board {
     }
 
     /**
-     * Removes all lasers from the laser layer.
+     * Removes all laser beams from the board.
      */
     public void clearLasers() { for (Vector2 loc : getLaserBeams()) { laserLayer.setCell((int) loc.x, (int) loc.y, null);} }
 
@@ -318,14 +330,20 @@ public class BoardActions extends Board {
     public void endOfTurn(List<Robot> robots) {
         repairRobots(robots);
         wipeRobots(robots);
-        // TODO: Continue power down GUI dialogue. Request 0 cards.
+        // TODO: Continue power down GUI dialogue. Ensure request for 0 cards.
         respawnRobots(robots);
     }
 
+    /**
+     * Repairs all robots on the map on repair, upgrade, and flag tiles
+     * and restores powered down robots to full health.
+     *
+     * @param robots the list of robots.
+     */
     private void repairRobots(List<Robot> robots) {
         for (Robot robot : robots) {
-            if (repairSites.contains(robot)) { robot.repairDamage(); }
-            else if (upgradeSites.contains(robot)) { robot.repairDamage(); }
+            if (repairSites.contains(robot.getLoc())) { robot.repairDamage(); }
+            else if (upgradeSites.contains(robot.getLoc())) { robot.repairDamage(); }
             else if (robot.isPoweredDown()) { robot.repairAllDamage(); }
         }
     }
@@ -340,6 +358,11 @@ public class BoardActions extends Board {
         Gdx.app.postRunnable(() -> app.getUI().clearRegistry());
     }
 
+    /**
+     * Respawns destroyed robots.
+     *
+     * @param robots the list of robots.
+     */
     private void respawnRobots(List<Robot> robots) {
         for (Robot robot : robots) {
             if (robot.isDestroyed()) {

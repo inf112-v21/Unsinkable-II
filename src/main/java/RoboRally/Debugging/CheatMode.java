@@ -18,10 +18,10 @@ public class CheatMode extends InputAdapter {
     private boolean move(boolean forward) {
         if (forward) { app.getGame().getBoard().moveRobot(
                 app.getGame().getMyPlayer().getRobot(),
-                app.getGame().getMyPlayer().getRobot().getDirection()); }
+                app.getGame().getMyPlayer().getRobot().getDirection(), false); }
         else { app.getGame().getBoard().moveRobot(
                 app.getGame().getMyPlayer().getRobot(),
-                app.getGame().getMyPlayer().getRobot().getDirection().rotate(2)); }
+                app.getGame().getMyPlayer().getRobot().getDirection().rotate(2), false); }
         app.getGame().getBoard().checkStep(app.getGame().getMyPlayer().getRobot());
         return true;
     }
