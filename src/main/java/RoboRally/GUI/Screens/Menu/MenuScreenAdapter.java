@@ -1,5 +1,7 @@
 package RoboRally.GUI.Screens.Menu;
 
+import RoboRally.GUI.RoboRallyApp;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
@@ -10,7 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
-import RoboRally.GUI.RoboRallyApp;
+
 
 /**
  * Adapter for building GUI menu screens.

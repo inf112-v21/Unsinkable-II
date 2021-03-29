@@ -6,6 +6,7 @@ public enum Boards {
     BLOODBATH_CHESS("Maps/BloodbathChess.tmx", "Bloodbath Chess", 8),
     DIZZY_DASH("Maps/DizzyDash.tmx", "Dizzy Dash", 8),
     TWISTER("Maps/Twister.tmx", "Twister", 8),
+    DEATH_TRAP("Maps/DeathTrap.tmx", "Death Trap", 8),
     TESTMAP("Maps/Testmap2.tmx", "Test", 2),
     JUNIT_TEST_MAP("Maps/JUnitTestingMap.tmx", "JUnit_test", 8); // should not be included in ALL_BOARDS
 
@@ -15,6 +16,7 @@ public enum Boards {
             BLOODBATH_CHESS,
             DIZZY_DASH,
             TWISTER,
+            DEATH_TRAP,
             TESTMAP };
 
     private final String path, name;
