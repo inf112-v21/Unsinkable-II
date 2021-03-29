@@ -12,8 +12,7 @@ import RoboRally.Multiplayer.Packets.RoundPacket;
 import RoboRally.GUI.RoboRallyApp;
 import com.badlogic.gdx.Gdx;
 
-import java.util.Deque;
-import java.util.List;
+import java.util.*;
 
 /**
  * The RoboRally game logic
@@ -99,6 +98,15 @@ abstract class RoboRallyGame implements RoboRally {
         Gdx.app.postRunnable(() -> app.getUI().updateHand(myPlayer.getHand()));
     }
 
+    /**
+     * @return the ordered queue of robots.
+     */
+    protected PriorityQueue<Robot> getRobotTurnOrder() {
+        PriorityQueue<Robot> turnOrder = new PriorityQueue<>(Comparator.comparing(robot ->
+                Objects.requireNonNull(robot.getRegisters().peek()).getWeight(),Comparator.reverseOrder()));
+        turnOrder.addAll(getRobots());
+        return turnOrder;
+    }
 
     @Override
     public void stopGame() { this.stopGame = true; }

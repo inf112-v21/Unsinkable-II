@@ -72,9 +72,9 @@ public interface IRobot{
      */
     void addDamage();
 
-    void fixDamage();
+    void repairDamage();
 
-    void fixAllDamage();
+    void repairAllDamage();
 
     /**
      * Removes one life from robot and resets damage.

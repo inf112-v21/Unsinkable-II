@@ -55,7 +55,7 @@ public class BoardActions extends Board {
     public boolean checkStep(Robot robot) {
         if (!inBounds(robot.getLoc()) || inHole(robot)) {
             removeRobot(robot);
-            robot.killRobot();
+            robot.setDestroyed();
             putRobot(robot);
             return false;
         }
@@ -226,7 +226,7 @@ public class BoardActions extends Board {
      */
     private void fireRobotLasers(List<Robot> robots) {
         for (Robot robot : robots) {
-            if (canGo(robot.getLoc(), robot.getDirection())) {
+            if (!robot.isDestroyed() && canGo(robot.getLoc(), robot.getDirection())) {
                 shoot(getNextLoc(robot.getLoc(), robot.getDirection()), robot.getDirection());
             }
         }
@@ -316,8 +316,18 @@ public class BoardActions extends Board {
      * @param robots the list of robots.
      */
     public void endOfTurn(List<Robot> robots) {
-
+        repairRobots(robots);
         wipeRobots(robots);
+        // TODO: Continue power down GUI dialogue. Request 0 cards.
+        respawnRobots(robots);
+    }
+
+    private void repairRobots(List<Robot> robots) {
+        for (Robot robot : robots) {
+            if (repairSites.contains(robot)) { robot.repairDamage(); }
+            else if (upgradeSites.contains(robot)) { robot.repairDamage(); }
+            else if (robot.isPoweredDown()) { robot.repairAllDamage(); }
+        }
     }
 
     /**
@@ -328,6 +338,16 @@ public class BoardActions extends Board {
     private void wipeRobots(List<Robot> robots) {
         for (Robot robot : robots) { robot.wipeRegisters(); }
         Gdx.app.postRunnable(() -> app.getUI().clearRegistry());
+    }
+
+    private void respawnRobots(List<Robot> robots) {
+        for (Robot robot : robots) {
+            if (robot.isDestroyed()) {
+                removeRobot(robot);
+                robot.killRobot();
+                putRobot(robot);
+            }
+        }
     }
 
 }

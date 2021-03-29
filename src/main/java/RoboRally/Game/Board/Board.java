@@ -232,7 +232,7 @@ public abstract class Board {
      */
     protected void onRepair(Robot robot) {
         if(repairSites.contains(robot.getLoc())) {
-            robot.fixDamage();
+            robot.repairDamage();
             robot.setSpawnLoc(robot.getLoc());
         }
     }
@@ -244,7 +244,7 @@ public abstract class Board {
      */
     protected void onUpgrade(Robot robot) {
         if(upgradeSites.contains(robot.getLoc())) {
-            robot.fixDamage();
+            robot.repairDamage();
             robot.setSpawnLoc(robot.getLoc());
             // TODO: Upgrade card
         }

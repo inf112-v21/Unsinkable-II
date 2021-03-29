@@ -71,15 +71,7 @@ public class GameLoop extends RoboRallyGame {
         board.touchCheckpoints(getRobots());
     }
 
-    /**
-     * @return the ordered queue of robots.
-     */
-    private PriorityQueue<Robot> getRobotTurnOrder() {
-        PriorityQueue<Robot> turnOrder = new PriorityQueue<>(Comparator.comparing(robot ->
-                Objects.requireNonNull(robot.getRegisters().peek()).getWeight(),Comparator.reverseOrder()));
-        turnOrder.addAll(getRobots());
-        return turnOrder;
-    }
+
 
 
 

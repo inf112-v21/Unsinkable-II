@@ -48,20 +48,26 @@ public class Robot implements IRobot {
 
     @Override
     public void addDamage() {
-        if (damage < 9) {
+        if (damage < 10) {
             ++this.damage;
             System.out.println(piece.name()+" was damaged and has "+damage+" damage");}
-        else {
-            destroyed = true;
-            System.out.println(piece.name()+" was damaged and destroyed!"); }
+        else { setDestroyed(); }
+
 
     }
 
     @Override
-    public void fixDamage() { if (damage > 0) { --this.damage; } }
+    public void repairDamage() { if (damage > 0) { --this.damage; } }
 
     @Override
-    public void fixAllDamage() { this.damage = 0; }
+    public void repairAllDamage() { this.damage = 0; }
+
+    public void setDestroyed() {
+        destroyed = true;
+        registers.clear();
+        usedRegisters.clear();
+        System.out.println(piece.name()+" was damaged and destroyed!");
+    }
 
     @Override
     public void killRobot() {
@@ -74,7 +80,6 @@ public class Robot implements IRobot {
             System.out.println(this.getPiece()+" Died and has "+ lives);
         }
         System.out.println(this.getPiece()+" is DEAD and out of life!");
-        destroyed = true;
     }
 
     @Override
@@ -109,16 +114,19 @@ public class Robot implements IRobot {
 
     @Override
     public Card getNextRegistry() {
-        if (powerDown) { return new Card(ProgramCard.BACKSIDE, 0); }
+        if (powerDown || destroyed) { return new Card(ProgramCard.BACKSIDE, 0); }
         usedRegisters.push(registers.pop());
         System.out.println("Registry: "+registers.toString());
         System.out.println("Used Registry: "+usedRegisters.toString());
         return usedRegisters.peek();
     }
 
+    public boolean isPoweredDown() { return powerDown; }
+
     @Override
     public void wipeRegisters() {
-        for (int i = 0; i < Math.max(0, getHealth() - 4); ++i) { usedRegisters.pop(); }
+        if (damage < 5) { usedRegisters.clear(); }
+        else { for (int i = 0; i < 9 - damage; ++i) { usedRegisters.pop(); } }
         for (Card card : usedRegisters) { registers.push(card); }
     }
 
