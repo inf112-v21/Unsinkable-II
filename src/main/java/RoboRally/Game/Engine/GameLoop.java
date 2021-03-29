@@ -1,5 +1,6 @@
 package RoboRally.Game.Engine;
 
+import RoboRally.Debugging.Debugging;
 import RoboRally.Game.Board.BoardActions;
 import RoboRally.Game.Board.Boards;
 import RoboRally.Game.Objects.Robot;
@@ -30,11 +31,12 @@ public class GameLoop extends RoboRallyGame {
         System.out.println("Starting " + Thread.currentThread().getName() + "...");
         while (!stopGame) {
             requestHand();
-            System.out.println("New Round: Registry: "+myPlayer.getRobot().getRegisters().toString());
-            System.out.println("New Round: Used Registry: "+myPlayer.getRobot().usedRegisters.toString());
+            if(RoboRallyApp.DEBUG && Debugging.printIsOn()) {
+                System.out.println("New Round: Registry: "+myPlayer.getRobot().getRegisters().toString());
+                System.out.println("New Round: Used Registry: "+myPlayer.getRobot().usedRegisters.toString()); }
             while (!nextRound) { sleep(100); }
             nextRound = false;
-            System.out.println("Starting Round " + roundNumber);
+            if(RoboRallyApp.DEBUG && Debugging.printIsOn()) { System.out.println("Starting Round " + roundNumber); }
             round();
             ++roundNumber;
             sleep(1000);

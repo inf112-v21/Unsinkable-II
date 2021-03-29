@@ -7,7 +7,6 @@ import RoboRally.Game.Cards.ProgramCard;
 import RoboRally.Game.Direction;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
 
 import java.util.Deque;
 import java.util.LinkedList;
@@ -53,7 +52,7 @@ public class Robot implements IRobot {
     public void addDamage() {
         if (damage < 10) {
             ++this.damage;
-            if(RoboRallyApp.DEBUG && Debugging.isPrintingToTerminal()) { System.out.println(piece.name()+" was damaged and has "+damage+" damage"); }}
+            if(RoboRallyApp.DEBUG && Debugging.printIsOn()) { System.out.println(piece.name()+" was damaged and has "+damage+" damage"); }}
         else { setDestroyed(); }
 
 
@@ -69,7 +68,7 @@ public class Robot implements IRobot {
         destroyed = true;
         registers.clear();
         usedRegisters.clear();
-        if(RoboRallyApp.DEBUG && Debugging.isPrintingToTerminal()) { System.out.println(piece.name()+" was damaged and destroyed!"); }
+        if(RoboRallyApp.DEBUG && Debugging.printIsOn()) { System.out.println(piece.name()+" was damaged and destroyed!"); }
     }
 
     @Override
@@ -80,9 +79,9 @@ public class Robot implements IRobot {
             setLoc(getSpawnLoc());
             setDirection(Direction.NORTH);
             destroyed = false;
-            if(RoboRallyApp.DEBUG && Debugging.isPrintingToTerminal()) { System.out.println(this.getPiece()+" Died and has "+ lives); }
+            if(RoboRallyApp.DEBUG && Debugging.printIsOn()) { System.out.println(this.getPiece()+" Died and has "+ lives); }
         }
-        if(RoboRallyApp.DEBUG && Debugging.isPrintingToTerminal()) { System.out.println(this.getPiece()+" is DEAD and out of life!"); }
+        if(RoboRallyApp.DEBUG && Debugging.printIsOn()) { System.out.println(this.getPiece()+" is DEAD and out of life!"); }
     }
 
     @Override
@@ -119,7 +118,7 @@ public class Robot implements IRobot {
     public Card getNextRegistry() {
         if (powerDown || destroyed) { return new Card(ProgramCard.BACKSIDE, 0); }
         usedRegisters.push(registers.pop());
-        if(RoboRallyApp.DEBUG && RoboRallyApp.DEBUG && Debugging.isPrintingToTerminal()) {
+        if(RoboRallyApp.DEBUG && RoboRallyApp.DEBUG && Debugging.printIsOn()) {
             System.out.println("Registry: "+registers.toString());
             System.out.println("Used Registry: "+usedRegisters.toString()); }
         return usedRegisters.peek();

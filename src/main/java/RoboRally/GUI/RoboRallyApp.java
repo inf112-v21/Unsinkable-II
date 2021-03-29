@@ -111,7 +111,7 @@ public class RoboRallyApp extends Game {
                 this.setScreen(titleScreen);
             }
         }
-        if(DEBUG && Debugging.isPrintingToTerminal()) {System.out.println("I am player "+myConnection.startPacket.playerID);}
+        if(DEBUG && Debugging.printIsOn()) {System.out.println("I am player "+myConnection.startPacket.playerID);}
         startGame(myConnection.startPacket.boardSelection, myConnection.startPacket.playerID);
     }
 

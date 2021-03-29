@@ -35,7 +35,7 @@ public class Debugging {
 
     public static boolean isBackground() { return DISABLE_BACKGROUND; }
 
-    public static boolean isPrintingToTerminal() { return PRINT_TO_TERMINAL; }
+    public static boolean printIsOn() { return PRINT_TO_TERMINAL; }
 
     public static boolean isNetworkAnalysis() { return NETWORK_ANALYSIS; }
 }
