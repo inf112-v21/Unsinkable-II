@@ -162,9 +162,9 @@ public abstract class Board {
             else if (TileID.BELTS_FAST_EAST.contains(beltID)) { eastFastBelts.add(belt); eastBelts.add(belt); }
 
             if (TileID.BELTS_LEFT.contains(beltID)) { leftTurnBelts.add(belt); }
-            else if (TileID.BELTS_RIGHT.contains(beltID)) { leftTurnBelts.add(belt); }
-            else if (TileID.BELTS_FAST_LEFT.contains(beltID)) { leftTurnFastBelts.add(belt); }
-            else if (TileID.BELTS_FAST_RIGHT.contains(beltID)) { rightTurnFastBelts.add(belt); }
+            else if (TileID.BELTS_RIGHT.contains(beltID)) { rightTurnBelts.add(belt); }
+            else if (TileID.BELTS_FAST_LEFT.contains(beltID)) { leftTurnFastBelts.add(belt); leftTurnBelts.add(belt); }
+            else if (TileID.BELTS_FAST_RIGHT.contains(beltID)) { rightTurnFastBelts.add(belt); rightTurnBelts.add(belt); }
         }
     }
 

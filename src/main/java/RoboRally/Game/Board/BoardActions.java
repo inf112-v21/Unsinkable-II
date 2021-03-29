@@ -197,6 +197,9 @@ public class BoardActions extends Board {
             else if (southFastBelts.contains(robot.getLoc())) { move(robot, Direction.SOUTH); }
             else if (eastFastBelts.contains(robot.getLoc())) { move(robot, Direction.EAST); }
 
+            try { Thread.sleep(250); }
+            catch (InterruptedException e) { System.err.println("Sleep error in belt movement."); }
+
             if (leftTurnFastBelts.contains(robot.getLoc())) { rotateRobot(robot, ProgramCard.TURN_LEFT);}
             else if (rightTurnFastBelts.contains(robot.getLoc())) { rotateRobot(robot, ProgramCard.TURN_RIGHT);}
         }
@@ -214,6 +217,9 @@ public class BoardActions extends Board {
             else if (westBelts.contains(robot.getLoc())) { move(robot, Direction.WEST); }
             else if (southBelts.contains(robot.getLoc())) { move(robot, Direction.SOUTH); }
             else if (eastBelts.contains(robot.getLoc())) { move(robot, Direction.EAST); }
+
+            try { Thread.sleep(125); }
+            catch (InterruptedException e) { System.err.println("Sleep error in belt movement."); }
 
             if (leftTurnBelts.contains(robot.getLoc())) { rotateRobot(robot, ProgramCard.TURN_LEFT);}
             else if (rightTurnBelts.contains(robot.getLoc())) { rotateRobot(robot, ProgramCard.TURN_RIGHT);}
