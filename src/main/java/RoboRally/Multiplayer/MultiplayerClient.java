@@ -44,16 +44,16 @@ public class MultiplayerClient extends Multiplayer {
             this.startPacket = (StartPacket) transmission;
             if (start) { app.getGame().addPlayer(startPacket.playerID);}
             else start = true;
-            if(Debugging.isNetworkAnalysis()) { System.out.println("Client: New Player " + startPacket.playerID); }
+            if(RoboRallyApp.DEBUG && Debugging.isNetworkAnalysis()) { System.out.println("Client: New Player " + startPacket.playerID); }
         }
         else if (transmission instanceof PlayerHandPacket) {
             this.hand = (PlayerHandPacket) transmission;
             receivedNewHand = true;
-            if(Debugging.isNetworkAnalysis()){ System.out.println("Client: Received hand "+hand.cards.toString()); }
+            if(RoboRallyApp.DEBUG && Debugging.isNetworkAnalysis()){ System.out.println("Client: Received hand "+hand.cards.toString()); }
         }
         else if (transmission instanceof RoundPacket) {
             roundPackets.add((RoundPacket) transmission);
-            if(Debugging.isNetworkAnalysis()) { System.out.println("Client: Received round packet from " + connection); }
+            if(RoboRallyApp.DEBUG && Debugging.isNetworkAnalysis()) { System.out.println("Client: Received round packet from " + connection); }
             if (roundPackets.size() == app.getGame().getPlayers().size()) {
                 app.getGame().updateAllRobotRegisters(roundPackets);
                 roundPackets = new ArrayList<>();
