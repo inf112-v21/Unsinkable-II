@@ -81,10 +81,8 @@ public class RoboRallyApp extends Game {
     public void dispose() {
         try { gameThread.join(1000, 0); }
         catch (InterruptedException e) { gameThread.interrupt(); }
-        finally {
-            Gdx.app.exit();
-            System.exit(0);
-        }
+        Gdx.app.exit();
+        System.exit(0);
     }
 
     /**

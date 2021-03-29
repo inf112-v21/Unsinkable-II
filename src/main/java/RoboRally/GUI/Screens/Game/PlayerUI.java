@@ -41,7 +41,7 @@ public class PlayerUI {
     private final float BOTTOM_PADDING = height / 10f;
 
     private List<Card> hand;
-    private Deque<Card> registers;
+    private final Deque<Card> registers;
     private int order;
     private boolean registryActive, runButtonActive;
 
@@ -158,7 +158,7 @@ public class PlayerUI {
     /**
      * Adds a card from the player hand to the registry.
      *
-     * @param index
+     * @param index the index to add to.
      */
     private void addToRegistry(int index) {
         Button button = new ImageButton(makeCard(hand.get(index).getValue()));
