@@ -1,8 +1,14 @@
-To keep control on bugs. Take note in this document. 
+This is the manual-log for bugs. To log a bug, write
+##Bug name
+- Bug registered [Date of bug]
+- [How was the bug found]
+
+  [Printout]
 
 ##Robot does not respawn after death
 - Bug registered 29.03.21
 - Bug tested manually
+  
   Exception in thread "Game Thread" java.lang.NullPointerException
   at java.base/java.util.Objects.requireNonNull(Objects.java:208)
   at RoboRally.Game.Engine.RoboRallyGame.lambda$getRobotTurnOrder$1(RoboRallyGame.java:106)
