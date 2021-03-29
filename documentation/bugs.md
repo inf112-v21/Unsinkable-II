@@ -4,6 +4,8 @@ This is the manual-log for bugs. To log a bug, write
 - [How was the bug found]
 
   [Printout]
+  
+  [description]
 
 ##Robot does not respawn after death
 - Bug registered 29.03.21
@@ -23,3 +25,9 @@ This is the manual-log for bugs. To log a bug, write
   at RoboRally.Game.Engine.GameLoop.round(GameLoop.java:52)
   at RoboRally.Game.Engine.GameLoop.run(GameLoop.java:41)
   at java.base/java.lang.Thread.run(Thread.java:832)
+  
+##Robot can't move after a given amount of damage
+- Bug registered 29.03.21
+- Bug tested manually
+
+Robot with a lot of damage can't move at start of game.
