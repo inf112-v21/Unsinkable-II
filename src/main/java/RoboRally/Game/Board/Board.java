@@ -221,7 +221,7 @@ public abstract class Board {
             else {
                 robot.setSpawnLoc(robot.getLoc());
                 robot.touchFlag();
-                if(Debugging.isPrintingToTerminal()) { System.out.println(robot.getPiece().name()+" collected flag "+robot.touchedFlags()); }
+                if(RoboRallyApp.DEBUG && Debugging.isPrintingToTerminal()) { System.out.println(robot.getPiece().name()+" collected flag "+robot.touchedFlags()); }
             }
         }
     }

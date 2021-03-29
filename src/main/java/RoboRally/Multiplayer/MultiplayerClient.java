@@ -61,7 +61,7 @@ public class MultiplayerClient extends Multiplayer {
         }
         else if (transmission instanceof MessagePacket) {
             MessagePacket packet = (MessagePacket) transmission;
-            if(Debugging.isNetworkAnalysis()) { System.out.println("Client: " + connection + " from "+packet.userName + " " + " received " + packet.message); } // TODO: Display message in GUI
+            if(RoboRallyApp.DEBUG && Debugging.isNetworkAnalysis()) { System.out.println("Client: " + connection + " from "+packet.userName + " " + " received " + packet.message); } // TODO: Display message in GUI
         }
     }
 
