@@ -245,7 +245,6 @@ public abstract class Board {
      */
     protected void onUpgrade(Robot robot) {
         if(upgradeSites.contains(robot.getLoc())) {
-            robot.repairDamage();
             robot.setSpawnLoc(robot.getLoc());
             // TODO: Upgrade card
         }

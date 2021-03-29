@@ -103,7 +103,7 @@ abstract class RoboRallyGame implements RoboRally {
      */
     protected PriorityQueue<Robot> getRobotTurnOrder() {
         PriorityQueue<Robot> turnOrder = new PriorityQueue<>(Comparator.comparing(robot ->
-                Objects.requireNonNull(robot.getRegisters().peek()).getWeight(),Comparator.reverseOrder()));
+                (robot.getRegisters().peek()).getWeight(),Comparator.reverseOrder()));
         turnOrder.addAll(getRobots());
         return turnOrder;
     }

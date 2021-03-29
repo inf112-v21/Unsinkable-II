@@ -57,7 +57,6 @@ public class PlayerUI {
 
         this.stageViewport = new FitViewport(width, height);
         this.stage = new Stage(stageViewport);
-
         this.mainTable = new Table();
         stage.addActor(mainTable);
 
@@ -102,7 +101,6 @@ public class PlayerUI {
         handButtons.setUncheckLast(false);
         handButtons.uncheckAll();
         addPlayerHandButtons();
-
     }
 
     /**
@@ -120,7 +118,6 @@ public class PlayerUI {
                     makeCard(ProgramCard.BACKSIDE),
                     makeCard(ProgramCard.BACKSIDE));
             button.addListener(playerHandListener(index));
-
             playerHandTable.add(button).size(CARD_WIDTH, CARD_HEIGHT);
             handButtons.add(button);
             if (Debugging.isGuiDebug()) { button.debug(); }
