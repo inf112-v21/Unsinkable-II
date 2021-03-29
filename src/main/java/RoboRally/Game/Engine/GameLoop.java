@@ -33,6 +33,8 @@ public class GameLoop extends RoboRallyGame {
         System.out.println("Starting " + Thread.currentThread().getName() + "...");
         while (!stopGame) {
             requestHand();
+            System.out.println("New Round: Registry: "+myPlayer.getRobot().getRegisters().toString());
+            System.out.println("New Round: Used Registry: "+myPlayer.getRobot().usedRegisters.toString());
             while (!nextRound) { sleep(100); }
             nextRound = false;
             System.out.println("Starting Round " + roundNumber);

@@ -355,7 +355,7 @@ public class BoardActions extends Board {
      */
     private void wipeRobots(List<Robot> robots) {
         for (Robot robot : robots) { robot.wipeRegisters(); }
-        Gdx.app.postRunnable(() -> app.getUI().clearRegistry());
+        Gdx.app.postRunnable(() -> app.getUI().clearRegistry(app.getGame().getMyPlayer().getRobot().getRegisters().size()));
     }
 
     /**

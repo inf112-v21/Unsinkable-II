@@ -41,6 +41,7 @@ public class PlayerUI {
     private final float BOTTOM_PADDING = height / 10f;
 
     private List<Card> hand;
+    private Deque<Card> registers;
     private int order;
     private boolean registryActive, runButtonActive;
 
@@ -52,6 +53,7 @@ public class PlayerUI {
     public PlayerUI(RoboRallyApp app) {
         this.app = app;
         this.hand = new ArrayList<>();
+        this.registers = new LinkedList<>();
 
         this.stageViewport = new FitViewport(width, height);
         this.stage = new Stage(stageViewport);
@@ -206,11 +208,17 @@ public class PlayerUI {
     /**
      * Clears the player hand table.
      */
-    public void clearRegistry() {
+    public void clearRegistry(int lockedRegisters) {
+        for (int i = 0; i < 5 - lockedRegisters; ++i) { registers.pop(); }
         registry.clear();
         order = 0;
         registryButtons.clear();
         registryTable.clearChildren();
+        addLockedRegisters();
+    }
+
+    private void addLockedRegisters() {
+
     }
 
     /**
@@ -220,11 +228,11 @@ public class PlayerUI {
      */
     private Deque<Card> makeRegisters() {
         List<Integer> list = new LinkedList<>(registry.values());
-        Deque<Card> registers = new LinkedList<>();
         Collections.sort(list);
+        Collections.reverse(list);
         for (int value : list) {
             for (int handIndex : registry.keySet()) {
-                if (registry.get(handIndex) == value) { registers.offer(hand.get(handIndex)); }
+                if (registry.get(handIndex) == value) { registers.addFirst(hand.get(handIndex)); }
             }
         }
         return registers;
@@ -259,7 +267,7 @@ public class PlayerUI {
         return new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                if (runButtonActive && registry.size() == 5) {
+                if (runButtonActive && registry.size() + registers.size() == 5) {
                     runButtonActive = false;
                     registryActive = false;
                     app.getGame().attemptRun(makeRegisters(), hand, powerDown);
