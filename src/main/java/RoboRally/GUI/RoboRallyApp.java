@@ -38,7 +38,7 @@ public class RoboRallyApp extends Game {
     private final String gameSkinPath = "Skins/star-soldier/skin/star-soldier-ui.json";
     private final String logoPath = "Logo/logo.png";
 
-    public static final boolean DEBUG = true;
+    public static final boolean DEBUG = false;
 
     //================================================================
     //                         GUI Objects
@@ -113,7 +113,7 @@ public class RoboRallyApp extends Game {
                 this.setScreen(titleScreen);
             }
         }
-        System.out.println("I am player "+myConnection.startPacket.playerID);
+        if(DEBUG && Debugging.isPrintingToTerminal()) {System.out.println("I am player "+myConnection.startPacket.playerID);}
         startGame(myConnection.startPacket.boardSelection, myConnection.startPacket.playerID);
     }
 
