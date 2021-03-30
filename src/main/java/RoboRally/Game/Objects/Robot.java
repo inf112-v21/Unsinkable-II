@@ -3,7 +3,6 @@ package RoboRally.Game.Objects;
 import RoboRally.Debugging.Debugging;
 import RoboRally.GUI.RoboRallyApp;
 import RoboRally.Game.Cards.Card;
-import RoboRally.Game.Cards.ProgramCard;
 import RoboRally.Game.Direction;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Vector2;
@@ -83,7 +82,6 @@ public class Robot implements IRobot {
             if(RoboRallyApp.DEBUG && Debugging.printIsOn()) { System.out.println(this.getPiece()+" Died and has "+ lives); }
         }
         else {
-            //setLoc();
             powerDown();
             if(RoboRallyApp.DEBUG && Debugging.printIsOn()) { System.out.println(this.getPiece()+" is DEAD and out of life!"); }
         }
@@ -123,7 +121,7 @@ public class Robot implements IRobot {
 
     @Override
     public Card getNextRegistry() {
-        if (powerDown || destroyed) { return new Card(ProgramCard.BACKSIDE, 0); }
+        if (powerDown || destroyed) { return Card.getEmptyCard(); }
         usedRegisters.addLast(registers.pop());
         return usedRegisters.peekLast();
     }

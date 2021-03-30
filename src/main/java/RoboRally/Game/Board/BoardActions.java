@@ -310,8 +310,22 @@ public class BoardActions extends Board {
      * @param dir the direction
      */
     private void addLaser(Vector2 loc, Direction dir) {
-        if (dir.equals(Direction.WEST) || dir.equals(Direction.EAST)) laserLayer.setCell((int) loc.x, (int) loc.y, horizontalLaser);
-        if (dir.equals(Direction.NORTH) || dir.equals(Direction.SOUTH)) laserLayer.setCell((int) loc.x, (int) loc.y, verticalLaser);
+        if (dir.equals(Direction.WEST) || dir.equals(Direction.EAST)) {
+            if (laserLayer.getCell((int) loc.x, (int) loc.y) != null) {
+                laserLayer.setCell((int) loc.x, (int) loc.y, horizontalLaser);
+            }
+            else if (laserLayer.getCell((int) loc.x, (int) loc.y).equals(verticalLaser)) {
+                laserLayer.setCell((int) loc.x, (int) loc.y, crossedLaser);
+            }
+        }
+        if (dir.equals(Direction.NORTH) || dir.equals(Direction.SOUTH)) {
+            if (laserLayer.getCell((int) loc.x, (int) loc.y) == null) {
+                laserLayer.setCell((int) loc.x, (int) loc.y, verticalLaser);
+            }
+            else if (laserLayer.getCell((int) loc.x, (int) loc.y).equals(horizontalLaser)) {
+                laserLayer.setCell((int) loc.x, (int) loc.y, crossedLaser);
+            }
+        }
     }
 
     /**
@@ -360,7 +374,10 @@ public class BoardActions extends Board {
         for (Robot robot : robots) {
             if (repairSites.contains(robot.getLoc())) { robot.repairDamage(); }
             else if (upgradeSites.contains(robot.getLoc())) { robot.repairDamage(); }
-            else if (robot.isPoweredDown()) { robot.repairAllDamage(); }
+            else if (robot.isPoweredDown()) {
+                robot.repairAllDamage();
+                robot.powerUp();
+            }
         }
     }
 

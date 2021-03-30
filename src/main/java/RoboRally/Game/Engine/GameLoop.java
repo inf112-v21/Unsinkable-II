@@ -30,6 +30,7 @@ public class GameLoop extends RoboRallyGame {
     public void run() {
         System.out.println("Starting " + Thread.currentThread().getName() + "...");
         while (!stopGame) {
+            //TODO : Continue power down?
             requestHand();
             while (!nextRound) { sleep(100); }
             nextRound = false;
@@ -78,9 +79,5 @@ public class GameLoop extends RoboRallyGame {
         sleep(250);
         board.touchCheckpoints(getRobots());
     }
-
-
-
-
 
 }

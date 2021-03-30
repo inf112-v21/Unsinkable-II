@@ -104,11 +104,13 @@ abstract class RoboRallyGame implements RoboRally {
     /**
      * @return the ordered queue of robots.
      */
-    protected PriorityQueue<Robot> getRobotTurnOrder() {
-        PriorityQueue<Robot> turnOrder = new PriorityQueue<>(Comparator.comparing(robot ->
-                (robot.getRegisters().peek()).getWeight(),Comparator.reverseOrder()));
-        turnOrder.addAll(getRobots());
-        return turnOrder;
+    protected List<Robot> getRobotTurnOrder() {
+        List<Robot> order = new LinkedList<>();
+        for (Robot robot : robots) {
+            if (!robot.isDestroyed() && !robot.isPoweredDown() && !robot.getRegisters().isEmpty()) { order.add(robot); }
+        }
+        order.sort(Comparator.comparing(robot -> robot.getRegisters().peek().getWeight()));
+        return order;
     }
 
     @Override

@@ -4,6 +4,7 @@ public class Card {
 
     private final ProgramCard card;
     private final int weight;
+    private static final Card EMPTY_CARD = new Card();
 
     public Card() {
         this.card = ProgramCard.BACKSIDE;
@@ -23,4 +24,6 @@ public class Card {
     public String toString() {
         return card.getName();
     }
+
+    public static Card getEmptyCard() { return EMPTY_CARD; }
 }
