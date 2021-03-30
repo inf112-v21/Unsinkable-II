@@ -1,4 +1,4 @@
-package RoboRally.GUI.Screens.Menu.Multiplayer;
+package RoboRally.GUI.Screens.Menu;
 
 import RoboRally.GUI.RoboRallyApp;
 import RoboRally.GUI.Screens.Menu.MenuScreenAdapter;
@@ -18,24 +18,24 @@ import java.net.URL;
 /**
  * The multiplayer host screen.
  */
-public class MultiplayerHostScreen extends MenuScreenAdapter {
+public class StartGameScreen extends MenuScreenAdapter {
     private final String ip;
     private int port;
     private final Label ipLabel;
     private final TextField portField;
     private final SelectBox<Object> box;
 
-    public MultiplayerHostScreen(RoboRallyApp app) {
+    public StartGameScreen(RoboRallyApp app) {
 
         super(app);
 
-        addHeading("Host Multiplayer RoboRally");
+        addHeading("Start New Game");
         this.ip = getIP();
         this.port = Multiplayer.tcpPort;
         this.box = addSelectBox(Boards.ALL_BOARDS, true);
-        this.ipLabel = addLabel(""+ip, true);
+        this.ipLabel = addLabel(ip, true);
         this.portField = addTextField(""+port, true);
-        addButton("Host RoboRally", true, HostGameListener());
+        addButton("Start RoboRally", true, HostGameListener());
         addButton("Back", true, BackButtonListener());
     }
 

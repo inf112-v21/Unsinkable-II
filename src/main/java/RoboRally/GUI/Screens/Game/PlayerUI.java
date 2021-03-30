@@ -30,12 +30,12 @@ public class PlayerUI {
     private final Table joinedRegistryTable;
     private final Table lockedRegistryTable;
     private final Stage stage;
-    private final FitViewport stageViewport;
     private final ButtonGroup<Button> handButtons, registryButtons;
     private final Map<Integer, Integer> registrySelections;
     private Deque<Card> registers;
     private List<Card> hand;
     private int order;
+
     private boolean registryActive, runButtonActive;
     private final float width = Gdx.graphics.getWidth();
     private final float height = Gdx.graphics.getHeight();
@@ -55,8 +55,7 @@ public class PlayerUI {
         this.hand = new ArrayList<>();
         this.registers = new LinkedList<>();
 
-        this.stageViewport = new FitViewport(width, height);
-        this.stage = new Stage(stageViewport);
+        this.stage = new Stage(new FitViewport(width, height));
         this.mainTable = new Table();
         stage.addActor(mainTable);
 
@@ -231,8 +230,6 @@ public class PlayerUI {
         registryTable.clearChildren();
     }
 
-
-
     /**
      * Creates the registry of cards
      *
@@ -247,7 +244,6 @@ public class PlayerUI {
                 if (registrySelections.get(handIndex) == value) { registers.addFirst(hand.get(handIndex)); }
             }
         }
-        System.out.println("Make: Registers: "+registers.toString()+" Registry: "+ registrySelections);
         return registers;
     }
 
@@ -280,12 +276,9 @@ public class PlayerUI {
         return new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                System.out.println("Run listener click: Registers: "+registers.toString()+" Registry: "+ registrySelections);
-                System.out.println("Run listener registry size: "+ registrySelections.size() +" registers size: "+ registers.size());
                 if (runButtonActive && registrySelections.size() + registers.size() == 5) {
                     runButtonActive = false;
                     registryActive = false;
-                    System.out.println("Run: Registers: "+registers.toString()+" Registry: "+ registrySelections);
                     app.getGame().attemptRun(makeRegisters(), hand, powerDown);
                     resetHand();
                 }

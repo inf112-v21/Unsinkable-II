@@ -1,6 +1,5 @@
 package RoboRally.GUI.Screens.Menu;
 
-import RoboRally.GUI.Screens.Menu.Multiplayer.MultiplayerMenuScreen;
 import RoboRally.GUI.RoboRallyApp;
 
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -19,33 +18,33 @@ public class TitleScreen extends MenuScreenAdapter {
     public TitleScreen(RoboRallyApp app) {
         super(app);
         addHeading("Select RoboRally Mode. ");
-        addButton("Single Player - TESTING", true, SinglePlayerButtonListener());
-        addButton("Multiplayer", true, MultiplayerButtonListener());
+        addButton("Start Game", true, startGameButtonListener());
+        addButton("Join Game", true, joinGameButtonListener());
         addButton("Options", true, OptionsButtonListener());
         addButton("Quit", true, QuitButtonListener());
     }
 
     /**
-     * Listener that switches to the SinglePlayerOptionScreen when the Single Player button is pressed.
+     * Listener that switches to the {@link StartGameScreen} when the Host button is pressed.
      *
-     * @return InputListener for the Single Player button
+     * @return InputListener for the host button.
      */
-    public ClickListener SinglePlayerButtonListener() {
+    public ClickListener startGameButtonListener() {
         return new ClickListener() {
             @Override
-            public void clicked(InputEvent event, float x, float y) { app.setScreen(new SinglePlayerScreen(app)); }
+            public void clicked(InputEvent event, float x, float y) { app.setScreen(new StartGameScreen(app)); }
         };
     }
 
     /**
-     * Listener that switches to the MultiplayerMenuScreen when the Multiplayer button is pressed.
+     * Listener that switches to the {@link JoinGameScreen} when the Join button is pressed.
      *
-     * @return InputListener for the Multiplayer button
+     * @return InputListener for the join button.
      */
-    public ClickListener MultiplayerButtonListener() {
+    public ClickListener joinGameButtonListener() {
         return new ClickListener() {
             @Override
-            public void clicked(InputEvent event, float x, float y) { app.setScreen(new MultiplayerMenuScreen(app)); }
+            public void clicked(InputEvent event, float x, float y) { app.setScreen(new JoinGameScreen(app)); }
         };
     }
 

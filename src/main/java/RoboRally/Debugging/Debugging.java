@@ -7,10 +7,10 @@ package RoboRally.Debugging;
  */
 public class Debugging {
 
-    private static boolean NETWORK_ANALYSIS = true;
+    private static boolean NETWORK_ANALYSIS = false;
     private static boolean PRINT_TO_TERMINAL = true;
     private static boolean CHEAT_MODE = false;
-    private static boolean GUI_DEBUG = true;
+    private static boolean GUI_DEBUG = false;
     private static boolean DISABLE_BACKGROUND = false;
 
     private static Debugging debugging_instance;

@@ -1,4 +1,4 @@
-package RoboRally.GUI.Screens.Menu.Multiplayer;
+package RoboRally.GUI.Screens.Menu;
 
 import RoboRally.GUI.Screens.Menu.MenuScreenAdapter;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -10,16 +10,16 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 /**
  * The multiplayer join screen.
  */
-public class MultiplayerJoinScreen extends MenuScreenAdapter {
+public class JoinGameScreen extends MenuScreenAdapter {
     private final TextField ipField;
     private final Label label;
     private String hostIP;
 
-    public MultiplayerJoinScreen(RoboRallyApp game) {
+    public JoinGameScreen(RoboRallyApp game) {
 
         super(game);
 
-        addHeading("Join Multiplayer RoboRally");
+        addHeading("Join Multiplayer Game");
         this.hostIP = "";
         this.label = addLabel("", true);
         this.ipField = addTextField(hostIP, true);

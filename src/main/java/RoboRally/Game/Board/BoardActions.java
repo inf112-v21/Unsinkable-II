@@ -311,20 +311,19 @@ public class BoardActions extends Board {
      */
     private void addLaser(Vector2 loc, Direction dir) {
         if (dir.equals(Direction.WEST) || dir.equals(Direction.EAST)) {
-            if (laserLayer.getCell((int) loc.x, (int) loc.y) != null) {
-                laserLayer.setCell((int) loc.x, (int) loc.y, horizontalLaser);
-            }
-            else if (laserLayer.getCell((int) loc.x, (int) loc.y).equals(verticalLaser)) {
-                laserLayer.setCell((int) loc.x, (int) loc.y, crossedLaser);
-            }
+            putLaser(loc, horizontalLaser, verticalLaser);
         }
         if (dir.equals(Direction.NORTH) || dir.equals(Direction.SOUTH)) {
-            if (laserLayer.getCell((int) loc.x, (int) loc.y) == null) {
-                laserLayer.setCell((int) loc.x, (int) loc.y, verticalLaser);
-            }
-            else if (laserLayer.getCell((int) loc.x, (int) loc.y).equals(horizontalLaser)) {
-                laserLayer.setCell((int) loc.x, (int) loc.y, crossedLaser);
-            }
+            putLaser(loc, verticalLaser, horizontalLaser);
+        }
+    }
+
+    private void putLaser(Vector2 loc, TiledMapTileLayer.Cell horizontalLaser, TiledMapTileLayer.Cell verticalLaser) {
+        if (laserLayer.getCell((int) loc.x, (int) loc.y) == null) {
+            laserLayer.setCell((int) loc.x, (int) loc.y, horizontalLaser);
+        }
+        else if (laserLayer.getCell((int) loc.x, (int) loc.y).equals(verticalLaser)) {
+            laserLayer.setCell((int) loc.x, (int) loc.y, crossedLaser);
         }
     }
 
@@ -376,7 +375,6 @@ public class BoardActions extends Board {
             else if (upgradeSites.contains(robot.getLoc())) { robot.repairDamage(); }
             else if (robot.isPoweredDown()) {
                 robot.repairAllDamage();
-                robot.powerUp();
             }
         }
     }
@@ -393,7 +391,7 @@ public class BoardActions extends Board {
 
     private void getPowerDowns(List<Robot> robots) {
         // TODO: "Continue power down?" GUI dialogue.
-        for (Robot robot : robots) { if (robot.isPoweredDown()) { robot.powerDown(); } }
+        for (Robot robot : robots) { if (robot.isPoweredDown()) { robot.powerUp(); } }
     }
 
     /**

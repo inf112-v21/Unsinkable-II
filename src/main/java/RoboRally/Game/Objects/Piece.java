@@ -25,7 +25,7 @@ public enum Piece {
 
     private final TiledMapTileLayer.Cell cell, diedCell, wonCell;
     private final TextureRegion[][] textures = TextureRegion.split(
-            new Texture(RoboRallyApp.ROBOT_SKINS_PATH), RoboRallyApp.TILE_SIZE, RoboRallyApp.TILE_SIZE);
+            new Texture(RoboRallyApp.ROBOT_SKINS_PATH), RoboRallyApp.getTileSize(), RoboRallyApp.getTileSize());
 
     Piece(int id) {
         this.cell = new TiledMapTileLayer.Cell();

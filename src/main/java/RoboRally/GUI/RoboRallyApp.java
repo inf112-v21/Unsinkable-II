@@ -5,7 +5,6 @@ import RoboRally.GUI.Screens.Game.PlayerUI;
 import RoboRally.GUI.Screens.Menu.LoadingScreen;
 import RoboRally.GUI.Screens.Menu.MenuScreen;
 import RoboRally.GUI.Screens.Game.GameScreen;
-import RoboRally.GUI.Screens.Menu.SinglePlayerScreen;
 import RoboRally.Game.Board.Boards;
 import RoboRally.Game.Engine.GameLoop;
 import RoboRally.Game.Engine.RoboRally;
@@ -24,19 +23,6 @@ import RoboRally.GUI.Screens.Menu.TitleScreen;
  * the graphics thread runs and is the anchor when switching between screens.
  */
 public class RoboRallyApp extends Game {
-
-    //================================================================
-    //                         App configuration
-    //================================================================
-    public static final String GAME_TITLE = "RoboRally";
-    public static final int TILE_SIZE = 100;
-    public static final String ROBOT_SKINS_PATH = "Robots/RobotsV3.png";
-    private final String groupName = "Unsinkable-II";
-    private final String menuSkinPath = "Skins/clean-crispy/skin/clean-crispy-ui.json";
-    private final String textSkinPath = "Skins/rusty-robot/skin/rusty-robot-ui.json";
-    private final String gameSkinPath = "Skins/star-soldier/skin/star-soldier-ui.json";
-    private final String logoPath = "Logo/logo.png";
-
     private Skin menuSkin, textSkin, gameSkin;
     private Stage stage;
     private MenuScreen titleScreen;
@@ -45,24 +31,23 @@ public class RoboRallyApp extends Game {
     private MultiplayerHost server;
     private RoboRally game;
     private Thread gameThread;
-
-    public static final boolean DEBUG = true;
+    public static final String ROBOT_SKINS_PATH = "Robots/RobotsV3.png";
+    public static final boolean DEBUG = false;
 
     @Override
     public void create() {
         if (Gdx.app.getType() == Application.ApplicationType.HeadlessDesktop) { return; }
 
-        this.menuSkin = new Skin(Gdx.files.internal(menuSkinPath));
-        this.textSkin = new Skin(Gdx.files.internal(textSkinPath));
-        this.gameSkin = new Skin(Gdx.files.internal(gameSkinPath));
+        this.menuSkin = new Skin(Gdx.files.internal("Skins/clean-crispy/skin/clean-crispy-ui.json"));
+        this.textSkin = new Skin(Gdx.files.internal("Skins/rusty-robot/skin/rusty-robot-ui.json"));
+        this.gameSkin = new Skin(Gdx.files.internal("Skins/star-soldier/skin/star-soldier-ui.json"));
 
         this.stage = new Stage(new ScreenViewport());
         this.titleScreen = new TitleScreen(this);
         Gdx.input.setInputProcessor(stage);
 
         Debugging.setInstance(DEBUG);
-        if (Debugging.isGuiDebug()) { this.setScreen(new SinglePlayerScreen(this)); }
-        else { this.setScreen(titleScreen); }
+        this.setScreen(titleScreen);
     }
 
     @Override
@@ -100,7 +85,7 @@ public class RoboRallyApp extends Game {
         this.myConnection = new MultiplayerClient(this, hostIP);
         System.out.println("Waiting for server packet...");
         this.setScreen(new LoadingScreen(this));
-        while (!myConnection.start) { // TODO: Add timer to prevent infinite loop if connection fails.
+        while (!myConnection.start) { // TODO: Use manager to load properly.
             try { Thread.sleep(100); }
             catch (InterruptedException e) {
                 System.err.println("Error! Unable to join game.");
@@ -136,20 +121,18 @@ public class RoboRallyApp extends Game {
      */
     public RoboRally getGame() { return game; }
 
-    /**
-     * @return the RoboRally game stage.
-     */
-    public Stage getStage() { return stage; }
+    public String getGameBackground() { return "background.png"; }
 
+    public static int getTileSize() { return 100; }
     /**
      * @return the name of the design group.
      */
-    public String getGroupName() { return this.groupName; }
+    public String getGroupName() { return "Unsinkable-II"; }
 
     /**
      * @return the RoboRally Logo.
      */
-    public String getLogoPath() { return this.logoPath; }
+    public String getLogoPath() { return "Logo/logo.png"; }
 
     /**
      * @return the GUI skin being used in the menus.
@@ -175,5 +158,7 @@ public class RoboRallyApp extends Game {
      * @return the title screen starting point of the application GUI.
      */
     public PlayerUI getUI() { return this.gameScreen.getUI(); }
+
+
 
 }
