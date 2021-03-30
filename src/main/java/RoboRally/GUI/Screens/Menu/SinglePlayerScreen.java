@@ -1,5 +1,6 @@
 package RoboRally.GUI.Screens.Menu;
 
+import RoboRally.Debugging.Debugging;
 import RoboRally.GUI.RoboRallyApp;
 import RoboRally.Game.Board.Boards;
 
@@ -35,7 +36,10 @@ public class SinglePlayerScreen extends MenuScreenAdapter{
      */
     private void startPressed() {
         try { app.hostNewGame((Boards) box.getSelected()); }
-        catch (Exception e) { System.err.println("Error! Unable to get board selection."); }// TODO: Display error message in GUI.
+        catch (Exception e) {
+            System.err.println("Error! Unable to get board selection."); // TODO: Display error message in GUI.
+            if (Debugging.printIsOn()) { e.printStackTrace(); }
+        }
     }
 
 }

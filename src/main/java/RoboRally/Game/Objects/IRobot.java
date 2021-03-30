@@ -30,11 +30,15 @@ public interface IRobot{
 
     Card getNextRegistry();
 
+    void powerUp();
+
     void wipeRegisters();
 
     void setRegisters(Deque<Card> hand);
 
-    void togglePowerDown();
+    boolean isPoweredDown();
+
+    void powerDown();
 
     /**
      * @return robot normal cell.

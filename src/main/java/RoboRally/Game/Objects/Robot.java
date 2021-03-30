@@ -66,8 +66,9 @@ public class Robot implements IRobot {
 
     public void setDestroyed() {
         destroyed = true;
+        powerDown = false;
         registers.clear();
-        usedRegisters.clear();
+        //usedRegisters.clear();
         if(RoboRallyApp.DEBUG && Debugging.printIsOn()) { System.out.println(piece.name()+" was damaged and destroyed!"); }
     }
 
@@ -81,7 +82,11 @@ public class Robot implements IRobot {
             destroyed = false;
             if(RoboRallyApp.DEBUG && Debugging.printIsOn()) { System.out.println(this.getPiece()+" Died and has "+ lives); }
         }
-        if(RoboRallyApp.DEBUG && Debugging.printIsOn()) { System.out.println(this.getPiece()+" is DEAD and out of life!"); }
+        else {
+            //setLoc();
+            powerDown();
+            if(RoboRallyApp.DEBUG && Debugging.printIsOn()) { System.out.println(this.getPiece()+" is DEAD and out of life!"); }
+        }
     }
 
     @Override
@@ -114,30 +119,39 @@ public class Robot implements IRobot {
     @Override
     public Deque<Card> getRegisters() { return this.registers; }
 
+    public String showUsedRegisters() { return this.usedRegisters.toString(); }
+
     @Override
     public Card getNextRegistry() {
         if (powerDown || destroyed) { return new Card(ProgramCard.BACKSIDE, 0); }
-        usedRegisters.push(registers.pop());
-        if(RoboRallyApp.DEBUG && RoboRallyApp.DEBUG && Debugging.printIsOn()) {
-            System.out.println("Registry: "+registers.toString());
-            System.out.println("Used Registry: "+usedRegisters.toString()); }
-        return usedRegisters.peek();
+        usedRegisters.addLast(registers.pop());
+        return usedRegisters.peekLast();
     }
-
-    public boolean isPoweredDown() { return powerDown; }
 
     @Override
     public void wipeRegisters() {
-        if (damage < 5) { usedRegisters.clear(); }
-        else { for (int i = 0; i < 9 - damage; ++i) { usedRegisters.pop(); } }
-        for (Card card : usedRegisters) { registers.push(card); }
+        if (Debugging.printIsOn()) {System.out.println("Wipe Registers: Damage="+damage+", health="+getHealth()+" Registers: "+registers.toString()+" Used Regs: "+usedRegisters.toString()); }
+        if (damage > 4) {
+            for (int i = 0; i < getHealth(); ++i) {
+                System.out.println("Popping "+usedRegisters.pop().toString());}
+            for (Card card : usedRegisters) { registers.addLast(card); }
+        }
+        usedRegisters.clear();
+        if (Debugging.printIsOn()) { System.out.println("Wipe Registers after : Damage="+damage+", health="+getHealth()+" Registers: "+registers.toString()+" Used Regs: "+usedRegisters.toString()); }
     }
+
+
+    @Override
+    public boolean isPoweredDown() { return powerDown; }
+
+    @Override
+    public void powerDown() { this.powerDown = true; }
+
+    @Override
+    public void powerUp() { this.powerDown = false; }
 
     @Override
     public void setRegisters(Deque<Card> registers) { this.registers = registers; }
-
-    @Override
-    public void togglePowerDown() { this.powerDown = !powerDown; }
 
     @Override
     public TiledMapTileLayer.Cell getCell() { return piece.getCell(); }

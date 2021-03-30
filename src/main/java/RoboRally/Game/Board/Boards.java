@@ -17,7 +17,8 @@ public enum Boards {
             DIZZY_DASH,
             TWISTER,
             DEATH_TRAP,
-            TESTMAP };
+            TESTMAP
+    };
 
     private final String path, name;
     private final int maxPlayers;

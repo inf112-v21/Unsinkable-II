@@ -27,23 +27,23 @@ public class PlayerUI {
     private final Table playerHandTable;
     private final Table runButtonTable;
     private final Table registryTable;
+    private final Table joinedRegistryTable;
+    private final Table lockedRegistryTable;
     private final Stage stage;
     private final FitViewport stageViewport;
     private final ButtonGroup<Button> handButtons, registryButtons;
-    private final Map<Integer, Integer> registry;
+    private final Map<Integer, Integer> registrySelections;
+    private Deque<Card> registers;
+    private List<Card> hand;
+    private int order;
+    private boolean registryActive, runButtonActive;
     private final float width = Gdx.graphics.getWidth();
     private final float height = Gdx.graphics.getHeight();
-
     private final float CARD_WIDTH = width / 16f;
     private final float CARD_HEIGHT = height / 6f;
     private final float REGISTER_PADDING = height / 20f;
     private final float HAND_PADDING = height / 32f;
     private final float BOTTOM_PADDING = height / 10f;
-
-    private List<Card> hand;
-    private final Deque<Card> registers;
-    private int order;
-    private boolean registryActive, runButtonActive;
 
     /**
      * Creates a new player UI.
@@ -65,13 +65,15 @@ public class PlayerUI {
         this.handButtons = new ButtonGroup<>();
         this.registryButtons = new ButtonGroup<>();
         this.registryTable = new Table();
-        this.registry = new HashMap<>();
+        this.lockedRegistryTable = new Table();
+        this.joinedRegistryTable = new Table();
+        this.registrySelections = new HashMap<>();
         this.registryActive = true;
         this.runButtonActive = true;
         this.order = 0;
 
         mainTableSetup();
-        registryTableSetup();
+        joinedRegistryTableSetup();
         mainTable.row();
         mainTable.add(playerHandTable);
         playerHandTable.padBottom(HAND_PADDING);
@@ -89,6 +91,8 @@ public class PlayerUI {
             mainTable.setDebug(true);
             registryTable.setDebug(true);
             playerHandTable.setDebug(true);
+            lockedRegistryTable.setDebug(true);
+            joinedRegistryTable.setDebug(true);
         }
     }
 
@@ -125,8 +129,6 @@ public class PlayerUI {
         if (hand.size() == 0) { playerHandTable.padTop(CARD_HEIGHT * 3); }
         else if (hand.size() < 4) { playerHandTable.padTop(CARD_HEIGHT * 2); }
         else if (hand.size() < 7) { playerHandTable.padTop(CARD_HEIGHT); }
-
-
     }
 
 
@@ -134,8 +136,8 @@ public class PlayerUI {
         return new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                if (registry.size() < 5 && !handButtons.getButtons().get(index).isDisabled()) {
-                    registry.put(index, ++order);
+                if (registrySelections.size() < 5 && !handButtons.getButtons().get(index).isDisabled()) {
+                    registrySelections.put(index, ++order);
                     handButtons.getButtons().get(index).setDisabled(true);
                     addToRegistry(index);
                 }
@@ -144,12 +146,32 @@ public class PlayerUI {
     }
 
     /**
+     * Clears the player hand.
+     */
+    private void resetHand() {
+        handButtons.clear();
+        playerHandTable.clearChildren();
+        playerHandTable.padTop(height/2f);
+    }
+
+    public void updateHand(List<Card> hand) {
+        this.hand = hand;
+        playerHandTable.padTop(0);
+        handButtons.clear();
+        handButtonsSetup();
+        registryActive = true;
+        runButtonActive = true;
+    }
+
+    /**
      * Setup wrapper for the table representing the registry.
      */
-    private void registryTableSetup(){
+    private void joinedRegistryTableSetup(){
         mainTable.row();
-        registryTable.padBottom(REGISTER_PADDING);
-        mainTable.add(registryTable).left();
+        joinedRegistryTable.padBottom(REGISTER_PADDING);
+        joinedRegistryTable.add(registryTable);
+        joinedRegistryTable.add(lockedRegistryTable);
+        mainTable.add(joinedRegistryTable).left();
     }
 
     /**
@@ -176,7 +198,7 @@ public class PlayerUI {
                 if (registryActive) {
                     handButtons.getButtons().get(index).setDisabled(false);
                     handButtons.getButtons().get(index).setChecked(false);
-                    registry.remove(index);
+                    registrySelections.remove(index);
                     registryTable.getCell(button).reset();
                     registryTable.removeActor(button);
                 }
@@ -184,39 +206,32 @@ public class PlayerUI {
         };
     }
 
-    /**
-     * Clears the player hand.
-     */
-    private void resetHand() {
-        handButtons.clear();
-        playerHandTable.clearChildren();
-        playerHandTable.padTop(height/2f);
+    private void addLockedRegisters() {
+        for (Card lockedRegistry : registers) {
+            Button button = new ImageButton(makeCard(lockedRegistry.getValue()));
+            button.setSize(CARD_WIDTH, CARD_HEIGHT);
+            lockedRegistryTable.add(button).size(CARD_WIDTH, CARD_HEIGHT).right();
+            if (Debugging.isGuiDebug()) { button.debug(); }
+        }
     }
 
-    public void updateHand(List<Card> hand) {
-        this.hand = hand;
-        playerHandTable.padTop(0);
-        handButtons.clear();
-        handButtonsSetup();
-        registryActive = true;
-        runButtonActive = true;
+    public void updateLockedRegisters(Deque<Card> registers) {
+        this.registers = registers;
+        lockedRegistryTable.clearChildren();
+        addLockedRegisters();
     }
 
     /**
      * Clears the player hand table.
      */
-    public void clearRegistry(int lockedRegisters) {
-        for (int i = 0; i < 5 - lockedRegisters; ++i) { registers.pop(); }
-        registry.clear();
+    public void clearRegistry() {
+        registrySelections.clear();
         order = 0;
         registryButtons.clear();
         registryTable.clearChildren();
-        addLockedRegisters();
     }
 
-    private void addLockedRegisters() {
 
-    }
 
     /**
      * Creates the registry of cards
@@ -224,14 +239,15 @@ public class PlayerUI {
      * @return the queue of ordered cards
      */
     private Deque<Card> makeRegisters() {
-        List<Integer> list = new LinkedList<>(registry.values());
+        List<Integer> list = new LinkedList<>(registrySelections.values());
         Collections.sort(list);
         Collections.reverse(list);
         for (int value : list) {
-            for (int handIndex : registry.keySet()) {
-                if (registry.get(handIndex) == value) { registers.addFirst(hand.get(handIndex)); }
+            for (int handIndex : registrySelections.keySet()) {
+                if (registrySelections.get(handIndex) == value) { registers.addFirst(hand.get(handIndex)); }
             }
         }
+        System.out.println("Make: Registers: "+registers.toString()+" Registry: "+ registrySelections);
         return registers;
     }
 
@@ -264,9 +280,12 @@ public class PlayerUI {
         return new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                if (runButtonActive && registry.size() + registers.size() == 5) {
+                System.out.println("Run listener click: Registers: "+registers.toString()+" Registry: "+ registrySelections);
+                System.out.println("Run listener registry size: "+ registrySelections.size() +" registers size: "+ registers.size());
+                if (runButtonActive && registrySelections.size() + registers.size() == 5) {
                     runButtonActive = false;
                     registryActive = false;
+                    System.out.println("Run: Registers: "+registers.toString()+" Registry: "+ registrySelections);
                     app.getGame().attemptRun(makeRegisters(), hand, powerDown);
                     resetHand();
                 }
@@ -280,7 +299,7 @@ public class PlayerUI {
     public Stage getStage() { return this.stage; }
 
     /**
-     * Dispose .
+     * Disposes UI stage.
      */
     public void dispose(){ stage.dispose(); }
 

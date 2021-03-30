@@ -31,14 +31,9 @@ public class GameLoop extends RoboRallyGame {
         System.out.println("Starting " + Thread.currentThread().getName() + "...");
         while (!stopGame) {
             requestHand();
-            if(RoboRallyApp.DEBUG && Debugging.printIsOn()) {
-                System.out.println("New Round: Registry: "+myPlayer.getRobot().getRegisters().toString());
-                System.out.println("New Round: Used Registry: "+myPlayer.getRobot().usedRegisters.toString()); }
             while (!nextRound) { sleep(100); }
             nextRound = false;
-            if(RoboRallyApp.DEBUG && Debugging.printIsOn()) { System.out.println("Starting Round " + roundNumber); }
             round();
-            ++roundNumber;
             sleep(1000);
         }
     }
@@ -48,8 +43,14 @@ public class GameLoop extends RoboRallyGame {
      */
     @Override
     public void round() {
+        if(RoboRallyApp.DEBUG && Debugging.printIsOn()) {
+            System.out.println("\n\n-----New Round: "+roundNumber+"-----");
+            System.out.println("New Round: Registry: "+myPlayer.getRobot().getRegisters().toString());
+            System.out.println("New Round: Used Registry: "+myPlayer.getRobot().usedRegisters.toString());
+        }
         for (int turn = 0; turn < 5; ++turn) { turn(); }
         board.endOfTurn(robots);
+        ++roundNumber;
     }
 
     /**
@@ -62,7 +63,13 @@ public class GameLoop extends RoboRallyGame {
      * 5. Touch Checkpoints
      */
     private void turn() {
+        if(RoboRallyApp.DEBUG && Debugging.printIsOn()) { System.out.println("\n---New Turn---"); }
         for (Robot robot : getRobotTurnOrder()) { executeProgramCard(robot, robot.getNextRegistry().getValue()); }
+        if(RoboRallyApp.DEBUG && RoboRallyApp.DEBUG && Debugging.printIsOn()) {
+            System.out.println("Registry: "+myPlayer.getRobot().getRegisters().toString());
+            System.out.println("Used Registry: "+myPlayer.getRobot().showUsedRegisters());
+            System.out.println("Health: "+myPlayer.getRobot().getHealth());
+        }
         board.moveBoardElements(getRobots());
         sleep(250);
         board.fireLasers(getRobots());

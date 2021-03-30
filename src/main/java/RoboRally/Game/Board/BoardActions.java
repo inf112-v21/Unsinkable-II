@@ -67,6 +67,7 @@ public class BoardActions extends Board {
         if (!inBounds(robot.getLoc()) || inHole(robot)) {
             removeRobot(robot);
             robot.setDestroyed();
+            killRobot(robot);
             putRobot(robot);
             return false;
         }
@@ -145,6 +146,17 @@ public class BoardActions extends Board {
     private void putRobot(Robot robot) {
         robot.getCell().setRotation(robot.getDirection().getDirection());
         setPlayerLayerCell(robot.getLoc(), robot.getPiece().getCell());
+    }
+
+    /**
+     * Adds a visual representation of the dead robot to the game board.
+     *
+     * @param robot to be added.
+     */
+    public void killRobot(Robot robot) {
+        removeRobot(robot);
+        robot.getCell().setRotation(robot.getDirection().getDirection());
+        setPlayerLayerCell(robot.getLoc(), robot.getPiece().getDiedCell());
     }
 
     /**
@@ -241,7 +253,7 @@ public class BoardActions extends Board {
      */
     private void fireRobotLasers(List<Robot> robots) {
         for (Robot robot : robots) {
-            if (!robot.isDestroyed() && canGo(robot.getLoc(), robot.getDirection())) {
+            if (!robot.isDestroyed() && !robot.isPoweredDown() && canGo(robot.getLoc(), robot.getDirection())) {
                 shoot(getNextLoc(robot.getLoc(), robot.getDirection()), robot.getDirection());
             }
         }
@@ -334,7 +346,7 @@ public class BoardActions extends Board {
     public void endOfTurn(List<Robot> robots) {
         repairRobots(robots);
         wipeRobots(robots);
-        // TODO: Continue power down GUI dialogue. Ensure request for 0 cards.
+        getPowerDowns(robots);
         respawnRobots(robots);
     }
 
@@ -359,7 +371,12 @@ public class BoardActions extends Board {
      */
     private void wipeRobots(List<Robot> robots) {
         for (Robot robot : robots) { robot.wipeRegisters(); }
-        Gdx.app.postRunnable(() -> app.getUI().clearRegistry(app.getGame().getMyPlayer().getRobot().getRegisters().size()));
+        Gdx.app.postRunnable(() -> app.getUI().clearRegistry());
+    }
+
+    private void getPowerDowns(List<Robot> robots) {
+        // TODO: "Continue power down?" GUI dialogue.
+        for (Robot robot : robots) { if (robot.isPoweredDown()) { robot.powerDown(); } }
     }
 
     /**
@@ -372,7 +389,7 @@ public class BoardActions extends Board {
             if (robot.isDestroyed()) {
                 removeRobot(robot);
                 robot.killRobot();
-                putRobot(robot);
+                if (!robot.isDestroyed()) { putRobot(robot); }
             }
         }
     }

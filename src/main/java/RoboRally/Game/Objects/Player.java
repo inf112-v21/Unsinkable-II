@@ -19,9 +19,13 @@ public class Player {
     }
 
     public List<Card> getTossedCards() {
-        hand.removeAll(robot.usedRegisters);
-        return hand;
+        List<Card> tossed = hand;
+        tossed.removeAll(robot.getRegisters());
+        hand = new LinkedList<>();
+        return tossed;
     }
+
+    public int requestHand() {return robot.isPoweredDown() ? 0 : robot.getHealth(); }
 
     public int getID() { return this.id; }
 

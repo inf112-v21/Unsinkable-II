@@ -60,7 +60,8 @@ public abstract class Board {
         this.westWalls = new HashSet<>();
         this.southWalls = new HashSet<>();
         this.eastWalls = new HashSet<>();
-        findWalls();
+        findWalls(wallLayer);
+        findWalls(laserWallLayer);
 
         this.northBelts = new HashSet<>();
         this.westBelts = new HashSet<>();
@@ -139,9 +140,9 @@ public abstract class Board {
     /**
      * Locates and places all walls in respective lists
      */
-    private void findWalls() {
-        for (Vector2 wall : findAllLayerTiles(wallLayer)) {
-            int wallID = wallLayer.getCell((int) wall.x, (int) wall.y).getTile().getId();
+    private void findWalls(TiledMapTileLayer layer) {
+        for (Vector2 wall : findAllLayerTiles(layer)) {
+            int wallID = layer.getCell((int) wall.x, (int) wall.y).getTile().getId();
             if (TileID.WALLS_NORTH.contains(wallID)) { northWalls.add(wall); }
             if (TileID.WALLS_EAST.contains(wallID)) { eastWalls.add(wall); }
             if (TileID.WALLS_SOUTH.contains(wallID)) { southWalls.add(wall); }

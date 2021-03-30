@@ -31,18 +31,12 @@ public class RoboRallyApp extends Game {
     public static final String GAME_TITLE = "RoboRally";
     public static final int TILE_SIZE = 100;
     public static final String ROBOT_SKINS_PATH = "Robots/RobotsV3.png";
-
     private final String groupName = "Unsinkable-II";
     private final String menuSkinPath = "Skins/clean-crispy/skin/clean-crispy-ui.json";
     private final String textSkinPath = "Skins/rusty-robot/skin/rusty-robot-ui.json";
     private final String gameSkinPath = "Skins/star-soldier/skin/star-soldier-ui.json";
     private final String logoPath = "Logo/logo.png";
 
-    public static final boolean DEBUG = false;
-
-    //================================================================
-    //                         GUI Objects
-    //================================================================
     private Skin menuSkin, textSkin, gameSkin;
     private Stage stage;
     private MenuScreen titleScreen;
@@ -51,6 +45,8 @@ public class RoboRallyApp extends Game {
     private MultiplayerHost server;
     private RoboRally game;
     private Thread gameThread;
+
+    public static final boolean DEBUG = true;
 
     @Override
     public void create() {
@@ -108,10 +104,11 @@ public class RoboRallyApp extends Game {
             try { Thread.sleep(100); }
             catch (InterruptedException e) {
                 System.err.println("Error! Unable to join game.");
+                if (Debugging.printIsOn()) { e.printStackTrace(); }
                 this.setScreen(titleScreen);
             }
         }
-        if(DEBUG && Debugging.printIsOn()) {System.out.println("I am player "+myConnection.startPacket.playerID);}
+        if(Debugging.printIsOn()) {System.out.println("I am player "+myConnection.startPacket.playerID);}
         startGame(myConnection.startPacket.boardSelection, myConnection.startPacket.playerID);
     }
 

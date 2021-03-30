@@ -86,16 +86,19 @@ abstract class RoboRallyGame implements RoboRally {
     public void updateAllRobotRegisters(List<RoundPacket> roundPackets) {
         for (RoundPacket packet : roundPackets) {
             players.get(packet.getPlayerID() - 1).getRobot().setRegisters(packet.getRegisters());
+            if (packet.isPowerDown()) { players.get(packet.getPlayerID() - 1).getRobot().powerDown(); }
         }
         nextRound = true;
         roundSent = false;
     }
 
     protected void requestHand() {
-        app.getLocalClient().getClient().sendTCP(new RequestHandPacket(roundNumber, this.myPlayer.getRobot().getHealth(), this.myPlayer.getTossedCards()));
+        app.getLocalClient().getClient().sendTCP(new RequestHandPacket(roundNumber, myPlayer.requestHand(), myPlayer.getTossedCards()));
         while (!app.getLocalClient().receivedNewHand) { sleep(100); }
         myPlayer.setHand(app.getLocalClient().getHand());
         Gdx.app.postRunnable(() -> app.getUI().updateHand(myPlayer.getHand()));
+        Gdx.app.postRunnable(() -> app.getUI().updateLockedRegisters(myPlayer.getRobot().getRegisters()));
+
     }
 
     /**
