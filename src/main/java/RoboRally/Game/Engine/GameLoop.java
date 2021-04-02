@@ -44,7 +44,7 @@ public class GameLoop extends RoboRallyGame {
      */
     @Override
     public void round() {
-        if(RoboRallyApp.DEBUG && Debugging.printIsOn()) {
+        if(Debugging.debugBackend()) {
             System.out.println("\n\n-----New Round: "+roundNumber+"-----");
             System.out.println("New Round: Registry: "+myPlayer.getRobot().getRegisters().toString());
             System.out.println("New Round: Used Registry: "+myPlayer.getRobot().usedRegisters.toString());
@@ -64,9 +64,9 @@ public class GameLoop extends RoboRallyGame {
      * 5. Touch Checkpoints
      */
     private void turn() {
-        if(RoboRallyApp.DEBUG && Debugging.printIsOn()) { System.out.println("\n---New Turn---"); }
+        if (Debugging.debugBackend()) { System.out.println("\n---New Turn---"); }
         for (Robot robot : getRobotTurnOrder()) { executeProgramCard(robot, robot.getNextRegistry().getValue()); }
-        if(RoboRallyApp.DEBUG && RoboRallyApp.DEBUG && Debugging.printIsOn()) {
+        if (Debugging.debugBackend()) {
             System.out.println("Registry: "+myPlayer.getRobot().getRegisters().toString());
             System.out.println("Used Registry: "+myPlayer.getRobot().showUsedRegisters());
             System.out.println("Health: "+myPlayer.getRobot().getHealth());

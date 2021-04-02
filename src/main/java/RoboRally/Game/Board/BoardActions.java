@@ -8,7 +8,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Vector2;
 
-import java.util.List;
+import java.util.*;
 
 public class BoardActions extends Board {
 
@@ -35,6 +35,7 @@ public class BoardActions extends Board {
      *
      * @param robot the robot moving.
      * @param dir the direction the robot is moving.
+     * @param pushed whether the robot is moving as a result of being pushed.
      * @return true if robot successfully moved, otherwise false.
      */
     public boolean moveRobot(Robot robot, Direction dir, boolean pushed) {
@@ -180,11 +181,9 @@ public class BoardActions extends Board {
      */
     public void moveBoardElements(List<Robot> robots) {
         moveFastBelts(robots);
-        try { Thread.sleep(250); }
-        catch (InterruptedException e) { System.err.println("Sleep error in belt movement."); }
+
         moveAllBelts(robots);
-        try { Thread.sleep(250); }
-        catch (InterruptedException e) { System.err.println("Sleep error in belt movement."); }
+
         rotateGears(robots);
     }
 
@@ -198,6 +197,8 @@ public class BoardActions extends Board {
             if (leftGears.contains(robot.getLoc())) { rotate(robot, ProgramCard.TURN_LEFT.getRotation()); }
             if (rightGears.contains(robot.getLoc())) { rotate(robot, ProgramCard.TURN_RIGHT.getRotation()); }
         }
+        try { Thread.sleep(250); }
+        catch (InterruptedException e) { System.err.println("Sleep error after rotating gears."); }
     }
 
     /**
@@ -207,15 +208,9 @@ public class BoardActions extends Board {
      * @param robots the list of robots.
      */
     private void moveFastBelts(List<Robot> robots) {
-        for (Robot robot : robots) {
-            if (northFastBelts.contains(robot.getLoc())) { move(robot, Direction.NORTH);}
-            else if (westFastBelts.contains(robot.getLoc())) { move(robot, Direction.WEST); }
-            else if (southFastBelts.contains(robot.getLoc())) { move(robot, Direction.SOUTH); }
-            else if (eastFastBelts.contains(robot.getLoc())) { move(robot, Direction.EAST); }
-
-            if (leftTurnFastBelts.contains(robot.getLoc())) { rotateRobot(robot, ProgramCard.TURN_LEFT);}
-            else if (rightTurnFastBelts.contains(robot.getLoc())) { rotateRobot(robot, ProgramCard.TURN_RIGHT);}
-        }
+        resolveMovingBelts(robots, northFastBelts, westFastBelts, southFastBelts, eastFastBelts);
+        try { Thread.sleep(250); }
+        catch (InterruptedException e) { System.err.println("Sleep error after fast belt movement."); }
     }
 
     /**
@@ -225,14 +220,41 @@ public class BoardActions extends Board {
      * @param robots the list of robots.
      */
     private void moveAllBelts(List<Robot> robots) {
-        for (Robot robot : robots) {
-            if (northBelts.contains(robot.getLoc())) { move(robot, Direction.NORTH); }
-            else if (westBelts.contains(robot.getLoc())) { move(robot, Direction.WEST); }
-            else if (southBelts.contains(robot.getLoc())) { move(robot, Direction.SOUTH); }
-            else if (eastBelts.contains(robot.getLoc())) { move(robot, Direction.EAST); }
+        resolveMovingBelts(robots, northBelts, westBelts, southBelts, eastBelts);
+        try { Thread.sleep(250); }
+        catch (InterruptedException e) { System.err.println("Sleep error after belt movement."); }
+    }
 
-            if (leftTurnBelts.contains(robot.getLoc())) { rotateRobot(robot, ProgramCard.TURN_LEFT);}
-            else if (rightTurnBelts.contains(robot.getLoc())) { rotateRobot(robot, ProgramCard.TURN_RIGHT);}
+    private void resolveMovingBelts(List<Robot> robots, Set<Vector2> northBelts, Set<Vector2> westBelts, Set<Vector2> southBelts, Set<Vector2> eastBelts) {
+        Map<Robot, Vector2> newRobotLocs = new HashMap<>();
+        Map<Robot, Direction> robotsOnBelts = new HashMap<>();
+        Set<Vector2> robotLocs = new HashSet<>();
+        for (Robot robot : robots) {
+            if (northBelts.contains(robot.getLoc()) && canGo(robot.getLoc(), Direction.NORTH)) {
+                newRobotLocs.put(robot, getNextLoc(robot.getLoc(), Direction.NORTH));
+                robotsOnBelts.put(robot, Direction.NORTH);
+            }
+            else if (westBelts.contains(robot.getLoc()) && canGo(robot.getLoc(), Direction.WEST)) {
+                newRobotLocs.put(robot, getNextLoc(robot.getLoc(), Direction.WEST));
+                robotsOnBelts.put(robot, Direction.WEST);
+            }
+            else if (southBelts.contains(robot.getLoc()) && canGo(robot.getLoc(), Direction.SOUTH)) {
+                newRobotLocs.put(robot, getNextLoc(robot.getLoc(), Direction.SOUTH));
+                robotsOnBelts.put(robot, Direction.SOUTH);
+            }
+            else if (eastBelts.contains(robot.getLoc()) && canGo(robot.getLoc(), Direction.EAST)) {
+                newRobotLocs.put(robot, getNextLoc(robot.getLoc(), Direction.EAST));
+                robotsOnBelts.put(robot, Direction.EAST);
+            }
+            else { robotLocs.add(robot.getLoc()); } //Robots that aren't being moved by belt.
+        }
+        for (Robot robot : newRobotLocs.keySet()) {
+            if (robotLocs.contains(newRobotLocs.get(robot))) { robotsOnBelts.remove(robot); } //Does belt move robot into a stationary robot?
+        }
+        for (Robot robot : robotsOnBelts.keySet()) { move(robot, robotsOnBelts.get(robot)); }
+        for (Robot robot : robots) {
+            if (leftTurnFastBelts.contains(robot.getLoc())) { rotateRobot(robot, ProgramCard.TURN_LEFT);}
+            else if (rightTurnFastBelts.contains(robot.getLoc())) { rotateRobot(robot, ProgramCard.TURN_RIGHT);}
         }
     }
 

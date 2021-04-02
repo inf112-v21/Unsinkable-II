@@ -24,7 +24,7 @@ public abstract class Multiplayer extends Listener implements Networking {
     protected List<RoundPacket> roundPackets;
     public StartPacket startPacket;
 
-    public volatile boolean start;
+    public volatile boolean ready;
     protected static final int TIMEOUT = 6000;
 
     /**

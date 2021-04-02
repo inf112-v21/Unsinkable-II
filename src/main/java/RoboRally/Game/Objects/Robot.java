@@ -1,7 +1,6 @@
 package RoboRally.Game.Objects;
 
 import RoboRally.Debugging.Debugging;
-import RoboRally.GUI.RoboRallyApp;
 import RoboRally.Game.Cards.Card;
 import RoboRally.Game.Direction;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
@@ -51,7 +50,7 @@ public class Robot implements IRobot {
     public void addDamage() {
         if (damage < 10) {
             ++this.damage;
-            if(RoboRallyApp.DEBUG && Debugging.printIsOn()) { System.out.println(piece.name()+" was damaged and has "+damage+" damage"); }}
+            if(Debugging.debugBackend()) { System.out.println(piece.name()+" was damaged and has "+damage+" damage"); }}
         else { setDestroyed(); }
 
 
@@ -68,7 +67,7 @@ public class Robot implements IRobot {
         powerDown = false;
         registers.clear();
         //usedRegisters.clear();
-        if(RoboRallyApp.DEBUG && Debugging.printIsOn()) { System.out.println(piece.name()+" was damaged and destroyed!"); }
+        if(Debugging.debugBackend()) { System.out.println(piece.name()+" was damaged and destroyed!"); }
     }
 
     @Override
@@ -79,11 +78,11 @@ public class Robot implements IRobot {
             setLoc(getSpawnLoc());
             setDirection(Direction.NORTH);
             destroyed = false;
-            if(RoboRallyApp.DEBUG && Debugging.printIsOn()) { System.out.println(this.getPiece()+" Died and has "+ lives); }
+            if(Debugging.debugBackend()) { System.out.println(this.getPiece()+" Died and has "+ lives); }
         }
         else {
             powerDown();
-            if(RoboRallyApp.DEBUG && Debugging.printIsOn()) { System.out.println(this.getPiece()+" is DEAD and out of life!"); }
+            if(Debugging.debugBackend()) { System.out.println(this.getPiece()+" is DEAD and out of life!"); }
         }
     }
 
@@ -128,14 +127,13 @@ public class Robot implements IRobot {
 
     @Override
     public void wipeRegisters() {
-        if (Debugging.printIsOn()) {System.out.println("Wipe Registers: Damage="+damage+", health="+getHealth()+" Registers: "+registers.toString()+" Used Regs: "+usedRegisters.toString()); }
+        if (Debugging.debugBackend()) { System.out.println("Registers pre-wipe: Damage="+damage+" Registers: "+registers.toString()+" Used Regs: "+usedRegisters.toString()); }
         if (damage > 4) {
-            for (int i = 0; i < getHealth(); ++i) {
-                System.out.println("Popping "+usedRegisters.pop().toString());}
+            for (int i = 0; i < getHealth(); ++i) { usedRegisters.pop();}
             for (Card card : usedRegisters) { registers.addLast(card); }
         }
         usedRegisters.clear();
-        if (Debugging.printIsOn()) { System.out.println("Wipe Registers after : Damage="+damage+", health="+getHealth()+" Registers: "+registers.toString()+" Used Regs: "+usedRegisters.toString()); }
+        if (Debugging.debugBackend()) { System.out.println("Registers post-wipe: Damage="+damage+" Registers: "+registers.toString()+" Used Regs: "+usedRegisters.toString()); }
     }
 
 

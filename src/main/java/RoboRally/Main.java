@@ -12,8 +12,9 @@ public class Main {
     public static void main(String[] args) {
         Lwjgl3ApplicationConfiguration cfg = new Lwjgl3ApplicationConfiguration();
         cfg.setTitle("RoboRally");
-        // cfg.setWindowedMode(1920,1080);
+        cfg.setAutoIconify(true);
         cfg.setFullscreenMode(Lwjgl3ApplicationConfiguration.getDisplayMode());
+        //cfg.setWindowedMode(1920,1080);
         new Lwjgl3Application(new RoboRallyApp(), cfg);
     }
 }

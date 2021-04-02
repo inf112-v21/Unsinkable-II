@@ -45,7 +45,7 @@ public class GameScreen extends InputAdapter implements Screen {
 
         multiplexer = new InputMultiplexer();
         multiplexer.addProcessor(playerUI.getStage());
-        if(Debugging.isCheatMode()) { multiplexer.addProcessor(new CheatMode(app)); }
+        if(Debugging.cheatMode()) { multiplexer.addProcessor(new CheatMode(app)); }
 
     }
 

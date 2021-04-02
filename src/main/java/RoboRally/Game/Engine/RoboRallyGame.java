@@ -1,5 +1,6 @@
 package RoboRally.Game.Engine;
 
+import RoboRally.Debugging.Debugging;
 import RoboRally.GUI.Screens.Menu.GameOverScreen;
 import RoboRally.Game.Board.BoardActions;
 import RoboRally.Game.Cards.Card;
@@ -109,7 +110,10 @@ abstract class RoboRallyGame implements RoboRally {
         for (Robot robot : robots) {
             if (!robot.isDestroyed() && !robot.isPoweredDown() && !robot.getRegisters().isEmpty()) { order.add(robot); }
         }
+        if (Debugging.debugBackend()) { System.out.println("Turn order pre-sort: "+order.toString()); }
         order.sort(Comparator.comparing(robot -> robot.getRegisters().peek().getWeight()));
+        Collections.reverse(order);
+        if (Debugging.debugBackend()) { System.out.println("Turn order post-sort: "+order.toString()); }
         return order;
     }
 

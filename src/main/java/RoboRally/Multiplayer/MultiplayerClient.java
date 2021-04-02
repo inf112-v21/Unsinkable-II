@@ -42,18 +42,18 @@ public class MultiplayerClient extends Multiplayer {
     public void received(Connection connection, Object transmission) {
         if (transmission instanceof StartPacket) {
             this.startPacket = (StartPacket) transmission;
-            if (start) { app.getGame().addPlayer(startPacket.playerID);}
-            else start = true;
-            if(RoboRallyApp.DEBUG && Debugging.isNetworkAnalysis()) { System.out.println("Client: New Player " + startPacket.playerID); }
+            if (ready) { app.getGame().addPlayer(startPacket.playerID);}
+            else ready = true;
+            if(Debugging.debugNetworking()) { System.out.println("Client: New Player " + startPacket.playerID); }
         }
         else if (transmission instanceof PlayerHandPacket) {
             this.hand = (PlayerHandPacket) transmission;
             receivedNewHand = true;
-            if(RoboRallyApp.DEBUG && Debugging.isNetworkAnalysis()){ System.out.println("Client: Received hand "+hand.cards.toString()); }
+            if(Debugging.debugNetworking()){ System.out.println("Client: Received hand "+hand.cards.toString()); }
         }
         else if (transmission instanceof RoundPacket) {
             roundPackets.add((RoundPacket) transmission);
-            if(RoboRallyApp.DEBUG && Debugging.isNetworkAnalysis()) { System.out.println("Client: Received round packet from " + connection); }
+            if(Debugging.debugNetworking()) { System.out.println("Client: Received round packet from " + connection); }
             if (roundPackets.size() == app.getGame().getPlayers().size()) {
                 app.getGame().updateAllRobotRegisters(roundPackets);
                 roundPackets = new ArrayList<>();
@@ -61,7 +61,7 @@ public class MultiplayerClient extends Multiplayer {
         }
         else if (transmission instanceof MessagePacket) {
             MessagePacket packet = (MessagePacket) transmission;
-            if(RoboRallyApp.DEBUG && Debugging.isNetworkAnalysis()) { System.out.println("Client: " + connection + " from "+packet.userName + " " + " received " + packet.message); } // TODO: Display message in GUI
+            if(Debugging.debugNetworking()) { System.out.println("Client: " + connection + " from "+packet.userName + " " + " received " + packet.message); } // TODO: Display message in GUI
         }
     }
 

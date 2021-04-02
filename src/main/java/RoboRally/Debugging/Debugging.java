@@ -1,41 +1,21 @@
 package RoboRally.Debugging;
 
 /**
- * This class allows you to enable different tools for debugging.
- *
- * This class is also a singleton
+ * Static class for setting debug modes to enable different tools for debugging.
  */
 public class Debugging {
 
-    private static boolean NETWORK_ANALYSIS = false;
-    private static boolean PRINT_TO_TERMINAL = true;
-    private static boolean CHEAT_MODE = false;
-    private static boolean GUI_DEBUG = false;
-    private static boolean DISABLE_BACKGROUND = false;
+    private static final boolean NETWORK_ANALYSIS = false;
+    private static final boolean PRINT_TO_TERMINAL = true;
+    private static final boolean CHEAT_MODE = false;
+    private static final boolean GUI_DEBUG = false;
 
-    private static Debugging debugging_instance;
 
-    private Debugging(boolean active) {
-        if (!active){
-            CHEAT_MODE = false;
-            GUI_DEBUG = false;
-            DISABLE_BACKGROUND = false;
-            PRINT_TO_TERMINAL = true;
-            NETWORK_ANALYSIS = true;
-        }
-    }
+    public static boolean cheatMode() { return CHEAT_MODE; }
 
-    public static void setInstance(boolean active) {
-        if (debugging_instance == null) { debugging_instance = new Debugging(active); }
-    }
+    public static boolean debugGUI() { return GUI_DEBUG; }
 
-    public static boolean isCheatMode() { return CHEAT_MODE; }
+    public static boolean debugBackend() { return PRINT_TO_TERMINAL; }
 
-    public static boolean isGuiDebug() { return GUI_DEBUG; }
-
-    public static boolean isBackground() { return DISABLE_BACKGROUND; }
-
-    public static boolean printIsOn() { return PRINT_TO_TERMINAL; }
-
-    public static boolean isNetworkAnalysis() { return NETWORK_ANALYSIS; }
+    public static boolean debugNetworking() { return NETWORK_ANALYSIS; }
 }

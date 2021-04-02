@@ -4,6 +4,7 @@ import RoboRally.Debugging.Debugging;
 import RoboRally.GUI.RoboRallyApp;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -23,7 +24,7 @@ public abstract class MenuScreenAdapter implements MenuScreen {
     protected final Stage stage;
     protected final Table stageTable, titleTable, headingTable, buttonTable;
     protected Label heading;
-    protected final int WIDGET_WIDTH = 250;
+    protected final int WIDGET_WIDTH = Gdx.graphics.getWidth()/10;
 
     public MenuScreenAdapter(RoboRallyApp app) {
         this.app = app;
@@ -40,11 +41,11 @@ public abstract class MenuScreenAdapter implements MenuScreen {
         this.headingTable = new Table();
         headingTable.padTop(getCenterHeight()/4);
         stageTable.add(headingTable).row();
-        this.buttonTable = new Table();;
+        this.buttonTable = new Table();
         buttonTable.padTop(getCenterHeight()/16);
         stageTable.add(buttonTable).row();
 
-        if (Debugging.isGuiDebug()) {
+        if (Debugging.debugGUI()) {
             stageTable.setDebug(true);
             titleTable.setDebug(true);
             headingTable.setDebug(true);
@@ -66,6 +67,7 @@ public abstract class MenuScreenAdapter implements MenuScreen {
         titleStyle.font = app.getTextSkin().getFont("title");
         Label title = new Label(titleText, titleStyle);
         title.setFontScale(0.6f);
+        title.setColor(Color.LIGHT_GRAY);
         titleTable.add(title).row();
     }
 
@@ -74,6 +76,7 @@ public abstract class MenuScreenAdapter implements MenuScreen {
         this.heading = new Label(headingText, app.getTextSkin());
         heading.setFontScale(1);
         heading.setAlignment(Align.center);
+        heading.setColor(Color.FIREBRICK);
         headingTable.add(heading);
     }
 
@@ -137,7 +140,7 @@ public abstract class MenuScreenAdapter implements MenuScreen {
 
     @Override
     public void render(float delta) {
-        Gdx.gl.glClearColor(60/255f, 60/255f, 60/255f, 1);
+        Gdx.gl.glClearColor(40/255f, 40/255f, 40/255f,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         stage.act();
         stage.draw();

@@ -18,6 +18,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 import RoboRally.GUI.Screens.Menu.TitleScreen;
 
+import java.io.IOException;
+
 /**
  * RoboRally application entry point. This is the top-level GUI class that
  * the graphics thread runs and is the anchor when switching between screens.
@@ -32,21 +34,18 @@ public class RoboRallyApp extends Game {
     private RoboRally game;
     private Thread gameThread;
     public static final String ROBOT_SKINS_PATH = "Robots/RobotsV3.png";
-    public static final boolean DEBUG = false;
 
     @Override
     public void create() {
         if (Gdx.app.getType() == Application.ApplicationType.HeadlessDesktop) { return; }
 
         this.menuSkin = new Skin(Gdx.files.internal("Skins/clean-crispy/skin/clean-crispy-ui.json"));
-        this.textSkin = new Skin(Gdx.files.internal("Skins/rusty-robot/skin/rusty-robot-ui.json"));
+        this.textSkin = new Skin(Gdx.files.internal("Skins/star-soldier/skin/star-soldier-ui.json"));
         this.gameSkin = new Skin(Gdx.files.internal("Skins/star-soldier/skin/star-soldier-ui.json"));
 
         this.stage = new Stage(new ScreenViewport());
         this.titleScreen = new TitleScreen(this);
         Gdx.input.setInputProcessor(stage);
-
-        Debugging.setInstance(DEBUG);
         this.setScreen(titleScreen);
     }
 
@@ -60,8 +59,13 @@ public class RoboRallyApp extends Game {
 
     @Override
     public void dispose() {
-        try { gameThread.join(1000, 0); }
-        catch (InterruptedException e) { gameThread.interrupt(); }
+        try {
+            if (gameThread != null) { gameThread.join(1000, 0); }
+            if (server != null) { server.getServer().dispose(); }
+            if (myConnection != null) { myConnection.getClient().dispose(); }
+        }
+        catch ( InterruptedException e) { gameThread.interrupt(); }
+        catch ( IOException e) { System.err.println("Error shutting down multiplayer."); }
         Gdx.app.exit();
         System.exit(0);
     }
@@ -85,15 +89,15 @@ public class RoboRallyApp extends Game {
         this.myConnection = new MultiplayerClient(this, hostIP);
         System.out.println("Waiting for server packet...");
         this.setScreen(new LoadingScreen(this));
-        while (!myConnection.start) { // TODO: Use manager to load properly.
+        while (!myConnection.ready) { // TODO: Use manager to load properly.
             try { Thread.sleep(100); }
             catch (InterruptedException e) {
                 System.err.println("Error! Unable to join game.");
-                if (Debugging.printIsOn()) { e.printStackTrace(); }
+                if (Debugging.debugBackend()) { e.printStackTrace(); }
                 this.setScreen(titleScreen);
             }
         }
-        if(Debugging.printIsOn()) {System.out.println("I am player "+myConnection.startPacket.playerID);}
+        if(Debugging.debugBackend()) {System.out.println("I am player "+myConnection.startPacket.playerID);}
         startGame(myConnection.startPacket.boardSelection, myConnection.startPacket.playerID);
     }
 
@@ -142,7 +146,7 @@ public class RoboRallyApp extends Game {
     /**
      * @return the GUI skin being used in the game.
      */
-    public Skin getTextSkin() { return this.gameSkin; }
+    public Skin getTextSkin() { return this.textSkin; }
 
     /**
      * @return the GUI skin being used in the game.
