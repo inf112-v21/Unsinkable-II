@@ -13,16 +13,9 @@ public class Player {
 
     public Player(int id){
         this.id = id;
-        this.robot = new Robot(Piece.getPieceByID(id));
+        this.robot = new Robot(id);
         this.name = "Player " + id;
         this.hand = new LinkedList<>();
-    }
-
-    public List<Card> getTossedCards() {
-        List<Card> tossed = hand;
-        tossed.removeAll(robot.getRegisters());
-        hand = new LinkedList<>();
-        return tossed;
     }
 
     public int requestHand() {return robot.isPoweredDown() ? 0 : robot.getHealth(); }

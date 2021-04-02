@@ -10,34 +10,80 @@ import java.util.Deque;
 public interface IRobot{
 
 
+    /**
+     * Sets the next flag.
+     */
     void touchFlag();
 
+    /**
+     * @return the robot location vector.
+     */
     Vector2 getLoc();
 
+    /**
+     * @param newLoc the new vector location for the robot.
+     */
     void setLoc(Vector2 newLoc);
 
+    /**
+     * @return the robot's last checkpoint.
+     */
     Vector2 getSpawnLoc();
 
+    /**
+     * @param newLoc the new spawn point location.
+     */
     void setSpawnLoc(Vector2 newLoc);
 
+    /**
+     * @return the direction the robot is currently facing.
+     */
     Direction getDirection();
 
+    /**
+     * @param dir the new direction the robot is facing.
+     */
     void setDirection(Direction dir);
 
+    /**
+     * @return true if the robot has been destroyed.
+     */
     boolean isDestroyed();
 
+    /**
+     * @return the robot registers.
+     */
     Deque<Card> getRegisters();
 
+    /**
+     * @return the next card in the registers.
+     */
     Card getNextRegistry();
 
-    void powerUp();
-
+    /**
+     * Wipes the robot's registers.
+     */
     void wipeRegisters();
 
-    void setRegisters(Deque<Card> hand);
+    /**
+     * @param registers the new robot registers.
+     */
+    void setRegisters(Deque<Card> registers);
 
+    /**
+     * Power robot up.
+     */
+    void powerUp();
+
+    /**
+     *
+     * @return true if the robot is currently powered down, false otherwise.
+     */
     boolean isPoweredDown();
 
+    /**
+     * Power down the robot.
+     */
     void powerDown();
 
     /**
@@ -82,7 +128,6 @@ public interface IRobot{
 
     /**
      * Removes one life from robot and resets damage.
-     *
      */
     void killRobot();
 

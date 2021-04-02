@@ -19,7 +19,7 @@ import java.util.HashSet;
  */
 public class MultiplayerHost extends Multiplayer {
     private final Server server;
-    private final ProgrammingDeck deck;
+    private ProgrammingDeck deck;
     private final int maxPlayers;
     private Map<Connection, Integer> handPackets;
 
@@ -29,6 +29,7 @@ public class MultiplayerHost extends Multiplayer {
         roundPackets = new ArrayList<>();
         handPackets = new HashMap<>();
         deck = new ProgrammingDeck();
+        deck.shuffle();
         this.server = new Server();
         maxPlayers = board.getMaxPlayers();
         register(server);
@@ -81,15 +82,12 @@ public class MultiplayerHost extends Multiplayer {
         }
         if (transmission instanceof RequestHandPacket) {
             RequestHandPacket packet = (RequestHandPacket) transmission;
-            deck.returnCards(packet.getTossedCards());
-
-            System.out.println("Server: "+connection+" requested "+packet.getHandSize()+" cards and returned "+packet.getTossedCards().toString());
+            System.out.println("Server: "+connection+" requested "+packet.getHandSize()+" cards");
             if (packet.getRound() == 0) { connection.sendTCP(new PlayerHandPacket(deck.getHand(packet.getHandSize()))); }
             else {
                 handPackets.put(connection, packet.getHandSize());
                 if (handPackets.size() == connections.size()) { broadcastHandPackets(); }
             }
-
         }
     }
 
@@ -108,6 +106,10 @@ public class MultiplayerHost extends Multiplayer {
      */
     private void broadcastHandPackets() {
         System.out.println("Server: Broadcasting hand");
+        deck = new ProgrammingDeck();
+        // TODO: Use game packet registers to remove unavailable cards based on the number of cards requested
+        //  IE: (5 - requested, if requested < 5.
+        //  Example: 5 - 3 = 2 -> The last 2 registers are locked and those cards will need to be removed from the new deck).
         deck.shuffle();
         for (Connection connection : connections) { connection.sendTCP( new PlayerHandPacket(deck.getHand(handPackets.get(connection)))); }
         handPackets = new HashMap<>();

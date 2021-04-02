@@ -130,7 +130,10 @@ public class PlayerUI {
         else if (hand.size() < 7) { playerHandTable.padTop(CARD_HEIGHT); }
     }
 
-
+    /**
+     * @param index the index of the card in the hand.
+     * @return the hand button listener.
+     */
     private ClickListener playerHandListener(int index) {
         return new ClickListener() {
             @Override
@@ -153,6 +156,11 @@ public class PlayerUI {
         playerHandTable.padTop(height/2f);
     }
 
+    /**
+     * Updates the hand when the player receives new cards.
+     *
+     * @param hand the hand dealt to the player.
+     */
     public void updateHand(List<Card> hand) {
         this.hand = hand;
         playerHandTable.padTop(0);
@@ -190,6 +198,11 @@ public class PlayerUI {
         if (Debugging.debugGUI()) { button.debug(); }
     }
 
+    /**
+     * @param index the index of the hand selected for the registry.
+     * @param button the button representing the card in the register.
+     * @return the registry button click listener.
+     */
     private ClickListener registryListener(int index, Button button) {
         return new ClickListener() {
             @Override
@@ -205,6 +218,20 @@ public class PlayerUI {
         };
     }
 
+    /**
+     * Update the UI to reflect the robot's currently locked registers.
+     *
+     * @param registers the robot's locked registers.
+     */
+    public void updateLockedRegisters(Deque<Card> registers) {
+        this.registers = registers;
+        lockedRegistryTable.clearChildren();
+        addLockedRegisters();
+    }
+
+    /**
+     * Adds the locked registers.
+     */
     private void addLockedRegisters() {
         for (Card lockedRegistry : registers) {
             Button button = new ImageButton(makeCard(lockedRegistry.getValue()));
@@ -212,12 +239,6 @@ public class PlayerUI {
             lockedRegistryTable.add(button).size(CARD_WIDTH, CARD_HEIGHT).right();
             if (Debugging.debugGUI()) { button.debug(); }
         }
-    }
-
-    public void updateLockedRegisters(Deque<Card> registers) {
-        this.registers = registers;
-        lockedRegistryTable.clearChildren();
-        addLockedRegisters();
     }
 
     /**
@@ -247,10 +268,19 @@ public class PlayerUI {
         return registers;
     }
 
+    /**
+     * Represents a card using a texture.
+     *
+     * @param card the card to represent.
+     * @return the drawable texture region of the card.
+     */
     private TextureRegionDrawable makeCard(ProgramCard card) {
         return new TextureRegionDrawable(new TextureRegion(new Texture(card.getPath())));
     }
 
+    /**
+     * Setup for the run button
+     */
     private void runButtonSetup() {
         mainTable.row();
         runButtonTable.add(addRunButton());
@@ -258,6 +288,11 @@ public class PlayerUI {
         mainTable.add(runButtonTable);
     }
 
+    /**
+     * Helper method to make a run button.
+     *
+     * @return the run button.
+     */
     private Button addRunButton() {
         Button runButton = new TextButton("Run", app.getGameSkin());
         runButton.addListener(runButtonListener(false));
@@ -265,6 +300,11 @@ public class PlayerUI {
         return runButton;
     }
 
+    /**
+     * Helper method to add a power down button.
+     *
+     * @return the power down button.
+     */
     private Button addPowerDownButton() {
         Button powerDownButton = new TextButton("Power Down", app.getGameSkin());
         powerDownButton.addListener(runButtonListener(true));
@@ -279,7 +319,7 @@ public class PlayerUI {
                 if (runButtonActive && registrySelections.size() + registers.size() == 5) {
                     runButtonActive = false;
                     registryActive = false;
-                    app.getGame().attemptRun(makeRegisters(), hand, powerDown);
+                    app.getGame().attemptRun(makeRegisters(), powerDown);
                     resetHand();
                 }
             }

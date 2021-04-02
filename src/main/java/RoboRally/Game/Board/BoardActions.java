@@ -170,29 +170,14 @@ public class BoardActions extends Board {
         playerLayer.setCell((int) loc.x, (int) loc.y, cell);
     }
 
-    /**
-     * Performs the actions of board elements on a list of robots.
-     * 1. Express conveyor belts
-     * 2. All conveyor belts
-     * 3. Pushers
-     * 4. Gears
-     *
-     * @param robots the list of robots.
-     */
-    public void moveBoardElements(List<Robot> robots) {
-        moveFastBelts(robots);
 
-        moveAllBelts(robots);
-
-        rotateGears(robots);
-    }
 
     /**
      * Rotates all gears.
      *
      * @param robots the list of robots.
      */
-    private void rotateGears(List<Robot> robots) {
+    public void rotateGears(List<Robot> robots) {
         for (Robot robot : robots) {
             if (leftGears.contains(robot.getLoc())) { rotate(robot, ProgramCard.TURN_LEFT.getRotation()); }
             if (rightGears.contains(robot.getLoc())) { rotate(robot, ProgramCard.TURN_RIGHT.getRotation()); }
@@ -207,7 +192,7 @@ public class BoardActions extends Board {
      *
      * @param robots the list of robots.
      */
-    private void moveFastBelts(List<Robot> robots) {
+    public void moveFastBelts(List<Robot> robots) {
         resolveMovingBelts(robots, northFastBelts, westFastBelts, southFastBelts, eastFastBelts);
         try { Thread.sleep(250); }
         catch (InterruptedException e) { System.err.println("Sleep error after fast belt movement."); }
@@ -219,7 +204,7 @@ public class BoardActions extends Board {
      *
      * @param robots the list of robots.
      */
-    private void moveAllBelts(List<Robot> robots) {
+    public void moveAllBelts(List<Robot> robots) {
         resolveMovingBelts(robots, northBelts, westBelts, southBelts, eastBelts);
         try { Thread.sleep(250); }
         catch (InterruptedException e) { System.err.println("Sleep error after belt movement."); }
@@ -259,21 +244,11 @@ public class BoardActions extends Board {
     }
 
     /**
-     * Fires all board lasers then robot lasers.
-     *
-     * @param robots the list of shooting robots.
-     */
-    public void fireLasers(List<Robot> robots) {
-        fireWallLasers();
-        fireRobotLasers(robots);
-    }
-
-    /**
      * Fires all robot lasers.
      *
      * @param robots list of robots shooting laser.
      */
-    private void fireRobotLasers(List<Robot> robots) {
+    public void fireRobotLasers(List<Robot> robots) {
         for (Robot robot : robots) {
             if (!robot.isDestroyed() && !robot.isPoweredDown() && canGo(robot.getLoc(), robot.getDirection())) {
                 shoot(getNextLoc(robot.getLoc(), robot.getDirection()), robot.getDirection());
@@ -284,7 +259,7 @@ public class BoardActions extends Board {
     /**
      * Fires all wall lasers.
      */
-    private void fireWallLasers() {
+    public void fireWallLasers() {
         for (Vector2 loc : getLaserWalls()) {
             int id = laserWallLayer.getCell((int) loc.x, (int) loc.y).getTile().getId();
             if (id == TileID.LASER_WALL_N.getId()) { shoot(loc, Direction.SOUTH); }
@@ -369,35 +344,16 @@ public class BoardActions extends Board {
     }
 
     /**
-     * Performs end of turn checks.
-     *
-     * 1. Repair sites - includes flag and upgrade
-     * 2. Wipe registers
-     * 3. Continue power down?
-     * 4. Return dead robots
-     *
-     * @param robots the list of robots.
-     */
-    public void endOfTurn(List<Robot> robots) {
-        repairRobots(robots);
-        wipeRobots(robots);
-        getPowerDowns(robots);
-        respawnRobots(robots);
-    }
-
-    /**
      * Repairs all robots on the map on repair, upgrade, and flag tiles
      * and restores powered down robots to full health.
      *
      * @param robots the list of robots.
      */
-    private void repairRobots(List<Robot> robots) {
+    public void repairRobots(List<Robot> robots) {
         for (Robot robot : robots) {
             if (repairSites.contains(robot.getLoc())) { robot.repairDamage(); }
             else if (upgradeSites.contains(robot.getLoc())) { robot.repairDamage(); }
-            else if (robot.isPoweredDown()) {
-                robot.repairAllDamage();
-            }
+            else if (robot.isPoweredDown()) { robot.repairAllDamage(); }
         }
     }
 
@@ -406,12 +362,12 @@ public class BoardActions extends Board {
      *
      * @param robots the list of robots to wipe.
      */
-    private void wipeRobots(List<Robot> robots) {
+    public void wipeRobots(List<Robot> robots) {
         for (Robot robot : robots) { robot.wipeRegisters(); }
         Gdx.app.postRunnable(() -> app.getUI().clearRegistry());
     }
 
-    private void getPowerDowns(List<Robot> robots) {
+    public void getPowerDowns(List<Robot> robots) {
         // TODO: "Continue power down?" GUI dialogue.
         for (Robot robot : robots) { if (robot.isPoweredDown()) { robot.powerUp(); } }
     }
@@ -421,7 +377,7 @@ public class BoardActions extends Board {
      *
      * @param robots the list of robots.
      */
-    private void respawnRobots(List<Robot> robots) {
+    public void respawnRobots(List<Robot> robots) {
         for (Robot robot : robots) {
             if (robot.isDestroyed()) {
                 removeRobot(robot);

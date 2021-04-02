@@ -13,16 +13,14 @@ public class RoundPacket {
     private int playerID;
     private boolean powerDown;
     private Deque<Card> registers;
-    private List<Card> playerHand;
 
     public RoundPacket() {}
 
-    public RoundPacket(int round, int playerID, boolean powerDown, Deque<Card> registers, List<Card> playerHand) {
+    public RoundPacket(int round, int playerID, boolean powerDown, Deque<Card> registers) {
         this.round = round;
         this.playerID = playerID;
         this.powerDown = powerDown;
         this.registers = registers;
-        this.playerHand = playerHand;
     }
 
     public int getRound() { return round; }
@@ -32,6 +30,4 @@ public class RoundPacket {
     public boolean isPowerDown() { return powerDown; }
 
     public Deque<Card> getRegisters() { return registers; }
-
-    public List<Card> getPlayerHand() { return playerHand; }
 }

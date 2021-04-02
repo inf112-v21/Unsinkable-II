@@ -18,6 +18,7 @@ public class Robot implements IRobot {
     private Piece piece;
     private boolean powerDown, destroyed;
     private  int damage, lives, flag;
+    private String name;
 
     public Robot() {
         this.spawn = new Vector2();
@@ -30,11 +31,13 @@ public class Robot implements IRobot {
         this.damage = 0;
         this.lives = 3;
         this.flag = 0;
+        this.name = "Robot";
     }
 
-    public Robot(Piece piece) {
+    public Robot(int id) {
         this();
-        this.piece = piece;
+        this.piece = Piece.getPieceByID(id);
+        this.name += id;
     }
 
     @Override
@@ -48,12 +51,10 @@ public class Robot implements IRobot {
 
     @Override
     public void addDamage() {
-        if (damage < 10) {
+        if (damage < 9) {
             ++this.damage;
-            if(Debugging.debugBackend()) { System.out.println(piece.name()+" was damaged and has "+damage+" damage"); }}
+            if(Debugging.debugBackend()) { System.out.println(this.name +" was damaged and has "+damage+" damage"); }}
         else { setDestroyed(); }
-
-
     }
 
     @Override
@@ -66,23 +67,22 @@ public class Robot implements IRobot {
         destroyed = true;
         powerDown = false;
         registers.clear();
-        //usedRegisters.clear();
-        if(Debugging.debugBackend()) { System.out.println(piece.name()+" was damaged and destroyed!"); }
+        if(Debugging.debugBackend()) { System.out.println(this.name+" was damaged and destroyed!"); }
     }
 
     @Override
     public void killRobot() {
         if (lives > 1) {
             --lives;
-            damage = 0;
+            damage = 2;
             setLoc(getSpawnLoc());
             setDirection(Direction.NORTH);
             destroyed = false;
-            if(Debugging.debugBackend()) { System.out.println(this.getPiece()+" Died and has "+ lives); }
+            if(Debugging.debugBackend()) { System.out.println(this.name +" was scrapped and "+ lives +" replacements remain."); }
         }
         else {
             powerDown();
-            if(Debugging.debugBackend()) { System.out.println(this.getPiece()+" is DEAD and out of life!"); }
+            if(Debugging.debugBackend()) { System.out.println(this.name+" is out of replacement robots!"); }
         }
     }
 
@@ -148,6 +148,8 @@ public class Robot implements IRobot {
 
     @Override
     public void setRegisters(Deque<Card> registers) { this.registers = registers; }
+
+    public String getName() { return name; }
 
     @Override
     public TiledMapTileLayer.Cell getCell() { return piece.getCell(); }

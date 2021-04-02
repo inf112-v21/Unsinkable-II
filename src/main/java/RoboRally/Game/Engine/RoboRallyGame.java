@@ -71,15 +71,10 @@ abstract class RoboRallyGame implements RoboRally {
     }
 
     @Override
-    public void attemptRun(Deque<Card> registers, List<Card> playerHand, boolean powerDown) {
+    public void attemptRun(Deque<Card> registers, boolean powerDown) {
         if (!roundSent) {
             roundSent = true;
-            app.getLocalClient().getClient().sendTCP(new RoundPacket(
-                    roundNumber,
-                    myPlayer.getID(),
-                    powerDown,
-                    registers,
-                    playerHand));
+            app.getLocalClient().getClient().sendTCP(new RoundPacket(roundNumber, myPlayer.getID(), powerDown, registers));
         }
     }
 
@@ -94,12 +89,11 @@ abstract class RoboRallyGame implements RoboRally {
     }
 
     protected void requestHand() {
-        app.getLocalClient().getClient().sendTCP(new RequestHandPacket(roundNumber, myPlayer.requestHand(), myPlayer.getTossedCards()));
+        app.getLocalClient().getClient().sendTCP(new RequestHandPacket(roundNumber, myPlayer.requestHand()));
         while (!app.getLocalClient().receivedNewHand) { sleep(100); }
         myPlayer.setHand(app.getLocalClient().getHand());
         Gdx.app.postRunnable(() -> app.getUI().updateHand(myPlayer.getHand()));
         Gdx.app.postRunnable(() -> app.getUI().updateLockedRegisters(myPlayer.getRobot().getRegisters()));
-
     }
 
     /**
@@ -137,7 +131,7 @@ abstract class RoboRallyGame implements RoboRally {
         stopGame();
         Gdx.app.postRunnable(() -> {
             app.getScreen().dispose();
-            app.setScreen(new GameOverScreen(app, robot.getPiece().toString()));
+            app.setScreen(new GameOverScreen(app, robot.getName()));
         });
     }
 

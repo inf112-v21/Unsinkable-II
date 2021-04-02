@@ -18,13 +18,14 @@ public class ProgrammingDeckTest {
 
     @Test
     void testCardsAreShuffled() {
-        Deque<Card> shuffled = new ProgrammingDeck().getDeck();
-        Deque<Card> unshuffled = ProgrammingDeck.getNewDeck();
+        ProgrammingDeck shuffled = new ProgrammingDeck();
+        shuffled.shuffle();
+        ProgrammingDeck unshuffled = new ProgrammingDeck();
 
         // bool array where each element i tells wether or not shuffled_i == unshuffled_i
-        boolean[] equalsPerCard = new boolean[shuffled.size()];
-        for (int i = 0; i < shuffled.size(); i++) {
-            equalsPerCard[i] = shuffled.pop().getValue().equals(unshuffled.pop().getValue());
+        boolean[] equalsPerCard = new boolean[shuffled.getDeck().size()];
+        for (int i = 0; i < shuffled.getDeck().size(); i++) {
+            equalsPerCard[i] = shuffled.getHand(1).equals(unshuffled.getHand(1));
         }
         // then check is all elements of equalsPerCard are true
         boolean areEqual = true;

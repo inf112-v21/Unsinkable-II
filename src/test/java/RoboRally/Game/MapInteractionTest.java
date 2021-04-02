@@ -40,7 +40,7 @@ public class MapInteractionTest {
     @BeforeEach
     public void reset() {
         ba = new BoardActions(app, Boards.JUNIT_TEST_MAP);
-        robot = new Robot(Piece.PIECE1);
+        robot = new Robot(1);
         robots = new ArrayList<>();
         robots.add(robot);
         ba.addNewPlayer(robot, 1);
@@ -70,6 +70,7 @@ public class MapInteractionTest {
         ba.rotateRobot(robot, ProgramCard.U_TURN);
         ba.moveRobot(robot, Direction.SOUTH,false);
         ba.moveRobot(robot, Direction.SOUTH,false);
+        robot.killRobot();
         assertEquals(spawnLoc, robot.getLoc(), "robot should respawn");
         assertEquals(lives - 1, robot.getLives(), "robot should lose a life");
     }

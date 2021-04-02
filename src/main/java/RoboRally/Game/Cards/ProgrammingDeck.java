@@ -10,21 +10,25 @@ import java.util.List;
  */
 public class ProgrammingDeck {
 
-    private final Deque<Card> cardDeck;
-    private final List<Card> thrownCards;
+    private final Deque<Card> deck;
 
     public ProgrammingDeck(){
-        this.cardDeck = getNewDeck();
-        this.thrownCards = new LinkedList<>();
-        shuffle();
+        this.deck = getNewDeck();
     }
+
+    /**
+     * Removes the listed cards from the deck.
+     *
+     * @param cards the list of cards to remove.
+     */
+    public void removeCards(List<Card> cards) { this.deck.removeAll(cards); }
 
     /**
      *  Creates an 84 card deck of program cards according to RoboRally rules.
      *
      * @return a new Programming card deck.
      */
-    public static Deque<Card> getNewDeck() {
+    private Deque<Card> getNewDeck() {
         Deque<Card> deck = new LinkedList<>();
         for (int i = 0; i != 18; ++i) { deck.add(new Card(ProgramCard.MOVE_1, 200+i)); }
         for (int i = 0; i != 12; ++i) { deck.add(new Card(ProgramCard.MOVE_2, 300+i)); }
@@ -41,8 +45,7 @@ public class ProgrammingDeck {
      * Shuffles a deck of cards.
      */
     public void shuffle() {
-        this.cardDeck.addAll(thrownCards);
-        Collections.shuffle((List<?>) this.cardDeck);
+        Collections.shuffle((List<?>) this.deck);
     }
 
     /**
@@ -50,7 +53,7 @@ public class ProgrammingDeck {
      *
      * @return the programCard drawn.
      */
-    private Card drawCard() { return cardDeck.pop(); }
+    private Card drawCard() { return deck.pop(); }
 
     /**
      * @param num number of cards in hand.
@@ -63,17 +66,10 @@ public class ProgrammingDeck {
     }
 
     /**
-     * Keeps track of undesired cards to be later added back to the deck.
-     *
-     * @param thrownCards the list of cards to be returned to the deck.
-     */
-    public void returnCards(List<Card> thrownCards) { this.thrownCards.addAll(thrownCards); }
-
-    /**
      * @return the number of cards currently in the deck.
      */
-    public int getSize() { return cardDeck.size(); }
+    public int getSize() { return deck.size(); }
 
-    public Deque<Card> getDeck() { return cardDeck; }
+    public Deque<Card> getDeck() { return deck; }
 
 }

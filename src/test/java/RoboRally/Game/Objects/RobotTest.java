@@ -34,12 +34,7 @@ public class RobotTest {
         robot.addDamage();
         assertEquals(robot.getHealth(), initialHealth - 1);
         assertFalse(robot.isDestroyed());
-        assertEquals(robot.getLives(), initialLives - 1);
-
-        for (int i = 0; i <= robot.getLives(); i++) {
-            robot.killRobot();
-        }
-        assertTrue(robot.isDestroyed());
+        assertEquals(robot.getLives(), initialLives);
     }
 
 }
