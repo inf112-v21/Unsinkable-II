@@ -2,6 +2,7 @@
 A java implementation of the board game RoboRally for the INF112 subject at the
 University of Bergen.
 
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/ea05dfd3af3c4795b820313d62efec9f)](https://www.codacy.com/gh/inf112-v21/Unsinkable-II/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=inf112-v21/Unsinkable-II&amp;utm_campaign=Badge_Grade)
 [![Build Status](https://travis-ci.com/inf112-v21/Unsinkable-II.svg?branch=Development)](https://travis-ci.com/inf112-v21/Unsinkable-II)
 
 ## Table of Contents
