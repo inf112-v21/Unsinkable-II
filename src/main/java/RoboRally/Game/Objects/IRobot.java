@@ -86,6 +86,8 @@ public interface IRobot{
      */
     void powerDown();
 
+    String getName();
+
     /**
      * @return robot normal cell.
      */
@@ -125,6 +127,8 @@ public interface IRobot{
     void repairDamage();
 
     void repairAllDamage();
+
+    void setDestroyed();
 
     /**
      * Removes one life from robot and resets damage.

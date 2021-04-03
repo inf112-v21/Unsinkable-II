@@ -5,7 +5,7 @@ import RoboRally.Game.Board.BoardActions;
 import RoboRally.Game.Board.Boards;
 import RoboRally.Game.Cards.ProgramCard;
 import RoboRally.Game.Engine.RoboRally;
-import RoboRally.Game.Objects.Piece;
+import RoboRally.Game.Objects.IRobot;
 import RoboRally.Game.Objects.Robot;
 import RoboRally.GdxTestExtension;
 import com.badlogic.gdx.math.Vector2;
@@ -26,8 +26,8 @@ public class MapInteractionTest {
     static RoboRallyApp app;
     static RoboRally game;
     BoardActions ba;
-    Robot robot;
-    List<Robot> robots;
+    IRobot robot;
+    List<IRobot> robots;
     Vector2 spawnLoc;
 
     @BeforeAll

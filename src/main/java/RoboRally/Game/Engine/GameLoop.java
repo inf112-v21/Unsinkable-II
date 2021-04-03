@@ -3,7 +3,7 @@ package RoboRally.Game.Engine;
 import RoboRally.Debugging.Debugging;
 import RoboRally.Game.Board.BoardActions;
 import RoboRally.Game.Board.Boards;
-import RoboRally.Game.Objects.Robot;
+import RoboRally.Game.Objects.IRobot;
 import RoboRally.GUI.RoboRallyApp;
 
 import java.util.ArrayList;
@@ -33,7 +33,6 @@ public class GameLoop extends RoboRallyGame {
     public void run() {
         System.out.println("Starting " + Thread.currentThread().getName() + "...");
         while (!stopGame) {
-            //TODO : Continue power down?
             requestHand();
             while (!nextRound) { sleep(100); }
             nextRound = false;
@@ -68,7 +67,7 @@ public class GameLoop extends RoboRallyGame {
      */
     private void phase() {
         if (Debugging.debugBackend()) { System.out.println("\n---New Phase---"); }
-        for (Robot robot : getRobotTurnOrder()) { executeProgramCard(robot, robot.getNextRegistry().getValue()); }
+        for (IRobot robot : getRobotTurnOrder()) { executeProgramCard(robot, robot.getNextRegistry().getValue()); }
         if (Debugging.debugBackend()) {
             System.out.println("Registry: "+myPlayer.getRobot().getRegisters().toString());
             System.out.println("Used Registry: "+myPlayer.getRobot().showUsedRegisters());
@@ -87,7 +86,7 @@ public class GameLoop extends RoboRallyGame {
      *
      * @param robots the list of robots.
      */
-    public void moveBoardElements(List<Robot> robots) {
+    public void moveBoardElements(List<IRobot> robots) {
         board.moveFastBelts(robots);
         board.moveAllBelts(robots);
         board.rotateGears(robots);
@@ -99,7 +98,7 @@ public class GameLoop extends RoboRallyGame {
      *
      * @param robots the list of shooting robots.
      */
-    public void fireLasers(List<Robot> robots) {
+    public void fireLasers(List<IRobot> robots) {
         board.fireWallLasers();
         board.fireRobotLasers(robots);
         sleep(500);
@@ -117,7 +116,7 @@ public class GameLoop extends RoboRallyGame {
      *
      * @param robots the list of robots.
      */
-    public void endOfTurn(List<Robot> robots) {
+    public void endOfTurn(List<IRobot> robots) {
         board.repairRobots(robots);
         board.wipeRobots(robots);
         board.getPowerDowns(robots);

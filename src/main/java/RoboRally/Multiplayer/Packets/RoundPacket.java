@@ -3,7 +3,6 @@ package RoboRally.Multiplayer.Packets;
 import RoboRally.Game.Cards.Card;
 
 import java.util.Deque;
-import java.util.List;
 
 /**
  * Packet class to distribute player data between clients to allow multiplayer.

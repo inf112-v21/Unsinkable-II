@@ -15,12 +15,12 @@ public class Robot implements IRobot {
     public final Deque<Card> usedRegisters;
     private Deque<Card> registers;
     private Direction direction;
-    private Piece piece;
+    private final Piece piece;
     private boolean powerDown, destroyed;
     private  int damage, lives, flag;
     private String name;
 
-    public Robot() {
+    public Robot(int id) {
         this.spawn = new Vector2();
         this.location = new Vector2();
         this.registers = new LinkedList<>();
@@ -32,10 +32,6 @@ public class Robot implements IRobot {
         this.lives = 3;
         this.flag = 0;
         this.name = "Robot";
-    }
-
-    public Robot(int id) {
-        this();
         this.piece = Piece.getPieceByID(id);
         this.name += id;
     }
@@ -63,6 +59,7 @@ public class Robot implements IRobot {
     @Override
     public void repairAllDamage() { this.damage = 0; }
 
+    @Override
     public void setDestroyed() {
         destroyed = true;
         powerDown = false;
@@ -136,7 +133,6 @@ public class Robot implements IRobot {
         if (Debugging.debugBackend()) { System.out.println("Registers post-wipe: Damage="+damage+" Registers: "+registers.toString()+" Used Regs: "+usedRegisters.toString()); }
     }
 
-
     @Override
     public boolean isPoweredDown() { return powerDown; }
 
@@ -152,6 +148,7 @@ public class Robot implements IRobot {
     @Override
     public void setRegisters(Deque<Card> registers) { this.registers = registers; }
 
+    @Override
     public String getName() { return name; }
 
     @Override

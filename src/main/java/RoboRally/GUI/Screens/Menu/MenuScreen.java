@@ -43,9 +43,8 @@ public interface MenuScreen extends Screen {
      *
      * @param buttonText the button text
      * @param newRow  Should the selection box be placed in a new row in the table?
-     * @return the TextButton added.
      */
-    TextButton addButton(String buttonText, boolean newRow, InputListener listener);
+    void addButton(String buttonText, boolean newRow, InputListener listener);
 
     /**
      * Adds TextField at the specified slot using the specified InputListner.

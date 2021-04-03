@@ -3,7 +3,7 @@ package RoboRally.Game.Board;
 import RoboRally.Debugging.Debugging;
 import RoboRally.GUI.RoboRallyApp;
 import RoboRally.Game.Direction;
-import RoboRally.Game.Objects.Robot;
+import RoboRally.Game.Objects.IRobot;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
@@ -209,14 +209,14 @@ public abstract class Board {
      * @param robot - the robot that checks for a hole
      * @return true if robot is in hole, this will destroy the robot (take away 1 life)
      */
-    protected boolean inHole(Robot robot){ return holes.contains(robot.getLoc()); }
+    protected boolean inHole(IRobot robot){ return holes.contains(robot.getLoc()); }
 
     /**
      * Checks if a robot ends it's turn on a flag
      *
      * @param robot = the robot that is on the tile.
      */
-    protected void onFlag(Robot robot) {
+    protected void onFlag(IRobot robot) {
         if (flagLocs[robot.touchedFlags()].equals(robot.getLoc())) {
             if (robot.touchedFlags() == flagLocs.length-1) { app.getGame().setWinner(robot); }
             else {
@@ -232,7 +232,7 @@ public abstract class Board {
      *
      * @param robot = the robot to check.
      */
-    protected void onRepair(Robot robot) {
+    protected void onRepair(IRobot robot) {
         if(repairSites.contains(robot.getLoc())) {
             robot.repairDamage();
             robot.setSpawnLoc(robot.getLoc());
@@ -244,7 +244,7 @@ public abstract class Board {
      *
      * @param robot = the robot to check.
      */
-    protected void onUpgrade(Robot robot) {
+    protected void onUpgrade(IRobot robot) {
         if(upgradeSites.contains(robot.getLoc())) {
             robot.setSpawnLoc(robot.getLoc());
             // TODO: Upgrade card

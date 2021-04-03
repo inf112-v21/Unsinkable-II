@@ -5,7 +5,6 @@ import RoboRally.Game.Board.BoardActions;
 import RoboRally.Game.Board.Boards;
 import RoboRally.Game.Cards.ProgramCard;
 import RoboRally.Game.Direction;
-import RoboRally.Game.Objects.Piece;
 import RoboRally.Game.Objects.Robot;
 import RoboRally.GdxTestExtension;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;

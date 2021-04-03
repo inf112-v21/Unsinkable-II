@@ -3,9 +3,6 @@ package RoboRally.Game.Cards;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
-import java.util.Deque;
-import java.util.Stack;
-
 public class ProgrammingDeckTest {
 
     @Test

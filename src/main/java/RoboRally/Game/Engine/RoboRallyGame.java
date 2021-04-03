@@ -6,8 +6,8 @@ import RoboRally.Game.Board.BoardActions;
 import RoboRally.Game.Cards.Card;
 import RoboRally.Game.Cards.ProgramCard;
 import RoboRally.Game.Board.Boards;
+import RoboRally.Game.Objects.IRobot;
 import RoboRally.Game.Objects.Player;
-import RoboRally.Game.Objects.Robot;
 import RoboRally.Multiplayer.Packets.RequestHandPacket;
 import RoboRally.Multiplayer.Packets.RoundPacket;
 import RoboRally.GUI.RoboRallyApp;
@@ -24,7 +24,7 @@ abstract class RoboRallyGame implements RoboRally {
     protected BoardActions board;
     protected Player myPlayer;
     protected List<Player> players;
-    protected List<Robot> robots;
+    protected List<IRobot> robots;
 
     protected int roundNumber;
 
@@ -36,7 +36,7 @@ abstract class RoboRallyGame implements RoboRally {
      * @param robot the robot executing the program card.
      * @param card the program card containing the program instructions for the robot to execute.
      */
-    protected void executeProgramCard(Robot robot, ProgramCard card) {
+    protected void executeProgramCard(IRobot robot, ProgramCard card) {
         if(card.getSteps() > 0) {
             boolean moved = board.moveRobot(robot, robot.getDirection(),false);
             sleep(250);
@@ -99,9 +99,9 @@ abstract class RoboRallyGame implements RoboRally {
     /**
      * @return the ordered queue of robots.
      */
-    protected List<Robot> getRobotTurnOrder() {
-        List<Robot> order = new LinkedList<>();
-        for (Robot robot : robots) {
+    protected List<IRobot> getRobotTurnOrder() {
+        List<IRobot> order = new LinkedList<>();
+        for (IRobot robot : robots) {
             if (!robot.isDestroyed() && !robot.isPoweredDown() && !robot.getRegisters().isEmpty()) { order.add(robot); }
         }
         if (Debugging.debugBackend()) { System.out.println("Turn order pre-sort: "+order.toString()); }
@@ -121,13 +121,13 @@ abstract class RoboRallyGame implements RoboRally {
     public List<Player> getPlayers() { return this.players; }
 
     @Override
-    public List<Robot> getRobots() { return this.robots; }
+    public List<IRobot> getRobots() { return this.robots; }
 
     @Override
     public BoardActions getBoard() { return this.board; }
 
     @Override
-    public void setWinner(Robot robot) {
+    public void setWinner(IRobot robot) {
         stopGame();
         Gdx.app.postRunnable(() -> {
             app.getScreen().dispose();

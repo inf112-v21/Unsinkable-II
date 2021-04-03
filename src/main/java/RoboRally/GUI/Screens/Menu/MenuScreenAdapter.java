@@ -90,12 +90,11 @@ public abstract class MenuScreenAdapter implements MenuScreen {
     }
 
     @Override
-    public TextButton addButton(String buttonText, boolean newRow, InputListener listener) {
+    public void addButton(String buttonText, boolean newRow, InputListener listener) {
         TextButton button = new TextButton(buttonText, app.getMenuSkin());
         button.addListener(listener);
         if (newRow) { buttonTable.row(); }
         buttonTable.add(button).width(WIDGET_WIDTH);
-        return button;
     }
 
     @Override

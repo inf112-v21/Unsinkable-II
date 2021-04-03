@@ -2,7 +2,6 @@ package RoboRally.Game.Objects;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import RoboRally.Game.Direction;
 import com.badlogic.gdx.math.Vector2;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -12,7 +11,7 @@ public class RobotTest {
 
     @BeforeEach
     public void setup(){
-        robot = new Robot();
+        robot = new Robot(1);
         Vector2 loc = new Vector2(5,5);
         robot.setLoc(loc);
     }

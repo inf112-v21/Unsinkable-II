@@ -2,8 +2,8 @@ package RoboRally.Game.Engine;
 
 import RoboRally.Game.Board.BoardActions;
 import RoboRally.Game.Cards.Card;
+import RoboRally.Game.Objects.IRobot;
 import RoboRally.Game.Objects.Player;
-import RoboRally.Game.Objects.Robot;
 import RoboRally.Multiplayer.Packets.RoundPacket;
 
 import java.util.Deque;
@@ -46,14 +46,14 @@ public interface RoboRally extends Runnable {
      */
     List<Player> getPlayers();
 
-    List<Robot> getRobots();
+    List<IRobot> getRobots();
 
     /**
      * @return the current board.
      */
     BoardActions getBoard();
 
-    void setWinner(Robot robot);
+    void setWinner(IRobot robot);
 
     void turn();
 }
