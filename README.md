@@ -1,7 +1,8 @@
-
 # RoboRally - Unsinkable II
 A java implementation of the board game RoboRally for the INF112 subject at the
 University of Bergen.
+
+[![Build Status](https://travis-ci.com/inf112-v21/Unsinkable-II.svg?branch=Development)](https://travis-ci.com/inf112-v21/Unsinkable-II)
 
 ## Table of Contents
 1. [Overview](#overview)
