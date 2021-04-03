@@ -144,7 +144,10 @@ public class Robot implements IRobot {
     public void powerDown() { this.powerDown = true; }
 
     @Override
-    public void powerUp() { this.powerDown = false; }
+    public void powerUp() {
+        this.powerDown = false;
+        registers.clear();
+    }
 
     @Override
     public void setRegisters(Deque<Card> registers) { this.registers = registers; }

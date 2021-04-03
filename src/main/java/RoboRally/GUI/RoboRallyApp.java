@@ -89,7 +89,7 @@ public class RoboRallyApp extends Game {
         this.myConnection = new MultiplayerClient(this, hostIP);
         System.out.println("Waiting for server packet...");
         this.setScreen(new LoadingScreen(this));
-        while (!myConnection.ready) { // TODO: Use manager to load properly.
+        while (!myConnection.ready) { // TODO: Use assets manager to load properly.
             try { Thread.sleep(100); }
             catch (InterruptedException e) {
                 System.err.println("Error! Unable to join game.");

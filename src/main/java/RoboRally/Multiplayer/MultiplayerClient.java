@@ -4,7 +4,6 @@ import RoboRally.Debugging.Debugging;
 import RoboRally.Game.Cards.Card;
 import RoboRally.Multiplayer.Packets.PlayerHandPacket;
 import RoboRally.Multiplayer.Packets.RoundPacket;
-import RoboRally.Multiplayer.Packets.MessagePacket;
 import RoboRally.Multiplayer.Packets.StartPacket;
 import RoboRally.GUI.RoboRallyApp;
 
@@ -33,11 +32,22 @@ public class MultiplayerClient extends Multiplayer {
         roundPackets = new ArrayList<>();
     }
 
+    /**
+     * Attempts to connect to a host/server.
+     *
+     * @param hostIP the IP to connect to.
+     */
     public void connectTo(String hostIP) {
         try { client.connect(TIMEOUT, hostIP, tcpPort, udpPort); }
         catch (Exception e) { System.err.println("Failed to connect to "+hostIP); }
     }
 
+    /**
+     *
+     *
+     * @param connection the endpoint transmitting.
+     * @param transmission the bitstream transmitted.
+     */
     @Override
     public void received(Connection connection, Object transmission) {
         if (transmission instanceof StartPacket) {
@@ -59,12 +69,13 @@ public class MultiplayerClient extends Multiplayer {
                 roundPackets = new ArrayList<>();
             }
         }
-        else if (transmission instanceof MessagePacket) {
-            MessagePacket packet = (MessagePacket) transmission;
-            if(Debugging.debugNetworking()) { System.out.println("Client: " + connection + " from "+packet.userName + " " + " received " + packet.message); } // TODO: Display message in GUI
-        }
     }
 
+    /**
+     * Get the cards dealt to the player from the host.
+     *
+     * @return the player's hand.
+     */
     public List<Card> getHand() {
         this.receivedNewHand = false;
         return this.hand.cards;

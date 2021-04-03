@@ -26,8 +26,8 @@ public class PlayerUI {
     private final Table mainTable;
     private final Table playerHandTable;
     private final Table runButtonTable;
+    private final Table selectedRegistryTable;
     private final Table registryTable;
-    private final Table joinedRegistryTable;
     private final Table lockedRegistryTable;
     private final Stage stage;
     private final ButtonGroup<Button> handButtons, registryButtons;
@@ -63,9 +63,9 @@ public class PlayerUI {
         this.playerHandTable = new Table();
         this.handButtons = new ButtonGroup<>();
         this.registryButtons = new ButtonGroup<>();
-        this.registryTable = new Table();
+        this.selectedRegistryTable = new Table();
         this.lockedRegistryTable = new Table();
-        this.joinedRegistryTable = new Table();
+        this.registryTable = new Table();
         this.registrySelections = new HashMap<>();
         this.registryActive = true;
         this.runButtonActive = true;
@@ -88,10 +88,10 @@ public class PlayerUI {
         mainTable.padBottom(BOTTOM_PADDING).bottom();
         if (Debugging.debugGUI()) {
             mainTable.setDebug(true);
-            registryTable.setDebug(true);
+            selectedRegistryTable.setDebug(true);
             playerHandTable.setDebug(true);
             lockedRegistryTable.setDebug(true);
-            joinedRegistryTable.setDebug(true);
+            registryTable.setDebug(true);
         }
     }
 
@@ -175,10 +175,10 @@ public class PlayerUI {
      */
     private void joinedRegistryTableSetup(){
         mainTable.row();
-        joinedRegistryTable.padBottom(REGISTER_PADDING);
-        joinedRegistryTable.add(registryTable);
-        joinedRegistryTable.add(lockedRegistryTable);
-        mainTable.add(joinedRegistryTable).left();
+        registryTable.padBottom(REGISTER_PADDING);
+        registryTable.add(selectedRegistryTable);
+        registryTable.add(lockedRegistryTable);
+        mainTable.add(registryTable).left();
     }
 
     /**
@@ -190,7 +190,7 @@ public class PlayerUI {
         Button button = new ImageButton(makeCard(hand.get(index).getValue()));
         button.setSize(CARD_WIDTH, CARD_HEIGHT);
         button.addListener(registryListener(index, button));
-        registryTable.add(button)
+        selectedRegistryTable.add(button)
                 .size(CARD_WIDTH, CARD_HEIGHT)
                 .left()
                 .bottom();
@@ -211,8 +211,8 @@ public class PlayerUI {
                     handButtons.getButtons().get(index).setDisabled(false);
                     handButtons.getButtons().get(index).setChecked(false);
                     registrySelections.remove(index);
-                    registryTable.getCell(button).reset();
-                    registryTable.removeActor(button);
+                    selectedRegistryTable.getCell(button).reset();
+                    selectedRegistryTable.removeActor(button);
                 }
             }
         };
@@ -248,7 +248,7 @@ public class PlayerUI {
         registrySelections.clear();
         order = 0;
         registryButtons.clear();
-        registryTable.clearChildren();
+        selectedRegistryTable.clearChildren();
     }
 
     /**

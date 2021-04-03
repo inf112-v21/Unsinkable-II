@@ -150,7 +150,10 @@ public abstract class MenuScreenAdapter implements MenuScreen {
     public void show() { Gdx.input.setInputProcessor(stage); }
 
     @Override
-    public void resize(int width, int height) { stage.getCamera().update(); }
+    public void resize(int width, int height) {
+        stage.getViewport().update(width, height, true);
+        stage.getCamera().update();
+    }
 
     @Override
     public void pause() {}

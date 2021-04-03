@@ -73,7 +73,11 @@ public class GameScreen extends InputAdapter implements Screen {
     }
 
     @Override
-    public void resize(int width, int height) { camera.update(); }
+    public void resize(int width, int height) {
+        playerUI.getStage().getViewport().update(width, height, true);
+        playerUI.getStage().getCamera().update();
+    }
+
 
     @Override
     public void pause() {}

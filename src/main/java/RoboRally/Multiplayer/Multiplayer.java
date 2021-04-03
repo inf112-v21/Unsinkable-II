@@ -9,7 +9,6 @@ import com.badlogic.gdx.math.Vector2;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.EndPoint;
 import com.esotericsoftware.kryonet.Listener;
-import com.jcraft.jogg.Packet;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -43,11 +42,5 @@ public abstract class Multiplayer extends Listener implements Networking {
         endPoint.getKryo().register(ProgramCard.class);
         endPoint.getKryo().register(Card.class);
         endPoint.getKryo().register(Vector2.class);
-
-        endPoint.getKryo().register(MessagePacket.class);
     }
-
-    @Override
-    public void sendPacket(Connection connection, Packet packet) { connection.sendTCP(packet); }
-
 }
