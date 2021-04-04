@@ -233,10 +233,7 @@ public abstract class Board {
      * @param robot = the robot to check.
      */
     protected void onRepair(IRobot robot) {
-        if(repairSites.contains(robot.getLoc())) {
-            robot.repairDamage();
-            robot.setSpawnLoc(robot.getLoc());
-        }
+        if(repairSites.contains(robot.getLoc())) { robot.setSpawnLoc(robot.getLoc()); }
     }
 
     /**
@@ -245,10 +242,7 @@ public abstract class Board {
      * @param robot = the robot to check.
      */
     protected void onUpgrade(IRobot robot) {
-        if(upgradeSites.contains(robot.getLoc())) {
-            robot.setSpawnLoc(robot.getLoc());
-            // TODO: Upgrade card
-        }
+        if(upgradeSites.contains(robot.getLoc())) { robot.setSpawnLoc(robot.getLoc()); } // TODO: Draw upgrade card
     }
 
     protected Set<Vector2> getPlayerLocs() { return findAllLayerTiles(playerLayer); }

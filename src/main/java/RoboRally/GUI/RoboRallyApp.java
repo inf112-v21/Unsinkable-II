@@ -66,7 +66,7 @@ public class RoboRallyApp extends Game {
         }
         catch ( InterruptedException e) { gameThread.interrupt(); }
         catch ( IOException e) { System.err.println("Error shutting down multiplayer."); }
-        Gdx.app.exit();
+        finally { Gdx.app.exit(); }
         System.exit(0);
     }
 
@@ -89,7 +89,7 @@ public class RoboRallyApp extends Game {
         this.myConnection = new MultiplayerClient(this, hostIP);
         System.out.println("Waiting for server packet...");
         this.setScreen(new LoadingScreen(this));
-        while (!myConnection.ready) { // TODO: Use assets manager to load properly.
+        while (!myConnection.ready) { // TODO: Use assets manager to load properly. Set timeout.
             try { Thread.sleep(100); }
             catch (InterruptedException e) {
                 System.err.println("Error! Unable to join game.");
@@ -106,7 +106,7 @@ public class RoboRallyApp extends Game {
      * @param boardSelection the selected board to play on.
      * @param playerID the player ID of the local player.
      */
-    public void startGame(Boards boardSelection, int playerID) {
+    private void startGame(Boards boardSelection, int playerID) {
         this.game = new GameLoop(this, boardSelection, playerID);
         this.gameThread = new Thread(game, "Game Thread");
         gameThread.setDaemon(true);
@@ -125,18 +125,20 @@ public class RoboRallyApp extends Game {
      */
     public RoboRally getGame() { return game; }
 
-    public String getGameBackground() { return "background.png"; }
+    /**
+     * @return the title screen starting point of the application GUI.
+     */
+    public MenuScreen getTitleScreen() { return this.titleScreen; }
 
+    /**
+     * @return the title screen starting point of the application GUI.
+     */
+    public PlayerUI getUI() { return this.gameScreen.getUI(); }
+
+    /**
+     * @return the number of pixels per dimension in a tile square.
+     */
     public static int getTileSize() { return 100; }
-    /**
-     * @return the name of the design group.
-     */
-    public String getGroupName() { return "Unsinkable-II"; }
-
-    /**
-     * @return the RoboRally Logo.
-     */
-    public String getLogoPath() { return "Logo/logo.png"; }
 
     /**
      * @return the GUI skin being used in the menus.
@@ -154,15 +156,18 @@ public class RoboRallyApp extends Game {
     public Skin getGameSkin() { return this.gameSkin; }
 
     /**
-     * @return the title screen starting point of the application GUI.
+     * @return the name of the design group.
      */
-    public MenuScreen getTitleScreen() { return this.titleScreen; }
+    public String getGroupName() { return "Unsinkable-II"; }
 
     /**
-     * @return the title screen starting point of the application GUI.
+     * @return the RoboRally Logo.
      */
-    public PlayerUI getUI() { return this.gameScreen.getUI(); }
+    public String getLogoPath() { return "Logo/logo.png"; }
 
-
+    /**
+     * @return the background for the in-game player UI.
+     */
+    public String getGameBackground() { return "background.png"; }
 
 }

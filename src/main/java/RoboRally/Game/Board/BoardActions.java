@@ -352,8 +352,8 @@ public class BoardActions extends Board {
     public void repairRobots(List<IRobot> robots) {
         for (IRobot robot : robots) {
             if (repairSites.contains(robot.getLoc())) { robot.repairDamage(); }
-            else if (upgradeSites.contains(robot.getLoc())) { robot.repairDamage(); }
-            else if (robot.isPoweredDown()) { robot.repairAllDamage(); }
+            if (upgradeSites.contains(robot.getLoc())) { robot.repairDamage(); }
+            if (robot.isPoweredDown()) { robot.repairAllDamage(); }
         }
     }
 
@@ -368,8 +368,11 @@ public class BoardActions extends Board {
     }
 
     public void getPowerDowns(List<IRobot> robots) {
-        // TODO: "Continue power down?" GUI dialogue.
-        for (IRobot robot : robots) { if (robot.isPoweredDown()) { robot.powerUp(); } }
+        for (IRobot robot : robots) {
+            if (robot.isPoweredDown()) { robot.powerUp(); } // TODO: "Continue power down?" GUI dialogue.
+            if (robot.powerDownAnnounced()) { robot.powerDown(); }
+        }
+
     }
 
     /**

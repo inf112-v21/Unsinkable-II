@@ -25,9 +25,7 @@ abstract class RoboRallyGame implements RoboRally {
     protected Player myPlayer;
     protected List<Player> players;
     protected List<IRobot> robots;
-
-    protected int roundNumber;
-
+    protected int turnNumber, phaseNumber;
     protected volatile boolean stopGame, nextRound, roundSent;
 
     /**
@@ -48,33 +46,11 @@ abstract class RoboRallyGame implements RoboRally {
         sleep(500);
     }
 
-    /**
-     * Sleeps the Game Thread.
-     *
-     * @param milliseconds the time to sleep in milliseconds.
-     */
-    protected void sleep(int milliseconds) {
-        try { Thread.sleep(milliseconds); }
-        catch (InterruptedException e) { System.err.println(Thread.currentThread().getName() + " sleep error."); }
-    }
-
-    @Override
-    public Player addPlayer(int playerID) {
-        if (players.size() < 8) {
-            Player newPlayer = new Player(playerID);
-            board.addNewPlayer(newPlayer.getRobot(), playerID);
-            players.add(newPlayer);
-            robots.add(newPlayer.getRobot());
-            return newPlayer;
-        }
-        else { return null; }
-    }
-
     @Override
     public void attemptRun(Deque<Card> registers, boolean powerDown) {
         if (!roundSent) {
             roundSent = true;
-            app.getLocalClient().getClient().sendTCP(new RoundPacket(roundNumber, myPlayer.getID(), powerDown, registers));
+            app.getLocalClient().getClient().sendTCP(new RoundPacket(turnNumber, myPlayer.getID(), powerDown, registers));
         }
     }
 
@@ -82,14 +58,14 @@ abstract class RoboRallyGame implements RoboRally {
     public void updateAllRobotRegisters(List<RoundPacket> roundPackets) {
         for (RoundPacket packet : roundPackets) {
             players.get(packet.getPlayerID() - 1).getRobot().setRegisters(packet.getRegisters());
-            if (packet.isPowerDown()) { players.get(packet.getPlayerID() - 1).getRobot().powerDown(); }
+            if (packet.isPowerDown()) { players.get(packet.getPlayerID() - 1).getRobot().announcePowerDown(); }
         }
         nextRound = true;
         roundSent = false;
     }
 
     protected void requestHand() {
-        app.getLocalClient().getClient().sendTCP(new RequestHandPacket(roundNumber, myPlayer.requestHand()));
+        app.getLocalClient().getClient().sendTCP(new RequestHandPacket(turnNumber, myPlayer.requestHand()));
         while (!app.getLocalClient().receivedNewHand) { sleep(100); }
         myPlayer.setHand(app.getLocalClient().getHand());
         Gdx.app.postRunnable(() -> app.getUI().updateHand(myPlayer.getHand()));
@@ -109,6 +85,27 @@ abstract class RoboRallyGame implements RoboRally {
         Collections.reverse(order);
         if (Debugging.debugBackend()) { System.out.println("Turn order post-sort: "+order.toString()); }
         return order;
+    }
+
+    @Override
+    public Player addPlayer(int playerID) {
+        if (players.size() < 8) {
+            Player newPlayer = new Player(playerID);
+            board.addNewPlayer(newPlayer.getRobot(), playerID);
+            players.add(newPlayer);
+            robots.add(newPlayer.getRobot());
+            return newPlayer;
+        }
+        else { return null; }
+    }
+    /**
+     * Sleeps the Game Thread.
+     *
+     * @param milliseconds the time to sleep in milliseconds.
+     */
+    protected void sleep(int milliseconds) {
+        try { Thread.sleep(milliseconds); }
+        catch (InterruptedException e) { System.err.println(Thread.currentThread().getName() + " sleep error."); }
     }
 
     @Override

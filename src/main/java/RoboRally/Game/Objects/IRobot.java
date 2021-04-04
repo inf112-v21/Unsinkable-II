@@ -45,6 +45,10 @@ public interface IRobot{
      */
     void setDirection(Direction dir);
 
+    boolean powerDownAnnounced();
+
+    void announcePowerDown();
+
     /**
      * @return true if the robot has been destroyed.
      */

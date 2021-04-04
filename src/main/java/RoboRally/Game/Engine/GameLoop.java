@@ -13,7 +13,8 @@ public class GameLoop extends RoboRallyGame {
 
     public GameLoop(RoboRallyApp app, Boards boardSelection, int playerID) {
         this.app = app;
-        this.roundNumber = 0;
+        this.turnNumber = 0;
+        this.phaseNumber = 0;
         this.stopGame = false;
         this.players = new ArrayList<>();
         this.robots = new ArrayList<>();
@@ -42,22 +43,23 @@ public class GameLoop extends RoboRallyGame {
     }
 
     /**
-     * Executes all 5 turns for a full round.
+     * Executes all 5 phases for a full turn.
      */
     @Override
     public void turn() {
+        ++turnNumber;
         if(Debugging.debugBackend()) {
-            System.out.println("\n\n-----New Turn: "+roundNumber+"-----");
+            System.out.println("\n\n-----Turn: "+ turnNumber +"-----");
             System.out.println("New Turn: Registry: "+myPlayer.getRobot().getRegisters().toString());
-            System.out.println("New Turn: Used Registry: "+myPlayer.getRobot().usedRegisters.toString());
+            System.out.println("New Turn: Used Registry: "+myPlayer.getRobot().showUsedRegisters());
         }
         for (int phase = 0; phase < 5; ++phase) { phase(); }
         endOfTurn(robots);
-        ++roundNumber;
+        phaseNumber = 0;
     }
 
     /**
-     * Executes one turn.
+     * Executes one phase in a turn.
      *
      * 1. Reveal Program Card and determine the order robots execute their program card.
      * 2. Robot Movement
@@ -66,6 +68,7 @@ public class GameLoop extends RoboRallyGame {
      * 5. Touch Checkpoints
      */
     private void phase() {
+        ++phaseNumber;
         if (Debugging.debugBackend()) { System.out.println("\n---New Phase---"); }
         for (IRobot robot : getRobotTurnOrder()) { executeProgramCard(robot, robot.getNextRegistry().getValue()); }
         if (Debugging.debugBackend()) {

@@ -21,8 +21,7 @@ public class GameScreen extends InputAdapter implements Screen {
     private final OrthographicCamera camera;
     private final PlayerUI playerUI;
     private final InputMultiplexer multiplexer;
-
-    public static Sprite backgroundSprite;
+    private final Sprite backgroundSprite;
 
     /**
      * Instantiates a new RoboRally screen.
@@ -58,6 +57,7 @@ public class GameScreen extends InputAdapter implements Screen {
         Gdx.gl.glClearColor(0,0,0,1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
+        // Draw background
         playerUI.getStage().getBatch().begin();
         backgroundSprite.draw(playerUI.getStage().getBatch());
         playerUI.getStage().getBatch().end();

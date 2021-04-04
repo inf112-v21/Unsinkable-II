@@ -12,12 +12,12 @@ import java.util.LinkedList;
 public class Robot implements IRobot {
 
     private final Vector2 location, spawn;
-    public final Deque<Card> usedRegisters;
+    private final Deque<Card> usedRegisters;
     private Deque<Card> registers;
     private Direction direction;
     private final Piece piece;
-    private boolean powerDown, destroyed;
-    private  int damage, lives, flag;
+    private boolean announcePowerDown, powerDown, destroyed;
+    private int damage, lives, flag;
     private String name;
 
     public Robot(int id) {
@@ -26,6 +26,7 @@ public class Robot implements IRobot {
         this.registers = new LinkedList<>();
         this.usedRegisters = new LinkedList<>();
         this.direction = Direction.NORTH;
+        this.announcePowerDown = false;
         this.powerDown = false;
         this.destroyed = false;
         this.damage = 0;
@@ -37,15 +38,6 @@ public class Robot implements IRobot {
     }
 
     @Override
-    public Piece getPiece() {  return this.piece; }
-
-    @Override
-    public int getHealth() { return 9 - damage; }
-
-    @Override
-    public int getLives() { return lives; }
-
-    @Override
     public void addDamage() {
         if (damage < 9) {
             ++this.damage;
@@ -54,15 +46,9 @@ public class Robot implements IRobot {
     }
 
     @Override
-    public void repairDamage() { if (damage > 0) { --this.damage; } }
-
-    @Override
-    public void repairAllDamage() { this.damage = 0; }
-
-    @Override
     public void setDestroyed() {
         destroyed = true;
-        powerDown = false;
+        powerDown = false; // TODO: Should be a choice.
         registers.clear();
         if(Debugging.debugBackend()) { System.out.println(this.name+" was damaged and destroyed!"); }
     }
@@ -78,42 +64,16 @@ public class Robot implements IRobot {
             if(Debugging.debugBackend()) { System.out.println(this.name +" was scrapped and "+ lives +" replacements remain."); }
         }
         else {
-            powerDown();
+            // TODO: Remove player and robot from list.
             if(Debugging.debugBackend()) { System.out.println(this.name+" is out of replacement robots!"); }
         }
     }
 
     @Override
-    public int touchedFlags() { return flag; }
+    public void repairDamage() { if (damage > 0) { --this.damage; } }
 
     @Override
-    public void touchFlag() { ++flag; }
-
-    @Override
-    public Vector2 getLoc() { return location; }
-
-    @Override
-    public void setLoc(Vector2 newLoc) { this.location.set(newLoc); }
-
-    @Override
-    public Vector2 getSpawnLoc() { return spawn; }
-
-    @Override
-    public void setSpawnLoc(Vector2 newLoc) { this.spawn.set(newLoc); }
-
-    @Override
-    public Direction getDirection() { return this.direction; }
-
-    @Override
-    public void setDirection(Direction dir) { this.direction = dir; }
-
-    @Override
-    public boolean isDestroyed() { return destroyed; }
-
-    @Override
-    public Deque<Card> getRegisters() { return this.registers; }
-
-    public String showUsedRegisters() { return this.usedRegisters.toString(); }
+    public void repairAllDamage() { this.damage = 0; }
 
     @Override
     public Card getNextRegistry() {
@@ -134,10 +94,19 @@ public class Robot implements IRobot {
     }
 
     @Override
-    public boolean isPoweredDown() { return powerDown; }
+    public void setRegisters(Deque<Card> registers) { this.registers = registers; }
 
     @Override
-    public void powerDown() { this.powerDown = true; }
+    public Deque<Card> getRegisters() { return this.registers; }
+
+    public String showUsedRegisters() { return this.usedRegisters.toString(); }
+
+    @Override
+    public void powerDown() {
+        this.announcePowerDown = false;
+        this.powerDown = true;
+        repairAllDamage();
+    }
 
     @Override
     public void powerUp() {
@@ -146,18 +115,60 @@ public class Robot implements IRobot {
     }
 
     @Override
-    public void setRegisters(Deque<Card> registers) { this.registers = registers; }
+    public boolean isPoweredDown() { return this.powerDown; }
 
     @Override
-    public String getName() { return name; }
+    public boolean powerDownAnnounced() { return this.announcePowerDown; }
 
     @Override
-    public TiledMapTileLayer.Cell getCell() { return piece.getCell(); }
+    public void announcePowerDown() { this.announcePowerDown = true; }
 
     @Override
-    public TiledMapTileLayer.Cell getDiedCell() { return piece.getDiedCell(); }
+    public boolean isDestroyed() { return this.destroyed; }
 
     @Override
-    public TiledMapTileLayer.Cell getWonCell() { return piece.getWonCell(); }
+    public int touchedFlags() { return this.flag; }
+
+    @Override
+    public void touchFlag() { ++this.flag; }
+
+    @Override
+    public Vector2 getLoc() { return this.location; }
+
+    @Override
+    public void setLoc(Vector2 newLoc) { this.location.set(newLoc); }
+
+    @Override
+    public Vector2 getSpawnLoc() { return this.spawn; }
+
+    @Override
+    public void setSpawnLoc(Vector2 newLoc) { this.spawn.set(newLoc); }
+
+    @Override
+    public Direction getDirection() { return this.direction; }
+
+    @Override
+    public void setDirection(Direction dir) { this.direction = dir; }
+
+    @Override
+    public int getHealth() { return 9 - this.damage; }
+
+    @Override
+    public int getLives() { return this.lives; } //  TODO: Move to Player?
+
+    @Override
+    public String getName() { return this.name; }
+
+    @Override
+    public Piece getPiece() {  return this.piece; }
+
+    @Override
+    public TiledMapTileLayer.Cell getCell() { return this.piece.getCell(); }
+
+    @Override
+    public TiledMapTileLayer.Cell getDiedCell() { return this.piece.getDiedCell(); }
+
+    @Override
+    public TiledMapTileLayer.Cell getWonCell() { return this.piece.getWonCell(); }
 
 }

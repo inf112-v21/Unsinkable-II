@@ -27,7 +27,8 @@ public abstract class Multiplayer extends Listener implements Networking {
     protected static final int TIMEOUT = 6000;
 
     /**
-     * Common registration method for host and clients.
+     * Common registration method for host and clients that allows communication
+     * over a network such as LAN or WAN.
      *
      * @param endPoint the endpoint connection
      */
