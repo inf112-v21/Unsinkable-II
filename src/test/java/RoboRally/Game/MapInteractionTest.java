@@ -89,6 +89,7 @@ public class MapInteractionTest {
         ba.touchCheckpoints(robots);
         ba.moveRobot(robot, Direction.SOUTH,false);
         ba.touchCheckpoints(robots);
+        ba.repairRobots(robots);
         assertEquals(initialHealth, robot.getHealth(), "robot should be repaired");
         assertEquals(robot.getSpawnLoc(), robot.getLoc(), "spawnpoint should be set");
     }
