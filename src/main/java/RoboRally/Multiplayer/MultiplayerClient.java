@@ -3,7 +3,7 @@ package RoboRally.Multiplayer;
 import RoboRally.Debugging.Debugging;
 import RoboRally.Game.Cards.Card;
 import RoboRally.Multiplayer.Packets.PlayerHandPacket;
-import RoboRally.Multiplayer.Packets.RoundPacket;
+import RoboRally.Multiplayer.Packets.TurnPacket;
 import RoboRally.Multiplayer.Packets.StartPacket;
 import RoboRally.GUI.RoboRallyApp;
 
@@ -20,6 +20,7 @@ public class MultiplayerClient extends Multiplayer {
     private final Client client;
     private PlayerHandPacket hand;
     public volatile boolean receivedNewHand;
+    private List<TurnPacket> roundPackets;
 
     public MultiplayerClient(RoboRallyApp app, String hostIP) {
         this.app = app;
@@ -54,16 +55,16 @@ public class MultiplayerClient extends Multiplayer {
             this.startPacket = (StartPacket) transmission;
             if (ready) { app.getGame().addPlayer(startPacket.playerID);}
             else ready = true;
-            if(Debugging.debugNetworking()) { System.out.println("Client: New Player " + startPacket.playerID); }
+            if(Debugging.debugClient()) { System.out.println("Client: New Player " + startPacket.playerID); }
         }
         else if (transmission instanceof PlayerHandPacket) {
             this.hand = (PlayerHandPacket) transmission;
             receivedNewHand = true;
-            if(Debugging.debugNetworking()){ System.out.println("Client: Received hand "+hand.cards.toString()); }
+            if(Debugging.debugClient()){ System.out.println("Client: Received hand "+hand.cards.toString()); }
         }
-        else if (transmission instanceof RoundPacket) {
-            roundPackets.add((RoundPacket) transmission);
-            if(Debugging.debugNetworking()) { System.out.println("Client: Received round packet from " + connection); }
+        else if (transmission instanceof TurnPacket) {
+            roundPackets.add((TurnPacket) transmission);
+            if(Debugging.debugClient()) { System.out.println("Client: Received round packet from " + connection); }
             if (roundPackets.size() == app.getGame().getPlayers().size()) {
                 app.getGame().updateAllRobotRegisters(roundPackets);
                 roundPackets = new ArrayList<>();

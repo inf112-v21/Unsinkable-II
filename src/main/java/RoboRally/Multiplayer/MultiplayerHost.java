@@ -1,18 +1,16 @@
 package RoboRally.Multiplayer;
 
+import RoboRally.Debugging.Debugging;
 import RoboRally.Game.Board.Boards;
 import RoboRally.Game.Cards.ProgrammingDeck;
 import RoboRally.Multiplayer.Packets.PlayerHandPacket;
 import RoboRally.Multiplayer.Packets.RequestHandPacket;
-import RoboRally.Multiplayer.Packets.RoundPacket;
+import RoboRally.Multiplayer.Packets.TurnPacket;
 import RoboRally.Multiplayer.Packets.StartPacket;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Server;
 
-import java.util.Map;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
+import java.util.*;
 
 /**
  * Class to create a host server for clients to connect to.
@@ -21,22 +19,26 @@ public class MultiplayerHost extends Multiplayer {
     private final Server server;
     private ProgrammingDeck deck;
     private final int maxPlayers;
+    private int turnNumber;
     private Map<Connection, Integer> handPackets;
+    private final List<List<TurnPacket>> turnPackets;
 
     public MultiplayerHost(Boards board) {
         connections = new HashSet<>();
         startPacket = new StartPacket(0, board);
-        roundPackets = new ArrayList<>();
+        turnPackets = new ArrayList<>();
+        turnPackets.add(new ArrayList<>());
         handPackets = new HashMap<>();
+        maxPlayers = board.getMaxPlayers();
         deck = new ProgrammingDeck();
         deck.shuffle();
+        turnNumber = 0;
         this.server = new Server();
-        maxPlayers = board.getMaxPlayers();
         register(server);
+        server.addListener(this);
         server.start();
         try { server.bind(tcpPort, udpPort); }
         catch (Exception e) { System.err.println("Error! Server is unable to bind ports."); }
-        server.addListener(this);
     }
 
     /**
@@ -46,11 +48,11 @@ public class MultiplayerHost extends Multiplayer {
      */
     @Override
     public void connected(Connection connection) {
-        if (connections.size() < maxPlayers) {
+        if (connections.size() < maxPlayers && turnNumber == 0) {
             connection.setTimeout(TIMEOUT * 10); // TODO: How much timeout is enough? Check how Kryonet sends "keep alive" packets
             connection.setName("Player " + (connections.size() + 1));
             this.connections.add(connection);
-            System.out.println("Server: New Connection: " + connection.getRemoteAddressTCP());
+            if (Debugging.debugServer()) { System.out.println("Server: New Connection: " + connection.getRemoteAddressTCP()); }
             startPacket.playerID = connections.size();
             for (Connection con : connections) {
                 con.sendTCP(startPacket);
@@ -74,20 +76,21 @@ public class MultiplayerHost extends Multiplayer {
      */
     @Override
     public void received(Connection connection, Object transmission) {
-        if (transmission instanceof RoundPacket) {
-            RoundPacket round = (RoundPacket) transmission;
-            roundPackets.add(round); // TODO: Use playerID and round number to ensure correct packet.
-            System.out.println("Server: Received round packet from "+connection+" currently "+roundPackets.size()+" out of "+connections.size());
-            if (roundPackets.size() == connections.size()) { broadcastGamePackets(); }
+        if (transmission instanceof TurnPacket) {
+            TurnPacket packet = (TurnPacket) transmission;
+            if (packet.getTurn() == turnNumber) { turnPackets.get(turnNumber).add(packet); }
+            if (Debugging.debugServer()) {
+                System.out.println("Server: Turn:"+ turnNumber +" Received turn from "+ connection+" turn "+packet.getTurn()
+                        +" currently "+ turnPackets.get(turnNumber).size() +" out of "+ connections.size());
+            }
+            if (turnPackets.get(turnNumber).size() == connections.size()) { broadcastGamePackets(); }
         }
         if (transmission instanceof RequestHandPacket) {
             RequestHandPacket packet = (RequestHandPacket) transmission;
-            System.out.println("Server: "+connection+" requested "+packet.getHandSize()+" cards");
-            if (packet.getRound() == 0) { connection.sendTCP(new PlayerHandPacket(deck.getHand(packet.getHandSize()))); }
-            else {
-                handPackets.put(connection, packet.getHandSize());
-                if (handPackets.size() == connections.size()) { broadcastHandPackets(); }
-            }
+            if (Debugging.debugServer()) { System.out.println("Server: " + connection + " requested " + packet.getHandSize() + " cards"); }
+            if (turnNumber == 0) { connection.sendTCP(new PlayerHandPacket(deck.getHand(packet.getHandSize()))); }
+            else { handPackets.put(connection, packet.getHandSize()); }
+            if (handPackets.size() == connections.size()) { broadcastHandPackets(); } // TODO: Move outside else?
         }
     }
 
@@ -95,17 +98,18 @@ public class MultiplayerHost extends Multiplayer {
      * Broadcasts every player's game packet to all player connections.
      */
     private void broadcastGamePackets() {
-        System.out.println("Server: Broadcasting round packets");
+        if (Debugging.debugServer()) { System.out.println("Server: Broadcasting round packets"); }
         for (Connection connection : connections) {
-            for (RoundPacket packet : roundPackets) { connection.sendTCP(packet); }
+            for (TurnPacket packet : turnPackets.get(turnNumber)) { connection.sendTCP(packet); }
         }
-        roundPackets = new ArrayList<>();
+        turnPackets.add(new ArrayList<>());
+        ++turnNumber;
     }
     /**
      * Broadcasts every player's game packet to all player connections.
      */
     private void broadcastHandPackets() {
-        System.out.println("Server: Broadcasting hand");
+        if (Debugging.debugServer()) { System.out.println("Server: Broadcasting hand"); }
         deck = new ProgrammingDeck();
         // TODO: Use game packet registers to remove unavailable cards based on the number of cards requested
         //  IE: (5 - requested, if requested < 5.

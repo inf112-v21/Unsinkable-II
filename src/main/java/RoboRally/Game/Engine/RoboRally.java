@@ -4,7 +4,7 @@ import RoboRally.Game.Board.BoardActions;
 import RoboRally.Game.Cards.Card;
 import RoboRally.Game.Objects.IRobot;
 import RoboRally.Game.Objects.Player;
-import RoboRally.Multiplayer.Packets.RoundPacket;
+import RoboRally.Multiplayer.Packets.TurnPacket;
 
 import java.util.Deque;
 import java.util.List;
@@ -27,9 +27,9 @@ public interface RoboRally extends Runnable {
     /**
      * Process round and update all robot.
      *
-     * @param roundPackets the game round packets
+     * @param turnPackets the game round packets
      */
-    void updateAllRobotRegisters(List<RoundPacket> roundPackets);
+    void updateAllRobotRegisters(List<TurnPacket> turnPackets);
 
     /**
      * Stops the game loop and ends the game.

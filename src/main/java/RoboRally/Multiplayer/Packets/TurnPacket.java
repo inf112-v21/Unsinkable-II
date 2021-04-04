@@ -7,22 +7,22 @@ import java.util.Deque;
 /**
  * Packet class to distribute player data between clients to allow multiplayer.
  */
-public class RoundPacket {
-    private int round;
+public class TurnPacket {
+    private int turn;
     private int playerID;
     private boolean powerDown;
     private Deque<Card> registers;
 
-    public RoundPacket() {}
+    public TurnPacket() {}
 
-    public RoundPacket(int round, int playerID, boolean powerDown, Deque<Card> registers) {
-        this.round = round;
+    public TurnPacket(int round, int playerID, boolean powerDown, Deque<Card> registers) {
+        this.turn = round;
         this.playerID = playerID;
         this.powerDown = powerDown;
         this.registers = registers;
     }
 
-    public int getRound() { return round; }
+    public int getTurn() { return turn; }
 
     public int getPlayerID() { return playerID; }
 

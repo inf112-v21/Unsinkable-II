@@ -11,7 +11,6 @@ import com.esotericsoftware.kryonet.EndPoint;
 import com.esotericsoftware.kryonet.Listener;
 
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Set;
 
 public abstract class Multiplayer extends Listener implements Networking {
@@ -20,7 +19,7 @@ public abstract class Multiplayer extends Listener implements Networking {
     public static final int tcpPort = 18888;
     protected RoboRallyApp app;
     protected Set<Connection> connections;
-    protected List<RoundPacket> roundPackets;
+
     public StartPacket startPacket;
 
     public volatile boolean ready;
@@ -38,7 +37,7 @@ public abstract class Multiplayer extends Listener implements Networking {
         endPoint.getKryo().register(Boards.class);
         endPoint.getKryo().register(PlayerHandPacket.class);
         endPoint.getKryo().register(RequestHandPacket.class);
-        endPoint.getKryo().register(RoundPacket.class);
+        endPoint.getKryo().register(TurnPacket.class);
         endPoint.getKryo().register(LinkedList.class);
         endPoint.getKryo().register(ProgramCard.class);
         endPoint.getKryo().register(Card.class);

@@ -4,18 +4,20 @@ package RoboRally.Debugging;
  * Static class for setting debug modes to enable different tools for debugging.
  */
 public class Debugging {
-
-    private static final boolean NETWORK_ANALYSIS = false;
-    private static final boolean PRINT_TO_TERMINAL = true;
     private static final boolean CHEAT_MODE = false;
-    private static final boolean GUI_DEBUG = false;
+    private static final boolean DEBUG_GUI = false;
+    private static final boolean DEBUG_BACKEND = false;
+    private static final boolean DEBUG_CLIENT = true;
+    private static final boolean DEBUG_SERVER = true;
 
 
     public static boolean cheatMode() { return CHEAT_MODE; }
 
-    public static boolean debugGUI() { return GUI_DEBUG; }
+    public static boolean debugGUI() { return DEBUG_GUI; }
 
-    public static boolean debugBackend() { return PRINT_TO_TERMINAL; }
+    public static boolean debugBackend() { return DEBUG_BACKEND; }
 
-    public static boolean debugNetworking() { return NETWORK_ANALYSIS; }
+    public static boolean debugClient() { return DEBUG_CLIENT; }
+
+    public static boolean debugServer() { return DEBUG_SERVER; }
 }

@@ -53,7 +53,10 @@ public class GameLoop extends RoboRallyGame {
             System.out.println("New Turn: Registry: "+myPlayer.getRobot().getRegisters().toString());
             System.out.println("New Turn: Used Registry: "+myPlayer.getRobot().showUsedRegisters());
         }
-        for (int phase = 0; phase < 5; ++phase) { phase(); }
+        for (int phase = 0; phase < 5; ++phase) {
+            phase();
+            if (stopGame) { return; }
+        }
         endOfTurn(robots);
         phaseNumber = 0;
     }
@@ -70,7 +73,10 @@ public class GameLoop extends RoboRallyGame {
     private void phase() {
         ++phaseNumber;
         if (Debugging.debugBackend()) { System.out.println("\n---New Phase---"); }
-        for (IRobot robot : getRobotTurnOrder()) { executeProgramCard(robot, robot.getNextRegistry().getValue()); }
+        for (IRobot robot : getRobotTurnOrder()) {
+            executeProgramCard(robot, robot.getNextRegistry().getValue());
+            if (stopGame) { return; }
+        }
         if (Debugging.debugBackend()) {
             System.out.println("Registry: "+myPlayer.getRobot().getRegisters().toString());
             System.out.println("Used Registry: "+myPlayer.getRobot().showUsedRegisters());

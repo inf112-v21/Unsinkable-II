@@ -9,7 +9,7 @@ import RoboRally.Game.Board.Boards;
 import RoboRally.Game.Objects.IRobot;
 import RoboRally.Game.Objects.Player;
 import RoboRally.Multiplayer.Packets.RequestHandPacket;
-import RoboRally.Multiplayer.Packets.RoundPacket;
+import RoboRally.Multiplayer.Packets.TurnPacket;
 import RoboRally.GUI.RoboRallyApp;
 import com.badlogic.gdx.Gdx;
 
@@ -50,13 +50,13 @@ abstract class RoboRallyGame implements RoboRally {
     public void attemptRun(Deque<Card> registers, boolean powerDown) {
         if (!roundSent) {
             roundSent = true;
-            app.getLocalClient().getClient().sendTCP(new RoundPacket(turnNumber, myPlayer.getID(), powerDown, registers));
+            app.getLocalClient().getClient().sendTCP(new TurnPacket(turnNumber, myPlayer.getID(), powerDown, registers));
         }
     }
 
     @Override
-    public void updateAllRobotRegisters(List<RoundPacket> roundPackets) {
-        for (RoundPacket packet : roundPackets) {
+    public void updateAllRobotRegisters(List<TurnPacket> turnPackets) {
+        for (TurnPacket packet : turnPackets) {
             players.get(packet.getPlayerID() - 1).getRobot().setRegisters(packet.getRegisters());
             if (packet.isPowerDown()) { players.get(packet.getPlayerID() - 1).getRobot().announcePowerDown(); }
         }
@@ -130,6 +130,7 @@ abstract class RoboRallyGame implements RoboRally {
             app.getScreen().dispose();
             app.setScreen(new GameOverScreen(app, robot.getName()));
         });
+
     }
 
 }

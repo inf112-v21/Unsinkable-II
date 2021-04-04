@@ -163,7 +163,6 @@ public class PlayerUI {
      */
     public void updateHand(List<Card> hand) {
         this.hand = hand;
-        if (hand.size() == 0) { app.getGame().attemptRun(new LinkedList<>(), false); }
         playerHandTable.padTop(0);
         handButtons.clear();
         handButtonsSetup();
@@ -227,7 +226,9 @@ public class PlayerUI {
     public void updateLockedRegisters(Deque<Card> registers) {
         this.registers = registers;
         lockedRegistryTable.clearChildren();
-        addLockedRegisters();
+        if (hand.size() == 0) { app.getGame().attemptRun(new LinkedList<>(), false); } // TODO: Temporary solution!!!
+        else addLockedRegisters();
+
     }
 
     /**

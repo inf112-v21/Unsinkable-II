@@ -76,6 +76,7 @@ public class RoboRallyApp extends Game {
      * @param boardSelection = The board the host wants to play.
      */
     public void hostNewGame(Boards boardSelection) {
+        if (this.server != null) { server.getServer().stop(); }
         this.server = new MultiplayerHost(boardSelection);
         joinNewGame("localhost");
     }

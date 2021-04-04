@@ -10,7 +10,7 @@ public class RequestHandPacket {
         this.handSize = numberOfCards;
     }
 
-    public int getRound() { return round; }
+    public int getTurn() { return round; }
 
     public int getHandSize() { return handSize; }
 }
