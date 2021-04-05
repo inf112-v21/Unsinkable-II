@@ -17,18 +17,20 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(GdxTestExtension.class)
 public class MapInteractionTest {
 
-    static RoboRallyApp app;
-    static RoboRally game;
-    BoardActions ba;
-    IRobot robot;
-    List<IRobot> robots;
-    Vector2 spawnLoc;
+    private static RoboRallyApp app;
+    private static RoboRally game;
+    private BoardActions ba;
+    private IRobot robot;
+    private List<IRobot> robots;
+    private Vector2 spawnLoc;
 
     @BeforeAll
     public static void setup() {
