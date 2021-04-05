@@ -57,7 +57,7 @@ missforståelser som har økt behovet for møtevirksomhet og dermed har gruppen 
 Dette har gruppen løst med klarere tilbakemeldinger innad i gruppen og mer direkte kommunikasjon. 
 
 ###Forandringer i gruppestruktur
-   - Vegard Haugland har fått ansvar for grafisk design.
-     - Kommer fremover til å konsentrere seg om GUI, libgx, assets, og grafikk.
-   - Daniel Liland har fått ansvar for testing, og test-enviroment.
-     - Han kommer fremmover til å jobbe mot ett velfungerende testmiljø.
+- Vegard Haugland har fått ansvar for grafisk design.
+  - Kommer fremover til å konsentrere seg om GUI, libgx, assets, og grafikk.
+- Daniel Liland har fått ansvar for testing, og test-enviroment.
+  - Han kommer fremmover til å jobbe mot ett velfungerende testmiljø.

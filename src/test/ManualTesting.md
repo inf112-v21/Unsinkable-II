@@ -49,4 +49,3 @@ Each player can see their own cards, which their robot can execute.
 
 **Expected result:** Each player should be able to execute their own cards in turn.
 All players should see each other's movement in real time.
-

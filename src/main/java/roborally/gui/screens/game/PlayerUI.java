@@ -80,7 +80,7 @@ public class PlayerUI {
      */
     private void mainTableSetup() {
         mainTable.setFillParent(true);
-        mainTable.padLeft(width/2f);
+        mainTable.padLeft(width/2);
         mainTable.padBottom(BOTTOM_PADDING).bottom();
 
         joinedRegistryTableSetup();

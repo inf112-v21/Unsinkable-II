@@ -1,4 +1,4 @@
-# roborally Board Standard
+# Robo Rally Board Standard
 
 1. Each board is constructed in layers.
 2. Each type of object should only exist in its own layer.
@@ -6,7 +6,8 @@
 4. Wall, LaserWall, Laser layers must directly follow the Player layer.
 5. Board must be the bottom layer.
 
-### Layers that must be included with identical naming:
+**Layers that must be included with identical naming**
+
     1. Player
     2. Wall
     3. LaserWall

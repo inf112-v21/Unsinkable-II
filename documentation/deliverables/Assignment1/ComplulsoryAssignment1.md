@@ -38,21 +38,19 @@ Vi har valgt å bruke denne rollen fordi det kan være vanskelig å sammenfatte 
 en god måte om alle i gruppen velger å gjøre det alene.
 Projectboard er ferdigstilt på GitHub.
 
-
 ## Deloppgave 2: Velg og tilpass en prosess for laget
 ### Metodikk
 En tilnærming av SCRUM, men med en flytende overgang mot KANBAN. SCRUM virker som en logisk metodikk da man kan legge 
 sprinter opp mot obligatoriske innleveringer. Gruppen dokumenterer hvilken deler av SCRUM som blir brukt, og ikke brukt.
 
- 
-#### Hva vi ønsker å ta med fra SCRUM sin modell:
+#### Hva vi ønsker å ta med fra SCRUM sin modell
 **Sprint:** Det å ha sprint inn mot obliger virker som en logisk modell å følge fremover.
 
 **Parprogrammering:** Ingen av oss er kjent med parprogrammering, så vi ønsker å lære mer om dette konseptet i praksis.
 
 **Struktur:** Strukturen som SCRUM tilbyr virker veldig appellerende for gruppen.
 
-#### Hva vi ønsker å se bort fra utifra SCRUM sin modell:
+#### Hva vi ønsker å se bort fra utifra SCRUM sin modell
 **Rollemodell:** Vi følger ikke rollemodellen, og har designet vår egen. Dette er grunnet i at vi har såpass få 
 medlemmer i teamet, og at vi liker å ha presist definerte roller.
 
@@ -86,7 +84,7 @@ denne formen for utvikling kan bringe.
 
 ## Deloppgave 4: Kode
 
-###Det vi har implementert så langt i henhold til oppgaven:
+###Det vi har implementert så langt i henhold til oppgaven
 1. Vise et spillebrett
 2. Vise brikke på spillebrett
 3. Flytte brikke (vha piltaster eller wasd)
@@ -97,7 +95,7 @@ denne formen for utvikling kan bringe.
 - Robot kan falle ned i hull
 - Robot kan ikke flytte seg utenfor kart
 
-###Testing:
+###Testing
 Disse testene er gjort manuelt, da frontend er veldig vanskelig å teste. Dette er gjort med innbygd funksjon i IDE
 og breakpoints. Vi tenker å bevege oss over i JUnit tester når vi kommer til forretningsregler senere i prosjektet.
 - Det er testet at robot beveger seg ved bruk av piltaster.

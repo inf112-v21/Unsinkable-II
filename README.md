@@ -6,28 +6,28 @@ University of Bergen.
 [![Build Status](https://travis-ci.com/inf112-v21/Unsinkable-II.svg?branch=Development)](https://travis-ci.com/inf112-v21/Unsinkable-II)
 
 ## Table of Contents
-   1. [Overview](#overview)
-   2. [Building](#building)
-      1. [Prerequisites](#prerequisites)
-      2. [Command line](#command-line)
-      3. [Intellij IDEA](#intellij-idea)
-      4. [Running](#running)
-   3. [Developing](#developing)
-      1. [Testing](#testing)
-      2. [How To Run](#how-to-run)
-      3. [Debugging](#debugging)
-   4. [Known Bugs and Issues](#known-bugs-and-issues)
-      1. [Missing Features](#missing-features)
-   5. [The Unsinkable-II Team](#the-unsinkable-ii-team)
-      1. [Developers](#developers)
-      2. [About Us](#about-us)
-   6. [Documents](#documents)
-      1. [Diagrams](#diagrams)
-      2. [User Stories](#user-stories)
-      3. [Minutes from meetings](#meeting-minutes)
-      4. [Retrospects](#retrospect)
-      5. [Contributing to Git](#git)
-      6. [Board Design Protocol](#board-design)
+1. [Overview](#overview)
+2. [Building](#building)
+   1. [Prerequisites](#prerequisites)
+   2. [Command line](#command-line)
+   3. [Intellij IDEA](#intellij-idea)
+   4. [Running](#running)
+3. [Developing](#developing)
+   1. [Testing](#testing)
+   2. [How To Run](#how-to-run)
+   3. [Debugging](#debugging)
+4. [Known Bugs and Issues](#known-bugs-and-issues)
+   1. [Missing Features](#missing-features)
+5. [The Unsinkable-II Team](#the-unsinkable-ii-team)
+   1. [Developers](#developers)
+   2. [About Us](#about-us)
+6. [Documents](#documents)
+   1. [Diagrams](#diagrams)
+   2. [User Stories](#user-stories)
+   3. [Minutes from meetings](#meeting-minutes)
+   4. [Retrospects](#retrospect)
+   5. [Contributing to Git](#git)
+   6. [Board Design Protocol](#board-design)
 
 ## Overview
 This project is an approximation of the original version of roborally, a tabletop board game,
@@ -38,8 +38,8 @@ There are no prebuilt binaries as of now, here are instructions on how to build 
 Maven shade is included to shade in needed dependencies to the resulting jar file.
 
 ### Prerequisites
- - Java 13+
- - [Maven](https://maven.apache.org/) (for CLI usage)
+- Java 13+
+- [Maven](https://maven.apache.org/) (for CLI usage)
 
 ### Command line
 ```shell
@@ -62,13 +62,13 @@ java -jar roborally.jar
 Simply open the pom.xml file in any Java IDE like Intellij
 IDEA. 
 
- - Documentation on contributing using git, see [Git Contributing Guidelines](documentation/GitContributibuting.md).
- - Documentation on map design, see [Board Design Protocol](documentation/BoardDesign.md).
+- Documentation on contributing using git, see [Git Contributing Guidelines](documentation/GitContributibuting.md).
+- Documentation on map design, see [Board Design Protocol](documentation/BoardDesign.md).
 
 ### Testing
- - To run the automated tests, simply run `mvn test` from the command line, 
-   or run the test lifecycle from an IDE.  
- - While developing, run the tests from your IDE.
+- To run the automated tests, simply run `mvn test` from the command line, 
+  or run the test lifecycle from an IDE.  
+- While developing, run the tests from your IDE.
 
 ### How to run:
 Run [Main](src/main/java/roborally/Main.java) from an IDE.
@@ -92,14 +92,14 @@ These features are either missing, not fully implemented, or work differently th
 
 ### Developers
 Current developers of this project:
- - [Inge Amdal Halvorsen](https://github.com/Snowsock)
- - [Vegard Haugland](https://github.com/hauglandvegard)
- - [Daniel Liland](https://github.com/ende124)
- - [Jonas Valen](https://github.com/jonazbot)
+- [Inge Amdal Halvorsen](https://github.com/Snowsock)
+- [Vegard Haugland](https://github.com/hauglandvegard)
+- [Daniel Liland](https://github.com/ende124)
+- [Jonas Valen](https://github.com/jonazbot)
 
 ### About Us
- - [Unsinkable-II](documentation/deliverables/Assignment1/about.md)
- - [Group dynamics](documentation/deliverables/Assignment1/ComplulsoryAssignment1.md)
+- [Unsinkable-II](documentation/deliverables/Assignment1/about.md)
+- [Group dynamics](documentation/deliverables/Assignment1/ComplulsoryAssignment1.md)
 
 ## Documents
 
@@ -111,20 +111,20 @@ Current developers of this project:
 See [User Stories Repository](https://github.com/inf112-v21/Unsinkable-II/projects)
 
 ### Meeting Minutes
- - [Feb/01/2021](documentation/deliverables/MinutesOfMeetings/2021.02.01.md)
- - [Feb/04/2021](documentation/deliverables/MinutesOfMeetings/2021.02.04.md)
- - [Feb/08/2021](documentation/deliverables/MinutesOfMeetings/2021.02.08.md)
- - [Feb/11/2021](documentation/deliverables/MinutesOfMeetings/2021.02.11.md)
- - [Feb/15/2001](documentation/deliverables/MinutesOfMeetings/2021.02.15.md)
- - [Feb/25/2001](documentation/deliverables/MinutesOfMeetings/2021.02.25.md)
- - [Mar/01/2001](documentation/deliverables/MinutesOfMeetings/2021.03.01.md)
- - [Mar/08/2001](documentation/deliverables/MinutesOfMeetings/2021.03.08.md)
- - [Mar/15/2001](documentation/deliverables/MinutesOfMeetings/2021.03.15.md)
- - [Mar/22/2001](documentation/deliverables/MinutesOfMeetings/2021.03.22.md)
+- [Feb/01/2021](documentation/deliverables/MinutesOfMeetings/2021.02.01.md)
+- [Feb/04/2021](documentation/deliverables/MinutesOfMeetings/2021.02.04.md)
+- [Feb/08/2021](documentation/deliverables/MinutesOfMeetings/2021.02.08.md)
+- [Feb/11/2021](documentation/deliverables/MinutesOfMeetings/2021.02.11.md)
+- [Feb/15/2001](documentation/deliverables/MinutesOfMeetings/2021.02.15.md)
+- [Feb/25/2001](documentation/deliverables/MinutesOfMeetings/2021.02.25.md)
+- [Mar/01/2001](documentation/deliverables/MinutesOfMeetings/2021.03.01.md)
+- [Mar/08/2001](documentation/deliverables/MinutesOfMeetings/2021.03.08.md)
+- [Mar/15/2001](documentation/deliverables/MinutesOfMeetings/2021.03.15.md)
+- [Mar/22/2001](documentation/deliverables/MinutesOfMeetings/2021.03.22.md)
 
 ### Retrospect
- - [Retrospect for sprint 2](documentation/deliverables/Assignment2/Retrospect.md)
- - [Retrospect for sprint 3](documentation/deliverables/Assignment3/Retrospect.md)
+- [Retrospect for sprint 2](documentation/deliverables/Assignment2/Retrospect.md)
+- [Retrospect for sprint 3](documentation/deliverables/Assignment3/Retrospect.md)
 
 ### Git
 See [Git Contributing Guidelines](documentation/GitContributibuting.md)

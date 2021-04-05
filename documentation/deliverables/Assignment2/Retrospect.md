@@ -19,7 +19,6 @@ Gruppen har tatt lærdom av Sprint1 og lagt til flere tester. Det har også blit
 fordeling i commit. Deler av gruppen har vært opptatt med tildels tunge obligatoriske oppgaver i andre fag. 
 Samt hva som er forklart tidligere i dette dokument.
 
-
 ###Multiplayer
 - P2P løsning. Alt i spillet skal kalkuleres fra hver maskin. 
   - Denne løsningen kommer etter samtale med gruppeleder.

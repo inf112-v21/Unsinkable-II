@@ -29,18 +29,19 @@ public class GameScreen extends InputAdapter implements Screen {
      * @param app the RoboRally.game
      */
     public GameScreen(RoboRallyApp app) {
-        this.playerUI = new PlayerUI(app);
-
         float boardWidth = app.getGame().getBoard().getBoardWidth();
         float boardHeight = app.getGame().getBoard().getBoardHeight();
         float appWidth =  Gdx.graphics.getWidth();
         float appHeight = Gdx.graphics.getHeight();
-        float ratio = (boardHeight / boardWidth) * (appWidth / appHeight); // set ratio to 2 to horizontally stretch board to middle.
+        float ratio = (boardHeight / boardWidth) * (appWidth / appHeight); // set ratio to 2 to stretch tile board to middle.
+
+        this.playerUI = new PlayerUI(app);
 
         camera = new OrthographicCamera();
         camera.setToOrtho(false, app.getGame().getBoard().getBoardWidth() * ratio, app.getGame().getBoard().getBoardHeight());
-        //camera.position.x = app.getGame().getBoard().getBoardWidth(); // Horizontal board placement
-        //camera.position.y = app.getGame().getBoard().getBoardHeight() * 0.5f; // Vertical board placement
+        camera.position.x = app.getGame().getBoard().getBoardWidth(); // Horizontal board placement
+        camera.position.y = app.getGame().getBoard().getBoardHeight() * 0.5f; // Vertical board placement
+        camera.zoom = 1f; // 1 is default and off.
         camera.update();
 
         renderer = new OrthogonalTiledMapRenderer(app.getGame().getBoard().getBoard(), 1f/RoboRallyApp.TILE_SIZE);

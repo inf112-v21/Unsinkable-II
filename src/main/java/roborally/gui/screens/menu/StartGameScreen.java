@@ -3,7 +3,6 @@ package roborally.gui.screens.menu;
 import roborally.gui.RoboRallyApp;
 import roborally.game.board.Boards;
 
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.SelectBox;
