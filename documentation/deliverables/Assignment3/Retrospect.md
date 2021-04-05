@@ -16,43 +16,24 @@ og gruppens grafiske leder gikk gjennom prosjektet, og prosjektstrukturen.
 
 ### MVP
 MVP krav, med kommentarer:
-
-1. Vise et spillebrett:
-   
-   En kan velge, vise og laste vilkårlige spillbrett dynamisk så lenge spillbrettene følger protokoll for design.
-
-2. Vise brikke på spillebrett:
-   
-   En kan vise og bevege opp til 8 brikker kontrollert av 8 spillere på maskiner over LAN og WAN.
-
-3. Flytte brikke (vha taster eller lignende for testing):
-   
-   En kan flytte brikkene i korrekt rekkefølge i henhold til spillreglene med program kort, eller med WASD i "CheatMode".
-
-4. Robot besøker flagg:
-   
-   Roboter kan besøke flagg. Når en robot besøker flagg, blir dette registrert som nytt spawnpoint.
-
-5. Robot vinner ved å besøke flagg:
-   
-   Robot vinner når det har besøkt alle flagg, i sekvensiell rekkefølge. Spillet viser SpillFerdig (GameOver) skjerm.
-
-6. Spille fra flere maskiner (vise brikker for alle spillere, flytte brikker for alle spillere):
-   
-   Multiplayer virker med til og med 8 spillere over LAN og/eller nettbasert. MERK: port 18888 må være åpen.
-
-7. Dele ut kort:
-   
-   Server∕Host deler ut kort til spilleren. Dette fungerer for øyeblikket for en runde.
-
-8. Velge 5 kort:
-   
-   En spiller kan velge 5 av 9 kort.
-
-9. Bevege robot ut fra valgte kort:
-   
-   Kortene spilleren har valgt blir kjørt i den rekkefølgen spilleren har valgt kortene.
-
+1. **Vise et spillebrett:** 
+   - En kan velge, vise og laste vilkårlige spillbrett dynamisk så lenge spillbrettene følger protokoll for design.
+2. **Vise brikke på spillebrett:**
+   - En kan vise og bevege opp til 8 brikker kontrollert av 8 spillere på maskiner over LAN og WAN.
+3. **Flytte brikke (vha taster eller lignende for testing):**
+   - En kan flytte brikkene i korrekt rekkefølge i henhold til spillreglene med program kort, eller med WASD i "CheatMode".
+4. **Robot besøker flagg:**
+   - Roboter kan besøke flagg. Når en robot besøker flagg, blir dette registrert som nytt spawnpoint.
+5. **Robot vinner ved å besøke flagg:**
+   - Robot vinner når det har besøkt alle flagg, i sekvensiell rekkefølge. Spillet viser SpillFerdig (GameOver) skjerm.
+6. **Spille fra flere maskiner (vise brikker for alle spillere, flytte brikker for alle spillere):**
+   - Multiplayer virker med til og med 8 spillere over LAN og/eller nettbasert. MERK: port 18888 må være åpen.
+7. **Dele ut kort:**
+   - Server∕Host deler ut kort til spilleren. Dette fungerer for øyeblikket for en runde.
+8. **Velge 5 kort:**
+   - En spiller kan velge 5 av 9 kort.
+9. **Bevege robot ut fra valgte kort:**
+   - Kortene spilleren har valgt blir kjørt i den rekkefølgen spilleren har valgt kortene.
 
 ###Forbedringer
 Gruppen jobber målrettet mot at alle gruppemedlemmer skal være en aktiv del av arbeidet. 
@@ -76,6 +57,7 @@ missforståelser som har økt behovet for møtevirksomhet og dermed har gruppen 
 Dette har gruppen løst med klarere tilbakemeldinger innad i gruppen og mer direkte kommunikasjon. 
 
 ###Forandringer i gruppestruktur
-Vegard Haugland har fått ansvar for grafisk design, og kommer fremover til å konsentrere seg om GUI, libgx, assets, og grafikk.
-
-Daniel Liland har fått ansvar for testing, og test-enviroment. Han kommer fremmover til å jobbe mot ett velfungerende testmiljø.
+   - Vegard Haugland har fått ansvar for grafisk design.
+     - Kommer fremover til å konsentrere seg om GUI, libgx, assets, og grafikk.
+   - Daniel Liland har fått ansvar for testing, og test-enviroment.
+     - Han kommer fremmover til å jobbe mot ett velfungerende testmiljø.

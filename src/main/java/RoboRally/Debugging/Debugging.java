@@ -7,8 +7,8 @@ public class Debugging {
     private static final boolean CHEAT_MODE = false;
     private static final boolean DEBUG_GUI = false;
     private static final boolean DEBUG_BACKEND = false;
-    private static final boolean DEBUG_CLIENT = true;
-    private static final boolean DEBUG_SERVER = true;
+    private static final boolean DEBUG_CLIENT = false;
+    private static final boolean DEBUG_SERVER = false;
 
 
     public static boolean cheatMode() { return CHEAT_MODE; }

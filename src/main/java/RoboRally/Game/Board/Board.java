@@ -46,15 +46,20 @@ public abstract class Board {
         this.laserWallLayer = (TiledMapTileLayer) board.getLayers().get("LaserWall");
         this.wallLayer = (TiledMapTileLayer) board.getLayers().get("Wall");
 
-        verticalLaser = new TiledMapTileLayer.Cell();
-        verticalLaser.setTile(board.getTileSets().getTileSet(0).getTile(TileID.LASER_VERTICAL.getId()));
-        horizontalLaser = new TiledMapTileLayer.Cell();
-        horizontalLaser.setTile(board.getTileSets().getTileSet(0).getTile(TileID.LASER_HORIZONTAL.getId()));
-        crossedLaser = new TiledMapTileLayer.Cell();
-        crossedLaser.setTile(board.getTileSets().getTileSet(0).getTile(TileID.LASER_CROSSED.getId()));
+        this.verticalLaser = new TiledMapTileLayer.Cell();
+        this.verticalLaser.setTile(board.getTileSets().getTileSet(0).getTile(TileID.LASER_VERTICAL.getId()));
+        this.horizontalLaser = new TiledMapTileLayer.Cell();
+        this.horizontalLaser.setTile(board.getTileSets().getTileSet(0).getTile(TileID.LASER_HORIZONTAL.getId()));
+        this.crossedLaser = new TiledMapTileLayer.Cell();
+        this.crossedLaser.setTile(board.getTileSets().getTileSet(0).getTile(TileID.LASER_CROSSED.getId()));
 
         this.startLocs = findStart();
         this.flagLocs = findFlags();
+
+        this.bounds = findAllLayerTiles(boardLayer);
+        this.holes = findAllLayerTiles(holeLayer);
+        this.repairSites = findAllLayerTiles(repairLayer);
+        this.upgradeSites = findAllLayerTiles(upgradeLayer);
 
         this.northWalls = new HashSet<>();
         this.westWalls = new HashSet<>();
@@ -76,11 +81,6 @@ public abstract class Board {
         this.leftTurnFastBelts = new HashSet<>();
         this.rightTurnFastBelts = new HashSet<>();
         findBelts();
-
-        this.bounds = findAllLayerTiles(boardLayer);
-        this.holes = findAllLayerTiles(holeLayer);
-        this.repairSites = findAllLayerTiles(repairLayer);
-        this.upgradeSites = findAllLayerTiles(upgradeLayer);
 
         this.leftGears = new HashSet<>();
         this.rightGears = new HashSet<>();

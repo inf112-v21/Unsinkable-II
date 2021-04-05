@@ -54,9 +54,7 @@ public class MultiplayerHost extends Multiplayer {
             this.connections.add(connection);
             if (Debugging.debugServer()) { System.out.println("Server: New Connection: " + connection.getRemoteAddressTCP()); }
             startPacket.playerID = connections.size();
-            for (Connection con : connections) {
-                con.sendTCP(startPacket);
-            }
+            for (Connection con : connections) { con.sendTCP(startPacket); }
         }
     }
 
