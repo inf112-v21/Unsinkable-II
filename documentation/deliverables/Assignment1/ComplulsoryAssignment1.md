@@ -78,28 +78,28 @@ denne formen for utvikling kan bringe.
 
 ## Deloppgave 3: Få oversikt over forventet produkt
 ### Hva er det overordnede målet for applikasjonen
-  - Applikasjonen skal være et spillbart spill. Med dette menes at spillet skal følge fastsatte regler.
-  - Det må være mulig å vinne, og tape spillet. Det skal videre være mulig å kjøre spillet på OSX, Windows, og Linux. 
-  - Det er også satt krav om støtte for flere spillere samtidig.
+-   Applikasjonen skal være et spillbart spill. Med dette menes at spillet skal følge fastsatte regler.
+-   Det må være mulig å vinne, og tape spillet. Det skal videre være mulig å kjøre spillet på OSX, Windows, og Linux. 
+-   Det er også satt krav om støtte for flere spillere samtidig.
 
 ## Deloppgave 4: Kode
 
 ###Det vi har implementert så langt i henhold til oppgaven
- 1. Vise et spillebrett
- 2. Vise brikke på spillebrett
- 3. Flytte brikke (vha piltaster eller wasd)
- 4. Robot besøker flagg
- 5. Robot vinner ved å besøke flagg
+1.  Vise et spillebrett
+2.  Vise brikke på spillebrett
+3.  Flytte brikke (vha piltaster eller wasd)
+4.  Robot besøker flagg
+5.  Robot vinner ved å besøke flagg
 
 **I tillegg har vi lagt til funksjon for:**
-  - Robot kan falle ned i hull
-  - Robot kan ikke flytte seg utenfor kart
+-   Robot kan falle ned i hull
+-   Robot kan ikke flytte seg utenfor kart
 
 ###Testing
 Disse testene er gjort manuelt, da frontend er veldig vanskelig å teste. Dette er gjort med innbygd funksjon i IDE
 og breakpoints. Vi tenker å bevege oss over i JUnit tester når vi kommer til forretningsregler senere i prosjektet.
-  - Det er testet at robot beveger seg ved bruk av piltaster.
-  - Det er testet at robot vinner, nytt ikon, når den treffer et flagg.
-  - Det er testet at robot dør, nytt ikon, når den treffer et hull.
-  - Det er testet at robot ikke kan bevege seg utenfor kart.
-  - Spillet kjører fra IDE i Windows, Mac, og Linux.
+-   Det er testet at robot beveger seg ved bruk av piltaster.
+-   Det er testet at robot vinner, nytt ikon, når den treffer et flagg.
+-   Det er testet at robot dør, nytt ikon, når den treffer et hull.
+-   Det er testet at robot ikke kan bevege seg utenfor kart.
+-   Spillet kjører fra IDE i Windows, Mac, og Linux.

@@ -20,5 +20,7 @@ fordeling i commit. Deler av gruppen har vært opptatt med tildels tunge obligat
 Samt hva som er forklart tidligere i dette dokument.
 
 ###Multiplayer
-P2P løsning. Alt i spillet skal kalkuleres fra hver maskin. Denne løsningen kommer etter samtale med gruppeleder.
-En Host/Server - Client løsning virkler mer fristende.
+**P2P løsning:**
+-   Alt i spillet skal kalkuleres fra hver maskin. 
+-   Denne løsningen kommer etter samtale med gruppeleder.
+-   En Host/Server - Client løsning virkler mer fristende.
