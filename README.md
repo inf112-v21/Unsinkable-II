@@ -7,33 +7,33 @@ University of Bergen.
 
 ## Table of Contents
 
-1. [Overview](#overview)
+1.  [Overview](#overview)
 
-2. [Building](#building)
-    1. [Prerequisites](#pre-requisites)
-    2. [Command line](#command-line)
-    3. [Intellij IDEA](#intellij-idea)
-    4. [Running](#running)
+2.  [Building](#building)
+   1.  [Prerequisites](#pre-requisites)
+   2.  [Command line](#command-line)
+   3.  [Intellij IDEA](#intellij-idea)
+   4.  [Running](#running)
 
-3. [Developing](#developing)
-    1. [Testing](#testing)
-    2. [How To Run](#how-to-run)
-    3. [Debugging](#debugging)
+3.  [Developing](#developing)
+   1.  [Testing](#testing)
+   2.  [How To Run](#how-to-run)
+   3.  [Debugging](#debugging)
 
-4. [Known Bugs and Issues](#known-bugs-and-issues)
-    1. [Missing Features](#missing-features)
+4.  [Known Bugs and Issues](#known-bugs-and-issues)
+   1.  [Missing Features](#missing-features)
 
-5. [The Unsinkable-II Team](#the-unsinkable-ii-team)
-    1. [Developers](#developers)
-    2. [About Us](#about-us)
+5.  [The Unsinkable-II Team](#the-unsinkable-ii-team)
+   1.  [Developers](#developers)
+   2.  [About Us](#about-us)
 
-6. [Documents](#documents)
-    1. [Diagrams](#diagrams)
-    2. [User Stories](#user-stories)
-    3. [Minutes from meetings](#meeting-minutes)
-    4. [Retrospects](#retrospect)
-    5. [Contributing to Git](#git)
-    6. [Board Design Protocol](#board-design)
+6.  [Documents](#documents)
+   1.  [Diagrams](#diagrams)
+   2.  [User Stories](#user-stories)
+   3.  [Minutes from meetings](#meeting-minutes)
+   4.  [Retrospects](#retrospect)
+   5.  [Contributing to Git](#git)
+   6.  [Board Design Protocol](#board-design)
 
 ## Overview
 This project is an approximation of the original version of roborally, a tabletop board game,
