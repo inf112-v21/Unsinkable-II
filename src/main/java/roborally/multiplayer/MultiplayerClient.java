@@ -1,6 +1,6 @@
 package roborally.multiplayer;
 
-import roborally.debug.debug;
+import roborally.debug.Debug;
 import roborally.game.cards.Card;
 import roborally.multiplayer.packets.PlayerHandPacket;
 import roborally.multiplayer.packets.TurnPacket;
@@ -55,16 +55,16 @@ public class MultiplayerClient extends Multiplayer {
             this.startPacket = (StartPacket) transmission;
             if (ready) { app.getGame().addPlayer(startPacket.playerID);}
             else ready = true;
-            if(debug.debugClient()) { System.out.println("Client: New Player " + startPacket.playerID); }
+            if(Debug.debugClient()) { System.out.println("Client: New Player " + startPacket.playerID); }
         }
         else if (transmission instanceof PlayerHandPacket) {
             this.hand = (PlayerHandPacket) transmission;
             receivedNewHand = true;
-            if(debug.debugClient()){ System.out.println("Client: Received hand "+hand.cards.toString()); }
+            if(Debug.debugClient()){ System.out.println("Client: Received hand "+hand.cards.toString()); }
         }
         else if (transmission instanceof TurnPacket) {
             roundPackets.add((TurnPacket) transmission);
-            if(debug.debugClient()) { System.out.println("Client: Received round packet from " + connection); }
+            if(Debug.debugClient()) { System.out.println("Client: Received round packet from " + connection); }
             if (roundPackets.size() == app.getGame().getPlayers().size()) {
                 app.getGame().updateAllRobotRegisters(roundPackets);
                 roundPackets = new ArrayList<>();

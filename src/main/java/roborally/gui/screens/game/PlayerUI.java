@@ -1,6 +1,6 @@
 package roborally.gui.screens.game;
 
-import roborally.debug.debug;
+import roborally.debug.Debug;
 import roborally.game.cards.Card;
 import roborally.game.cards.ProgramCard;
 import roborally.gui.RoboRallyApp;
@@ -91,7 +91,7 @@ public class PlayerUI {
 
         runButtonSetup();
 
-        if (debug.debugGUI()) {
+        if (Debug.debugGUI()) {
             mainTable.setDebug(true);
             selectedRegistryTable.setDebug(true);
             playerHandTable.setDebug(true);
@@ -128,7 +128,7 @@ public class PlayerUI {
             button.addListener(playerHandListener(index));
             playerHandTable.add(button).size(cardWidth, cardHeight);
             handButtons.add(button);
-            if (debug.debugGUI()) { button.debug(); }
+            if (Debug.debugGUI()) { button.debug(); }
         }
         if (hand.size() == 0) { playerHandTable.padTop(cardHeight * 3); }
         else if (hand.size() < 4) { playerHandTable.padTop(cardHeight * 2); }
@@ -200,7 +200,7 @@ public class PlayerUI {
                 .left()
                 .bottom();
         registryButtons.add(button);
-        if (debug.debugGUI()) { button.debug(); }
+        if (Debug.debugGUI()) { button.debug(); }
     }
 
     /**
@@ -244,7 +244,7 @@ public class PlayerUI {
             Button button = new ImageButton(makeCard(lockedRegistry.getValue()));
             button.setSize(cardWidth, cardHeight);
             lockedRegistryTable.add(button).size(cardWidth, cardHeight).right();
-            if (debug.debugGUI()) { button.debug(); }
+            if (Debug.debugGUI()) { button.debug(); }
         }
     }
 
@@ -303,7 +303,7 @@ public class PlayerUI {
     private Button addRunButton() {
         Button runButton = new TextButton("Run", app.getGameSkin());
         runButton.addListener(runButtonListener(false));
-        if (debug.debugGUI()) { runButton.debug(); }
+        if (Debug.debugGUI()) { runButton.debug(); }
         return runButton;
     }
 
@@ -315,7 +315,7 @@ public class PlayerUI {
     private Button addPowerDownButton() {
         Button powerDownButton = new TextButton("Power Down", app.getGameSkin());
         powerDownButton.addListener(runButtonListener(true));
-        if (debug.debugGUI()) { powerDownButton.debug(); }
+        if (Debug.debugGUI()) { powerDownButton.debug(); }
         return powerDownButton;
     }
 

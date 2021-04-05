@@ -1,6 +1,12 @@
 package roborally.gui.screens.menu;
 
-import roborally.debug.debug;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.SelectBox;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.TextField;
+import roborally.debug.Debug;
 import roborally.gui.RoboRallyApp;
 
 import com.badlogic.gdx.Gdx;
@@ -10,7 +16,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.*;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
@@ -27,7 +32,6 @@ public abstract class MenuScreenAdapter implements MenuScreen {
     protected final Table headingTable;
     protected final Table buttonTable;
     protected Label heading;
-
     protected final int widgetWidth = Gdx.graphics.getWidth()/10;
 
     public MenuScreenAdapter(RoboRallyApp app) {
@@ -49,7 +53,7 @@ public abstract class MenuScreenAdapter implements MenuScreen {
         buttonTable.padTop(getCenterHeight()/16);
         stageTable.add(buttonTable).row();
 
-        if (debug.debugGUI()) {
+        if (Debug.debugGUI()) {
             stageTable.setDebug(true);
             titleTable.setDebug(true);
             headingTable.setDebug(true);
@@ -92,7 +96,8 @@ public abstract class MenuScreenAdapter implements MenuScreen {
         buttonTable.add(label);
         return label;
     }
-    
+
+    @Override
     public void addButton(String buttonText, boolean newRow, InputListener listener) {
         TextButton button = new TextButton(buttonText, app.getMenuSkin());
         button.addListener(listener);
@@ -161,15 +166,19 @@ public abstract class MenuScreenAdapter implements MenuScreen {
     public void dispose() { stage.dispose(); }
 
     @Override
-    public void pause() {}
+    public void pause() {
+        // No implementation necessary.
+    }
 
     @Override
-    public void resume() {}
+    public void resume() {
+        // No implementation necessary.
+    }
 
     @Override
-    public void hide() {}
-
-
+    public void hide() {
+        // No implementation necessary.
+    }
 
 }
 

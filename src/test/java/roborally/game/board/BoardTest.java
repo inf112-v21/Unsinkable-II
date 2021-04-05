@@ -18,10 +18,10 @@ import static org.mockito.Mockito.mock;
 @ExtendWith(GdxTestExtension.class)
 public class BoardTest {
 
-    static RoboRallyApp app;
-    TiledMapTileLayer layer;
-    Robot robot;
-    BoardActions ba;
+    private static RoboRallyApp app;
+    private TiledMapTileLayer layer;
+    private Robot robot;
+    private BoardActions ba;
 
     @BeforeAll
     public static void setup() {

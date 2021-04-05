@@ -1,8 +1,6 @@
-package roborally.multiplayerTests;
+package roborally.multiplayer;
 
 import roborally.game.board.Boards;
-import roborally.multiplayer.MultiplayerClient;
-import roborally.multiplayer.MultiplayerHost;
 import roborally.gui.RoboRallyApp;
 import roborally.multiplayer.packets.RequestHandPacket;
 import org.junit.jupiter.api.AfterAll;
@@ -13,13 +11,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class MultiplayerTest {
-    static RoboRallyApp app;
-    static MultiplayerHost host;
-    static MultiplayerClient client;
+    private static MultiplayerHost host;
+    private static MultiplayerClient client;
 
     @BeforeAll
     public static void setup() {
-        app = new RoboRallyApp();
+        RoboRallyApp app = new RoboRallyApp();
         host = new MultiplayerHost(Boards.JUNIT_TEST_MAP);
         client = new MultiplayerClient(app, "localhost");
         try { Thread.sleep(500); }
@@ -30,13 +27,13 @@ public class MultiplayerTest {
     }
 
     @Test
-    public void ClientCanConnectToHost() { assertTrue(client.getClient().isConnected()); }
+    public void clientCanConnectToHost() { assertTrue(client.getClient().isConnected()); }
 
     @Test
-    public void ClientReceivesPacketFromHost() { assertEquals(1, client.getStartPacket().playerID); }
+    public void clientReceivesPacketFromHost() { assertEquals(1, client.getStartPacket().playerID); }
 
     @Test
-    public void ClientReceivesHandFromHost() { assertEquals(9, client.getHand().size()); }
+    public void clientReceivesHandFromHost() { assertEquals(9, client.getHand().size()); }
 
     @AfterAll
     public static void stopServer() { host.getServer().stop(); }

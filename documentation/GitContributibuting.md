@@ -1,10 +1,10 @@
-# Contributing
+## Contributing
 
 For å bidra med kode, følger vi følgende prosedyre:
 
 ### Første steg
 Lag en ny branch basert på master branchen.
-```sh
+```shell
 $ git checkout -b <navn> origin/master
 ```
 
@@ -14,26 +14,26 @@ Nå kan du gjøre arbeidet ditt.
 
 Når du er klar, kan du lage en ny commit.  
 Først legg til eventuelle nye filer, følgende kommando legger til alle filer.
-```sh
+```shell
 $ git add .
 ```
 
 Så lager du en commit:
 
-```sh
+```shell
 $ git commit -m "melding"
 ```
 
 Før du pusher, hent inn nye endringer:
 
-```sh
+```shell
 $ git pull origin master
 ```
 
 Løs eventuelle merge conflicts i intellij.
 
 Så kan du pushe dine endringer, der navnet er navnet på branchen du lagde tidligere.
-```sh
+```shell
 $ git push origin <navn>
 ```
 

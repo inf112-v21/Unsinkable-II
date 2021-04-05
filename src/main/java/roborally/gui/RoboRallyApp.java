@@ -1,6 +1,6 @@
 package roborally.gui;
 
-import roborally.debug.debug;
+import roborally.debug.Debug;
 import roborally.gui.screens.game.PlayerUI;
 import roborally.gui.screens.menu.LoadingScreen;
 import roborally.gui.screens.menu.MenuScreen;
@@ -105,7 +105,7 @@ public class RoboRallyApp extends Game {
             else { break; }
         }
         if (myConnection.isReady()) {
-            if(debug.debugBackend()) { System.out.println("I am player "+myConnection.getStartPacket().playerID); }
+            if(Debug.debugBackend()) { System.out.println("I am player "+myConnection.getStartPacket().playerID); }
             startGame(myConnection.getStartPacket().boardSelection, myConnection.getStartPacket().playerID);
         }
         else { this.setScreen(titleScreen); }

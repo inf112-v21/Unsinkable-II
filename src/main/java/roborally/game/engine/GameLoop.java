@@ -1,6 +1,6 @@
 package roborally.game.engine;
 
-import roborally.debug.debug;
+import roborally.debug.Debug;
 import roborally.game.board.BoardActions;
 import roborally.game.board.Boards;
 import roborally.game.player.IRobot;
@@ -46,7 +46,7 @@ public class GameLoop extends RoboRallyGame {
      */
     public void turn() {
         ++turnNumber;
-        if(debug.debugBackend()) {
+        if(Debug.debugBackend()) {
             System.out.println("\n\n-----Turn: "+ turnNumber +"-----");
             System.out.println("New Turn: Registry: "+myPlayer.getRobot().getRegisters().toString());
             System.out.println("New Turn: Used Registry: "+myPlayer.getRobot().showUsedRegisters());
@@ -70,12 +70,12 @@ public class GameLoop extends RoboRallyGame {
      */
     private void phase() {
         ++phaseNumber;
-        if (debug.debugBackend()) { System.out.println("\n---New Phase---"); }
+        if (Debug.debugBackend()) { System.out.println("\n---New Phase---"); }
         for (IRobot robot : getRobotTurnOrder()) {
             executeProgramCard(robot, robot.getNextRegistry().getValue());
             if (stopGame) { return; }
         }
-        if (debug.debugBackend()) {
+        if (Debug.debugBackend()) {
             System.out.println("Registry: "+myPlayer.getRobot().getRegisters().toString());
             System.out.println("Used Registry: "+myPlayer.getRobot().showUsedRegisters());
             System.out.println("Health: "+myPlayer.getRobot().getHealth());

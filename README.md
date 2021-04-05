@@ -1,5 +1,5 @@
-# Robo Rally - Unsinkable II
-A java implementation of the board game roborally for the INF112 subject at the
+# RoboRally - Unsinkable II
+A java implementation of the board game RoboRally for the INF112 subject at the
 University of Bergen.
 
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/ea05dfd3af3c4795b820313d62efec9f)](https://www.codacy.com/gh/inf112-v21/Unsinkable-II/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=inf112-v21/Unsinkable-II&amp;utm_campaign=Badge_Grade)
@@ -8,7 +8,7 @@ University of Bergen.
 ## Table of Contents
  1. [Overview](#overview)
  2. [Building](#building)
-    1. [Prerequisites](#prerequisites)
+    1. [Prerequisites](#pre-requisites)
     2. [Command line](#command-line)
     3. [Intellij IDEA](#intellij-idea)
     4. [Running](#running)
