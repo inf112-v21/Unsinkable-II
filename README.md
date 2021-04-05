@@ -9,7 +9,6 @@ University of Bergen.
 
 1.  [Overview](#overview)
 
-
 2.  [Building](#building)
     1.  [Prerequisites](#pre-requisites)
     2.  [Command line](#command-line)

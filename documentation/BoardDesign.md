@@ -14,10 +14,11 @@
 3.  LaserWall
 4.  Laser
 5.  Conveyor
+6.  Pusher
 7.  Gear
 8.  Upgrade
 9.  Repair
-10.  Hole
-11.  Flag
-12.  Start
-13.  Board
+10. Hole
+11. Flag
+12. Start
+13. Board
