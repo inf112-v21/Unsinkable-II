@@ -1,4 +1,4 @@
-# RoboRally Board Standard
+# roborally Board Standard
 
 1. Each board is constructed in layers.
 2. Each type of object should only exist in its own layer.

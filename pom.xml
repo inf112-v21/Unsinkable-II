@@ -92,7 +92,7 @@
                             <!-- Specify main class to make jar executable -->
                             <addClasspath>true</addClasspath>
                             <classpathPrefix>lib/</classpathPrefix>
-                            <mainClass>RoboRally.Main</mainClass>
+                            <mainClass>roborally.Main</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
@@ -115,7 +115,7 @@
                 <artifactId>exec-maven-plugin</artifactId>
                 <version>1.2.1</version>
                 <configuration>
-                    <mainClass>RoboRally.Main</mainClass>
+                    <mainClass>roborally.Main</mainClass>
                 </configuration>
             </plugin>
             <plugin>

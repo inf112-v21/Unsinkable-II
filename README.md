@@ -1,5 +1,5 @@
-# RoboRally - Unsinkable II
-A java implementation of the board game RoboRally for the INF112 subject at the
+# roborally - Unsinkable II
+A java implementation of the board game roborally for the INF112 subject at the
 University of Bergen.
 
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/ea05dfd3af3c4795b820313d62efec9f)](https://www.codacy.com/gh/inf112-v21/Unsinkable-II/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=inf112-v21/Unsinkable-II&amp;utm_campaign=Badge_Grade)
@@ -30,7 +30,7 @@ University of Bergen.
       6. [Board Design Protocol](#board-design)
 
 ## Overview
-This project is an approximation of the original version of RoboRally, a tabletop board game,
+This project is an approximation of the original version of roborally, a tabletop board game,
 in Java using libGDX and Tiled game framework and Kryonet for LAN/WAN multiplayer.
 
 ## Building
@@ -55,7 +55,7 @@ one the right side under the Maven tab.
 ### Running
 After a successful build, you can run the jar
 ```
-java -jar RoboRally.jar
+java -jar roborally.jar
 ```
 
 ## Developing
@@ -71,7 +71,7 @@ IDEA.
  - While developing, run the tests from your IDE.
 
 ### How to run:
-Run [Main](src/main/java/RoboRally/Main.java) from an IDE.
+Run [Main](src/main/java/roborally/Main.java) from an IDE.
 
 ### Debugging
 Debugging can be customized by changing values in Debugging.java.
@@ -81,7 +81,7 @@ To enable various debugging levels set the corresponding area to debug to true.
 See [Issues](https://github.com/inf112-v21/Unsinkable-II/issues)
 
 ### Missing Features
-These features are either missing, not fully implemented, or work differently than specified by the RoboRally rulebook.
+These features are either missing, not fully implemented, or work differently than specified by the roborally rulebook.
 
 - Continue power down
 - Robot spawn direction

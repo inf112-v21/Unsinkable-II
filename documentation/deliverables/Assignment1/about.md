@@ -32,7 +32,7 @@ Have worked with web development since 2018. Along with many hobby projects.
 
 ### Jonas
 UiB courses, "KATTIS", and hobby projects.
-Limited experience setting up and managing Linux servers with deployed RoboRally.Game/webapp projects.
+Limited experience setting up and managing Linux servers with deployed roborally.game/webapp projects.
 
 #### Related courses taken:
 - INF 100, 101, 102, 115, 122, 140
