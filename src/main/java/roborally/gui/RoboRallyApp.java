@@ -1,6 +1,6 @@
 package roborally.gui;
 
-import roborally.debug.Debugging;
+import roborally.debug.debug;
 import roborally.gui.screens.game.PlayerUI;
 import roborally.gui.screens.menu.LoadingScreen;
 import roborally.gui.screens.menu.MenuScreen;
@@ -25,7 +25,9 @@ import java.io.IOException;
  * the graphics thread runs and is the anchor when switching between screens.
  */
 public class RoboRallyApp extends Game {
-    private Skin menuSkin, textSkin, gameSkin;
+    private Skin menuSkin;
+    private Skin textSkin;
+    private Skin gameSkin;
     private Stage stage;
     private MenuScreen titleScreen;
     private GameScreen gameScreen;
@@ -103,7 +105,7 @@ public class RoboRallyApp extends Game {
             else { break; }
         }
         if (myConnection.isReady()) {
-            if(Debugging.debugBackend()) { System.out.println("I am player "+myConnection.getStartPacket().playerID); }
+            if(debug.debugBackend()) { System.out.println("I am player "+myConnection.getStartPacket().playerID); }
             startGame(myConnection.getStartPacket().boardSelection, myConnection.getStartPacket().playerID);
         }
         else { this.setScreen(titleScreen); }

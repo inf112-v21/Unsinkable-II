@@ -1,7 +1,7 @@
 package roborally.gui.screens.game;
 
 import roborally.debug.CheatMode;
-import roborally.debug.Debugging;
+import roborally.debug.debug;
 import roborally.gui.RoboRallyApp;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputAdapter;
@@ -52,7 +52,7 @@ public class GameScreen extends InputAdapter implements Screen {
 
         multiplexer = new InputMultiplexer();
         multiplexer.addProcessor(playerUI.getStage());
-        if(Debugging.cheatMode()) { multiplexer.addProcessor(new CheatMode(app)); }
+        if(debug.cheatMode()) { multiplexer.addProcessor(new CheatMode(app)); }
     }
 
     @Override
@@ -85,15 +85,20 @@ public class GameScreen extends InputAdapter implements Screen {
         playerUI.getStage().getCamera().update();
     }
 
+    @Override
+    public void pause() {
+        // No implementation necessary
+    }
 
     @Override
-    public void pause() {}
+    public void resume() {
+        // No implementation necessary
+    }
 
     @Override
-    public void resume() {}
-
-    @Override
-    public void hide() {}
+    public void hide() {
+        // No implementation necessary
+    }
 
     @Override
     public void dispose() {

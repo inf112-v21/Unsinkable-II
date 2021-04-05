@@ -33,7 +33,9 @@ public enum Piece {
             PIECE8
     );
 
-    private final TiledMapTileLayer.Cell cell, diedCell, wonCell;
+    private final TiledMapTileLayer.Cell cell;
+    private final TiledMapTileLayer.Cell diedCell;
+    private final TiledMapTileLayer.Cell wonCell;
 
     Piece(int id) {
         this.cell = new TiledMapTileLayer.Cell();

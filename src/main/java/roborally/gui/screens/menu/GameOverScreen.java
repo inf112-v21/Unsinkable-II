@@ -9,7 +9,7 @@ public class GameOverScreen extends MenuScreenAdapter {
         super(app);
 
         addHeading(result);
-        addButton("Back",true, BackButtonListener());
+        addButton("Back",true, backButtonListener());
     }
 
 }

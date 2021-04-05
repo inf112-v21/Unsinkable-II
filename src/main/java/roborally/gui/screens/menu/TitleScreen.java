@@ -20,8 +20,7 @@ public class TitleScreen extends MenuScreenAdapter {
         addHeading("Select RoboRally Mode. ");
         addButton("Start Game", true, startGameButtonListener());
         addButton("Join Game", true, joinGameButtonListener());
-        addButton("Options", true, OptionsButtonListener());
-        addButton("Quit", true, QuitButtonListener());
+        addButton("Quit", true, quitButtonListener());
     }
 
     /**
@@ -48,17 +47,6 @@ public class TitleScreen extends MenuScreenAdapter {
         };
     }
 
-    /**
-     * Listener that switches the screen to the options menu when the Options button is pressed.
-     *
-     * @return InputListener for the Options button.
-     */
-    public ClickListener OptionsButtonListener() {
-        return new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {  } // TODO: Options Screen
-        };
-    }
 
 }
 

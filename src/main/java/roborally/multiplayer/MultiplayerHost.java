@@ -1,6 +1,6 @@
 package roborally.multiplayer;
 
-import roborally.debug.Debugging;
+import roborally.debug.debug;
 import roborally.game.board.Boards;
 import roborally.game.cards.ProgrammingDeck;
 import roborally.multiplayer.packets.PlayerHandPacket;
@@ -52,7 +52,7 @@ public class MultiplayerHost extends Multiplayer {
             connection.setTimeout(timeout*12);
             connection.setName("Player " + (connections.size() + 1));
             this.connections.add(connection);
-            if (Debugging.debugServer()) { System.out.println("Server: New Connection: " + connection.getRemoteAddressTCP()); }
+            if (debug.debugServer()) { System.out.println("Server: New Connection: " + connection.getRemoteAddressTCP()); }
             startPacket.playerID = connections.size();
             for (Connection con : connections) { con.sendTCP(startPacket); }
         }
@@ -77,7 +77,7 @@ public class MultiplayerHost extends Multiplayer {
         if (transmission instanceof TurnPacket) {
             TurnPacket packet = (TurnPacket) transmission;
             if (packet.getTurn() == turnNumber) { turnPackets.get(turnNumber).add(packet); }
-            if (Debugging.debugServer()) {
+            if (debug.debugServer()) {
                 System.out.println("Server: Turn:"+ turnNumber +" Received turn from "+ connection+" turn "+packet.getTurn()
                         +" currently "+ turnPackets.get(turnNumber).size() +" out of "+ connections.size());
             }
@@ -85,7 +85,7 @@ public class MultiplayerHost extends Multiplayer {
         }
         if (transmission instanceof RequestHandPacket) {
             RequestHandPacket packet = (RequestHandPacket) transmission;
-            if (Debugging.debugServer()) { System.out.println("Server: " + connection + " requested " + packet.getHandSize() + " cards"); }
+            if (debug.debugServer()) { System.out.println("Server: " + connection + " requested " + packet.getHandSize() + " cards"); }
             if (turnNumber == 0) { connection.sendTCP(new PlayerHandPacket(deck.getHand(packet.getHandSize()))); }
             else { handPackets.put(connection, packet.getHandSize()); }
             if (handPackets.size() == connections.size()) { broadcastHandPackets(); } // TODO: Move outside else?
@@ -96,7 +96,7 @@ public class MultiplayerHost extends Multiplayer {
      * Broadcasts every player's game packet to all player connections.
      */
     private void broadcastGamePackets() {
-        if (Debugging.debugServer()) { System.out.println("Server: Broadcasting round packets"); }
+        if (debug.debugServer()) { System.out.println("Server: Broadcasting round packets"); }
         for (Connection connection : connections) {
             for (TurnPacket packet : turnPackets.get(turnNumber)) { connection.sendTCP(packet); }
         }
@@ -107,7 +107,7 @@ public class MultiplayerHost extends Multiplayer {
      * Broadcasts every player's game packet to all player connections.
      */
     private void broadcastHandPackets() {
-        if (Debugging.debugServer()) { System.out.println("Server: Broadcasting hand"); }
+        if (debug.debugServer()) { System.out.println("Server: Broadcasting hand"); }
         deck = new ProgrammingDeck();
         // TODO: Use game packet registers to remove unavailable cards based on the number of cards requested
         //  IE: (5 - requested, if requested < 5.

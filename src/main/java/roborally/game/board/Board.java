@@ -1,6 +1,6 @@
 package roborally.game.board;
 
-import roborally.debug.Debugging;
+import roborally.debug.debug;
 import roborally.gui.RoboRallyApp;
 import roborally.game.Direction;
 import roborally.game.player.IRobot;
@@ -253,7 +253,7 @@ public abstract class Board {
             else {
                 robot.setSpawnLoc(robot.getLoc());
                 robot.touchFlag();
-                if(Debugging.debugBackend()) { System.out.println(robot.getName()+" collected flag "+robot.touchedFlags()); }
+                if(debug.debugBackend()) { System.out.println(robot.getName()+" collected flag "+robot.touchedFlags()); }
             }
         }
     }

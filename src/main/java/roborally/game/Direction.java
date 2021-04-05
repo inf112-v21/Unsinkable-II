@@ -9,9 +9,11 @@ public enum Direction {
     SOUTH(0,-1, 2),
     EAST(1,0, 3);
 
-    public final static Direction[] DIRECTIONS = new Direction[] {NORTH, WEST, SOUTH, EAST};
+    public static final Direction[] DIRECTIONS = new Direction[] {NORTH, WEST, SOUTH, EAST};
 
-    private final int x, y, direction;
+    private final int x;
+    private final int y;
+    private final int  direction;
 
     Direction(int x, int y, int direction){
         this.x = x;

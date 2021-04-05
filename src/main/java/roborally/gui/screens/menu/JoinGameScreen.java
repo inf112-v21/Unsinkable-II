@@ -20,8 +20,8 @@ public class JoinGameScreen extends MenuScreenAdapter {
         this.hostIP = "";
         this.ipField = addTextField(hostIP, true);
         ipField.setMessageText("Enter Host IP");
-        addButton("Join", true, JoinButtonListener());
-        addButton("Back", true, BackButtonListener());
+        addButton("Join", true, joinButtonListener());
+        addButton("Back", true, backButtonListener());
     }
 
     /**
@@ -37,7 +37,7 @@ public class JoinGameScreen extends MenuScreenAdapter {
      *
      * @return InputListener for the join button
      */
-    public ClickListener JoinButtonListener() { return new ClickListener() {
+    public ClickListener joinButtonListener() { return new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) { joinPressed(); }
         }; }

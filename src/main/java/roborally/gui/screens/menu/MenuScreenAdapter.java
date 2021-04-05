@@ -1,6 +1,6 @@
 package roborally.gui.screens.menu;
 
-import roborally.debug.Debugging;
+import roborally.debug.debug;
 import roborally.gui.RoboRallyApp;
 
 import com.badlogic.gdx.Gdx;
@@ -49,7 +49,7 @@ public abstract class MenuScreenAdapter implements MenuScreen {
         buttonTable.padTop(getCenterHeight()/16);
         stageTable.add(buttonTable).row();
 
-        if (Debugging.debugGUI()) {
+        if (debug.debugGUI()) {
             stageTable.setDebug(true);
             titleTable.setDebug(true);
             headingTable.setDebug(true);
@@ -119,7 +119,7 @@ public abstract class MenuScreenAdapter implements MenuScreen {
     }
 
     @Override
-    public ClickListener BackButtonListener() {
+    public ClickListener backButtonListener() {
         return new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) { app.setScreen(app.getTitleScreen()); }
@@ -127,7 +127,7 @@ public abstract class MenuScreenAdapter implements MenuScreen {
     }
 
     @Override
-    public ClickListener QuitButtonListener() {
+    public ClickListener quitButtonListener() {
         return new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) { Gdx.app.exit(); }

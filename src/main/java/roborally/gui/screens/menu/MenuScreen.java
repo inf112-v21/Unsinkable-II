@@ -67,14 +67,14 @@ public interface MenuScreen extends Screen {
      *
      * @return InputListener for a Back button.
      */
-    ClickListener BackButtonListener();
+    ClickListener backButtonListener();
 
     /**
      * Listener that exits the program when the Quit button is pressed.
      *
      * @return InputListener for a Quit button.
      */
-    ClickListener QuitButtonListener();
+    ClickListener quitButtonListener();
 
     /**
      * @return midpoint of menu screen width.

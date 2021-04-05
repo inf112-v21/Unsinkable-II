@@ -3,7 +3,7 @@ package roborally.debug;
 /**
  * Tool for setting debug modes to enable different tools for debugging.
  */
-public class Debugging {
+public class debug {
     private static final boolean CHEAT_MODE = false;
     private static final boolean DEBUG_GUI = false;
     private static final boolean DEBUG_BACKEND = false;
