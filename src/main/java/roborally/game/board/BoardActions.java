@@ -43,9 +43,7 @@ public class BoardActions extends Board {
         Vector2 nextLoc = getNextLoc(robot.getLoc(), dir);
         if (occupied(nextLoc)) {
             for (IRobot otherRobot : app.getGame().getRobots()) {
-                if (otherRobot.getLoc().equals(nextLoc)) {
-                    if (!moveRobot(otherRobot, dir,true)) { return false; }
-                }
+                if (otherRobot.getLoc().equals(nextLoc) && !moveRobot(otherRobot, dir,true)) { return false; }
             }
         }
         move(robot, dir);
@@ -234,7 +232,7 @@ public class BoardActions extends Board {
             else { robotLocs.add(robot.getLoc()); } //IRobots that aren't being moved by belt.
         }
         for (IRobot robot : newRobotLocs.keySet()) {
-            if (robotLocs.contains(newRobotLocs.get(robot))) { robotsOnBelts.remove(robot); } //Does belt move robot into a stationary robot?
+            if (robotLocs.contains(newRobotLocs.get(robot))) { robotsOnBelts.remove(robot); }
         }
         for (IRobot robot : robotsOnBelts.keySet()) { move(robot, robotsOnBelts.get(robot)); }
         for (IRobot robot : robots) {

@@ -70,6 +70,9 @@ public class ProgrammingDeck {
      */
     public int getSize() { return deck.size(); }
 
+    /**
+     * @return the deck of program cards.
+     */
     public Deque<Card> getDeck() { return deck; }
 
 }

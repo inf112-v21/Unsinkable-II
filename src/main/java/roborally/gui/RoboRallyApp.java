@@ -73,7 +73,6 @@ public class RoboRallyApp extends Game {
         catch ( InterruptedException e) { gameThread.interrupt(); }
         catch ( IOException e) { System.err.println("Error shutting down multiplayer."); }
         finally { Gdx.app.exit(); }
-        System.exit(0);
     }
 
     /**

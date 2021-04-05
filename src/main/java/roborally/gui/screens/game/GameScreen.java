@@ -31,12 +31,19 @@ public class GameScreen extends InputAdapter implements Screen {
     public GameScreen(RoboRallyApp app) {
         this.playerUI = new PlayerUI(app);
 
+        float boardWidth = app.getGame().getBoard().getBoardWidth();
+        float boardHeight = app.getGame().getBoard().getBoardHeight();
+        float appWidth =  Gdx.graphics.getWidth();
+        float appHeight = Gdx.graphics.getHeight();
+        float ratio = (boardHeight / boardWidth) * (appWidth / appHeight); // set ratio to 2 to horizontally stretch board to middle.
+
         camera = new OrthographicCamera();
-        camera.setToOrtho(false, app.getGame().getBoard().getBoardWidth() * 2f, app.getGame().getBoard().getBoardHeight());
-        camera.position.x = app.getGame().getBoard().getBoardWidth();
-        camera.position.y = app.getGame().getBoard().getBoardHeight()/2f;
+        camera.setToOrtho(false, app.getGame().getBoard().getBoardWidth() * ratio, app.getGame().getBoard().getBoardHeight());
+        //camera.position.x = app.getGame().getBoard().getBoardWidth(); // Horizontal board placement
+        //camera.position.y = app.getGame().getBoard().getBoardHeight() * 0.5f; // Vertical board placement
         camera.update();
-        renderer = new OrthogonalTiledMapRenderer(app.getGame().getBoard().getBoard(),  1f/RoboRallyApp.TILE_SIZE);
+
+        renderer = new OrthogonalTiledMapRenderer(app.getGame().getBoard().getBoard(), 1f/RoboRallyApp.TILE_SIZE);
         renderer.setView(camera);
 
         backgroundSprite = new Sprite(new Texture(app.gameBackground));
@@ -45,7 +52,6 @@ public class GameScreen extends InputAdapter implements Screen {
         multiplexer = new InputMultiplexer();
         multiplexer.addProcessor(playerUI.getStage());
         if(Debugging.cheatMode()) { multiplexer.addProcessor(new CheatMode(app)); }
-
     }
 
     @Override

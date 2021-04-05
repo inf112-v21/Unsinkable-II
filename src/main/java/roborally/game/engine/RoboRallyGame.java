@@ -131,7 +131,7 @@ abstract class RoboRallyGame implements RoboRally {
         stopGame();
         Gdx.app.postRunnable(() -> {
             app.getScreen().dispose();
-            app.setScreen(new GameOverScreen(app, robot.getName()));
+            app.setScreen(new GameOverScreen(app, robot.getName() + " Wins!"));
         });
 
     }

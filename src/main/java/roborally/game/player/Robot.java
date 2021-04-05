@@ -23,7 +23,7 @@ public class Robot implements IRobot {
     private int damage;
     private int lives;
     private int flag;
-    private String name;
+    private final String name;
 
     public Robot(int id) {
         this.spawn = new Vector2();
@@ -37,9 +37,8 @@ public class Robot implements IRobot {
         this.damage = 0;
         this.lives = 3;
         this.flag = 0;
-        this.name = "Robot";
+        this.name = "Robot "+id;
         this.piece = Piece.getPieceByID(id);
-        this.name += id;
     }
 
     @Override

@@ -92,8 +92,7 @@ public abstract class MenuScreenAdapter implements MenuScreen {
         buttonTable.add(label);
         return label;
     }
-
-    @Override
+    
     public void addButton(String buttonText, boolean newRow, InputListener listener) {
         TextButton button = new TextButton(buttonText, app.getMenuSkin());
         button.addListener(listener);
@@ -131,7 +130,7 @@ public abstract class MenuScreenAdapter implements MenuScreen {
     public ClickListener QuitButtonListener() {
         return new ClickListener() {
             @Override
-            public void clicked(InputEvent event, float x, float y) { Gdx.app.exit(); System.exit(0); }
+            public void clicked(InputEvent event, float x, float y) { Gdx.app.exit(); }
         };
     }
 

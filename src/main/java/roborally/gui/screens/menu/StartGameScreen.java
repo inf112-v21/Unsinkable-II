@@ -24,10 +24,8 @@ public class StartGameScreen extends MenuScreenAdapter {
         super(app);
 
         addHeading("Start New Game");
-        String ip = getIP();
+        Label ipLabel = addLabel(getIP(), true);
         this.box = addSelectBox(Boards.ALL_BOARDS, true);
-        Label ipLabel = addLabel(ip, true);
-        ipLabel.setColor(Color.LIGHT_GRAY);
         addButton("Start RoboRally", true, hostGameListener());
         addButton("Back", true, BackButtonListener());
     }
