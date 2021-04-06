@@ -19,8 +19,8 @@ Gruppen har tatt lærdom av Sprint1 og lagt til flere tester. Det har også blit
 fordeling i commit. Deler av gruppen har vært opptatt med tildels tunge obligatoriske oppgaver i andre fag. 
 Samt hva som er forklart tidligere i dette dokument.
 
-
-** Multiplayer **
-Host - client build. Allt i spillet skal kalkuleres fra hver maskin, men Host skal tildele tilganger. Denne løsningen kommer etter samtale med gruppeleder.
-En server løsning virkler mer fristende.
-hs io forhold til angrepspunkt på prosjektet.
+###Multiplayer
+**P2P løsning:**
+-   Alt i spillet skal kalkuleres fra hver maskin. 
+-   Denne løsningen kommer etter samtale med gruppeleder.
+-   En Host/Server - Client løsning virkler mer fristende.

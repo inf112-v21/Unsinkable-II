@@ -3,7 +3,7 @@
 ## Deloppgave 1: Organiser teamet
 Teamet har fått navnet Unsinkable-II.
 
-De ulike medlemmene har dokumentert sin kompetanse i [The dev Team](./documentation/deliverables/Assignment1/about.md). 
+De ulike medlemmene har dokumentert sin kompetanse i [The dev Team](/documentation/deliverables/Assignment1/about.md). 
 
 Temet har fordelt seg i følgende roller:
 
@@ -38,21 +38,19 @@ Vi har valgt å bruke denne rollen fordi det kan være vanskelig å sammenfatte 
 en god måte om alle i gruppen velger å gjøre det alene.
 Projectboard er ferdigstilt på GitHub.
 
-
 ## Deloppgave 2: Velg og tilpass en prosess for laget
 ### Metodikk
 En tilnærming av SCRUM, men med en flytende overgang mot KANBAN. SCRUM virker som en logisk metodikk da man kan legge 
 sprinter opp mot obligatoriske innleveringer. Gruppen dokumenterer hvilken deler av SCRUM som blir brukt, og ikke brukt.
 
- 
-#### Hva vi ønsker å ta med fra SCRUM sin modell:
+#### Hva vi ønsker å ta med fra SCRUM sin modell
 **Sprint:** Det å ha sprint inn mot obliger virker som en logisk modell å følge fremover.
 
 **Parprogrammering:** Ingen av oss er kjent med parprogrammering, så vi ønsker å lære mer om dette konseptet i praksis.
 
 **Struktur:** Strukturen som SCRUM tilbyr virker veldig appellerende for gruppen.
 
-#### Hva vi ønsker å se bort fra utifra SCRUM sin modell:
+#### Hva vi ønsker å se bort fra utifra SCRUM sin modell
 **Rollemodell:** Vi følger ikke rollemodellen, og har designet vår egen. Dette er grunnet i at vi har såpass få 
 medlemmer i teamet, og at vi liker å ha presist definerte roller.
 
@@ -79,30 +77,29 @@ Gruppen er lite kjent med denne arbeidsprosessen, men stiller seg positivt til �
 denne formen for utvikling kan bringe.
 
 ## Deloppgave 3: Få oversikt over forventet produkt
-#### Hva er det overordnede målet for applikasjonen?
-- Applikasjonen skal være et spillbart spill. Med dette menes at spillet skal følge fastsatte regler.
-- Det må være mulig å vinne, og tape spillet. Det skal videre være mulig å kjøre spillet på OSX, Windows, og Linux. 
-- Det er også satt krav om støtte for flere spillere samtidig.
+### Hva er det overordnede målet for applikasjonen
+-   Applikasjonen skal være et spillbart spill. Med dette menes at spillet skal følge fastsatte regler.
+-   Det må være mulig å vinne, og tape spillet. Det skal videre være mulig å kjøre spillet på OSX, Windows, og Linux. 
+-   Det er også satt krav om støtte for flere spillere samtidig.
 
 ## Deloppgave 4: Kode
-**Det vi har implementert så langt i henhold til oppgaven:**
 
-1. Vise et spillebrett
-2. Vise brikke på spillebrett
-3. Flytte brikke (vha piltaster eller wasd)
-4. Robot besøker flagg
-5. Robot vinner ved å besøke flagg
+###Det vi har implementert så langt i henhold til oppgaven
+1.  Vise et spillebrett
+2.  Vise brikke på spillebrett
+3.  Flytte brikke (vha piltaster eller wasd)
+4.  Robot besøker flagg
+5.  Robot vinner ved å besøke flagg
 
 **I tillegg har vi lagt til funksjon for:**
-- Robot kan falle ned i hull
-- Robot kan ikke flytte seg utenfor kart
+-   Robot kan falle ned i hull
+-   Robot kan ikke flytte seg utenfor kart
 
-**Testing:**
-
+###Testing
 Disse testene er gjort manuelt, da frontend er veldig vanskelig å teste. Dette er gjort med innbygd funksjon i IDE
 og breakpoints. Vi tenker å bevege oss over i JUnit tester når vi kommer til forretningsregler senere i prosjektet.
-- Det er testet at robot beveger seg ved bruk av piltaster.
-- Det er testet at robot vinner, nytt ikon, når den treffer et flagg.
-- Det er testet at robot dør, nytt ikon, når den treffer et hull.
-- Det er testet at robot ikke kan bevege seg utenfor kart.
-- Spillet kjører fra IDE i Windows, Mac, og Linux.
+-   Det er testet at robot beveger seg ved bruk av piltaster.
+-   Det er testet at robot vinner, nytt ikon, når den treffer et flagg.
+-   Det er testet at robot dør, nytt ikon, når den treffer et hull.
+-   Det er testet at robot ikke kan bevege seg utenfor kart.
+-   Spillet kjører fra IDE i Windows, Mac, og Linux.
