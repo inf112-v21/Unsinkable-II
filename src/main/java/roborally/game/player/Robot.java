@@ -64,7 +64,6 @@ public class Robot implements IRobot {
             damage = 2;
             setLoc(getSpawnLoc());
             setDirection(Direction.NORTH);
-            wipeRegisters();
             destroyed = false;
             if(Debug.debugBackend()) { System.out.println(this.name +" was scrapped and "+ lives +" replacements remain."); }
         }
