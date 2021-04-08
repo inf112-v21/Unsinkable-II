@@ -110,7 +110,17 @@ public enum TileID {
     LASER_WALL_DOUBLE_S(87),
     LASER_WALL_DOUBLE_W(93),
     LASER_WALL_DOUBLE_N(94),
-    LASER_WALL_DOUBLE_E(95);
+    LASER_WALL_DOUBLE_E(95),
+
+    //Pushers
+    PUSHER_EVEN_S(1), //Activate in register-face  2 and 4
+    PUSHER_EVEN_W(2), //Activate in register-face 2 and 4
+    PUSHER_ODD_N(3), //Activate in register-face 1, 3 and 5
+    PUSHER_EVEN_E(4), //Activate in register-face 2 and 4
+    PUSHER_ODD_S(9), //Activate in register-face 1, 3 and 5
+    PUSHER_ODD_W(10), //Activate in register-face 1, 3 and 5
+    PUSHER_EVEN_N(11), //Activate in register-face 2 and 4
+    PUSHER_ODD_E(12); //Activate in register-face 1, 3 and 5
 
 
     public static final List<TileID> START_POSITIONS = List.of(
@@ -256,6 +266,19 @@ public enum TileID {
             BELT_FAST_E_TO_S.getId()
     );
 
+    public static final Set<Integer> PUSHER_EVEN = Set.of(
+            PUSHER_EVEN_E.getId(),
+            PUSHER_EVEN_W.getId(),
+            PUSHER_EVEN_N.getId(),
+            PUSHER_EVEN_S.getId()
+    );
+
+    public static final Set<Integer> PUSHER_ODD = Set.of(
+            PUSHER_ODD_E.getId(),
+            PUSHER_ODD_W.getId(),
+            PUSHER_ODD_N.getId(),
+            PUSHER_ODD_S.getId()
+    );
 
     private final int id;
 
