@@ -44,6 +44,8 @@ public abstract class Board {
     protected final Set<Vector2> westFastBelts;
     protected final Set<Vector2> southFastBelts;
     protected final Set<Vector2> eastFastBelts;
+    private final Set<Vector2> evenPushers;
+    private final Set<Vector2> oddPushers;
     protected final TiledMapTileLayer boardLayer;
     protected final TiledMapTileLayer playerLayer;
     protected final TiledMapTileLayer startLayer;
@@ -56,9 +58,11 @@ public abstract class Board {
     protected final TiledMapTileLayer laserLayer;
     protected final TiledMapTileLayer conveyorLayer;
     protected final TiledMapTileLayer gearLayer;
+    protected final TiledMapTileLayer pusherLayer;
     protected final TiledMapTileLayer.Cell verticalLaser;
     protected final TiledMapTileLayer.Cell horizontalLaser;
     protected final TiledMapTileLayer.Cell crossedLaser;
+
 
     public Board(RoboRallyApp app, Boards gameBoard) {
         this.app = app;
@@ -76,6 +80,7 @@ public abstract class Board {
         this.upgradeLayer = (TiledMapTileLayer) board.getLayers().get("Upgrade");
         this.laserWallLayer = (TiledMapTileLayer) board.getLayers().get("LaserWall");
         this.wallLayer = (TiledMapTileLayer) board.getLayers().get("Wall");
+        this.pusherLayer = (TiledMapTileLayer) board.getLayers().get("Pusher");
 
         this.verticalLaser = new TiledMapTileLayer.Cell();
         this.verticalLaser.setTile(board.getTileSets().getTileSet(0).getTile(TileID.LASER_VERTICAL.getId()));
@@ -116,6 +121,10 @@ public abstract class Board {
         this.leftGears = new HashSet<>();
         this.rightGears = new HashSet<>();
         findGears();
+
+        this.evenPushers = new HashSet<>();
+        this.oddPushers = new HashSet<>();
+        findPushers();
     }
 
     /**
@@ -205,6 +214,13 @@ public abstract class Board {
             int gearID = gearLayer.getCell((int) gear.x, (int) gear.y).getTile().getId();
             if (gearID == TileID.GEAR_LEFT.getId()) { leftGears.add(gear); }
             if (gearID == TileID.GEAR_RIGHT.getId()) { rightGears.add(gear); }
+        }
+    }
+
+    private void findPushers() {
+        for (Vector2 pusher : findAllLayerTiles(pusherLayer)) {
+            if (TileID.PUSHER_EVEN.contains(pusher)) { evenPushers.add(pusher); }
+            else if (TileID.PUSHER_ODD.contains(pusher)) { oddPushers.add(pusher); }
         }
     }
 
