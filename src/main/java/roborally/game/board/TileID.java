@@ -180,7 +180,7 @@ public enum TileID {
             BELT_N.getId(),
             BELT_N_E_TURN_L.getId(),
             BELT_N_W_TURN_R.getId(),
-            BELT_N_W_TURN_R_E_TURN_L.getId(),
+            BELT_N_W_TURN_R_E_TURN_L.getId()
     );
 
     public static final Set<Integer> BELTS_SOUTH = Set.of(
