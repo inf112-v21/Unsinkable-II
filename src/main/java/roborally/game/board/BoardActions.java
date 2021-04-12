@@ -64,10 +64,8 @@ public class BoardActions extends Board {
      */
     public boolean checkStep(IRobot robot) {
         if (!inBounds(robot.getLoc()) || inHole(robot)) {
+            robot.setDestroyed(false);
             removeRobot(robot);
-            robot.setDestroyed();
-            killRobot(robot);
-            putRobot(robot);
             return false;
         }
         return true;
@@ -148,17 +146,6 @@ public class BoardActions extends Board {
     }
 
     /**
-     * Adds a visual representation of the dead robot to the game board.
-     *
-     * @param robot to be added.
-     */
-    public void killRobot(IRobot robot) {
-        removeRobot(robot);
-        robot.getCell().setRotation(robot.getDirection().getDirection());
-        setPlayerLayerCell(robot.getLoc(), robot.getPiece().getDiedCell());
-    }
-
-    /**
      * Sets the location in the player layer to the cell.
      *
      * @param loc the location to change
@@ -167,8 +154,6 @@ public class BoardActions extends Board {
     private void setPlayerLayerCell(Vector2 loc, TiledMapTileLayer.Cell cell) {
         playerLayer.setCell((int) loc.x, (int) loc.y, cell);
     }
-
-
 
     /**
      * Rotates all gears.
@@ -191,7 +176,7 @@ public class BoardActions extends Board {
      * @param robots the list of robots.
      */
     public void moveFastBelts(List<IRobot> robots) {
-        resolveMovingBelts(robots, northFastBelts, westFastBelts, southFastBelts, eastFastBelts);
+        resolveMovingBelts(robots, northFastBelts, westFastBelts, southFastBelts, eastFastBelts, leftTurnFastBelts, rightTurnFastBelts);
         try { Thread.sleep(250); }
         catch (InterruptedException e) { System.err.println("Sleep error after fast belt movement."); }
     }
@@ -203,41 +188,45 @@ public class BoardActions extends Board {
      * @param robots the list of robots.
      */
     public void moveAllBelts(List<IRobot> robots) {
-        resolveMovingBelts(robots, northBelts, westBelts, southBelts, eastBelts);
+        resolveMovingBelts(robots, northBelts, westBelts, southBelts, eastBelts, leftTurnBelts, rightTurnBelts);
         try { Thread.sleep(250); }
         catch (InterruptedException e) { System.err.println("Sleep error after belt movement."); }
     }
 
-    private void resolveMovingBelts(List<IRobot> robots, Set<Vector2> northBelts, Set<Vector2> westBelts, Set<Vector2> southBelts, Set<Vector2> eastBelts) {
-        Map<IRobot, Vector2> newRobotLocs = new HashMap<>();
-        Map<IRobot, Direction> robotsOnBelts = new HashMap<>();
-        Set<Vector2> robotLocs = new HashSet<>();
+    private void resolveMovingBelts(List<IRobot> robots, Set<Vector2> northBelts, Set<Vector2> westBelts, Set<Vector2> southBelts,
+                                    Set<Vector2> eastBelts, Set<Vector2> leftBelts, Set<Vector2> rightBelts) {
+
+        Map<IRobot, Vector2> robotsMovingTo = new HashMap<>();
+        Map<IRobot, Direction> robotsMovingOnBelt = new HashMap<>();
+        Set<Vector2> stationaryRobots = new HashSet<>();
         for (IRobot robot : robots) {
             if (northBelts.contains(robot.getLoc()) && canGo(robot.getLoc(), Direction.NORTH)) {
-                newRobotLocs.put(robot, getNextLoc(robot.getLoc(), Direction.NORTH));
-                robotsOnBelts.put(robot, Direction.NORTH);
+                robotsMovingTo.put(robot, getNextLoc(robot.getLoc(), Direction.NORTH));
+                robotsMovingOnBelt.put(robot, Direction.NORTH);
             }
             else if (westBelts.contains(robot.getLoc()) && canGo(robot.getLoc(), Direction.WEST)) {
-                newRobotLocs.put(robot, getNextLoc(robot.getLoc(), Direction.WEST));
-                robotsOnBelts.put(robot, Direction.WEST);
+                robotsMovingTo.put(robot, getNextLoc(robot.getLoc(), Direction.WEST));
+                robotsMovingOnBelt.put(robot, Direction.WEST);
             }
             else if (southBelts.contains(robot.getLoc()) && canGo(robot.getLoc(), Direction.SOUTH)) {
-                newRobotLocs.put(robot, getNextLoc(robot.getLoc(), Direction.SOUTH));
-                robotsOnBelts.put(robot, Direction.SOUTH);
+                robotsMovingTo.put(robot, getNextLoc(robot.getLoc(), Direction.SOUTH));
+                robotsMovingOnBelt.put(robot, Direction.SOUTH);
             }
             else if (eastBelts.contains(robot.getLoc()) && canGo(robot.getLoc(), Direction.EAST)) {
-                newRobotLocs.put(robot, getNextLoc(robot.getLoc(), Direction.EAST));
-                robotsOnBelts.put(robot, Direction.EAST);
+                robotsMovingTo.put(robot, getNextLoc(robot.getLoc(), Direction.EAST));
+                robotsMovingOnBelt.put(robot, Direction.EAST);
             }
-            else { robotLocs.add(robot.getLoc()); } //IRobots that aren't being moved by belt.
+            else { stationaryRobots.add(robot.getLoc()); }
         }
-        for (IRobot robot : newRobotLocs.keySet()) {
-            if (robotLocs.contains(newRobotLocs.get(robot))) { robotsOnBelts.remove(robot); }
+        for (IRobot robot : robotsMovingOnBelt.keySet()) {
+            if (stationaryRobots.contains(robotsMovingTo.get(robot))) {
+                stationaryRobots.add(robot.getLoc());
+            }
         }
-        for (IRobot robot : robotsOnBelts.keySet()) { move(robot, robotsOnBelts.get(robot)); }
-        for (IRobot robot : robots) {
-            if (leftTurnFastBelts.contains(robot.getLoc())) { rotateRobot(robot, ProgramCard.TURN_LEFT);}
-            else if (rightTurnFastBelts.contains(robot.getLoc())) { rotateRobot(robot, ProgramCard.TURN_RIGHT);}
+        for (IRobot robot : robotsMovingOnBelt.keySet()) {
+            move(robot, robotsMovingOnBelt.get(robot));
+            if (leftBelts.contains(robot.getLoc())) { rotateRobot(robot, ProgramCard.TURN_LEFT);}
+            else if (rightBelts.contains(robot.getLoc())) { rotateRobot(robot, ProgramCard.TURN_RIGHT);}
         }
     }
 
@@ -370,7 +359,6 @@ public class BoardActions extends Board {
             if (robot.isPoweredDown()) { robot.powerUp(); } // TODO: "Continue power down?" GUI dialogue.
             if (robot.powerDownAnnounced()) { robot.powerDown(); }
         }
-
     }
 
     /**

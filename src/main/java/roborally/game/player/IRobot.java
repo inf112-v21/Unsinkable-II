@@ -117,16 +117,6 @@ public interface IRobot{
     TiledMapTileLayer.Cell getCell();
 
     /**
-     * @return robot died cell.
-     */
-    TiledMapTileLayer.Cell getDiedCell();
-
-    /**
-     * @return robot won cell.
-     */
-    TiledMapTileLayer.Cell getWonCell();
-
-    /**
      * @return the robot piece.
      */
     Piece getPiece();
@@ -160,12 +150,14 @@ public interface IRobot{
     /**
      * Marks the current robot as destroyed.
      */
-    void setDestroyed();
+    void setDestroyed(boolean bodyRemains);
 
     /**
      * Removes one life from robot and resets damage.
      */
     void killRobot();
+
+    boolean isPhasedOut();
 
     /**
      * @return the number of flags successfully touched.

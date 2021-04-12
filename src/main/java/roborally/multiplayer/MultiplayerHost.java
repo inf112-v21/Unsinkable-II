@@ -103,6 +103,7 @@ public class MultiplayerHost extends Multiplayer {
         turnPackets.add(new ArrayList<>());
         ++turnNumber;
     }
+
     /**
      * Broadcasts every player's game packet to all player connections.
      */

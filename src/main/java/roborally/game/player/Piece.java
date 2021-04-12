@@ -69,6 +69,6 @@ public enum Piece {
     /**
      * @return graphical representation of the piece as a winner.
      */
-    public TiledMapTileLayer.Cell getWonCell() { return this.wonCell; }
+    public TiledMapTileLayer.Cell getPowerDownCell() { return this.wonCell; }
 }
 
