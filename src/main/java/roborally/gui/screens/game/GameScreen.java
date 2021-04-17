@@ -35,7 +35,6 @@ public class GameScreen extends InputAdapter implements Screen {
         float appHeight = Gdx.graphics.getHeight();
         float ratio = (boardHeight / boardWidth) * (appWidth / appHeight); // set ratio to 2 to stretch tile board to middle.
 
-        this.playerUI = new PlayerUI(app);
 
         camera = new OrthographicCamera();
         camera.setToOrtho(false, app.getGame().getBoard().getBoardWidth() * ratio, app.getGame().getBoard().getBoardHeight());
@@ -43,6 +42,8 @@ public class GameScreen extends InputAdapter implements Screen {
         camera.position.y = app.getGame().getBoard().getBoardHeight() * 0.5f; // Vertical board placement
         camera.zoom = 1f; // 1 is default and off.
         camera.update();
+
+        this.playerUI = new PlayerUI(app, camera);
 
         renderer = new OrthogonalTiledMapRenderer(app.getGame().getBoard().getBoard(), 1f/RoboRallyApp.TILE_SIZE);
         renderer.setView(camera);
@@ -72,16 +73,23 @@ public class GameScreen extends InputAdapter implements Screen {
         // Render the board
         renderer.getBatch().setProjectionMatrix(camera.combined);
         renderer.render();
-
         // Draw the UI
         renderer.getBatch().setProjectionMatrix(playerUI.getStage().getCamera().combined);
         playerUI.getStage().act(delta);
+        playerUI.getStage().getViewport().apply();
         playerUI.getStage().draw();
+
+        // update overlay
+        playerUI.playerOverlay.updatePosition();
+        playerUI.playerOverlay.stage.act(delta);
+        playerUI.playerOverlay.stage.getViewport().apply();
+        playerUI.playerOverlay.stage.draw();
     }
 
     @Override
     public void resize(int width, int height) {
         playerUI.getStage().getViewport().update(width, height, true);
+        playerUI.playerOverlay.stage.getViewport().update(width, height);
         playerUI.getStage().getCamera().update();
     }
 

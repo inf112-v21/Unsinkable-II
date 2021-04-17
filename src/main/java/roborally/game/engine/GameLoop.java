@@ -72,7 +72,11 @@ public class GameLoop extends RoboRallyGame {
         ++phaseNumber;
         if (Debug.debugBackend()) { System.out.println("\n---New Phase---"); }
         for (IRobot robot : getRobotTurnOrder()) {
-            executeProgramCard(robot, robot.getNextRegistry().getValue());
+            executeProgramCard(
+                    robot,
+                    robot.getNextRegistry().getValue(),
+                    () -> app.getUI().playerOverlay.updateBars()
+            );
             if (stopGame) { return; }
         }
         if (Debug.debugBackend()) {

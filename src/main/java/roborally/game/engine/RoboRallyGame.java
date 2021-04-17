@@ -13,6 +13,7 @@ import roborally.gui.RoboRallyApp;
 import com.badlogic.gdx.Gdx;
 
 import java.util.*;
+import java.util.function.Consumer;
 
 /**
  * The RoboRally game logic
@@ -35,12 +36,13 @@ abstract class RoboRallyGame implements RoboRally {
      * @param robot the robot executing the program card.
      * @param card the program card containing the program instructions for the robot to execute.
      */
-    protected void executeProgramCard(IRobot robot, ProgramCard card) {
+    protected void executeProgramCard(IRobot robot, ProgramCard card, Runnable updateOverlay) {
         if(card.getSteps() > 0) {
             boolean moved = board.moveRobot(robot, robot.getDirection(),false);
+            updateOverlay.run();
             sleep(250);
-            if(moved && card.getSteps() == 3) { executeProgramCard(robot, ProgramCard.MOVE_2); }
-            else if(moved && card.getSteps() == 2) { executeProgramCard(robot, ProgramCard.MOVE_1); }
+            if(moved && card.getSteps() == 3) { executeProgramCard(robot, ProgramCard.MOVE_2, updateOverlay); }
+            else if(moved && card.getSteps() == 2) { executeProgramCard(robot, ProgramCard.MOVE_1, updateOverlay); }
         }
         else if(card.getSteps() == -1) { board.moveRobot(robot, robot.getDirection().rotate(2),false); }
         else { board.rotateRobot(robot, card); }
