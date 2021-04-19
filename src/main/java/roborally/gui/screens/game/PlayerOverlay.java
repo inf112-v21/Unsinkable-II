@@ -48,7 +48,7 @@ public class PlayerOverlay {
     private void createHealthBar(IRobot robot) {
         // using pixmap to create the colors
         // first the background
-        Pixmap pixmap = new Pixmap(100, 10, Pixmap.Format.RGB888);
+        Pixmap pixmap = new Pixmap(100, 5, Pixmap.Format.RGB888);
         pixmap.setColor(Color.RED);
         pixmap.fill();
         TextureRegionDrawable drawable = new TextureRegionDrawable(new TextureRegion(new Texture(pixmap)));
@@ -56,7 +56,14 @@ public class PlayerOverlay {
         ProgressBar.ProgressBarStyle barStyle = new ProgressBar.ProgressBarStyle();
         barStyle.background = drawable;
 
-        Pixmap filledPixmap = new Pixmap(100, 10, Pixmap.Format.RGB888);
+        // the knob is the "edge" of the bar, we don't need this, hence width 0 below (the animation won't work without this)
+        Pixmap knobPixmap = new Pixmap(0, 5, Pixmap.Format.RGB888);
+        knobPixmap.setColor(Color.GREEN);
+        knobPixmap.fill();
+        barStyle.knob = new TextureRegionDrawable(new TextureRegion(new Texture(knobPixmap)));
+        knobPixmap.dispose();
+
+        Pixmap filledPixmap = new Pixmap(100, 5, Pixmap.Format.RGB888);
         filledPixmap.setColor(Color.GREEN);
         filledPixmap.fill();
         // knobBefore is the filled area of the bar
@@ -101,11 +108,11 @@ public class PlayerOverlay {
             if (bar == null) {
                 continue;
             }
-            System.out.println("BoardWidth "+appHeight / boardHeight);
+            int margin = 10;
             bar.setBounds(
-                    ((appWidth/2) - (boardWidth * appHeight / boardHeight)) + robot.getLoc().x * appHeight / boardHeight,
-                    robot.getLoc().y * appHeight / boardHeight,
-                    appHeight / boardHeight, 6);
+                    ((appWidth/2) - (boardWidth * appHeight / boardHeight)) + robot.getLoc().x * appHeight / boardHeight + margin,
+                    (robot.getLoc().y + 1) * appHeight / boardHeight - 5,
+                    appHeight / boardHeight - margin * 2, 5);
         }
     }
 
