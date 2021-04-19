@@ -28,7 +28,6 @@ public class Robot implements IRobot {
     private int damage;
     private int lives;
     private int flag;
-    private int id;
 
 
     public Robot(int id) {
@@ -48,7 +47,6 @@ public class Robot implements IRobot {
         this.name = "Robot "+id;
         this.piece = Piece.getPieceByID(id);
         this.cell = piece.getCell();
-        this.id = id;
     }
 
     @Override
@@ -136,11 +134,6 @@ public class Robot implements IRobot {
         this.powerDown = false;
         registers.clear();
         setNormalCell();
-    }
-
-    @Override
-    public int getID() {
-        return id;
     }
 
     @Override

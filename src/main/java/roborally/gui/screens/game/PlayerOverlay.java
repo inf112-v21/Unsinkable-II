@@ -1,7 +1,6 @@
 package roborally.gui.screens.game;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
@@ -18,24 +17,31 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class PlayerOverlay {
-    private Map<Integer, ProgressBar> healthBars;
-    private final Camera camera;
+    private Map<IRobot, ProgressBar> healthBars;
     private final RoboRallyApp app;
+    private final Stage stage;
+    private final float boardWidth;
+    private final float boardHeight;
+    private final float appWidth;
+    private final float appHeight;
+    private final float ratio;
 
-    public final Stage stage;
-
-    PlayerOverlay(Camera camera, RoboRallyApp app) {
-        this.camera = camera;
+    public PlayerOverlay(RoboRallyApp app) {
         this.app = app;
-        this.stage = new Stage(new FitViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight()));
+        this.boardWidth = app.getGame().getBoard().getBoardWidth();
+        this.boardHeight = app.getGame().getBoard().getBoardHeight();
+        this.appWidth =  Gdx.graphics.getWidth();
+        this.appHeight = Gdx.graphics.getHeight();
+        this.ratio = (boardHeight / boardWidth) * (appWidth / appHeight);
 
+        this.stage = new Stage(new FitViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight()));
         createOverlay();
     }
 
     private void createOverlay() {
         healthBars = new HashMap<>();
         for (IRobot robot : app.getGame().getRobots()) {
-            if (healthBars.containsKey(robot.getID())) {
+            if (healthBars.containsKey(robot)) {
                 continue;
             }
             createHealthBar(robot);
@@ -44,7 +50,6 @@ public class PlayerOverlay {
 
     private void createHealthBar(IRobot robot) {
         // using pixmap to create the colors
-
         // first the background
         Pixmap pixmap = new Pixmap(100, 10, Pixmap.Format.RGB888);
         pixmap.setColor(Color.RED);
@@ -61,6 +66,7 @@ public class PlayerOverlay {
         barStyle.knob = new TextureRegionDrawable(new TextureRegion(new Texture(knobPixmap)));
         knobPixmap.dispose();
 
+
         Pixmap filledPixmap = new Pixmap(100, 10, Pixmap.Format.RGB888);
         filledPixmap.setColor(Color.GREEN);
         filledPixmap.fill();
@@ -72,14 +78,14 @@ public class PlayerOverlay {
         ProgressBar bar = new ProgressBar(0, robot.getMaxHealth(), 1, false, barStyle);
         bar.setValue(robot.getHealth());
         bar.setAnimateDuration(1);
-        healthBars.put(robot.getID(), bar);
+        healthBars.put(robot, bar);
 
         stage.addActor(bar);
 
     }
 
-    public void updateDamage(IRobot robot) {
-        ProgressBar bar = healthBars.get(robot.getID());
+    private void updateDamage(IRobot robot) {
+        ProgressBar bar = healthBars.get(robot);
         if (bar == null) {
             return;
         }
@@ -87,12 +93,11 @@ public class PlayerOverlay {
     }
 
     /**
-     * Update the health bars
+     * Update the health bar values.
      */
     public void updateBars() {
         for (IRobot robot : app.getGame().getRobots()) {
-            ProgressBar bar = healthBars.get(robot.getID());
-            if (bar == null) {
+            if (healthBars.get(robot) == null) {
                 createHealthBar(robot);
             }
             updateDamage(robot);
@@ -100,29 +105,17 @@ public class PlayerOverlay {
     }
 
     /**
-     * Call this method to update the position of the overlay
+     * Updates the position of the overlay. Should follow robot movement.
      */
     public void updatePosition() {
-        float boardWidth = app.getGame().getBoard().getBoardWidth();
-        float boardHeight = app.getGame().getBoard().getBoardHeight();
-        float appWidth =  Gdx.graphics.getWidth();
-        float appHeight = Gdx.graphics.getHeight();
-        float ratio = (boardHeight / boardWidth) * (appWidth / appHeight);
-
-//        System.out.println("BOARD WIDTH: " + boardWidth);
-        System.out.println("APP WIDTH: " + appWidth);
-
         for (IRobot robot : app.getGame().getRobots()) {
-            ProgressBar bar = healthBars.get(robot.getID());
+            ProgressBar bar = healthBars.get(robot);
             if (bar == null) {
                 continue;
             }
-            // camera.project() translates tile positions to screen positions
-            // TODO: looks wrong when window is resized
-            Vector3 location = camera.project(new Vector3(robot.getLoc().x, robot.getLoc().y, 0));
-
-//            System.out.println("LOC: " + location);
-            bar.setBounds(location.x, location.y, RoboRallyApp.TILE_SIZE, 10);
+            bar.setBounds(166 + robot.getLoc().x * 67.5f, robot.getLoc().y * 67.5f, 67.5f, 6);
         }
     }
+
+    public Stage getStage() { return this.stage; }
 }

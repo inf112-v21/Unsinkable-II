@@ -102,6 +102,7 @@ public class BoardActions extends Board {
         robot.getLoc().x += dir.getX();
         robot.getLoc().y += dir.getY();
         putRobot(robot);
+        Gdx.app.postRunnable(() -> app.getOverlay().updatePosition());
     }
 
     /**
@@ -276,7 +277,12 @@ public class BoardActions extends Board {
     }
 
     private void doDamage(Vector2 loc) {
-        for (IRobot robot : app.getGame().getRobots()) { if (robot.getLoc().equals(loc)) { robot.addDamage(); } }
+        for (IRobot robot : app.getGame().getRobots()) {
+            if (robot.getLoc().equals(loc)) {
+                robot.addDamage();
+                Gdx.app.postRunnable(() -> app.getOverlay().updateBars());
+            }
+        }
     }
 
     /**

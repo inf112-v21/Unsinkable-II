@@ -175,9 +175,5 @@ public interface IRobot{
      */
     int touchedFlags();
 
-    /**
-     * @return the robot's unique id
-     */
-    int getID();
 
 }

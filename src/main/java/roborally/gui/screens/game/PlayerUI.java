@@ -53,14 +53,12 @@ public class PlayerUI {
     private final float handPadding = height / 32f;
     private final float bottomPadding = height / 10f;
 
-    public final PlayerOverlay playerOverlay;
-
     /**
      * Creates a new player UI.
      *
      * @param app the app
      */
-    public PlayerUI(RoboRallyApp app, Camera camera) {
+    public PlayerUI(RoboRallyApp app) {
         this.app = app;
         this.hand = new ArrayList<>();
         this.registers = new LinkedList<>();
@@ -82,8 +80,6 @@ public class PlayerUI {
         this.order = 0;
 
         mainTableSetup();
-
-        playerOverlay = new PlayerOverlay(camera, app);
     }
 
     /**
