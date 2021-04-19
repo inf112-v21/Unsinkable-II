@@ -122,7 +122,7 @@ public class PlayerOverlay {
             Vector3 location = camera.project(new Vector3(robot.getLoc().x, robot.getLoc().y, 0));
 
 //            System.out.println("LOC: " + location);
-            bar.setBounds(location.x, location.y, RoboRallyApp.TILE_SIZE, 10);
+            bar.setBounds(location.x, location.y, (float) (RoboRallyApp.TILE_SIZE*0.65), 10);
         }
     }
 }
