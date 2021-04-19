@@ -102,7 +102,7 @@ public class BoardActions extends Board {
         robot.getLoc().x += dir.getX();
         robot.getLoc().y += dir.getY();
         putRobot(robot);
-        Gdx.app.postRunnable(() -> app.getOverlay().updatePosition());
+
     }
 
     /**
@@ -144,6 +144,7 @@ public class BoardActions extends Board {
     private void putRobot(IRobot robot) {
         robot.getCell().setRotation(robot.getDirection().getDirection());
         setPlayerLayerCell(robot.getLoc(), robot.getPiece().getCell());
+        Gdx.app.postRunnable(() -> app.getOverlay().updatePosition());
     }
 
     /**

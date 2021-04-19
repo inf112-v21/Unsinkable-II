@@ -1,6 +1,5 @@
 package roborally.gui.screens.game;
 
-import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.scenes.scene2d.ui.*;
 import roborally.debug.Debug;
 import roborally.game.cards.Card;

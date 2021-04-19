@@ -5,7 +5,6 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ProgressBar;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
@@ -24,7 +23,6 @@ public class PlayerOverlay {
     private final float boardHeight;
     private final float appWidth;
     private final float appHeight;
-    private final float ratio;
 
     public PlayerOverlay(RoboRallyApp app) {
         this.app = app;
@@ -32,7 +30,6 @@ public class PlayerOverlay {
         this.boardHeight = app.getGame().getBoard().getBoardHeight();
         this.appWidth =  Gdx.graphics.getWidth();
         this.appHeight = Gdx.graphics.getHeight();
-        this.ratio = (boardHeight / boardWidth) * (appWidth / appHeight);
 
         this.stage = new Stage(new FitViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight()));
         createOverlay();
@@ -59,14 +56,6 @@ public class PlayerOverlay {
         ProgressBar.ProgressBarStyle barStyle = new ProgressBar.ProgressBarStyle();
         barStyle.background = drawable;
 
-        // the knob is the "edge" of the bar, we don't need this, hence width 0 below
-        Pixmap knobPixmap = new Pixmap(0, 10, Pixmap.Format.RGB888);
-        knobPixmap.setColor(Color.GREEN);
-        knobPixmap.fill();
-        barStyle.knob = new TextureRegionDrawable(new TextureRegion(new Texture(knobPixmap)));
-        knobPixmap.dispose();
-
-
         Pixmap filledPixmap = new Pixmap(100, 10, Pixmap.Format.RGB888);
         filledPixmap.setColor(Color.GREEN);
         filledPixmap.fill();
@@ -81,7 +70,6 @@ public class PlayerOverlay {
         healthBars.put(robot, bar);
 
         stage.addActor(bar);
-
     }
 
     private void updateDamage(IRobot robot) {
@@ -113,7 +101,11 @@ public class PlayerOverlay {
             if (bar == null) {
                 continue;
             }
-            bar.setBounds(166 + robot.getLoc().x * 67.5f, robot.getLoc().y * 67.5f, 67.5f, 6);
+            System.out.println("BoardWidth "+appHeight / boardHeight);
+            bar.setBounds(
+                    ((appWidth/2) - (boardWidth * appHeight / boardHeight)) + robot.getLoc().x * appHeight / boardHeight,
+                    robot.getLoc().y * appHeight / boardHeight,
+                    appHeight / boardHeight, 6);
         }
     }
 

@@ -37,9 +37,9 @@ public class GameScreen extends InputAdapter implements Screen {
         float ratio = (boardHeight / boardWidth) * (appWidth / appHeight); // set ratio to 2 to stretch tile board to middle.
 
         this.camera = new OrthographicCamera();
-        camera.setToOrtho(false, app.getGame().getBoard().getBoardWidth() * ratio, app.getGame().getBoard().getBoardHeight());
-        camera.position.x = app.getGame().getBoard().getBoardWidth(); // Horizontal board placement
-        camera.position.y = app.getGame().getBoard().getBoardHeight() * 0.5f; // Vertical board placement
+        camera.setToOrtho(false, boardWidth * ratio,boardHeight);
+        camera.position.x = boardWidth; // Horizontal board placement
+        camera.position.y = boardHeight * 0.5f; // Vertical board placement
         camera.zoom = 1f; // 1 is default and off.
         camera.update();
 
@@ -83,7 +83,6 @@ public class GameScreen extends InputAdapter implements Screen {
 
         // update overlay
         renderer.getBatch().setProjectionMatrix(playerOverlay.getStage().getCamera().combined);
-        playerOverlay.updatePosition();
         playerOverlay.getStage().act(delta);
         playerOverlay.getStage().getViewport().apply();
         playerOverlay.getStage().draw();
