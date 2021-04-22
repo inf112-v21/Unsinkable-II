@@ -109,9 +109,9 @@ Special tiles
 [Jonas Valen](https://github.com/jonazbot)
 
 ### About Us
-[Unsinkable-II](documentation/deliverables/Assignment1/about.md)
+[Unsinkable-II](https://github.com/inf112-v21/Unsinkable-II/wiki/Developer-Team)
 
-[Group dynamics](documentation/deliverables/Assignment1/ComplulsoryAssignment1.md)
+[Group dynamics](https://github.com/inf112-v21/Unsinkable-II/wiki/Group-dynamic)
 
 ## Documents
 
@@ -124,30 +124,32 @@ Special tiles
 See [User Stories Repository](https://github.com/inf112-v21/Unsinkable-II/projects)
 
 ### Meeting Minutes
-[Feb/01/2021](documentation/deliverables/MinutesOfMeetings/2021.02.01.md)
+[Feb/01/2021](https://github.com/inf112-v21/Unsinkable-II/wiki/02.01.21)
 
-[Feb/04/2021](documentation/deliverables/MinutesOfMeetings/2021.02.04.md)
+[Feb/04/2021](https://github.com/inf112-v21/Unsinkable-II/wiki/02.04.21)
 
-[Feb/08/2021](documentation/deliverables/MinutesOfMeetings/2021.02.08.md)
+[Feb/08/2021](https://github.com/inf112-v21/Unsinkable-II/wiki/02.08.21)
 
-[Feb/11/2021](documentation/deliverables/MinutesOfMeetings/2021.02.11.md)
+[Feb/11/2021](https://github.com/inf112-v21/Unsinkable-II/wiki/02.11.21)
 
-[Feb/15/2001](documentation/deliverables/MinutesOfMeetings/2021.02.15.md)
+[Feb/15/2021](https://github.com/inf112-v21/Unsinkable-II/wiki/02.15.21)
 
-[Feb/25/2001](documentation/deliverables/MinutesOfMeetings/2021.02.25.md)
+[Feb/25/2021](https://github.com/inf112-v21/Unsinkable-II/wiki/02.25.21)
 
-[Mar/01/2001](documentation/deliverables/MinutesOfMeetings/2021.03.01.md)
+[Mar/01/2021](https://github.com/inf112-v21/Unsinkable-II/wiki/03.01.21)
 
-[Mar/08/2001](documentation/deliverables/MinutesOfMeetings/2021.03.08.md)
+[Mar/08/2021](https://github.com/inf112-v21/Unsinkable-II/wiki/03.08.21)
 
-[Mar/15/2001](documentation/deliverables/MinutesOfMeetings/2021.03.15.md)
+[Mar/15/2021](https://github.com/inf112-v21/Unsinkable-II/wiki/03.15.21)
 
-[Mar/22/2001](documentation/deliverables/MinutesOfMeetings/2021.03.22.md)
+[Mar/22/2021](https://github.com/inf112-v21/Unsinkable-II/wiki/03.22.21)
+
+[Apr/04/2021](https://github.com/inf112-v21/Unsinkable-II/wiki/04.12.21)
 
 ### Retrospect
-[Retrospect for sprint 2](documentation/deliverables/Assignment2/Retrospect.md)
+[Retrospect for sprint 2](https://github.com/inf112-v21/Unsinkable-II/wiki/Retrospect-Sprint-2)
 
-[Retrospect for sprint 3](documentation/deliverables/Assignment3/Retrospect.md)
+[Retrospect for sprint 3](https://github.com/inf112-v21/Unsinkable-II/wiki/Retrospect-Sprint-3)
 
 ### Git
 See [Git Contributing Guidelines](documentation/GitContributibuting.md)
