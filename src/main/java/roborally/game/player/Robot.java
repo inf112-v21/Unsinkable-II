@@ -178,14 +178,7 @@ public class Robot implements IRobot {
     public void setDirection(Direction dir) { this.direction = dir; }
 
     @Override
-    public int getMaxHealth() {
-        return maxHealth;
-    }
-
-    @Override
-    public void setMaxHealth(int maxHealth) {
-        this.maxHealth = maxHealth;
-    }
+    public int getMaxHealth() { return this.maxHealth; }
 
     @Override
     public int getHealth() { return 9 - this.damage; }

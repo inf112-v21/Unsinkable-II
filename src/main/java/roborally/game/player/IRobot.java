@@ -124,13 +124,7 @@ public interface IRobot{
     /**
      * @return max health of the robot
      */
-    public int getMaxHealth();
-
-    /**
-     * change the robot's max health
-     * @param maxHealth new max health for the robot
-     */
-    public void setMaxHealth(int maxHealth);
+    int getMaxHealth();
 
     /**
      * @return the robot health

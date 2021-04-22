@@ -1,11 +1,11 @@
 package roborally.game.engine;
 
-import com.badlogic.gdx.Gdx;
 import roborally.debug.Debug;
 import roborally.game.board.BoardActions;
 import roborally.game.board.Boards;
 import roborally.game.player.IRobot;
 import roborally.gui.RoboRallyApp;
+import com.badlogic.gdx.Gdx;
 
 import java.util.ArrayList;
 import java.util.List;
