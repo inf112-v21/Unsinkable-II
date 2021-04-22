@@ -5,6 +5,7 @@ import roborally.game.board.BoardActions;
 import roborally.game.board.Boards;
 import roborally.game.player.IRobot;
 import roborally.gui.RoboRallyApp;
+import com.badlogic.gdx.Gdx;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -76,9 +77,9 @@ public class GameLoop extends RoboRallyGame {
             if (stopGame) { return; }
         }
         if (Debug.debugBackend()) {
-            System.out.println("Registry: "+myPlayer.getRobot().getRegisters().toString());
-            System.out.println("Used Registry: "+myPlayer.getRobot().showUsedRegisters());
-            System.out.println("Health: "+myPlayer.getRobot().getHealth());
+            System.out.println(myPlayer.getRobot().getName()+ " Registry: "+myPlayer.getRobot().getRegisters().toString());
+            System.out.println(myPlayer.getRobot().getName()+ " Used Registry: "+myPlayer.getRobot().showUsedRegisters());
+            System.out.println(myPlayer.getRobot().getName()+ " Health: "+myPlayer.getRobot().getHealth());
         }
         moveBoardElements(getRobots());
         fireLasers(getRobots());
@@ -109,6 +110,7 @@ public class GameLoop extends RoboRallyGame {
         board.fireWallLasers();
         board.fireRobotLasers(robots);
         sleep(500);
+        Gdx.app.postRunnable(() -> app.getOverlay().updateBars());
         board.clearLasers();
         sleep(250);
     }
@@ -128,5 +130,7 @@ public class GameLoop extends RoboRallyGame {
         board.wipeRobots(robots);
         board.getPowerDowns(robots);
         board.respawnRobots(robots);
+        Gdx.app.postRunnable(() -> app.getOverlay().updateBars());
+        Gdx.app.postRunnable(() -> app.getOverlay().updatePosition());
     }
 }

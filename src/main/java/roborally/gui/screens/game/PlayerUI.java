@@ -1,10 +1,6 @@
 package roborally.gui.screens.game;
 
-import com.badlogic.gdx.scenes.scene2d.ui.Button;
-import com.badlogic.gdx.scenes.scene2d.ui.ButtonGroup;
-import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.ui.*;
 import roborally.debug.Debug;
 import roborally.game.cards.Card;
 import roborally.game.cards.ProgramCard;
@@ -240,9 +236,7 @@ public class PlayerUI {
     public void updateLockedRegisters(Deque<Card> registers) {
         this.registers = registers;
         lockedRegistryTable.clearChildren();
-        if (hand.size() == 0) { app.getGame().attemptRun(new LinkedList<>(), false); } // TODO: Temporary solution!!!
-        else addLockedRegisters();
-
+        addLockedRegisters();
     }
 
     /**

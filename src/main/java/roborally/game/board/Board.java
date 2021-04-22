@@ -44,8 +44,8 @@ public abstract class Board {
     protected final Set<Vector2> westFastBelts;
     protected final Set<Vector2> southFastBelts;
     protected final Set<Vector2> eastFastBelts;
-    private final Set<Vector2> evenPushers;
-    private final Set<Vector2> oddPushers;
+    protected final Set<Vector2> evenPushers;
+    protected final Set<Vector2> oddPushers;
     protected final TiledMapTileLayer boardLayer;
     protected final TiledMapTileLayer playerLayer;
     protected final TiledMapTileLayer startLayer;

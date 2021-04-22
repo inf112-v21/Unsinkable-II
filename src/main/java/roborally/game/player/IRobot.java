@@ -122,6 +122,11 @@ public interface IRobot{
     Piece getPiece();
 
     /**
+     * @return max health of the robot
+     */
+    int getMaxHealth();
+
+    /**
      * @return the robot health
      */
     int getHealth();
@@ -163,5 +168,6 @@ public interface IRobot{
      * @return the number of flags successfully touched.
      */
     int touchedFlags();
+
 
 }
