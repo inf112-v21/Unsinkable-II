@@ -130,5 +130,7 @@ public class GameLoop extends RoboRallyGame {
         board.wipeRobots(robots);
         board.getPowerDowns(robots);
         board.respawnRobots(robots);
+        Gdx.app.postRunnable(() -> app.getOverlay().updateBars());
+        Gdx.app.postRunnable(() -> app.getOverlay().updatePosition());
     }
 }
