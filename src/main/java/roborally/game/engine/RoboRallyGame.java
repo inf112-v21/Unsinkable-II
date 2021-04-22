@@ -13,6 +13,7 @@ import roborally.gui.RoboRallyApp;
 import com.badlogic.gdx.Gdx;
 
 import java.util.*;
+import java.util.function.Consumer;
 
 /**
  * The RoboRally game logic

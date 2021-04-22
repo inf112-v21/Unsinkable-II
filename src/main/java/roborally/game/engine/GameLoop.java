@@ -1,5 +1,6 @@
 package roborally.game.engine;
 
+import com.badlogic.gdx.Gdx;
 import roborally.debug.Debug;
 import roborally.game.board.BoardActions;
 import roborally.game.board.Boards;
@@ -109,6 +110,7 @@ public class GameLoop extends RoboRallyGame {
         board.fireWallLasers();
         board.fireRobotLasers(robots);
         sleep(500);
+        Gdx.app.postRunnable(() -> app.getOverlay().updateBars());
         board.clearLasers();
         sleep(250);
     }
@@ -128,5 +130,7 @@ public class GameLoop extends RoboRallyGame {
         board.wipeRobots(robots);
         board.getPowerDowns(robots);
         board.respawnRobots(robots);
+        Gdx.app.postRunnable(() -> app.getOverlay().updateBars());
+        Gdx.app.postRunnable(() -> app.getOverlay().updatePosition());
     }
 }

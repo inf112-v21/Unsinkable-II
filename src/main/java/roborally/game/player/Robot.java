@@ -23,6 +23,8 @@ public class Robot implements IRobot {
     private boolean powerDown;
     private boolean destroyed;
     private boolean phasedOut;
+
+    private int maxHealth;
     private int damage;
     private int lives;
     private int flag;
@@ -38,6 +40,7 @@ public class Robot implements IRobot {
         this.powerDown = false;
         this.destroyed = false;
         this.phasedOut = false;
+        this.maxHealth = 9;
         this.damage = 0;
         this.lives = 3;
         this.flag = 0;
@@ -173,6 +176,16 @@ public class Robot implements IRobot {
 
     @Override
     public void setDirection(Direction dir) { this.direction = dir; }
+
+    @Override
+    public int getMaxHealth() {
+        return maxHealth;
+    }
+
+    @Override
+    public void setMaxHealth(int maxHealth) {
+        this.maxHealth = maxHealth;
+    }
 
     @Override
     public int getHealth() { return 9 - this.damage; }
