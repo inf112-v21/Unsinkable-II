@@ -240,9 +240,7 @@ public class PlayerUI {
     public void updateLockedRegisters(Deque<Card> registers) {
         this.registers = registers;
         lockedRegistryTable.clearChildren();
-        if (hand.size() == 0) { app.getGame().attemptRun(new LinkedList<>(), false); } // TODO: Temporary solution!!!
-        else addLockedRegisters();
-
+        addLockedRegisters();
     }
 
     /**

@@ -76,9 +76,9 @@ public class GameLoop extends RoboRallyGame {
             if (stopGame) { return; }
         }
         if (Debug.debugBackend()) {
-            System.out.println("Registry: "+myPlayer.getRobot().getRegisters().toString());
-            System.out.println("Used Registry: "+myPlayer.getRobot().showUsedRegisters());
-            System.out.println("Health: "+myPlayer.getRobot().getHealth());
+            System.out.println(myPlayer.getRobot().getName()+ " Registry: "+myPlayer.getRobot().getRegisters().toString());
+            System.out.println(myPlayer.getRobot().getName()+ " Used Registry: "+myPlayer.getRobot().showUsedRegisters());
+            System.out.println(myPlayer.getRobot().getName()+ " Health: "+myPlayer.getRobot().getHealth());
         }
         moveBoardElements(getRobots());
         fireLasers(getRobots());

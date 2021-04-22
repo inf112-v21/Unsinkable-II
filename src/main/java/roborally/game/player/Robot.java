@@ -103,7 +103,9 @@ public class Robot implements IRobot {
         }
         else if (damage > 4) {
             for (int i = 0; i < getHealth(); ++i) { usedRegisters.pop(); }
-            for (Card card : usedRegisters) { registers.addLast(card); }
+            System.out.println("Locked: "+usedRegisters);
+            while (!usedRegisters.isEmpty()) { registers.addLast(usedRegisters.pop());}
+
         }
         else { usedRegisters.clear(); }
         if (Debug.debugBackend()) { System.out.println("Registers post-wipe: Damage="+damage+" Registers: "+registers.toString()+" Used Regs: "+usedRegisters.toString()); }
@@ -185,7 +187,7 @@ public class Robot implements IRobot {
     public Piece getPiece() {  return this.piece; }
 
     @Override
-    public TiledMapTileLayer.Cell getCell() { return this.piece.getCell(); }
+    public TiledMapTileLayer.Cell getCell() { return this.cell; }
 
     private void setNormalCell() {  this.cell = this.piece.getCell(); }
 

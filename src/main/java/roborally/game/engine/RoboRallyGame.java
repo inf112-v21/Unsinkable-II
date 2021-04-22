@@ -81,10 +81,10 @@ abstract class RoboRallyGame implements RoboRally {
         for (IRobot robot : robots) {
             if (!robot.isDestroyed() && !robot.isPoweredDown() && !robot.getRegisters().isEmpty()) { order.add(robot); }
         }
-        if (Debug.debugBackend()) { System.out.println("Turn order pre-sort: "+order); }
+        if (Debug.debugBackend()) { System.out.println("Turn order pre-sort: "); for (IRobot robot : order) { System.out.print(robot.getName()+" ");} }
         order.sort(Comparator.comparing(robot -> Objects.requireNonNull(robot.getRegisters().peek()).getWeight()));
         Collections.reverse(order);
-        if (Debug.debugBackend()) { System.out.println("Turn order post-sort: "+order); }
+        if (Debug.debugBackend()) { System.out.println("Turn order post-sort: "); for (IRobot robot : order) { System.out.print(robot.getName()+" ");} }
         return order;
     }
 
