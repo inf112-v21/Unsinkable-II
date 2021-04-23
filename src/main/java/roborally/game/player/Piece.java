@@ -1,5 +1,6 @@
 package roborally.game.player;
 
+import com.badlogic.gdx.graphics.Color;
 import roborally.gui.RoboRallyApp;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -12,14 +13,14 @@ import java.util.List;
  * Enum to handle robot skins.
  */
 public enum Piece {
-    PIECE1(1),
-    PIECE2(2),
-    PIECE3(3),
-    PIECE4(4),
-    PIECE5(5),
-    PIECE6(6),
-    PIECE7(7),
-    PIECE8(8);
+    PIECE1(1, Color.ROYAL),
+    PIECE2(2, Color.CYAN),
+    PIECE3(3, Color.CORAL),
+    PIECE4(4, Color.GOLD),
+    PIECE5(5, Color.SKY),
+    PIECE6(6, Color.GREEN),
+    PIECE7(7, Color.PINK),
+    PIECE8(8, Color.RED);
 
 
     private final static List<Piece> PIECES = List.of(
@@ -36,11 +37,15 @@ public enum Piece {
     private final TiledMapTileLayer.Cell cell;
     private final TiledMapTileLayer.Cell diedCell;
     private final TiledMapTileLayer.Cell wonCell;
+    private final TextureRegion texture;
+    private final Color color;
 
-    Piece(int id) {
-        this.cell = new TiledMapTileLayer.Cell();
+    Piece(int id, Color color) {
         TextureRegion[][] textures = TextureRegion.split(
                 new Texture(RoboRallyApp.ROBOT_SKINS_PATH), RoboRallyApp.TILE_SIZE, RoboRallyApp.TILE_SIZE);
+        this.color = color;
+        this.texture = textures[id-1][0];
+        this.cell = new TiledMapTileLayer.Cell();
         this.cell.setTile(new StaticTiledMapTile(textures[id-1][0]));
         this.diedCell = new TiledMapTileLayer.Cell();
         this.diedCell.setTile(new StaticTiledMapTile(textures[id-1][1]));
@@ -70,5 +75,9 @@ public enum Piece {
      * @return graphical representation of the piece as a winner.
      */
     public TiledMapTileLayer.Cell getPowerDownCell() { return this.wonCell; }
+
+    public TextureRegion getTexture() { return this.texture; }
+
+    public Color getColor() { return this.color; }
 }
 

@@ -1,6 +1,12 @@
 package roborally.gui.screens.game;
 
-import com.badlogic.gdx.scenes.scene2d.ui.*;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
+import com.badlogic.gdx.scenes.scene2d.ui.ButtonGroup;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import roborally.debug.Debug;
 import roborally.game.cards.Card;
 import roborally.game.cards.ProgramCard;
@@ -29,6 +35,7 @@ public class PlayerUI {
 
     private final RoboRallyApp app;
     private final Table mainTable;
+    private final Table infoTable;
     private final Table playerHandTable;
     private final Table runButtonTable;
     private final Table selectedRegistryTable;
@@ -41,6 +48,7 @@ public class PlayerUI {
     private Deque<Card> registers;
     private List<Card> hand;
     private int order;
+    private Image nextFlag;
 
     private boolean registryActive;
     private boolean runButtonActive;
@@ -48,9 +56,9 @@ public class PlayerUI {
     private final float height = Gdx.graphics.getHeight();
     private final float cardWidth = width / 16f;
     private final float cardHeight = height / 6f;
-    private final float registerPadding = height / 20f;
+    private final float registerPadding = height / 16f;
     private final float handPadding = height / 32f;
-    private final float bottomPadding = height / 10f;
+    private final float bottomPadding = height / 12f;
 
     /**
      * Creates a new player UI.
@@ -66,6 +74,10 @@ public class PlayerUI {
         this.mainTable = new Table();
         stage.addActor(mainTable);
 
+        this.infoTable = new Table();
+        stage.addActor(infoTable);
+
+
         this.runButtonTable = new Table();
         this.playerHandTable = new Table();
         this.handButtons = new ButtonGroup<>();
@@ -78,7 +90,54 @@ public class PlayerUI {
         this.runButtonActive = true;
         this.order = 0;
 
+        this.nextFlag = new Image(app.getGame().getBoard().getFlagTextures()[0]);
+        infoTableSetup();
         mainTableSetup();
+    }
+
+    /**
+     * Setup for the main table UI layout.
+     */
+    private void infoTableSetup() {
+        infoTable.setFillParent(true);
+        infoTable.left().top();
+        infoTable.padTop(bottomPadding);
+        infoTable.padLeft(handPadding);
+
+
+        Label.LabelStyle infoStyle = new Label.LabelStyle();
+        infoStyle.font = app.getGameSkin().getFont("title");
+        Label playerLabel = new Label(app.getGame().getMyPlayer().getName(), infoStyle);
+        playerLabel.setFontScale(0.65f);
+        playerLabel.setColor(app.getGame().getMyPlayer().getRobot().getPiece().getColor());
+        infoTable.add(playerLabel);
+        infoTable.row();
+
+        Table livesTable = new Table();
+        infoTable.add(livesTable);
+        livesTable.padTop(bottomPadding);
+        livesTable.padBottom(bottomPadding);
+        for (int i = 0; i < app.getGame().getMyPlayer().getRobot().getLives(); ++i) {
+            Image robot = new Image(app.getGame().getMyPlayer().getRobot().getPiece().getTexture());
+            livesTable.add(robot);
+        }
+        infoTable.row();
+
+        Table flagTable = new Table();
+        infoTable.add(flagTable);
+        flagTable.padBottom(handPadding);
+        Label next = new Label("Next flag: ", app.getGameSkin());
+        next.setColor(app.getGame().getMyPlayer().getRobot().getPiece().getColor());
+        flagTable.add(next);
+        flagTable.row();
+        flagTable.add(nextFlag);
+
+
+        if (Debug.debugGUI()) {
+            infoTable.setDebug(true);
+            livesTable.setDebug(true);
+            flagTable.setDebug(true);
+        }
     }
 
     /**
@@ -86,10 +145,10 @@ public class PlayerUI {
      */
     private void mainTableSetup() {
         mainTable.setFillParent(true);
-        mainTable.padLeft(width/2);
+        mainTable.padLeft(width/(5/3f));
         mainTable.padBottom(bottomPadding).bottom();
 
-        joinedRegistryTableSetup();
+        registryTableSetup();
         mainTable.row();
         mainTable.add(playerHandTable);
         playerHandTable.padBottom(handPadding);
@@ -183,7 +242,7 @@ public class PlayerUI {
     /**
      * Setup wrapper for the table representing the registry.
      */
-    private void joinedRegistryTableSetup(){
+    private void registryTableSetup(){
         mainTable.row();
         registryTable.padBottom(registerPadding);
         registryTable.add(selectedRegistryTable);

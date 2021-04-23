@@ -271,10 +271,9 @@ public class BoardActions extends Board {
         }
         else if (canGo(loc, dir)) {
             addLaser(loc, dir);
-            if (inBounds(getNextLoc(loc, dir))) { shoot(getNextLoc(loc, dir), dir);} addLaser(loc, dir);
+            if (inBounds(getNextLoc(loc, dir))) { shoot(getNextLoc(loc, dir), dir); }
         }
         else { addLaser(loc, dir); }
-
     }
 
     private void doDamage(Vector2 loc) {

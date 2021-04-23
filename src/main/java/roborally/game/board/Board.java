@@ -1,5 +1,6 @@
 package roborally.game.board;
 
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import roborally.debug.Debug;
 import roborally.gui.RoboRallyApp;
 import roborally.game.Direction;
@@ -62,6 +63,7 @@ public abstract class Board {
     protected final TiledMapTileLayer.Cell verticalLaser;
     protected final TiledMapTileLayer.Cell horizontalLaser;
     protected final TiledMapTileLayer.Cell crossedLaser;
+    private final TextureRegion[] flagTextures;
 
 
     public Board(RoboRallyApp app, Boards gameBoard) {
@@ -125,7 +127,15 @@ public abstract class Board {
         this.evenPushers = new HashSet<>();
         this.oddPushers = new HashSet<>();
         findPushers();
+
+        this.flagTextures = new TextureRegion[4];
+        flagTextures[0] = board.getTileSets().getTile(TileID.FLAG_1.getId()).getTextureRegion();
+        flagTextures[1] = board.getTileSets().getTile(TileID.FLAG_2.getId()).getTextureRegion();
+        flagTextures[2] = board.getTileSets().getTile(TileID.FLAG_3.getId()).getTextureRegion();
+        flagTextures[3] = board.getTileSets().getTile(TileID.FLAG_4.getId()).getTextureRegion();
     }
+
+    public TextureRegion[] getFlagTextures() { return this.flagTextures; }
 
     /**
      * Finds the locations of all tiles in a layer.

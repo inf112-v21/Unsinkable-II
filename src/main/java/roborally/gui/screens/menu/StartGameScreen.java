@@ -59,7 +59,7 @@ public class StartGameScreen extends MenuScreenAdapter {
      */
     private void hostPressed() {
         try { app.hostNewGame((Boards) box.getSelected()); }
-        catch (Exception e) { System.err.println("Error! Unable to get board selection."); }// TODO: Display error message in GUI.
+        catch (Exception e) { System.err.println(e+"Error! Unable to get board selection."); }// TODO: Display error message in GUI.
     }
 
 }

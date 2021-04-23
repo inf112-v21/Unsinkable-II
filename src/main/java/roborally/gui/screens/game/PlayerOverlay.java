@@ -108,9 +108,9 @@ public class PlayerOverlay {
             if (bar == null) {
                 continue;
             }
-            int margin = 10;
+            int margin = 16;
             bar.setBounds(
-                    ((appWidth/2) - (boardWidth * appHeight / boardHeight)) + robot.getLoc().x * appHeight / boardHeight + margin,
+                    ((appWidth/(5/3f)) - (boardWidth * appHeight / boardHeight)) + robot.getLoc().x * appHeight / boardHeight + 21,
                     (robot.getLoc().y + 1) * appHeight / boardHeight - 5,
                     appHeight / boardHeight - margin * 2, 5);
         }

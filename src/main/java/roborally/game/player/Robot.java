@@ -24,7 +24,7 @@ public class Robot implements IRobot {
     private boolean destroyed;
     private boolean phasedOut;
 
-    private int maxHealth;
+    private final int maxHealth;
     private int damage;
     private int lives;
     private int flag;
@@ -111,7 +111,7 @@ public class Robot implements IRobot {
 
         }
         else { usedRegisters.clear(); }
-        if (Debug.debugBackend()) { System.out.println("Registers post-wipe: Damage="+damage+" Registers: "+registers.toString()+" Used Regs: "+usedRegisters.toString()); }
+        if (Debug.debugBackend()) { System.out.println("Registers post-wipe: Damage="+damage+" Registers: "+registers.toString()+" Used Regs: "+usedRegisters); }
     }
 
     @Override

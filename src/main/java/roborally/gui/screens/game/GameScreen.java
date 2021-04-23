@@ -38,7 +38,7 @@ public class GameScreen extends InputAdapter implements Screen {
 
         this.camera = new OrthographicCamera();
         camera.setToOrtho(false, boardWidth * ratio,boardHeight);
-        camera.position.x = boardWidth; // Horizontal board placement
+        camera.position.x = boardWidth * 0.75f; // Horizontal board placement
         camera.position.y = boardHeight * 0.5f; // Vertical board placement
         camera.zoom = 1f; // 1 is default and off.
         camera.update();
