@@ -1,5 +1,6 @@
 package roborally.game.engine;
 
+import com.badlogic.gdx.Application;
 import roborally.debug.Debug;
 import roborally.gui.screens.menu.GameOverScreen;
 import roborally.game.board.BoardActions;
@@ -110,6 +111,9 @@ abstract class RoboRallyGame implements RoboRally {
      * @param milliseconds the time to sleep in milliseconds.
      */
     protected void sleep(int milliseconds) {
+        if (Gdx.app.getType() == Application.ApplicationType.HeadlessDesktop) {
+            return;
+        }
         try { Thread.sleep(milliseconds); }
         catch (InterruptedException e) { System.err.println(Thread.currentThread().getName() + " sleep error."); }
     }

@@ -1,12 +1,12 @@
 package roborally.game;
 
+import roborally.game.engine.GameLoop;
 import roborally.gui.RoboRallyApp;
 import roborally.game.board.BoardActions;
 import roborally.game.board.Boards;
 import roborally.game.cards.ProgramCard;
 import roborally.game.engine.RoboRally;
 import roborally.game.player.IRobot;
-import roborally.game.player.Robot;
 import roborally.GdxTestExtension;
 import com.badlogic.gdx.math.Vector2;
 import org.junit.jupiter.api.BeforeAll;
@@ -14,13 +14,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(GdxTestExtension.class)
 public class MapInteractionTest {
@@ -35,16 +32,17 @@ public class MapInteractionTest {
     @BeforeAll
     public static void setup() {
         app = mock(RoboRallyApp.class);
-        game = mock(RoboRally.class);
-        when(app.getGame()).thenReturn(game);
     }
 
     @BeforeEach
     public void reset() {
+        game = spy(new GameLoop(app, Boards.JUNIT_TEST_MAP, 1));
+        when(app.getGame()).thenReturn(game);
+
+        robot = game.getMyPlayer().getRobot();
+        robots = game.getRobots();
+
         ba = new BoardActions(app, Boards.JUNIT_TEST_MAP);
-        robot = new Robot(1);
-        robots = new ArrayList<>();
-        robots.add(robot);
         ba.addNewPlayer(robot, 1);
         spawnLoc = robot.getLoc().cpy();
     }
@@ -109,5 +107,17 @@ public class MapInteractionTest {
         ba.touchCheckpoints(robots);
         assertEquals(currentFlag + 1, robot.touchedFlags(), "two flags captured");
         verify(game).setWinner(robot); // game.setWinner(robot) should be called
+    }
+
+    @Test
+    public void testLaser() {
+        int initialHealth = robot.getHealth();
+        ba.rotateRobot(robot, ProgramCard.TURN_RIGHT);
+        ba.moveRobot(robot, Direction.EAST, false);
+        ba.moveRobot(robot, Direction.EAST, false);
+        ba.fireWallLasers();
+        ba.moveRobot(robot, Direction.EAST, false);
+        ba.fireWallLasers();
+        assertEquals(initialHealth - 1, robot.getHealth());
     }
 }
