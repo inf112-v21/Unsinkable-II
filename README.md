@@ -36,7 +36,7 @@ University of Bergen.
     6.  [Board Design Protocol](#board-design)
 
 ## Overview
-This project is an approximation of the original version of roborally, a tabletop board game,
+This project is an approximation of the original version of RoboRally, a tabletop board game,
 in Java using libGDX and Tiled game framework and Kryonet for LAN/WAN multiplayer.
 
 ## Building
@@ -62,7 +62,7 @@ one the right side under the Maven tab.
 ### Running
 After a successful build, you can run the jar
 ```shell
-java -jar roborally.jar
+java -jar target/RoboRally-1.0-SNAPSHOT.jar
 ```
 
 ## Developing
