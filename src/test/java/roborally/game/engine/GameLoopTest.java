@@ -62,21 +62,21 @@ public class GameLoopTest {
         Vector2 p1Pos = player1.getLoc().cpy();
         Vector2 p2Pos = player2.getLoc().cpy();
 
-        // ProgramCard.NO_OP is used to avoid errors since the game expects five registers
+        // ProgramCard.BACKSIDE is used to avoid errors since the game expects five registers
         Deque<Card> registers = new LinkedList<>(Arrays.asList(
                 new Card(ProgramCard.TURN_RIGHT, 1),
                 new Card(ProgramCard.MOVE_1, 1),
-                new Card(ProgramCard.NO_OP, 1),
-                new Card(ProgramCard.NO_OP, 1),
-                new Card(ProgramCard.NO_OP, 1)
+                new Card(ProgramCard.BACKSIDE, 1),
+                new Card(ProgramCard.BACKSIDE, 1),
+                new Card(ProgramCard.BACKSIDE, 1)
         ));
         player1.setRegisters(registers);
         registers = new LinkedList<>(Arrays.asList(
                 new Card(ProgramCard.TURN_RIGHT, 1),
                 new Card(ProgramCard.U_TURN, 1),
-                new Card(ProgramCard.NO_OP, 1),
-                new Card(ProgramCard.NO_OP, 1),
-                new Card(ProgramCard.NO_OP, 1)
+                new Card(ProgramCard.BACKSIDE, 1),
+                new Card(ProgramCard.BACKSIDE, 1),
+                new Card(ProgramCard.BACKSIDE, 1)
         ));
         player2.setRegisters(registers);
 
@@ -103,17 +103,17 @@ public class GameLoopTest {
         Deque<Card> registers = new LinkedList<>(Arrays.asList(
                 new Card(ProgramCard.U_TURN, 1),
                 new Card(ProgramCard.MOVE_1, 2),
-                new Card(ProgramCard.NO_OP, 1),
-                new Card(ProgramCard.NO_OP, 1),
-                new Card(ProgramCard.NO_OP, 1)
+                new Card(ProgramCard.BACKSIDE, 1),
+                new Card(ProgramCard.BACKSIDE, 1),
+                new Card(ProgramCard.BACKSIDE, 1)
         ));
         player1.setRegisters(registers);
         registers = new LinkedList<>(Arrays.asList(
-                new Card(ProgramCard.NO_OP, 1),
+                new Card(ProgramCard.BACKSIDE, 1),
                 new Card(ProgramCard.MOVE_1, 1),
-                new Card(ProgramCard.NO_OP, 1),
-                new Card(ProgramCard.NO_OP, 1),
-                new Card(ProgramCard.NO_OP, 1)
+                new Card(ProgramCard.BACKSIDE, 1),
+                new Card(ProgramCard.BACKSIDE, 1),
+                new Card(ProgramCard.BACKSIDE, 1)
         ));
         player2.setRegisters(registers);
 
