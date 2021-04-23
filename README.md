@@ -147,9 +147,13 @@ See [User Stories Repository](https://github.com/inf112-v21/Unsinkable-II/projec
 [Apr/04/2021](https://github.com/inf112-v21/Unsinkable-II/wiki/04.12.21)
 
 ### Retrospect
+[Retrospect for sprint 1](https://github.com/inf112-v21/Unsinkable-II/wiki/Retrospekt-Sprint-1)
+
 [Retrospect for sprint 2](https://github.com/inf112-v21/Unsinkable-II/wiki/Retrospect-Sprint-2)
 
 [Retrospect for sprint 3](https://github.com/inf112-v21/Unsinkable-II/wiki/Retrospect-Sprint-3)
+
+[Retrospect for sprint 4](https://github.com/inf112-v21/Unsinkable-II/wiki/Retrospekt-Sprint-4)
 
 ### Git
 See [Git Contributing Guidelines](documentation/GitContributibuting.md)
