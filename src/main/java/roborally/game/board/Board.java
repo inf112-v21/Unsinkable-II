@@ -1,5 +1,6 @@
 package roborally.game.board;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import roborally.debug.Debug;
 import roborally.gui.RoboRallyApp;
@@ -279,6 +280,9 @@ public abstract class Board {
             else {
                 robot.setSpawnLoc(robot.getLoc());
                 robot.touchFlag();
+                if (app.getGame().getMyPlayer().getRobot().getName().equals(robot.getName())) {
+                    Gdx.app.postRunnable(() -> app.getUI().updateFlag(robot.touchedFlags()));
+                }
                 if(Debug.debugBackend()) { System.out.println(robot.getName()+" collected flag "+robot.touchedFlags()); }
             }
         }

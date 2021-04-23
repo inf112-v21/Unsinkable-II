@@ -1,11 +1,12 @@
 package roborally.multiplayer;
 
-import roborally.debug.Debug;
-import roborally.game.cards.Card;
+
+import roborally.gui.RoboRallyApp;
 import roborally.multiplayer.packets.PlayerHandPacket;
 import roborally.multiplayer.packets.TurnPacket;
 import roborally.multiplayer.packets.StartPacket;
-import roborally.gui.RoboRallyApp;
+import roborally.game.cards.Card;
+import roborally.debug.Debug;
 
 import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.Connection;

@@ -28,6 +28,7 @@ public class BoardActions extends Board {
         robot.setSpawnLoc(startLocs[id-1]);
         robot.setLoc(robot.getSpawnLoc());
         putRobot(robot);
+        //Gdx.app.postRunnable(() -> app.getOverlay().updatePosition());Gdx.app.postRunnable(() -> app.getUI().updateFlag());
     }
 
     /**
@@ -143,7 +144,7 @@ public class BoardActions extends Board {
      */
     private void putRobot(IRobot robot) {
         robot.getCell().setRotation(robot.getDirection().getDirection());
-        setPlayerLayerCell(robot.getLoc(), robot.getPiece().getCell());
+        setPlayerLayerCell(robot.getLoc(), robot.getCell());
         Gdx.app.postRunnable(() -> app.getOverlay().updatePosition());
     }
 
@@ -346,7 +347,6 @@ public class BoardActions extends Board {
         for (IRobot robot : robots) {
             if (repairSites.contains(robot.getLoc())) { robot.repairDamage(); }
             if (upgradeSites.contains(robot.getLoc())) { robot.repairDamage(); }
-            if (robot.isPoweredDown()) { robot.repairAllDamage(); }
         }
     }
 
@@ -355,17 +355,7 @@ public class BoardActions extends Board {
      *
      * @param robots the list of robots to wipe.
      */
-    public void wipeRobots(List<IRobot> robots) {
-        for (IRobot robot : robots) { robot.wipeRegisters(); }
-        Gdx.app.postRunnable(() -> app.getUI().clearRegistry());
-    }
-
-    public void getPowerDowns(List<IRobot> robots) {
-        for (IRobot robot : robots) {
-            if (robot.isPoweredDown()) { robot.powerUp(); } // TODO: "Continue power down?" GUI dialogue.
-            if (robot.powerDownAnnounced()) { robot.powerDown(); }
-        }
-    }
+    public void wipeRobots(List<IRobot> robots) { for (IRobot robot : robots) { robot.wipeRegisters(); } }
 
     /**
      * Respawns destroyed robots.
@@ -377,6 +367,7 @@ public class BoardActions extends Board {
             if (robot.isDestroyed()) {
                 removeRobot(robot);
                 robot.killRobot();
+                Gdx.app.postRunnable(() -> app.getUI().updateLives());
                 if (!robot.isDestroyed()) { putRobot(robot); }
             }
         }

@@ -1,10 +1,10 @@
 package roborally.game.engine;
 
-import roborally.debug.Debug;
+import roborally.gui.RoboRallyApp;
 import roborally.game.board.BoardActions;
 import roborally.game.board.Boards;
 import roborally.game.player.IRobot;
-import roborally.gui.RoboRallyApp;
+import roborally.debug.Debug;
 import com.badlogic.gdx.Gdx;
 
 import java.util.ArrayList;
@@ -71,7 +71,7 @@ public class GameLoop extends RoboRallyGame {
      */
     private void phase() {
         ++phaseNumber;
-        if (Debug.debugBackend()) { System.out.println("\n---New Phase---"); }
+        if (Debug.debugBackend()) { System.out.println("\n---Phase "+phaseNumber+"---"); }
         for (IRobot robot : getRobotTurnOrder()) {
             executeProgramCard(robot, robot.getNextRegistry().getValue());
             if (stopGame) { return; }
@@ -128,7 +128,6 @@ public class GameLoop extends RoboRallyGame {
     public void endOfTurn(List<IRobot> robots) {
         board.repairRobots(robots);
         board.wipeRobots(robots);
-        board.getPowerDowns(robots);
         board.respawnRobots(robots);
         Gdx.app.postRunnable(() -> app.getOverlay().updateBars());
         Gdx.app.postRunnable(() -> app.getOverlay().updatePosition());

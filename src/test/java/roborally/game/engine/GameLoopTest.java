@@ -1,17 +1,21 @@
 package roborally.game.engine;
 
-import com.badlogic.gdx.math.Vector2;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import roborally.GdxTestExtension;
 import roborally.game.board.Boards;
 import roborally.game.cards.Card;
 import roborally.game.cards.ProgramCard;
 import roborally.game.player.IRobot;
 import roborally.gui.RoboRallyApp;
+import com.badlogic.gdx.math.Vector2;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
-import java.util.*;
+
+import java.util.ArrayDeque;
+import java.util.Arrays;
+import java.util.Deque;
+import java.util.LinkedList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
@@ -19,7 +23,8 @@ import static org.mockito.Mockito.when;
 
 @ExtendWith(GdxTestExtension.class)
 public class GameLoopTest {
-    GameLoop gameLoop;
+    private GameLoop gameLoop;
+
     @BeforeEach
     public void setup() {
         RoboRallyApp app = mock(RoboRallyApp.class);

@@ -1,5 +1,6 @@
 package roborally.gui.screens.game;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.ButtonGroup;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
@@ -34,10 +35,14 @@ import java.util.Map;
 public class PlayerUI {
 
     private final RoboRallyApp app;
-    private final Table mainTable;
     private final Table infoTable;
+    private final Table livesTable;
+    private final Table flagTable;
+    private final Table mainTable;
     private final Table playerHandTable;
-    private final Table runButtonTable;
+    private final Table buttonTable;
+    private final Table runTable;
+    private final Table powerUpTable;
     private final Table selectedRegistryTable;
     private final Table registryTable;
     private final Table lockedRegistryTable;
@@ -52,6 +57,7 @@ public class PlayerUI {
 
     private boolean registryActive;
     private boolean runButtonActive;
+    private boolean powerUp;
     private final float width = Gdx.graphics.getWidth();
     private final float height = Gdx.graphics.getHeight();
     private final float cardWidth = width / 16f;
@@ -75,10 +81,10 @@ public class PlayerUI {
         stage.addActor(mainTable);
 
         this.infoTable = new Table();
+        this.livesTable = new Table();
+        this.flagTable = new Table();
         stage.addActor(infoTable);
 
-
-        this.runButtonTable = new Table();
         this.playerHandTable = new Table();
         this.handButtons = new ButtonGroup<>();
         this.registryButtons = new ButtonGroup<>();
@@ -86,8 +92,12 @@ public class PlayerUI {
         this.lockedRegistryTable = new Table();
         this.registryTable = new Table();
         this.registrySelections = new HashMap<>();
+        this.buttonTable = new Table();
+        this.runTable = new Table();
+        this.powerUpTable = new Table();
         this.registryActive = true;
         this.runButtonActive = true;
+        this.powerUp = false;
         this.order = 0;
 
         this.nextFlag = new Image(app.getGame().getBoard().getFlagTextures()[0]);
@@ -104,7 +114,6 @@ public class PlayerUI {
         infoTable.padTop(bottomPadding);
         infoTable.padLeft(handPadding);
 
-
         Label.LabelStyle infoStyle = new Label.LabelStyle();
         infoStyle.font = app.getGameSkin().getFont("title");
         Label playerLabel = new Label(app.getGame().getMyPlayer().getName(), infoStyle);
@@ -113,25 +122,15 @@ public class PlayerUI {
         infoTable.add(playerLabel);
         infoTable.row();
 
-        Table livesTable = new Table();
-        infoTable.add(livesTable);
         livesTable.padTop(bottomPadding);
         livesTable.padBottom(bottomPadding);
-        for (int i = 0; i < app.getGame().getMyPlayer().getRobot().getLives(); ++i) {
-            Image robot = new Image(app.getGame().getMyPlayer().getRobot().getPiece().getTexture());
-            livesTable.add(robot);
-        }
+        infoTable.add(livesTable);
+        updateLives();
         infoTable.row();
 
-        Table flagTable = new Table();
+        updateFlag(0);
         infoTable.add(flagTable);
         flagTable.padBottom(handPadding);
-        Label next = new Label("Next flag: ", app.getGameSkin());
-        next.setColor(app.getGame().getMyPlayer().getRobot().getPiece().getColor());
-        flagTable.add(next);
-        flagTable.row();
-        flagTable.add(nextFlag);
-
 
         if (Debug.debugGUI()) {
             infoTable.setDebug(true);
@@ -152,8 +151,13 @@ public class PlayerUI {
         mainTable.row();
         mainTable.add(playerHandTable);
         playerHandTable.padBottom(handPadding);
+        mainTable.row();
 
-        runButtonSetup();
+        mainTable.add(buttonTable);
+        runTable.add(addRunButton());
+        runTable.add(addPowerDownButton());
+        powerUpTable.add(addPowerUpButton());
+        powerUpTable.add(addContinuePowerDownButton());
 
         if (Debug.debugGUI()) {
             mainTable.setDebug(true);
@@ -161,6 +165,25 @@ public class PlayerUI {
             playerHandTable.setDebug(true);
             lockedRegistryTable.setDebug(true);
             registryTable.setDebug(true);
+            runTable.setDebug(true);
+            powerUpTable.setDebug(true);
+        }
+    }
+
+    public void updateFlag(int flag) {
+        flagTable.clear();
+        Label next = new Label("Next flag: ", app.getGameSkin());
+        next.setColor(Color.GOLD);
+        flagTable.add(next);
+        this.nextFlag = new Image(app.getGame().getBoard().getFlagTextures()[flag]);
+        flagTable.add(nextFlag);
+    }
+
+    public void updateLives() {
+        livesTable.clear();
+        for (int i = 0; i < app.getGame().getMyPlayer().getRobot().getLives(); ++i) {
+            Image robot = new Image(app.getGame().getMyPlayer().getRobot().getPiece().getTexture());
+            livesTable.add(robot);
         }
     }
 
@@ -227,11 +250,8 @@ public class PlayerUI {
 
     /**
      * Updates the hand when the player receives new cards.
-     *
-     * @param hand the hand dealt to the player.
      */
-    public void updateHand(List<Card> hand) {
-        this.hand = hand;
+    private void updateHand() {
         playerHandTable.padTop(0);
         handButtons.clear();
         handButtonsSetup();
@@ -289,11 +309,8 @@ public class PlayerUI {
 
     /**
      * Update the UI to reflect the robot's currently locked registers.
-     *
-     * @param registers the robot's locked registers.
      */
-    public void updateLockedRegisters(Deque<Card> registers) {
-        this.registers = registers;
+    private void updateLockedRegisters() {
         lockedRegistryTable.clearChildren();
         addLockedRegisters();
     }
@@ -311,7 +328,7 @@ public class PlayerUI {
     }
 
     /**
-     * Clears the player hand table.
+     * Clears the player registry.
      */
     public void clearRegistry() {
         registrySelections.clear();
@@ -348,16 +365,6 @@ public class PlayerUI {
     }
 
     /**
-     * Setup for the run button
-     */
-    private void runButtonSetup() {
-        mainTable.row();
-        runButtonTable.add(addRunButton());
-        runButtonTable.add(addPowerDownButton());
-        mainTable.add(runButtonTable);
-    }
-
-    /**
      * Helper method to make a run button.
      *
      * @return the run button.
@@ -365,7 +372,7 @@ public class PlayerUI {
     private Button addRunButton() {
         Button runButton = new TextButton("Run", app.getGameSkin());
         runButton.addListener(runButtonListener(false));
-        if (Debug.debugGUI()) { runButton.debug(); }
+        if (Debug.debugGUI()) { runButton.setDebug(true); }
         return runButton;
     }
 
@@ -377,26 +384,105 @@ public class PlayerUI {
     private Button addPowerDownButton() {
         Button powerDownButton = new TextButton("Power Down", app.getGameSkin());
         powerDownButton.addListener(runButtonListener(true));
-        if (Debug.debugGUI()) { powerDownButton.debug(); }
+        if (Debug.debugGUI()) { powerDownButton.setDebug(true); }
         return powerDownButton;
     }
 
     /**
-     * @param powerDown true if the player announced a power down, false otherwise.
+     * @param announcePowerDown true if the player announced a power down, false otherwise.
      * @return the run and power down button listener
      */
-    private ClickListener runButtonListener(boolean powerDown) {
+    private ClickListener runButtonListener(boolean announcePowerDown) {
         return new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 if (runButtonActive && registrySelections.size() + registers.size() == 5) {
-                    runButtonActive = false;
                     registryActive = false;
-                    app.getGame().attemptRun(makeRegisters(), powerDown);
+                    runButtonActive = false;
+                    app.getGame().attemptRun(makeRegisters(), announcePowerDown, false, powerUp);
+                    powerUp = false;
+                    float padding = buttonTable.getHeight();
+                    buttonTable.clearChildren();
+                    buttonTable.padBottom(padding);
                     resetHand();
                 }
+                else System.out.println("Active: "+runButtonActive+" Selections: "+ registrySelections.values()+" Registers:"+registers.toString());
             }
         };
+    }
+
+    /**
+     * Helper method to make a power-up button.
+     *
+     * @return the run button.
+     */
+    private Button addPowerUpButton() {
+        Button powerUpButton = new TextButton("Power Up", app.getGameSkin());
+        powerUpButton.addListener(powerUpListener());
+        if (Debug.debugGUI()) { powerUpButton.setDebug(true); }
+        return powerUpButton;
+    }
+
+    /**
+     * Helper method to make a run button.
+     *
+     * @return the run button.
+     */
+    private Button addContinuePowerDownButton() {
+        Button continuePowerDownButton = new TextButton("Continue Power Down", app.getGameSkin());
+        continuePowerDownButton.addListener(continuePowerDownistener());
+        if (Debug.debugGUI()) { continuePowerDownButton.setDebug(true); }
+        return continuePowerDownButton;
+    }
+
+    /**
+     * @return the power-up and continue-power-down button listener
+     */
+    private ClickListener powerUpListener() {
+        return new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                powerUp = true;
+                updateHand();
+                buttonTable.clearChildren();
+                buttonTable.padBottom(0);
+                buttonTable.add(runTable);
+            }
+        };
+    }
+
+    /**
+     * @return the power-up and continue-power-down button listener
+     */
+    private ClickListener continuePowerDownistener() {
+        return new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                float padding = buttonTable.getHeight();
+                buttonTable.clearChildren();
+                buttonTable.padBottom(padding);
+                app.getGame().attemptRun(new LinkedList<>(),false,true,false);
+            }
+        };
+    }
+
+    public void newTurnUpdate(List<Card> hand, Deque<Card> registers, boolean poweringDown, boolean isPoweredDown) {
+        clearRegistry();
+        this.hand = hand;
+        this.registers = registers;
+        if (poweringDown) {
+            app.getGame().attemptRun(new LinkedList<>(), false, true, false);
+        }
+        else if (isPoweredDown) {
+            buttonTable.padBottom(0);
+            buttonTable.add(powerUpTable);
+        }
+        else {
+            updateHand();
+            updateLockedRegisters();
+            buttonTable.padBottom(0);
+            buttonTable.add(runTable);
+        }
     }
 
     /**
@@ -408,6 +494,5 @@ public class PlayerUI {
      * Disposes UI stage.
      */
     public void dispose(){ stage.dispose(); }
-
 
 }

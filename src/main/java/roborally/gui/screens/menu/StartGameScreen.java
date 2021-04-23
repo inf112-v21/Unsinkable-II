@@ -1,5 +1,6 @@
 package roborally.gui.screens.menu;
 
+import com.badlogic.gdx.graphics.Color;
 import roborally.gui.RoboRallyApp;
 import roborally.game.board.Boards;
 

@@ -59,6 +59,7 @@ public class Robot implements IRobot {
 
     @Override
     public void setDestroyed(boolean bodyRemains) {
+        damage = 10;
         if (!bodyRemains) { phasedOut = true; }
         destroyed = true;
         powerDown = false; // TODO: Should be a choice if already powered down.
@@ -68,8 +69,8 @@ public class Robot implements IRobot {
 
     @Override
     public void killRobot() {
-        if (lives > 1) {
-            --lives;
+        --lives;
+        if (lives > 0) {
             damage = 2;
             setLoc(getSpawnLoc());
             setDirection(Direction.NORTH);
@@ -80,6 +81,7 @@ public class Robot implements IRobot {
         }
         else {
             // TODO: Remove player and robot from list.
+
             if(Debug.debugBackend()) { System.out.println(this.name+" is out of replacement robots!"); }
         }
     }
@@ -134,7 +136,6 @@ public class Robot implements IRobot {
     @Override
     public void powerUp() {
         this.powerDown = false;
-        registers.clear();
         setNormalCell();
     }
 
@@ -184,7 +185,7 @@ public class Robot implements IRobot {
     public int getHealth() { return 9 - this.damage; }
 
     @Override
-    public int getLives() { return this.lives; } //  TODO: Move to Player?
+    public int getLives() { return this.lives; }
 
     @Override
     public String getName() { return this.name; }

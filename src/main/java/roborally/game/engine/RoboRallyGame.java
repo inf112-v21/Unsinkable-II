@@ -1,7 +1,6 @@
 package roborally.game.engine;
 
-import com.badlogic.gdx.Application;
-import roborally.debug.Debug;
+import roborally.gui.RoboRallyApp;
 import roborally.gui.screens.menu.GameOverScreen;
 import roborally.game.board.BoardActions;
 import roborally.game.cards.Card;
@@ -10,8 +9,10 @@ import roborally.game.player.IRobot;
 import roborally.game.player.Player;
 import roborally.multiplayer.packets.RequestHandPacket;
 import roborally.multiplayer.packets.TurnPacket;
-import roborally.gui.RoboRallyApp;
+import roborally.debug.Debug;
+
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Application;
 
 import java.util.Collections;
 import java.util.Comparator;
@@ -54,10 +55,15 @@ abstract class RoboRallyGame implements RoboRally {
     }
 
     @Override
-    public void attemptRun(Deque<Card> registers, boolean powerDown) {
+    public void attemptRun(Deque<Card> registers, boolean announcePowerDown, boolean isPoweredDown, boolean powerUp) {
         if (!roundSent) {
             roundSent = true;
-            app.getLocalClient().getClient().sendTCP(new TurnPacket(turnNumber, myPlayer.getID(), powerDown, registers));
+            app.getLocalClient().getClient().sendTCP(new TurnPacket(turnNumber,
+                                                                    myPlayer.getID(),
+                                                                    announcePowerDown,
+                                                                    isPoweredDown,
+                                                                    powerUp,
+                                                                    registers));
         }
     }
 
@@ -65,7 +71,9 @@ abstract class RoboRallyGame implements RoboRally {
     public void updateAllRobotRegisters(List<TurnPacket> turnPackets) {
         for (TurnPacket packet : turnPackets) {
             players.get(packet.getPlayerID() - 1).getRobot().setRegisters(packet.getRegisters());
-            if (packet.isPowerDown()) { players.get(packet.getPlayerID() - 1).getRobot().announcePowerDown(); }
+            if (packet.announcePowerDown()) { players.get(packet.getPlayerID() - 1).getRobot().announcePowerDown(); }
+            else if (packet.isPoweredDown()) { players.get(packet.getPlayerID()-1).getRobot().powerDown(); }
+            else if (packet.powerUp()) { players.get(packet.getPlayerID() - 1).getRobot().powerUp(); }
         }
         nextRound = true;
         roundSent = false;
@@ -75,8 +83,10 @@ abstract class RoboRallyGame implements RoboRally {
         app.getLocalClient().getClient().sendTCP(new RequestHandPacket(turnNumber, myPlayer.requestHand()));
         while (!app.getLocalClient().receivedNewHand) { sleep(100); }
         myPlayer.setHand(app.getLocalClient().getHand());
-        Gdx.app.postRunnable(() -> app.getUI().updateHand(myPlayer.getHand()));
-        Gdx.app.postRunnable(() -> app.getUI().updateLockedRegisters(myPlayer.getRobot().getRegisters()));
+        Gdx.app.postRunnable(() -> app.getUI().newTurnUpdate(myPlayer.getHand(),
+                                                             myPlayer.getRobot().getRegisters(),
+                                                             myPlayer.getRobot().powerDownAnnounced(),
+                                                             myPlayer.getRobot().isPoweredDown()));
     }
 
     /**
@@ -87,10 +97,8 @@ abstract class RoboRallyGame implements RoboRally {
         for (IRobot robot : robots) {
             if (!robot.isDestroyed() && !robot.isPoweredDown() && !robot.getRegisters().isEmpty()) { order.add(robot); }
         }
-        if (Debug.debugBackend()) { System.out.println("Turn order pre-sort: "); for (IRobot robot : order) { System.out.print(robot.getName()+" ");} }
         order.sort(Comparator.comparing(robot -> Objects.requireNonNull(robot.getRegisters().peek()).getWeight()));
         Collections.reverse(order);
-        if (Debug.debugBackend()) { System.out.println("Turn order post-sort: "); for (IRobot robot : order) { System.out.print(robot.getName()+" ");} }
         return order;
     }
 
@@ -101,6 +109,7 @@ abstract class RoboRallyGame implements RoboRally {
             board.addNewPlayer(newPlayer.getRobot(), playerID);
             players.add(newPlayer);
             robots.add(newPlayer.getRobot());
+            Gdx.app.postRunnable(() -> app.getOverlay().updatePosition());
             return newPlayer;
         }
         else { return null; }
