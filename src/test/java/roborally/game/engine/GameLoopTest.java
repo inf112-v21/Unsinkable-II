@@ -99,8 +99,6 @@ public class GameLoopTest {
         player2.setLoc(new Vector2(5, 6));
         Vector2 p1Pos = player1.getLoc().cpy();
         Vector2 p2Pos = player2.getLoc().cpy();
-        System.out.println(p1Pos);
-        System.out.println(p2Pos);
 
         Deque<Card> registers = new LinkedList<>(Arrays.asList(
                 new Card(ProgramCard.U_TURN, 1),
@@ -120,9 +118,6 @@ public class GameLoopTest {
         player2.setRegisters(registers);
 
         gameLoop.turn();
-
-        System.out.println(player1.getLoc());
-        System.out.println(player2.getLoc());
 
         assertEquals(p1Pos.add(0, -1), player1.getLoc());
         assertEquals(2, player2.getLives());
