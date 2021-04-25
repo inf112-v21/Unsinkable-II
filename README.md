@@ -126,6 +126,8 @@ All documentation can be found in the RoboRally Wiki at
 
 [Project board](https://github.com/inf112-v21/Unsinkable-II/issues)
 
+For class diagram, see the Wiki.
+
 ### User Stories
 See [User Stories Repository](https://github.com/inf112-v21/Unsinkable-II/projects)
 
