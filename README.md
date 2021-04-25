@@ -65,6 +65,13 @@ After a successful build, you can run the jar
 ```shell
 java -jar target/RoboRally-1.0-SNAPSHOT.jar
 ```
+to run a multiplayer game, make sure that port 
+```shell
+18888
+```
+is open.
+
+
 
 ## Developing
 Simply open the pom.xml file in any Java IDE like IntellIJ IDEA. 
