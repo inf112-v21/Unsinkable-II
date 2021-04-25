@@ -32,7 +32,6 @@ public class BoardActions extends Board {
         robot.setSpawnLoc(startLocs[id-1]);
         robot.setLoc(robot.getSpawnLoc());
         putRobot(robot);
-        Gdx.app.postRunnable(() -> app.getOverlay().updatePosition());
     }
 
     /**
@@ -53,7 +52,7 @@ public class BoardActions extends Board {
         }
         move(robot, dir);
         if (pushed) {
-            //checkStep(robot);
+            checkStep(robot);
             return true;
         }
         else { return checkStep(robot); }
@@ -148,7 +147,7 @@ public class BoardActions extends Board {
     private void putRobot(IRobot robot) {
         robot.getCell().setRotation(robot.getDirection().getDirection());
         setPlayerLayerCell(robot.getLoc(), robot.getCell());
-        Gdx.app.postRunnable(() -> app.getOverlay().updatePosition());
+        //Gdx.app.postRunnable(() -> app.getOverlay().updatePosition());
     }
 
     /**

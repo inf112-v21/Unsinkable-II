@@ -36,6 +36,7 @@ public class PlayerUI {
 
     private final RoboRallyApp app;
     private final Table infoTable;
+    private final Table turnTable;
     private final Table livesTable;
     private final Table flagTable;
     private final Table mainTable;
@@ -65,6 +66,7 @@ public class PlayerUI {
     private final float registerPadding = height / 16f;
     private final float handPadding = height / 32f;
     private final float bottomPadding = height / 12f;
+    private final float leftPadding = width / 128f;
 
     /**
      * Creates a new player UI.
@@ -81,6 +83,7 @@ public class PlayerUI {
         stage.addActor(mainTable);
 
         this.infoTable = new Table();
+        this.turnTable = new Table();
         this.livesTable = new Table();
         this.flagTable = new Table();
         stage.addActor(infoTable);
@@ -111,8 +114,8 @@ public class PlayerUI {
     private void infoTableSetup() {
         infoTable.setFillParent(true);
         infoTable.left().top();
-        infoTable.padTop(height / 4f);
-        infoTable.padLeft(width/(1<<7));
+        infoTable.padTop(registerPadding);
+        infoTable.padLeft(leftPadding);
 
         Label.LabelStyle infoStyle = new Label.LabelStyle();
         infoStyle.font = app.getGameSkin().getFont("title");
@@ -122,7 +125,20 @@ public class PlayerUI {
         infoTable.add(playerLabel);
         infoTable.row();
 
-        livesTable.padTop(bottomPadding*3/2);
+        infoTable.add(turnTable);
+        turnTable.padTop(registerPadding*2);
+        Label turn = new Label("0", infoStyle);
+        turn.setFontScale(0.4f);
+        turn.setColor(Color.GOLDENROD);
+        turnTable.add(turn).padRight(width/14f);
+
+        Label phase = new Label("0", infoStyle);
+        phase.setFontScale(0.4f);
+        phase.setColor(Color.GOLDENROD);
+        turnTable.add(phase).padRight(leftPadding);
+
+        infoTable.row();
+        livesTable.padTop(height/6.5f);
         livesTable.padBottom(bottomPadding*3/2);
         infoTable.add(livesTable);
         updateLives();
@@ -131,6 +147,7 @@ public class PlayerUI {
         updateFlag(0);
         infoTable.add(flagTable);
         flagTable.padBottom(handPadding);
+        flagTable.padLeft(leftPadding);
 
         if (Debug.debugGUI()) {
             infoTable.setDebug(true);
@@ -172,9 +189,6 @@ public class PlayerUI {
 
     public void updateFlag(int flag) {
         flagTable.clear();
-        Label next = new Label("     ", app.getGameSkin());
-        next.setColor(Color.GOLD);
-        flagTable.add(next);
         this.nextFlag = new Image(app.getGame().getBoard().getFlagTextures()[flag]);
         flagTable.add(nextFlag);
     }
