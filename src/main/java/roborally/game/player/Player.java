@@ -48,9 +48,5 @@ public class Player {
      */
     public String getName() { return this.name; }
 
-    /**
-     * @param name the player's new name.
-     */
-    public void setName(String name) { this.name = name; }
 }
 

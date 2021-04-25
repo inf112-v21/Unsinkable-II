@@ -4,6 +4,7 @@ import roborally.debug.Debug;
 import roborally.gui.RoboRallyApp;
 import roborally.game.Direction;
 import roborally.game.player.IRobot;
+
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
@@ -46,8 +47,6 @@ public abstract class Board {
     protected final Set<Vector2> westFastBelts;
     protected final Set<Vector2> southFastBelts;
     protected final Set<Vector2> eastFastBelts;
-    protected final Set<Vector2> evenPushers;
-    protected final Set<Vector2> oddPushers;
     protected final TiledMapTileLayer boardLayer;
     protected final TiledMapTileLayer playerLayer;
     protected final TiledMapTileLayer startLayer;
@@ -123,10 +122,6 @@ public abstract class Board {
         this.leftGears = new HashSet<>();
         this.rightGears = new HashSet<>();
         findGears();
-
-        this.evenPushers = new HashSet<>();
-        this.oddPushers = new HashSet<>();
-        findPushers();
 
         this.flagTextures = new TextureRegion[4];
         flagTextures[0] = board.getTileSets().getTile(TileID.FLAG_1.getId()).getTextureRegion();
@@ -226,14 +221,6 @@ public abstract class Board {
             if (gearID == TileID.GEAR_RIGHT.getId()) { rightGears.add(gear); }
         }
     }
-
-    private void findPushers() {
-        for (Vector2 pusher : findAllLayerTiles(pusherLayer)) {
-            if (TileID.PUSHER_EVEN.contains(pusher)) { evenPushers.add(pusher); }
-            else if (TileID.PUSHER_ODD.contains(pusher)) { oddPushers.add(pusher); }
-        }
-    }
-
 
     /**
      * Checks if there is a wall in a direction on a location.

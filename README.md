@@ -71,8 +71,6 @@ to run a multiplayer game, make sure that port
 ```
 is open.
 
-
-
 ## Developing
 Simply open the pom.xml file in any Java IDE like IntellIJ IDEA. 
 
