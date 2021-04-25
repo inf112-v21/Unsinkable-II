@@ -36,7 +36,9 @@ public class PlayerUI {
 
     private final RoboRallyApp app;
     private final Table infoTable;
+    private final Table currentTable;
     private final Table turnTable;
+    private final Table phaseTable;
     private final Table livesTable;
     private final Table flagTable;
     private final Table mainTable;
@@ -51,10 +53,14 @@ public class PlayerUI {
     private final ButtonGroup<Button> handButtons;
     private final ButtonGroup<Button> registryButtons;
     private final Map<Integer, Integer> registrySelections;
+    private final Label.LabelStyle infoStyle;
+    private Label turn;
+    private Label phase;
     private Deque<Card> registers;
     private List<Card> hand;
     private int order;
     private Image nextFlag;
+
 
     private boolean registryActive;
     private boolean runButtonActive;
@@ -83,7 +89,9 @@ public class PlayerUI {
         stage.addActor(mainTable);
 
         this.infoTable = new Table();
+        this.currentTable = new Table();
         this.turnTable = new Table();
+        this.phaseTable = new Table();
         this.livesTable = new Table();
         this.flagTable = new Table();
         stage.addActor(infoTable);
@@ -103,6 +111,9 @@ public class PlayerUI {
         this.powerUp = false;
         this.order = 0;
 
+        infoStyle = new Label.LabelStyle();
+        infoStyle.font = app.getGameSkin().getFont("title");
+
         this.nextFlag = new Image(app.getGame().getBoard().getFlagTextures()[0]);
         infoTableSetup();
         mainTableSetup();
@@ -117,25 +128,15 @@ public class PlayerUI {
         infoTable.padTop(registerPadding);
         infoTable.padLeft(leftPadding);
 
-        Label.LabelStyle infoStyle = new Label.LabelStyle();
-        infoStyle.font = app.getGameSkin().getFont("title");
         Label playerLabel = new Label(app.getGame().getMyPlayer().getName(), infoStyle);
         playerLabel.setFontScale(0.60f);
         playerLabel.setColor(app.getGame().getMyPlayer().getRobot().getPiece().getColor());
         infoTable.add(playerLabel);
         infoTable.row();
 
-        infoTable.add(turnTable);
-        turnTable.padTop(registerPadding*2);
-        Label turn = new Label("0", infoStyle);
-        turn.setFontScale(0.4f);
-        turn.setColor(Color.GOLDENROD);
-        turnTable.add(turn).padRight(width/14f);
-
-        Label phase = new Label("0", infoStyle);
-        phase.setFontScale(0.4f);
-        phase.setColor(Color.GOLDENROD);
-        turnTable.add(phase).padRight(leftPadding);
+        infoTable.add(currentTable);
+        currentTable.padTop(registerPadding*2);
+        currentTableSetup();
 
         infoTable.row();
         livesTable.padTop(height/6.5f);
@@ -155,6 +156,33 @@ public class PlayerUI {
             flagTable.setDebug(true);
         }
     }
+
+    private void currentTableSetup() {
+        currentTable.add(turnTable);
+        turnTable.padRight(width/14f);
+        updateTurn(0);
+        currentTable.add(phaseTable);
+        phaseTable.padRight(leftPadding);
+        updatePhase(0);
+    }
+
+
+    private void updateTurn(int turnNumber) {
+        turnTable.clearChildren();
+        turn = new Label(""+turnNumber, infoStyle);
+        turn.setFontScale(0.4f);
+        turn.setColor(Color.GOLDENROD);
+        turnTable.add(turn);
+    }
+
+    public void updatePhase(int phaseNumber) {
+        phaseTable.clearChildren();
+        phase = new Label(""+phaseNumber, infoStyle);
+        phase.setFontScale(0.4f);
+        phase.setColor(Color.GOLDENROD);
+        phaseTable.add(phase);
+    }
+
 
     /**
      * Setup for the main table UI layout.
@@ -480,7 +508,9 @@ public class PlayerUI {
         };
     }
 
-    public void newTurnUpdate(List<Card> hand, Deque<Card> registers, boolean poweringDown, boolean isPoweredDown) {
+    public void newTurnUpdate(int turnNumber, int phaseNumber, List<Card> hand, Deque<Card> registers, boolean poweringDown, boolean isPoweredDown) {
+        updateTurn(turnNumber);
+        updatePhase(phaseNumber);
         clearRegistry();
         this.hand = hand;
         this.registers = registers;

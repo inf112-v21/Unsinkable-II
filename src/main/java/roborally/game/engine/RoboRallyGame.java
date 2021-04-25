@@ -82,7 +82,10 @@ abstract class RoboRallyGame implements RoboRally {
         app.getLocalClient().getClient().sendTCP(new RequestHandPacket(turnNumber, myPlayer.requestHand()));
         while (!app.getLocalClient().receivedNewHand) { sleep(100); }
         myPlayer.setHand(app.getLocalClient().getHand());
-        Gdx.app.postRunnable(() -> app.getUI().newTurnUpdate(myPlayer.getHand(),
+        Gdx.app.postRunnable(() -> app.getUI().newTurnUpdate(
+                                                             turnNumber,
+                                                             phaseNumber,
+                                                             myPlayer.getHand(),
                                                              myPlayer.getRobot().getRegisters(),
                                                              myPlayer.getRobot().powerDownAnnounced(),
                                                              myPlayer.getRobot().isPoweredDown()));
@@ -150,7 +153,6 @@ abstract class RoboRallyGame implements RoboRally {
             app.getScreen().dispose();
             app.setScreen(new GameOverScreen(app, robot.getName() + " Wins!"));
         });
-
     }
 
 }

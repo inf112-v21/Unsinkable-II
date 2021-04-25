@@ -71,6 +71,7 @@ public class GameLoop extends RoboRallyGame {
      */
     private void phase() {
         ++phaseNumber;
+        Gdx.app.postRunnable(() -> app.getUI().updatePhase(phaseNumber));
         if (Debug.debugBackend()) { System.out.println("\n---Phase "+phaseNumber+"---"); }
         for (IRobot robot : getRobotTurnOrder()) {
             executeProgramCard(robot, robot.getNextRegistry().getValue());

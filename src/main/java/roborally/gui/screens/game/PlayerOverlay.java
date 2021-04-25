@@ -1,5 +1,8 @@
 package roborally.gui.screens.game;
 
+import roborally.game.player.IRobot;
+import roborally.gui.RoboRallyApp;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
@@ -9,8 +12,6 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.ProgressBar;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.viewport.FitViewport;
-import roborally.game.player.IRobot;
-import roborally.gui.RoboRallyApp;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -30,7 +31,6 @@ public class PlayerOverlay {
         this.boardHeight = app.getGame().getBoard().getBoardHeight();
         this.appWidth =  Gdx.graphics.getWidth();
         this.appHeight = Gdx.graphics.getHeight();
-
         this.stage = new Stage(new FitViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight()));
         createOverlay();
     }
