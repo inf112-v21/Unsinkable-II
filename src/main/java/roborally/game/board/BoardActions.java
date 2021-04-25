@@ -8,7 +8,11 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Vector2;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 public class BoardActions extends Board {
 
@@ -28,7 +32,7 @@ public class BoardActions extends Board {
         robot.setSpawnLoc(startLocs[id-1]);
         robot.setLoc(robot.getSpawnLoc());
         putRobot(robot);
-        //Gdx.app.postRunnable(() -> app.getOverlay().updatePosition());Gdx.app.postRunnable(() -> app.getUI().updateFlag());
+        Gdx.app.postRunnable(() -> app.getOverlay().updatePosition());
     }
 
     /**
@@ -49,12 +53,11 @@ public class BoardActions extends Board {
         }
         move(robot, dir);
         if (pushed) {
-            checkStep(robot);
+            //checkStep(robot);
             return true;
         }
         else { return checkStep(robot); }
     }
-
 
     /**
      * Performs checks that need to be performed after each step a robot makes to determine if
@@ -102,7 +105,7 @@ public class BoardActions extends Board {
         removeRobot(robot);
         robot.getLoc().x += dir.getX();
         robot.getLoc().y += dir.getY();
-        putRobot(robot);
+        if (checkStep(robot)) { putRobot(robot); }
 
     }
 

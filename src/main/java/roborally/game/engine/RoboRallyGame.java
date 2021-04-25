@@ -9,7 +9,6 @@ import roborally.game.player.IRobot;
 import roborally.game.player.Player;
 import roborally.multiplayer.packets.RequestHandPacket;
 import roborally.multiplayer.packets.TurnPacket;
-import roborally.debug.Debug;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Application;

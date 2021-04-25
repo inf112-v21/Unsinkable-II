@@ -430,7 +430,7 @@ public class PlayerUI {
      */
     private Button addContinuePowerDownButton() {
         Button continuePowerDownButton = new TextButton("Continue Power Down", app.getGameSkin());
-        continuePowerDownButton.addListener(continuePowerDownistener());
+        continuePowerDownButton.addListener(continuePowerDownListener());
         if (Debug.debugGUI()) { continuePowerDownButton.setDebug(true); }
         return continuePowerDownButton;
     }
@@ -454,7 +454,7 @@ public class PlayerUI {
     /**
      * @return the power-up and continue-power-down button listener
      */
-    private ClickListener continuePowerDownistener() {
+    private ClickListener continuePowerDownListener() {
         return new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
