@@ -21,7 +21,7 @@ public class Player {
     /**
      * @return the number of cards the player should receive.
      */
-    public int requestHand() {return robot.isPoweredDown() ? 0 : robot.getHealth(); }
+    public int requestHand() { return robot.getHealth(); }
 
     /**
      * @return the player's ID number.
@@ -48,9 +48,5 @@ public class Player {
      */
     public String getName() { return this.name; }
 
-    /**
-     * @param name the player's new name.
-     */
-    public void setName(String name) { this.name = name; }
 }
 

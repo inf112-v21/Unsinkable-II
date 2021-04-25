@@ -90,8 +90,8 @@ public enum TileID {
     LASER_DOUBLE_CROSSED(101),
 
     // Gears
-    GEAR_LEFT(53),
-    GEAR_RIGHT(54),
+    GEAR_RIGHT(53),
+    GEAR_LEFT(54),
 
     // Walls
     WALL_E(23),
@@ -110,7 +110,17 @@ public enum TileID {
     LASER_WALL_DOUBLE_S(87),
     LASER_WALL_DOUBLE_W(93),
     LASER_WALL_DOUBLE_N(94),
-    LASER_WALL_DOUBLE_E(95);
+    LASER_WALL_DOUBLE_E(95),
+
+    //Pushers
+    PUSHER_EVEN_S(1), //Activate in register-face  2 and 4
+    PUSHER_EVEN_W(2), //Activate in register-face 2 and 4
+    PUSHER_ODD_N(3), //Activate in register-face 1, 3 and 5
+    PUSHER_EVEN_E(4), //Activate in register-face 2 and 4
+    PUSHER_ODD_S(9), //Activate in register-face 1, 3 and 5
+    PUSHER_ODD_W(10), //Activate in register-face 1, 3 and 5
+    PUSHER_EVEN_N(11), //Activate in register-face 2 and 4
+    PUSHER_ODD_E(12); //Activate in register-face 1, 3 and 5
 
 
     public static final List<TileID> START_POSITIONS = List.of(
@@ -129,7 +139,9 @@ public enum TileID {
             WALL_NE.getId(),
             WALL_NW.getId(),
             LASER_WALL_N.getId(),
-            LASER_WALL_DOUBLE_N.getId()
+            LASER_WALL_DOUBLE_N.getId(),
+            PUSHER_EVEN_S.getId(),
+            PUSHER_ODD_S.getId()
     );
 
     public static final Set<Integer> WALLS_WEST = Set.of(
@@ -137,7 +149,9 @@ public enum TileID {
             WALL_NW.getId(),
             WALL_SW.getId(),
             LASER_WALL_W.getId(),
-            LASER_WALL_DOUBLE_W.getId()
+            LASER_WALL_DOUBLE_W.getId(),
+            PUSHER_EVEN_E.getId(),
+            PUSHER_ODD_E.getId()
     );
 
     public static final Set<Integer> WALLS_SOUTH = Set.of(
@@ -145,7 +159,9 @@ public enum TileID {
             WALL_SW.getId(),
             WALL_SE.getId(),
             LASER_WALL_S.getId(),
-            LASER_WALL_DOUBLE_S.getId()
+            LASER_WALL_DOUBLE_S.getId(),
+            PUSHER_EVEN_N.getId(),
+            PUSHER_ODD_N.getId()
     );
 
     public static final Set<Integer> WALLS_EAST = Set.of(
@@ -153,7 +169,9 @@ public enum TileID {
             WALL_SE.getId(),
             WALL_NE.getId(),
             LASER_WALL_E.getId(),
-            LASER_WALL_DOUBLE_E.getId()
+            LASER_WALL_DOUBLE_E.getId(),
+            PUSHER_EVEN_W.getId(),
+            PUSHER_ODD_W.getId()
     );
 
     public static final Set<Integer> BELTS_NORTH = Set.of(
@@ -256,6 +274,19 @@ public enum TileID {
             BELT_FAST_E_TO_S.getId()
     );
 
+    public static final Set<Integer> PUSHER_EVEN = Set.of(
+            PUSHER_EVEN_E.getId(),
+            PUSHER_EVEN_W.getId(),
+            PUSHER_EVEN_N.getId(),
+            PUSHER_EVEN_S.getId()
+    );
+
+    public static final Set<Integer> PUSHER_ODD = Set.of(
+            PUSHER_ODD_E.getId(),
+            PUSHER_ODD_W.getId(),
+            PUSHER_ODD_N.getId(),
+            PUSHER_ODD_S.getId()
+    );
 
     private final int id;
 

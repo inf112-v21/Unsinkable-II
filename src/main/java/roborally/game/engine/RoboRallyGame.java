@@ -1,6 +1,6 @@
 package roborally.game.engine;
 
-import roborally.debug.Debug;
+import roborally.gui.RoboRallyApp;
 import roborally.gui.screens.menu.GameOverScreen;
 import roborally.game.board.BoardActions;
 import roborally.game.cards.Card;
@@ -9,10 +9,16 @@ import roborally.game.player.IRobot;
 import roborally.game.player.Player;
 import roborally.multiplayer.packets.RequestHandPacket;
 import roborally.multiplayer.packets.TurnPacket;
-import roborally.gui.RoboRallyApp;
-import com.badlogic.gdx.Gdx;
 
-import java.util.*;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Application;
+
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Deque;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Objects;
 
 /**
  * The RoboRally game logic
@@ -48,10 +54,15 @@ abstract class RoboRallyGame implements RoboRally {
     }
 
     @Override
-    public void attemptRun(Deque<Card> registers, boolean powerDown) {
+    public void attemptRun(Deque<Card> registers, boolean announcePowerDown, boolean isPoweredDown, boolean powerUp) {
         if (!roundSent) {
             roundSent = true;
-            app.getLocalClient().getClient().sendTCP(new TurnPacket(turnNumber, myPlayer.getID(), powerDown, registers));
+            app.getLocalClient().getClient().sendTCP(new TurnPacket(turnNumber,
+                                                                    myPlayer.getID(),
+                                                                    announcePowerDown,
+                                                                    isPoweredDown,
+                                                                    powerUp,
+                                                                    registers));
         }
     }
 
@@ -59,7 +70,9 @@ abstract class RoboRallyGame implements RoboRally {
     public void updateAllRobotRegisters(List<TurnPacket> turnPackets) {
         for (TurnPacket packet : turnPackets) {
             players.get(packet.getPlayerID() - 1).getRobot().setRegisters(packet.getRegisters());
-            if (packet.isPowerDown()) { players.get(packet.getPlayerID() - 1).getRobot().announcePowerDown(); }
+            if (packet.announcePowerDown()) { players.get(packet.getPlayerID() - 1).getRobot().announcePowerDown(); }
+            else if (packet.isPoweredDown()) { players.get(packet.getPlayerID()-1).getRobot().powerDown(); }
+            else if (packet.powerUp()) { players.get(packet.getPlayerID() - 1).getRobot().powerUp(); }
         }
         nextRound = true;
         roundSent = false;
@@ -69,8 +82,13 @@ abstract class RoboRallyGame implements RoboRally {
         app.getLocalClient().getClient().sendTCP(new RequestHandPacket(turnNumber, myPlayer.requestHand()));
         while (!app.getLocalClient().receivedNewHand) { sleep(100); }
         myPlayer.setHand(app.getLocalClient().getHand());
-        Gdx.app.postRunnable(() -> app.getUI().updateHand(myPlayer.getHand()));
-        Gdx.app.postRunnable(() -> app.getUI().updateLockedRegisters(myPlayer.getRobot().getRegisters()));
+        Gdx.app.postRunnable(() -> app.getUI().newTurnUpdate(
+                                                             turnNumber,
+                                                             phaseNumber,
+                                                             myPlayer.getHand(),
+                                                             myPlayer.getRobot().getRegisters(),
+                                                             myPlayer.getRobot().powerDownAnnounced(),
+                                                             myPlayer.getRobot().isPoweredDown()));
     }
 
     /**
@@ -81,10 +99,8 @@ abstract class RoboRallyGame implements RoboRally {
         for (IRobot robot : robots) {
             if (!robot.isDestroyed() && !robot.isPoweredDown() && !robot.getRegisters().isEmpty()) { order.add(robot); }
         }
-        if (Debug.debugBackend()) { System.out.println("Turn order pre-sort: "+order.toString()); }
         order.sort(Comparator.comparing(robot -> Objects.requireNonNull(robot.getRegisters().peek()).getWeight()));
         Collections.reverse(order);
-        if (Debug.debugBackend()) { System.out.println("Turn order post-sort: "+order.toString()); }
         return order;
     }
 
@@ -95,6 +111,7 @@ abstract class RoboRallyGame implements RoboRally {
             board.addNewPlayer(newPlayer.getRobot(), playerID);
             players.add(newPlayer);
             robots.add(newPlayer.getRobot());
+            Gdx.app.postRunnable(() -> app.getOverlay().updatePosition());
             return newPlayer;
         }
         else { return null; }
@@ -105,6 +122,9 @@ abstract class RoboRallyGame implements RoboRally {
      * @param milliseconds the time to sleep in milliseconds.
      */
     protected void sleep(int milliseconds) {
+        if (Gdx.app.getType() == Application.ApplicationType.HeadlessDesktop) {
+            return;
+        }
         try { Thread.sleep(milliseconds); }
         catch (InterruptedException e) { System.err.println(Thread.currentThread().getName() + " sleep error."); }
     }
@@ -133,7 +153,6 @@ abstract class RoboRallyGame implements RoboRally {
             app.getScreen().dispose();
             app.setScreen(new GameOverScreen(app, robot.getName() + " Wins!"));
         });
-
     }
 
 }

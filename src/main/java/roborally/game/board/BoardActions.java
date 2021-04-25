@@ -8,7 +8,11 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.math.Vector2;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 public class BoardActions extends Board {
 
@@ -49,11 +53,11 @@ public class BoardActions extends Board {
         move(robot, dir);
         if (pushed) {
             checkStep(robot);
+
             return true;
         }
         else { return checkStep(robot); }
     }
-
 
     /**
      * Performs checks that need to be performed after each step a robot makes to determine if
@@ -64,10 +68,8 @@ public class BoardActions extends Board {
      */
     public boolean checkStep(IRobot robot) {
         if (!inBounds(robot.getLoc()) || inHole(robot)) {
+            robot.setDestroyed(false);
             removeRobot(robot);
-            robot.setDestroyed();
-            killRobot(robot);
-            putRobot(robot);
             return false;
         }
         return true;
@@ -103,7 +105,8 @@ public class BoardActions extends Board {
         removeRobot(robot);
         robot.getLoc().x += dir.getX();
         robot.getLoc().y += dir.getY();
-        putRobot(robot);
+        if (checkStep(robot)) { putRobot(robot); }
+
     }
 
     /**
@@ -144,18 +147,10 @@ public class BoardActions extends Board {
      */
     private void putRobot(IRobot robot) {
         robot.getCell().setRotation(robot.getDirection().getDirection());
-        setPlayerLayerCell(robot.getLoc(), robot.getPiece().getCell());
-    }
+        setPlayerLayerCell(robot.getLoc(), robot.getCell());
+        Gdx.app.postRunnable(() -> app.getOverlay().updateBars());
+        Gdx.app.postRunnable(() -> app.getOverlay().updatePosition());
 
-    /**
-     * Adds a visual representation of the dead robot to the game board.
-     *
-     * @param robot to be added.
-     */
-    public void killRobot(IRobot robot) {
-        removeRobot(robot);
-        robot.getCell().setRotation(robot.getDirection().getDirection());
-        setPlayerLayerCell(robot.getLoc(), robot.getPiece().getDiedCell());
     }
 
     /**
@@ -167,8 +162,6 @@ public class BoardActions extends Board {
     private void setPlayerLayerCell(Vector2 loc, TiledMapTileLayer.Cell cell) {
         playerLayer.setCell((int) loc.x, (int) loc.y, cell);
     }
-
-
 
     /**
      * Rotates all gears.
@@ -191,7 +184,7 @@ public class BoardActions extends Board {
      * @param robots the list of robots.
      */
     public void moveFastBelts(List<IRobot> robots) {
-        resolveMovingBelts(robots, northFastBelts, westFastBelts, southFastBelts, eastFastBelts);
+        resolveMovingBelts(robots, northFastBelts, westFastBelts, southFastBelts, eastFastBelts, leftTurnFastBelts, rightTurnFastBelts);
         try { Thread.sleep(250); }
         catch (InterruptedException e) { System.err.println("Sleep error after fast belt movement."); }
     }
@@ -203,41 +196,45 @@ public class BoardActions extends Board {
      * @param robots the list of robots.
      */
     public void moveAllBelts(List<IRobot> robots) {
-        resolveMovingBelts(robots, northBelts, westBelts, southBelts, eastBelts);
+        resolveMovingBelts(robots, northBelts, westBelts, southBelts, eastBelts, leftTurnBelts, rightTurnBelts);
         try { Thread.sleep(250); }
         catch (InterruptedException e) { System.err.println("Sleep error after belt movement."); }
     }
 
-    private void resolveMovingBelts(List<IRobot> robots, Set<Vector2> northBelts, Set<Vector2> westBelts, Set<Vector2> southBelts, Set<Vector2> eastBelts) {
-        Map<IRobot, Vector2> newRobotLocs = new HashMap<>();
-        Map<IRobot, Direction> robotsOnBelts = new HashMap<>();
-        Set<Vector2> robotLocs = new HashSet<>();
+    private void resolveMovingBelts(List<IRobot> robots, Set<Vector2> northBelts, Set<Vector2> westBelts, Set<Vector2> southBelts,
+                                    Set<Vector2> eastBelts, Set<Vector2> leftBelts, Set<Vector2> rightBelts) {
+
+        Map<IRobot, Vector2> robotsMovingTo = new HashMap<>();
+        Map<IRobot, Direction> robotsMovingOnBelt = new HashMap<>();
+        Set<Vector2> stationaryRobots = new HashSet<>();
         for (IRobot robot : robots) {
             if (northBelts.contains(robot.getLoc()) && canGo(robot.getLoc(), Direction.NORTH)) {
-                newRobotLocs.put(robot, getNextLoc(robot.getLoc(), Direction.NORTH));
-                robotsOnBelts.put(robot, Direction.NORTH);
+                robotsMovingTo.put(robot, getNextLoc(robot.getLoc(), Direction.NORTH));
+                robotsMovingOnBelt.put(robot, Direction.NORTH);
             }
             else if (westBelts.contains(robot.getLoc()) && canGo(robot.getLoc(), Direction.WEST)) {
-                newRobotLocs.put(robot, getNextLoc(robot.getLoc(), Direction.WEST));
-                robotsOnBelts.put(robot, Direction.WEST);
+                robotsMovingTo.put(robot, getNextLoc(robot.getLoc(), Direction.WEST));
+                robotsMovingOnBelt.put(robot, Direction.WEST);
             }
             else if (southBelts.contains(robot.getLoc()) && canGo(robot.getLoc(), Direction.SOUTH)) {
-                newRobotLocs.put(robot, getNextLoc(robot.getLoc(), Direction.SOUTH));
-                robotsOnBelts.put(robot, Direction.SOUTH);
+                robotsMovingTo.put(robot, getNextLoc(robot.getLoc(), Direction.SOUTH));
+                robotsMovingOnBelt.put(robot, Direction.SOUTH);
             }
             else if (eastBelts.contains(robot.getLoc()) && canGo(robot.getLoc(), Direction.EAST)) {
-                newRobotLocs.put(robot, getNextLoc(robot.getLoc(), Direction.EAST));
-                robotsOnBelts.put(robot, Direction.EAST);
+                robotsMovingTo.put(robot, getNextLoc(robot.getLoc(), Direction.EAST));
+                robotsMovingOnBelt.put(robot, Direction.EAST);
             }
-            else { robotLocs.add(robot.getLoc()); } //IRobots that aren't being moved by belt.
+            else { stationaryRobots.add(robot.getLoc()); }
         }
-        for (IRobot robot : newRobotLocs.keySet()) {
-            if (robotLocs.contains(newRobotLocs.get(robot))) { robotsOnBelts.remove(robot); }
+        for (IRobot robot : robotsMovingOnBelt.keySet()) {
+            if (stationaryRobots.contains(robotsMovingTo.get(robot))) {
+                stationaryRobots.add(robot.getLoc());
+            }
         }
-        for (IRobot robot : robotsOnBelts.keySet()) { move(robot, robotsOnBelts.get(robot)); }
-        for (IRobot robot : robots) {
-            if (leftTurnFastBelts.contains(robot.getLoc())) { rotateRobot(robot, ProgramCard.TURN_LEFT);}
-            else if (rightTurnFastBelts.contains(robot.getLoc())) { rotateRobot(robot, ProgramCard.TURN_RIGHT);}
+        for (IRobot robot : robotsMovingOnBelt.keySet()) {
+            move(robot, robotsMovingOnBelt.get(robot));
+            if (leftBelts.contains(robot.getLoc())) { rotateRobot(robot, ProgramCard.TURN_LEFT);}
+            else if (rightBelts.contains(robot.getLoc())) { rotateRobot(robot, ProgramCard.TURN_RIGHT);}
         }
     }
 
@@ -280,14 +277,18 @@ public class BoardActions extends Board {
         }
         else if (canGo(loc, dir)) {
             addLaser(loc, dir);
-            if (inBounds(getNextLoc(loc, dir))) { shoot(getNextLoc(loc, dir), dir);} addLaser(loc, dir);
+            if (inBounds(getNextLoc(loc, dir))) { shoot(getNextLoc(loc, dir), dir); }
         }
         else { addLaser(loc, dir); }
-
     }
 
     private void doDamage(Vector2 loc) {
-        for (IRobot robot : app.getGame().getRobots()) { if (robot.getLoc().equals(loc)) { robot.addDamage(); } }
+        for (IRobot robot : app.getGame().getRobots()) {
+            if (robot.getLoc().equals(loc)) {
+                robot.addDamage();
+                Gdx.app.postRunnable(() -> app.getOverlay().updateBars());
+            }
+        }
     }
 
     /**
@@ -351,7 +352,6 @@ public class BoardActions extends Board {
         for (IRobot robot : robots) {
             if (repairSites.contains(robot.getLoc())) { robot.repairDamage(); }
             if (upgradeSites.contains(robot.getLoc())) { robot.repairDamage(); }
-            if (robot.isPoweredDown()) { robot.repairAllDamage(); }
         }
     }
 
@@ -360,18 +360,7 @@ public class BoardActions extends Board {
      *
      * @param robots the list of robots to wipe.
      */
-    public void wipeRobots(List<IRobot> robots) {
-        for (IRobot robot : robots) { robot.wipeRegisters(); }
-        Gdx.app.postRunnable(() -> app.getUI().clearRegistry());
-    }
-
-    public void getPowerDowns(List<IRobot> robots) {
-        for (IRobot robot : robots) {
-            if (robot.isPoweredDown()) { robot.powerUp(); } // TODO: "Continue power down?" GUI dialogue.
-            if (robot.powerDownAnnounced()) { robot.powerDown(); }
-        }
-
-    }
+    public void wipeRobots(List<IRobot> robots) { for (IRobot robot : robots) { robot.wipeRegisters(); } }
 
     /**
      * Respawns destroyed robots.
@@ -383,6 +372,7 @@ public class BoardActions extends Board {
             if (robot.isDestroyed()) {
                 removeRobot(robot);
                 robot.killRobot();
+                Gdx.app.postRunnable(() -> app.getUI().updateLives());
                 if (!robot.isDestroyed()) { putRobot(robot); }
             }
         }

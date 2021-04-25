@@ -7,10 +7,15 @@ import roborally.multiplayer.packets.PlayerHandPacket;
 import roborally.multiplayer.packets.RequestHandPacket;
 import roborally.multiplayer.packets.TurnPacket;
 import roborally.multiplayer.packets.StartPacket;
+
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Server;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Class to create a host server for clients to connect to.
@@ -88,7 +93,7 @@ public class MultiplayerHost extends Multiplayer {
             if (Debug.debugServer()) { System.out.println("Server: " + connection + " requested " + packet.getHandSize() + " cards"); }
             if (turnNumber == 0) { connection.sendTCP(new PlayerHandPacket(deck.getHand(packet.getHandSize()))); }
             else { handPackets.put(connection, packet.getHandSize()); }
-            if (handPackets.size() == connections.size()) { broadcastHandPackets(); } // TODO: Move outside else?
+            if (handPackets.size() == connections.size()) { broadcastHandPackets(); }
         }
     }
 
@@ -103,6 +108,7 @@ public class MultiplayerHost extends Multiplayer {
         turnPackets.add(new ArrayList<>());
         ++turnNumber;
     }
+
     /**
      * Broadcasts every player's game packet to all player connections.
      */

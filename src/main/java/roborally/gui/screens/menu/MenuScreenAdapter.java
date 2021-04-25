@@ -90,7 +90,7 @@ public abstract class MenuScreenAdapter implements MenuScreen {
 
     @Override
     public Label addLabel(String text, boolean newRow) {
-        Label label = new Label(text, app.getMenuSkin());
+        Label label = new Label(text, app.getTextSkin());
         label.setWidth(getCenterWidth()/2);
         if (newRow) { buttonTable.row(); }
         buttonTable.add(label);

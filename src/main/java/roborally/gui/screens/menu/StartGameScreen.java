@@ -36,7 +36,7 @@ public class StartGameScreen extends MenuScreenAdapter {
     public String getIP() {
         String systemIP = "IP: ";
         try {
-            URL url_name = new URL("http://bot.whatismyipaddress.com");
+            URL url_name = new URL("https://bot.whatismyipaddress.com");
             BufferedReader reader = new BufferedReader(new InputStreamReader(url_name.openStream()));
             systemIP += reader.readLine().trim();
         }
@@ -59,7 +59,7 @@ public class StartGameScreen extends MenuScreenAdapter {
      */
     private void hostPressed() {
         try { app.hostNewGame((Boards) box.getSelected()); }
-        catch (Exception e) { System.err.println("Error! Unable to get board selection."); }// TODO: Display error message in GUI.
+        catch (Exception e) { System.err.println(e+"Error! Unable to get board selection."); }// TODO: Display error message in GUI.
     }
 
 }
