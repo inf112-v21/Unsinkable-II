@@ -14,16 +14,21 @@ public class Robot implements IRobot {
     private final Vector2 location;
     private final Vector2 spawn;
     private final Deque<Card> usedRegisters;
+    private final Piece piece;
+    private final String name;
     private Deque<Card> registers;
     private Direction direction;
-    private final Piece piece;
+    private TiledMapTileLayer.Cell cell;
     private boolean announcePowerDown;
     private boolean powerDown;
     private boolean destroyed;
+    private boolean phasedOut;
+
+    private final int maxHealth;
     private int damage;
     private int lives;
     private int flag;
-    private final String name;
+
 
     public Robot(int id) {
         this.spawn = new Vector2();
@@ -34,47 +39,55 @@ public class Robot implements IRobot {
         this.announcePowerDown = false;
         this.powerDown = false;
         this.destroyed = false;
+        this.phasedOut = false;
+        this.maxHealth = 9;
         this.damage = 0;
         this.lives = 3;
         this.flag = 0;
         this.name = "Robot "+id;
         this.piece = Piece.getPieceByID(id);
+        this.cell = piece.getCell();
     }
 
     @Override
     public void addDamage() {
-        if (damage < 9) {
+        if (damage < 9 && !destroyed && !phasedOut) {
             ++this.damage;
             if(Debug.debugBackend()) { System.out.println(this.name +" was damaged and has "+damage+" damage"); }}
-        else { setDestroyed(); }
+        else { setDestroyed(true); }
     }
 
     @Override
-    public void setDestroyed() {
+    public void setDestroyed(boolean bodyRemains) {
+        damage = 10;
+        if (!bodyRemains) { phasedOut = true; }
         destroyed = true;
-        powerDown = false; // TODO: Should be a choice.
-        registers.clear();
+        powerDown = false; // TODO: Should be a choice if already powered down.
+        setDiedCell();
         if(Debug.debugBackend()) { System.out.println(this.name+" was damaged and destroyed!"); }
     }
 
     @Override
     public void killRobot() {
-        if (lives > 1) {
-            --lives;
+        --lives;
+        if (lives > 0) {
             damage = 2;
             setLoc(getSpawnLoc());
             setDirection(Direction.NORTH);
             destroyed = false;
+            phasedOut = false;
+            setNormalCell();
             if(Debug.debugBackend()) { System.out.println(this.name +" was scrapped and "+ lives +" replacements remain."); }
         }
         else {
             // TODO: Remove player and robot from list.
+
             if(Debug.debugBackend()) { System.out.println(this.name+" is out of replacement robots!"); }
         }
     }
 
     @Override
-    public void repairDamage() { if (damage > 0) { --this.damage; } }
+    public void repairDamage() { if (damage > 0 && !destroyed) { --this.damage; } }
 
     @Override
     public void repairAllDamage() { this.damage = 0; }
@@ -89,12 +102,18 @@ public class Robot implements IRobot {
     @Override
     public void wipeRegisters() {
         if (Debug.debugBackend()) { System.out.println("Registers pre-wipe: Damage="+damage+" Registers: "+registers.toString()+" Used Regs: "+usedRegisters.toString()); }
-        if (damage > 4) {
-            for (int i = 0; i < getHealth(); ++i) { usedRegisters.pop();}
-            for (Card card : usedRegisters) { registers.addLast(card); }
+        if (destroyed) {
+            registers.clear();
+            usedRegisters.clear();
         }
-        usedRegisters.clear();
-        if (Debug.debugBackend()) { System.out.println("Registers post-wipe: Damage="+damage+" Registers: "+registers.toString()+" Used Regs: "+usedRegisters.toString()); }
+        else if (damage > 4) {
+            for (int i = 0; i < getHealth(); ++i) { usedRegisters.pop(); }
+            System.out.println("Locked: "+usedRegisters);
+            while (!usedRegisters.isEmpty()) { registers.addLast(usedRegisters.pop());}
+
+        }
+        else { usedRegisters.clear(); }
+        if (Debug.debugBackend()) { System.out.println("Registers post-wipe: Damage="+damage+" Registers: "+registers.toString()+" Used Regs: "+usedRegisters); }
     }
 
     @Override
@@ -111,12 +130,13 @@ public class Robot implements IRobot {
         this.announcePowerDown = false;
         this.powerDown = true;
         repairAllDamage();
+        setPowerDownCell();
     }
 
     @Override
     public void powerUp() {
         this.powerDown = false;
-        registers.clear();
+        setNormalCell();
     }
 
     @Override
@@ -130,6 +150,9 @@ public class Robot implements IRobot {
 
     @Override
     public boolean isDestroyed() { return this.destroyed; }
+
+    @Override
+    public boolean isPhasedOut() { return this.phasedOut; }
 
     @Override
     public int touchedFlags() { return this.flag; }
@@ -156,10 +179,13 @@ public class Robot implements IRobot {
     public void setDirection(Direction dir) { this.direction = dir; }
 
     @Override
+    public int getMaxHealth() { return this.maxHealth; }
+
+    @Override
     public int getHealth() { return 9 - this.damage; }
 
     @Override
-    public int getLives() { return this.lives; } //  TODO: Move to Player?
+    public int getLives() { return this.lives; }
 
     @Override
     public String getName() { return this.name; }
@@ -168,12 +194,12 @@ public class Robot implements IRobot {
     public Piece getPiece() {  return this.piece; }
 
     @Override
-    public TiledMapTileLayer.Cell getCell() { return this.piece.getCell(); }
+    public TiledMapTileLayer.Cell getCell() { return this.cell; }
 
-    @Override
-    public TiledMapTileLayer.Cell getDiedCell() { return this.piece.getDiedCell(); }
+    private void setNormalCell() {  this.cell = this.piece.getCell(); }
 
-    @Override
-    public TiledMapTileLayer.Cell getWonCell() { return this.piece.getWonCell(); }
+    private void setDiedCell() { this.cell = this.piece.getDiedCell(); }
+
+    private void setPowerDownCell() { this.cell = this.piece.getPowerDownCell(); }
 
 }

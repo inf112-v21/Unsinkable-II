@@ -15,9 +15,9 @@ University of Bergen.
     4.  [Running](#running)
 
 3.  [Developing](#developing)
-    1.  [Testing](#testing)
-    2.  [How To Run](#how-to-run)
-    3.  [Debugging](#debugging)
+    1.  [How To Run](#how-to-run)
+    2.  [Debugging](#debugging)
+    3.  [Testing](#testing)
 
 4.  [Known Bugs and Issues](#known-bugs-and-issues)
     1.  [Missing Features](#missing-features)
@@ -35,7 +35,7 @@ University of Bergen.
     6.  [Board Design Protocol](#board-design)
 
 ## Overview
-This project is an approximation of the original version of roborally, a tabletop board game,
+This project is an approximation of the original version of RoboRally, a tabletop board game,
 in Java using libGDX and Tiled game framework and Kryonet for LAN/WAN multiplayer.
 
 ## Building
@@ -61,21 +61,20 @@ one the right side under the Maven tab.
 ### Running
 After a successful build, you can run the jar
 ```shell
-java -jar roborally.jar
+java -jar target/RoboRally-1.0-SNAPSHOT.jar
 ```
+to run a multiplayer game, make sure that port 
+```shell
+18888
+```
+is open.
 
 ## Developing
-Simply open the pom.xml file in any Java IDE like Intellij
-IDEA. 
+Simply open the pom.xml file in any Java IDE like IntellIJ IDEA. 
 
 Documentation on contributing using git, see [Git Contributing Guidelines](documentation/GitContributibuting.md).
 
 Documentation on map design, see [Board Design Protocol](documentation/BoardDesign.md).
-
-### Testing
-To run the automated tests, simply run `mvn test` from the command line, or run the test lifecycle from an IDE.   
-
-While developing, run the tests from your IDE.
 
 ### How to run
 Run [Main](src/main/java/roborally/Main.java) from an IDE.
@@ -84,11 +83,16 @@ Run [Main](src/main/java/roborally/Main.java) from an IDE.
 Debugging can be customized by changing values in Debugging.java.
 To enable various debugging levels set the corresponding area to debug to true.
 
+### Testing
+To run the automated tests, simply run `mvn test` from the command line, or run the test lifecycle from an IDE.   
+
+While developing, run the tests from your IDE.
+
+
 ## Known Bugs and Issues
 See [Issues](https://github.com/inf112-v21/Unsinkable-II/issues)
 
 ### Missing Features
-Continue power down
 
 Robot spawn direction
 
@@ -108,48 +112,53 @@ Special tiles
 [Jonas Valen](https://github.com/jonazbot)
 
 ### About Us
-[Unsinkable-II](documentation/deliverables/Assignment1/about.md)
+[Unsinkable-II](https://github.com/inf112-v21/Unsinkable-II/wiki/Developer-Team)
 
-[Group dynamics](documentation/deliverables/Assignment1/ComplulsoryAssignment1.md)
+[Group dynamics](https://github.com/inf112-v21/Unsinkable-II/wiki/Group-dynamic)
 
-## Documents
+## Documentation
+All documentation can be found in the RoboRally Wiki at 
 
 ### Diagrams
-[Class Diagram](documentation/deliverables/Assignment3/CurrentClassDiagram.pdf)
 
 [Project board](https://github.com/inf112-v21/Unsinkable-II/issues)
+
+For class diagram, see the Wiki.
 
 ### User Stories
 See [User Stories Repository](https://github.com/inf112-v21/Unsinkable-II/projects)
 
 ### Meeting Minutes
-[Feb/01/2021](documentation/deliverables/MinutesOfMeetings/2021.02.01.md)
+[Feb/01/2021](https://github.com/inf112-v21/Unsinkable-II/wiki/02.01.21)
 
-[Feb/04/2021](documentation/deliverables/MinutesOfMeetings/2021.02.04.md)
+[Feb/04/2021](https://github.com/inf112-v21/Unsinkable-II/wiki/02.04.21)
 
-[Feb/08/2021](documentation/deliverables/MinutesOfMeetings/2021.02.08.md)
+[Feb/08/2021](https://github.com/inf112-v21/Unsinkable-II/wiki/02.08.21)
 
-[Feb/11/2021](documentation/deliverables/MinutesOfMeetings/2021.02.11.md)
+[Feb/11/2021](https://github.com/inf112-v21/Unsinkable-II/wiki/02.11.21)
 
-[Feb/15/2001](documentation/deliverables/MinutesOfMeetings/2021.02.15.md)
+[Feb/15/2021](https://github.com/inf112-v21/Unsinkable-II/wiki/02.15.21)
 
-[Feb/25/2001](documentation/deliverables/MinutesOfMeetings/2021.02.25.md)
+[Feb/25/2021](https://github.com/inf112-v21/Unsinkable-II/wiki/02.25.21)
 
-[Mar/01/2001](documentation/deliverables/MinutesOfMeetings/2021.03.01.md)
+[Mar/01/2021](https://github.com/inf112-v21/Unsinkable-II/wiki/03.01.21)
 
-[Mar/08/2001](documentation/deliverables/MinutesOfMeetings/2021.03.08.md)
+[Mar/08/2021](https://github.com/inf112-v21/Unsinkable-II/wiki/03.08.21)
 
-[Mar/15/2001](documentation/deliverables/MinutesOfMeetings/2021.03.15.md)
+[Mar/15/2021](https://github.com/inf112-v21/Unsinkable-II/wiki/03.15.21)
 
-[Mar/22/2001](documentation/deliverables/MinutesOfMeetings/2021.03.22.md)
+[Mar/22/2021](https://github.com/inf112-v21/Unsinkable-II/wiki/03.22.21)
+
+[Apr/04/2021](https://github.com/inf112-v21/Unsinkable-II/wiki/04.12.21)
 
 ### Retrospect
-[Retrospect for sprint 2](documentation/deliverables/Assignment2/Retrospect.md)
+[Retrospect for sprint 1](https://github.com/inf112-v21/Unsinkable-II/wiki/Retrospekt-Sprint-1)
 
-[Retrospect for sprint 3](documentation/deliverables/Assignment3/Retrospect.md)
+[Retrospect for sprint 2](https://github.com/inf112-v21/Unsinkable-II/wiki/Retrospect-Sprint-2)
 
-### Git
-See [Git Contributing Guidelines](documentation/GitContributibuting.md)
+[Retrospect for sprint 3](https://github.com/inf112-v21/Unsinkable-II/wiki/Retrospect-Sprint-3)
+
+[Retrospect for sprint 4](https://github.com/inf112-v21/Unsinkable-II/wiki/Retrospekt-Sprint-4)
 
 ### Board Design
-See [Board Design Protocol](documentation/BoardDesign.md)
+See [Board Design Protocol](https://github.com/inf112-v21/Unsinkable-II/wiki/Level-design)

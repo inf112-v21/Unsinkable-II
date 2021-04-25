@@ -1,11 +1,11 @@
 package roborally.multiplayer;
 
-import roborally.debug.Debug;
-import roborally.game.cards.Card;
+import roborally.gui.RoboRallyApp;
 import roborally.multiplayer.packets.PlayerHandPacket;
 import roborally.multiplayer.packets.TurnPacket;
 import roborally.multiplayer.packets.StartPacket;
-import roborally.gui.RoboRallyApp;
+import roborally.game.cards.Card;
+import roborally.debug.Debug;
 
 import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.Connection;
@@ -53,7 +53,7 @@ public class MultiplayerClient extends Multiplayer {
     public void received(Connection connection, Object transmission) {
         if (transmission instanceof StartPacket) {
             this.startPacket = (StartPacket) transmission;
-            if (ready) { app.getGame().addPlayer(startPacket.playerID);}
+            if (ready) { app.getGame().addPlayer(startPacket.playerID); }
             else ready = true;
             if(Debug.debugClient()) { System.out.println("Client: New Player " + startPacket.playerID); }
         }

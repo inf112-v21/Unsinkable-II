@@ -4,10 +4,13 @@ import roborally.debug.Debug;
 import roborally.gui.RoboRallyApp;
 import roborally.game.Direction;
 import roborally.game.player.IRobot;
+
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.Gdx;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -56,9 +59,11 @@ public abstract class Board {
     protected final TiledMapTileLayer laserLayer;
     protected final TiledMapTileLayer conveyorLayer;
     protected final TiledMapTileLayer gearLayer;
+    protected final TiledMapTileLayer pusherLayer;
     protected final TiledMapTileLayer.Cell verticalLaser;
     protected final TiledMapTileLayer.Cell horizontalLaser;
     protected final TiledMapTileLayer.Cell crossedLaser;
+    private final TextureRegion[] flagTextures;
 
     public Board(RoboRallyApp app, Boards gameBoard) {
         this.app = app;
@@ -76,6 +81,7 @@ public abstract class Board {
         this.upgradeLayer = (TiledMapTileLayer) board.getLayers().get("Upgrade");
         this.laserWallLayer = (TiledMapTileLayer) board.getLayers().get("LaserWall");
         this.wallLayer = (TiledMapTileLayer) board.getLayers().get("Wall");
+        this.pusherLayer = (TiledMapTileLayer) board.getLayers().get("Pusher");
 
         this.verticalLaser = new TiledMapTileLayer.Cell();
         this.verticalLaser.setTile(board.getTileSets().getTileSet(0).getTile(TileID.LASER_VERTICAL.getId()));
@@ -116,7 +122,15 @@ public abstract class Board {
         this.leftGears = new HashSet<>();
         this.rightGears = new HashSet<>();
         findGears();
+
+        this.flagTextures = new TextureRegion[4];
+        flagTextures[0] = board.getTileSets().getTile(TileID.FLAG_1.getId()).getTextureRegion();
+        flagTextures[1] = board.getTileSets().getTile(TileID.FLAG_2.getId()).getTextureRegion();
+        flagTextures[2] = board.getTileSets().getTile(TileID.FLAG_3.getId()).getTextureRegion();
+        flagTextures[3] = board.getTileSets().getTile(TileID.FLAG_4.getId()).getTextureRegion();
     }
+
+    public TextureRegion[] getFlagTextures() { return this.flagTextures; }
 
     /**
      * Finds the locations of all tiles in a layer.
@@ -208,7 +222,6 @@ public abstract class Board {
         }
     }
 
-
     /**
      * Checks if there is a wall in a direction on a location.
      *
@@ -253,6 +266,9 @@ public abstract class Board {
             else {
                 robot.setSpawnLoc(robot.getLoc());
                 robot.touchFlag();
+                if (app.getGame().getMyPlayer().getRobot().getName().equals(robot.getName())) {
+                    Gdx.app.postRunnable(() -> app.getUI().updateFlag(robot.touchedFlags()));
+                }
                 if(Debug.debugBackend()) { System.out.println(robot.getName()+" collected flag "+robot.touchedFlags()); }
             }
         }
