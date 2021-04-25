@@ -148,7 +148,9 @@ public class BoardActions extends Board {
     private void putRobot(IRobot robot) {
         robot.getCell().setRotation(robot.getDirection().getDirection());
         setPlayerLayerCell(robot.getLoc(), robot.getCell());
+        Gdx.app.postRunnable(() -> app.getOverlay().updateBars());
         Gdx.app.postRunnable(() -> app.getOverlay().updatePosition());
+
     }
 
     /**
