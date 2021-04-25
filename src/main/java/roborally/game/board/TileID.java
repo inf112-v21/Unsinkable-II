@@ -90,8 +90,8 @@ public enum TileID {
     LASER_DOUBLE_CROSSED(101),
 
     // Gears
-    GEAR_LEFT(53),
-    GEAR_RIGHT(54),
+    GEAR_LEFT(54),
+    GEAR_RIGHT(53),
 
     // Walls
     WALL_E(23),

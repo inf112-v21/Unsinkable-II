@@ -16,9 +16,10 @@ University of Bergen.
     4.  [Running](#running)
 
 3.  [Developing](#developing)
-    1.  [Testing](#testing)
-    2.  [How To Run](#how-to-run)
-    3.  [Debugging](#debugging)
+    1.  [How To Run](#how-to-run)
+    2.  [Debugging](#debugging)
+    3.  [Testing](#testing)
+    4.  [Contributing](#contributing)
 
 4.  [Known Bugs and Issues](#known-bugs-and-issues)
     1.  [Missing Features](#missing-features)
@@ -66,17 +67,11 @@ java -jar target/RoboRally-1.0-SNAPSHOT.jar
 ```
 
 ## Developing
-Simply open the pom.xml file in any Java IDE like Intellij
-IDEA. 
+Simply open the pom.xml file in any Java IDE like IntellIJ IDEA. 
 
 Documentation on contributing using git, see [Git Contributing Guidelines](documentation/GitContributibuting.md).
 
 Documentation on map design, see [Board Design Protocol](documentation/BoardDesign.md).
-
-### Testing
-To run the automated tests, simply run `mvn test` from the command line, or run the test lifecycle from an IDE.   
-
-While developing, run the tests from your IDE.
 
 ### How to run
 Run [Main](src/main/java/roborally/Main.java) from an IDE.
@@ -85,11 +80,15 @@ Run [Main](src/main/java/roborally/Main.java) from an IDE.
 Debugging can be customized by changing values in Debugging.java.
 To enable various debugging levels set the corresponding area to debug to true.
 
+### Testing
+To run the automated tests, simply run `mvn test` from the command line, or run the test lifecycle from an IDE.   
+
+While developing, run the tests from your IDE.
+
 ## Known Bugs and Issues
 See [Issues](https://github.com/inf112-v21/Unsinkable-II/issues)
 
 ### Missing Features
-Continue power down
 
 Robot spawn direction
 
@@ -113,10 +112,10 @@ Special tiles
 
 [Group dynamics](https://github.com/inf112-v21/Unsinkable-II/wiki/Group-dynamic)
 
-## Documents
+## Documentation
+All documentation can be found in the RoboRally Wiki at 
 
 ### Diagrams
-[Class Diagram](documentation/deliverables/Assignment3/CurrentClassDiagram.pdf)
 
 [Project board](https://github.com/inf112-v21/Unsinkable-II/issues)
 
@@ -155,8 +154,5 @@ See [User Stories Repository](https://github.com/inf112-v21/Unsinkable-II/projec
 
 [Retrospect for sprint 4](https://github.com/inf112-v21/Unsinkable-II/wiki/Retrospekt-Sprint-4)
 
-### Git
-See [Git Contributing Guidelines](documentation/GitContributibuting.md)
-
 ### Board Design
-See [Board Design Protocol](documentation/BoardDesign.md)
+See [Board Design Protocol](https://github.com/inf112-v21/Unsinkable-II/wiki/Level-design)
