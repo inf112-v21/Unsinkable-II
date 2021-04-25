@@ -19,7 +19,6 @@ University of Bergen.
     1.  [How To Run](#how-to-run)
     2.  [Debugging](#debugging)
     3.  [Testing](#testing)
-    4.  [Contributing](#contributing)
 
 4.  [Known Bugs and Issues](#known-bugs-and-issues)
     1.  [Missing Features](#missing-features)
@@ -91,6 +90,7 @@ To enable various debugging levels set the corresponding area to debug to true.
 To run the automated tests, simply run `mvn test` from the command line, or run the test lifecycle from an IDE.   
 
 While developing, run the tests from your IDE.
+
 
 ## Known Bugs and Issues
 See [Issues](https://github.com/inf112-v21/Unsinkable-II/issues)
