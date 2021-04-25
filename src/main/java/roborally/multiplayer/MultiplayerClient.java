@@ -1,6 +1,5 @@
 package roborally.multiplayer;
 
-
 import roborally.gui.RoboRallyApp;
 import roborally.multiplayer.packets.PlayerHandPacket;
 import roborally.multiplayer.packets.TurnPacket;

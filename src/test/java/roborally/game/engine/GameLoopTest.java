@@ -12,10 +12,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
 
-import java.util.ArrayDeque;
-import java.util.Arrays;
-import java.util.Deque;
-import java.util.LinkedList;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
@@ -44,11 +41,11 @@ public class GameLoopTest {
         Vector2 p2Pos = player2.getLoc().cpy();
         Vector2 p3Pos = player3.getLoc().cpy();
 
-        Deque<Card> registers = new LinkedList<>(Arrays.asList(new Card(ProgramCard.MOVE_1, 1)));
+        Deque<Card> registers = new LinkedList<>(List.of(new Card(ProgramCard.MOVE_1, 1)));
         player1.setRegisters(registers);
-        registers = new ArrayDeque<>(Arrays.asList(new Card(ProgramCard.MOVE_2, 1)));
+        registers = new ArrayDeque<>(List.of(new Card(ProgramCard.MOVE_2, 1)));
         player2.setRegisters(registers);
-        registers = new ArrayDeque<>(Arrays.asList(new Card(ProgramCard.BACK_UP, 1)));
+        registers = new ArrayDeque<>(List.of(new Card(ProgramCard.BACK_UP, 1)));
         player3.setRegisters(registers);
 
         gameLoop.turn();
@@ -103,7 +100,6 @@ public class GameLoopTest {
         player1.setLoc(new Vector2(5, 7));
         player2.setLoc(new Vector2(5, 6));
         Vector2 p1Pos = player1.getLoc().cpy();
-        Vector2 p2Pos = player2.getLoc().cpy();
 
         Deque<Card> registers = new LinkedList<>(Arrays.asList(
                 new Card(ProgramCard.U_TURN, 1),

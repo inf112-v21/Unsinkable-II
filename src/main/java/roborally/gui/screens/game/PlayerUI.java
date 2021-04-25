@@ -1,6 +1,20 @@
 package roborally.gui.screens.game;
 
+
+import roborally.debug.Debug;
+import roborally.game.cards.Card;
+import roborally.game.cards.ProgramCard;
+import roborally.gui.RoboRallyApp;
+
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.ButtonGroup;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
@@ -8,18 +22,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
-import roborally.debug.Debug;
-import roborally.game.cards.Card;
-import roborally.game.cards.ProgramCard;
-import roborally.gui.RoboRallyApp;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
-import com.badlogic.gdx.utils.viewport.FitViewport;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -54,8 +56,6 @@ public class PlayerUI {
     private final ButtonGroup<Button> registryButtons;
     private final Map<Integer, Integer> registrySelections;
     private final Label.LabelStyle infoStyle;
-    private Label turn;
-    private Label phase;
     private Deque<Card> registers;
     private List<Card> hand;
     private int order;
@@ -148,7 +148,7 @@ public class PlayerUI {
         updateFlag(0);
         infoTable.add(flagTable);
         flagTable.padBottom(handPadding);
-        flagTable.padLeft(leftPadding);
+        flagTable.padLeft(leftPadding*2.5f);
 
         if (Debug.debugGUI()) {
             infoTable.setDebug(true);
@@ -169,7 +169,7 @@ public class PlayerUI {
 
     private void updateTurn(int turnNumber) {
         turnTable.clearChildren();
-        turn = new Label(""+turnNumber, infoStyle);
+        Label turn = new Label("" + turnNumber, infoStyle);
         turn.setFontScale(0.4f);
         turn.setColor(Color.GOLDENROD);
         turnTable.add(turn);
@@ -177,7 +177,7 @@ public class PlayerUI {
 
     public void updatePhase(int phaseNumber) {
         phaseTable.clearChildren();
-        phase = new Label(""+phaseNumber, infoStyle);
+        Label phase = new Label("" + phaseNumber, infoStyle);
         phase.setFontScale(0.4f);
         phase.setColor(Color.GOLDENROD);
         phaseTable.add(phase);
@@ -448,7 +448,6 @@ public class PlayerUI {
                     buttonTable.padBottom(padding);
                     resetHand();
                 }
-                else System.out.println("Active: "+runButtonActive+" Selections: "+ registrySelections.values()+" Registers:"+registers.toString());
             }
         };
     }
