@@ -1,7 +1,5 @@
 package roborally.game.board;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import roborally.debug.Debug;
 import roborally.gui.RoboRallyApp;
 import roborally.game.Direction;
@@ -10,6 +8,8 @@ import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.Gdx;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -65,7 +65,6 @@ public abstract class Board {
     protected final TiledMapTileLayer.Cell horizontalLaser;
     protected final TiledMapTileLayer.Cell crossedLaser;
     private final TextureRegion[] flagTextures;
-
 
     public Board(RoboRallyApp app, Boards gameBoard) {
         this.app = app;
