@@ -111,19 +111,19 @@ public class PlayerUI {
     private void infoTableSetup() {
         infoTable.setFillParent(true);
         infoTable.left().top();
-        infoTable.padTop(bottomPadding);
-        infoTable.padLeft(handPadding);
+        infoTable.padTop(height / 4f);
+        infoTable.padLeft(width/(1<<7));
 
         Label.LabelStyle infoStyle = new Label.LabelStyle();
         infoStyle.font = app.getGameSkin().getFont("title");
         Label playerLabel = new Label(app.getGame().getMyPlayer().getName(), infoStyle);
-        playerLabel.setFontScale(0.65f);
+        playerLabel.setFontScale(0.60f);
         playerLabel.setColor(app.getGame().getMyPlayer().getRobot().getPiece().getColor());
         infoTable.add(playerLabel);
         infoTable.row();
 
-        livesTable.padTop(bottomPadding);
-        livesTable.padBottom(bottomPadding);
+        livesTable.padTop(bottomPadding*3/2);
+        livesTable.padBottom(bottomPadding*3/2);
         infoTable.add(livesTable);
         updateLives();
         infoTable.row();
@@ -144,7 +144,7 @@ public class PlayerUI {
      */
     private void mainTableSetup() {
         mainTable.setFillParent(true);
-        mainTable.padLeft(width/(5/3f));
+        mainTable.padLeft(width/(13/8f));
         mainTable.padBottom(bottomPadding).bottom();
 
         registryTableSetup();
@@ -172,7 +172,7 @@ public class PlayerUI {
 
     public void updateFlag(int flag) {
         flagTable.clear();
-        Label next = new Label("Next flag: ", app.getGameSkin());
+        Label next = new Label("     ", app.getGameSkin());
         next.setColor(Color.GOLD);
         flagTable.add(next);
         this.nextFlag = new Image(app.getGame().getBoard().getFlagTextures()[flag]);
