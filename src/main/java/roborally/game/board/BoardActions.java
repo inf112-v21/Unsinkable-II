@@ -245,7 +245,7 @@ public class BoardActions extends Board {
     public void fireRobotLasers(List<IRobot> robots) {
         for (IRobot robot : robots) {
             if (!robot.isDestroyed() && !robot.isPoweredDown() && canGo(robot.getLoc(), robot.getDirection())) {
-                shoot(getNextLoc(robot.getLoc(), robot.getDirection()), robot.getDirection());
+                shoot(1, getNextLoc(robot.getLoc(), robot.getDirection()), robot.getDirection());
             }
         }
     }
@@ -256,10 +256,14 @@ public class BoardActions extends Board {
     public void fireWallLasers() {
         for (Vector2 loc : getLaserWalls()) {
             int id = laserWallLayer.getCell((int) loc.x, (int) loc.y).getTile().getId();
-            if (id == TileID.LASER_WALL_N.getId()) { shoot(loc, Direction.SOUTH); }
-            if (id == TileID.LASER_WALL_W.getId()) { shoot(loc, Direction.EAST);  }
-            if (id == TileID.LASER_WALL_S.getId()) { shoot(loc, Direction.NORTH); }
-            if (id == TileID.LASER_WALL_E.getId()) { shoot(loc, Direction.WEST); }
+            if (id == TileID.LASER_WALL_N.getId()) { shoot(1, loc, Direction.SOUTH); }
+            if (id == TileID.LASER_WALL_W.getId()) { shoot(1, loc, Direction.EAST);  }
+            if (id == TileID.LASER_WALL_S.getId()) { shoot(1, loc, Direction.NORTH); }
+            if (id == TileID.LASER_WALL_E.getId()) { shoot(1, loc, Direction.WEST); }
+            if (id == TileID.LASER_WALL_DOUBLE_N.getId()) { shoot(2, loc, Direction.SOUTH); }
+            if (id == TileID.LASER_WALL_DOUBLE_W.getId()) { shoot(2, loc, Direction.EAST);  }
+            if (id == TileID.LASER_WALL_DOUBLE_S.getId()) { shoot(2, loc, Direction.NORTH); }
+            if (id == TileID.LASER_WALL_DOUBLE_E.getId()) { shoot(2, loc, Direction.WEST); }
         }
     }
 
@@ -294,22 +298,28 @@ public class BoardActions extends Board {
      * @param loc the current location of the shot.
      * @param dir the direction of the shot.
      */
-    private void shoot(Vector2 loc, Direction dir) {
+    private void shoot(int beams, Vector2 loc, Direction dir) {
         if (occupied(loc)) {
-            addLaser(loc, dir);
-            doDamage(loc);
+            if (beams == 1) {
+                addLaser(beams, loc, dir);
+                doDamage(beams, loc);
+            }
+            if (beams == 2) {
+                addLaser(beams, loc, dir);
+                doDamage(beams, loc);
+            }
         }
         else if (canGo(loc, dir)) {
-            addLaser(loc, dir);
-            if (inBounds(getNextLoc(loc, dir))) { shoot(getNextLoc(loc, dir), dir); }
+            addLaser(beams, loc, dir);
+            if (inBounds(getNextLoc(loc, dir))) { shoot(beams, getNextLoc(loc, dir), dir); }
         }
-        else { addLaser(loc, dir); }
+        else { addLaser(beams, loc, dir); }
     }
 
-    private void doDamage(Vector2 loc) {
+    private void doDamage(int damage, Vector2 loc) {
         for (IRobot robot : app.getGame().getRobots()) {
             if (robot.getLoc().equals(loc)) {
-                robot.addDamage();
+                for (int i = 0; i < damage; ++i) { robot.addDamage(); }
                 Gdx.app.postRunnable(() -> app.getOverlay().updateBars());
             }
         }
@@ -329,12 +339,14 @@ public class BoardActions extends Board {
      * @param loc the location to add a laser
      * @param dir the direction
      */
-    private void addLaser(Vector2 loc, Direction dir) {
+    private void addLaser(int beams, Vector2 loc, Direction dir) {
         if (dir.equals(Direction.WEST) || dir.equals(Direction.EAST)) {
-            putLaser(loc, horizontalLaser, verticalLaser);
+            if (beams == 1) { putLaser(loc, horizontalLaser, verticalLaser); }
+            if (beams == 2) { putLaser(loc, horizontalLaserDouble, verticalLaserDouble); }
         }
         if (dir.equals(Direction.NORTH) || dir.equals(Direction.SOUTH)) {
-            putLaser(loc, verticalLaser, horizontalLaser);
+            if (beams == 1) { putLaser(loc, verticalLaser, horizontalLaser); }
+            if (beams == 2) { putLaser(loc, verticalLaserDouble, horizontalLaserDouble); }
         }
     }
 
