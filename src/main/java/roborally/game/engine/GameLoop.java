@@ -1,5 +1,6 @@
 package roborally.game.engine;
 
+import roborally.game.player.Robot;
 import roborally.gui.RoboRallyApp;
 import roborally.game.board.BoardActions;
 import roborally.game.board.Boards;
@@ -34,12 +35,18 @@ public class GameLoop extends RoboRallyGame {
     public void run() {
         System.out.println("Starting " + Thread.currentThread().getName() + "...");
         while (!stopGame) {
+            preTurnCheck();
             requestHand();
             while (!nextRound) { sleep(100); }
             nextRound = false;
             turn();
             sleep(1000);
         }
+    }
+
+    private void preTurnCheck() {
+        for (IRobot robot : robots) { if (robot.getLives() != 0) { return; } }
+        setGameOver("Game Over!");
     }
 
     /**

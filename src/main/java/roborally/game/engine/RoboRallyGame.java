@@ -147,12 +147,13 @@ abstract class RoboRallyGame implements RoboRally {
     public BoardActions getBoard() { return this.board; }
 
     @Override
-    public void setWinner(IRobot robot) {
+    public void setGameOver(String displayText) {
         stopGame();
         Gdx.app.postRunnable(() -> {
             app.getScreen().dispose();
-            app.setScreen(new GameOverScreen(app, robot.getName() + " Wins!"));
+            app.setScreen(new GameOverScreen(app, displayText));
         });
     }
+
 
 }

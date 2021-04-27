@@ -17,7 +17,10 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.spy;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(GdxTestExtension.class)
 public class MapInteractionTest {
@@ -106,7 +109,7 @@ public class MapInteractionTest {
         ba.moveRobot(robot, Direction.EAST,false);
         ba.touchCheckpoints(robots);
         assertEquals(currentFlag + 1, robot.touchedFlags(), "two flags captured");
-        verify(game).setWinner(robot); // game.setWinner(robot) should be called
+        verify(game).setGameOver("GameOver!"); // game.setWinner(robot) should be called
     }
 
     @Test

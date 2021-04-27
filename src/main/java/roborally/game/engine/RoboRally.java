@@ -52,10 +52,9 @@ public interface RoboRally extends Runnable {
     BoardActions getBoard();
 
     /**
-     * Sets the winner and shows the GameOverScreen.
+     * Sets GameOverScreen.
      *
-     * @param robot the winning robot.
+     * @param displayText the text to display on the game over screen.
      */
-    void setWinner(IRobot robot);
-
+    void setGameOver(String displayText);
 }
