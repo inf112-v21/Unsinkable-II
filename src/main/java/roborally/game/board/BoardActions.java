@@ -150,7 +150,6 @@ public class BoardActions extends Board {
         setPlayerLayerCell(robot.getLoc(), robot.getCell());
         Gdx.app.postRunnable(() -> app.getOverlay().updateBars());
         Gdx.app.postRunnable(() -> app.getOverlay().updatePosition());
-
     }
 
     /**
@@ -262,6 +261,31 @@ public class BoardActions extends Board {
             if (id == TileID.LASER_WALL_S.getId()) { shoot(loc, Direction.NORTH); }
             if (id == TileID.LASER_WALL_E.getId()) { shoot(loc, Direction.WEST); }
         }
+    }
+
+    /**
+     * Activates all even pushers.
+     */
+    public void pusherEven(List<IRobot> robots) {
+        for (IRobot robot : robots) { if (evenPushers.contains(robot.getLoc())) { pusher(robot); } }
+    }
+
+    /**
+     * Activates all odd pushers.
+     */
+    public void pusherOdd(List<IRobot> robots) {
+        for (IRobot robot : robots) { if (oddPushers.contains(robot.getLoc())) { pusher(robot); } }
+    }
+
+    /**
+     *
+     * @param robot the robot being pushed by a pusher.
+     */
+    private void pusher(IRobot robot) {
+        if (northPushers.contains(robot.getLoc())) { moveRobot(robot, Direction.NORTH, true); }
+        else if (westPushers.contains(robot.getLoc())) { moveRobot(robot, Direction.WEST, true); }
+        else if (southPushers.contains(robot.getLoc())) { moveRobot(robot, Direction.SOUTH, true); }
+        else if (eastPushers.contains(robot.getLoc())) { moveRobot(robot, Direction.EAST, true); }
     }
 
     /**

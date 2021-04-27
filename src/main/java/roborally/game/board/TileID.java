@@ -288,6 +288,26 @@ public enum TileID {
             PUSHER_ODD_S.getId()
     );
 
+    public static final Set<Integer> PUSHER_NORTH = Set.of(
+            PUSHER_EVEN_N.getId(),
+            PUSHER_ODD_N.getId()
+    );
+
+    public static final Set<Integer> PUSHER_SOUTH = Set.of(
+            PUSHER_EVEN_S.getId(),
+            PUSHER_ODD_S.getId()
+    );
+
+    public static final Set<Integer> PUSHER_EAST = Set.of(
+            PUSHER_EVEN_E.getId(),
+            PUSHER_ODD_E.getId()
+    );
+
+    public static final Set<Integer> PUSHER_WEST = Set.of(
+            PUSHER_EVEN_W.getId(),
+            PUSHER_ODD_W.getId()
+    );
+
     private final int id;
 
     TileID(int id) {

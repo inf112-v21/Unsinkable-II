@@ -47,6 +47,12 @@ public abstract class Board {
     protected final Set<Vector2> westFastBelts;
     protected final Set<Vector2> southFastBelts;
     protected final Set<Vector2> eastFastBelts;
+    protected final Set<Vector2> northPushers;
+    protected final Set<Vector2> westPushers;
+    protected final Set<Vector2> southPushers;
+    protected final Set<Vector2> eastPushers;
+    protected final Set<Vector2> evenPushers;
+    protected final Set<Vector2> oddPushers;
     protected final TiledMapTileLayer boardLayer;
     protected final TiledMapTileLayer playerLayer;
     protected final TiledMapTileLayer startLayer;
@@ -63,6 +69,9 @@ public abstract class Board {
     protected final TiledMapTileLayer.Cell verticalLaser;
     protected final TiledMapTileLayer.Cell horizontalLaser;
     protected final TiledMapTileLayer.Cell crossedLaser;
+    protected final TiledMapTileLayer.Cell verticalLaserDouble;
+    protected final TiledMapTileLayer.Cell horizontalLaserDouble;
+    protected final TiledMapTileLayer.Cell crossedLaserDouble;
     private final TextureRegion[] flagTextures;
 
     public Board(RoboRallyApp app, Boards gameBoard) {
@@ -89,6 +98,13 @@ public abstract class Board {
         this.horizontalLaser.setTile(board.getTileSets().getTileSet(0).getTile(TileID.LASER_HORIZONTAL.getId()));
         this.crossedLaser = new TiledMapTileLayer.Cell();
         this.crossedLaser.setTile(board.getTileSets().getTileSet(0).getTile(TileID.LASER_CROSSED.getId()));
+
+        this.verticalLaserDouble = new TiledMapTileLayer.Cell();
+        this.verticalLaserDouble.setTile(board.getTileSets().getTileSet(0).getTile(TileID.LASER_DOUBLE_VERTICAL.getId()));
+        this.horizontalLaserDouble = new TiledMapTileLayer.Cell();
+        this.horizontalLaserDouble.setTile(board.getTileSets().getTileSet(0).getTile(TileID.LASER_DOUBLE_HORIZONTAL.getId()));
+        this.crossedLaserDouble = new TiledMapTileLayer.Cell();
+        this.crossedLaserDouble.setTile(board.getTileSets().getTileSet(0).getTile(TileID.LASER_DOUBLE_CROSSED.getId()));
 
         this.startLocs = findStart();
         this.flagLocs = findFlags();
@@ -122,6 +138,14 @@ public abstract class Board {
         this.leftGears = new HashSet<>();
         this.rightGears = new HashSet<>();
         findGears();
+
+        this.northPushers = new HashSet<>();
+        this.westPushers = new HashSet<>();
+        this.southPushers = new HashSet<>();
+        this.eastPushers = new HashSet<>();
+        this.evenPushers = new HashSet<>();
+        this.oddPushers = new HashSet<>();
+        findPushers();
 
         this.flagTextures = new TextureRegion[4];
         flagTextures[0] = board.getTileSets().getTile(TileID.FLAG_1.getId()).getTextureRegion();
@@ -221,6 +245,19 @@ public abstract class Board {
             if (gearID == TileID.GEAR_RIGHT.getId()) { rightGears.add(gear); }
         }
     }
+
+    private void findPushers() {
+        for (Vector2 pusher : findAllLayerTiles(pusherLayer)) {
+            int pusherID = pusherLayer.getCell((int) pusher.x, (int) pusher.y).getTile().getId();
+            if (TileID.PUSHER_EVEN.contains(pusherID)) { evenPushers.add(pusher); }
+            else if (TileID.PUSHER_ODD.contains(pusherID)) { oddPushers.add(pusher); }
+            if (TileID.PUSHER_NORTH.contains(pusherID)) { northPushers.add(pusher); }
+            else if (TileID.PUSHER_WEST.contains(pusherID)) { westPushers.add(pusher); }
+            else if (TileID.PUSHER_SOUTH.contains(pusherID)) { southPushers.add(pusher); }
+            else if (TileID.PUSHER_EAST.contains(pusherID)) { eastPushers.add(pusher); }
+        }
+    }
+
 
     /**
      * Checks if there is a wall in a direction on a location.

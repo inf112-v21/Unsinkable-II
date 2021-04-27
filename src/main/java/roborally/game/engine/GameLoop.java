@@ -104,6 +104,8 @@ public class GameLoop extends RoboRallyGame {
     public void moveBoardElements(List<IRobot> robots) {
         board.moveFastBelts(robots);
         board.moveAllBelts(robots);
+        if ((phaseNumber & 1) == 0) { board.pusherEven(robots); }
+        else { board.pusherOdd(robots); }
         board.rotateGears(robots);
         sleep(250);
     }
