@@ -39,7 +39,8 @@ public class RoboRallyApp extends Game {
 
     public final String groupName = "Unsinkable-II";
     public final String logoPath = "Logo/logo.png";
-    public final String gameBackground = "GameBackground/background.png";
+    public final String gameBackground = "GameBackground/gameBackground.png";
+    public final String menuBackground = "GameBackground/menuBackground.png";
     public static final String ROBOT_SKINS_PATH = "Robots/Robots64test.png";
     public static final int TILE_SIZE  = 64;
 
