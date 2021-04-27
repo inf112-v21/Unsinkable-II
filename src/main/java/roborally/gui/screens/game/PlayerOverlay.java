@@ -63,7 +63,7 @@ public class PlayerOverlay {
         barStyle.knob = new TextureRegionDrawable(new TextureRegion(new Texture(knobPixmap)));
         knobPixmap.dispose();
 
-        Pixmap filledPixmap = new Pixmap(100, 5, Pixmap.Format.RGB888);
+        Pixmap filledPixmap = new Pixmap(RoboRallyApp.TILE_SIZE, 5, Pixmap.Format.RGB888);
         filledPixmap.setColor(Color.GREEN);
         filledPixmap.fill();
         // knobBefore is the filled area of the bar

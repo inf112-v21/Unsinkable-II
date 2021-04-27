@@ -147,8 +147,6 @@ public class PlayerUI {
 
         updateFlag(0);
         infoTable.add(flagTable);
-        flagTable.padBottom(handPadding);
-        flagTable.padLeft(leftPadding*2.5f);
 
         if (Debug.debugGUI()) {
             infoTable.setDebug(true);

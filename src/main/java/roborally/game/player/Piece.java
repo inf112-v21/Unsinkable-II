@@ -13,14 +13,14 @@ import java.util.List;
  * Enum to handle robot skins.
  */
 public enum Piece {
-    PIECE1(1, Color.ROYAL),
-    PIECE2(2, Color.CYAN),
-    PIECE3(3, Color.CORAL),
-    PIECE4(4, Color.GOLD),
-    PIECE5(5, Color.SKY),
-    PIECE6(6, Color.GREEN),
-    PIECE7(7, Color.PINK),
-    PIECE8(8, Color.RED);
+    PIECE1(1, Color.BLUE),
+    PIECE2(2, Color.RED),
+    PIECE3(3, Color.GREEN),
+    PIECE4(4, Color.ORANGE),
+    PIECE5(5, Color.CYAN),
+    PIECE6(6, Color.GOLD),
+    PIECE7(7, Color.MAGENTA),
+    PIECE8(8, Color.PURPLE);
 
 
     private final static List<Piece> PIECES = List.of(
