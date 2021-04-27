@@ -144,19 +144,18 @@ public class PlayerOverlay {
             if (bar == null) { continue; }
             if (bar.isVertical()) {
                 bar.setBounds(
-                    405 + robot.getLoc().x * appHeight / boardHeight,
-                    appHeight / boardHeight * 0.375f + robot.getLoc().y * appHeight / boardHeight,
+                    385 + robot.getLoc().x * appHeight / boardHeight,
+                    appHeight / boardHeight * 0.32f + robot.getLoc().y * appHeight / boardHeight,
                     0,
                     appHeight / boardHeight/3f);
             }
             else {
                 bar.setBounds(
-                    396 + robot.getLoc().x * appHeight / boardHeight,
+                    374 + robot.getLoc().x * appHeight / boardHeight,
                     appHeight / boardHeight/2f + robot.getLoc().y * appHeight / boardHeight,
                     appHeight / boardHeight/3f,
                     0);
             }
-
         }
     }
 

@@ -5,7 +5,7 @@ package roborally.debug;
  */
 public class Debug {
     private static final boolean CHEAT_MODE = false;
-    private static final boolean DEBUG_GUI = true;
+    private static final boolean DEBUG_GUI = false;
     private static final boolean DEBUG_BACKEND = true;
     private static final boolean DEBUG_CLIENT = true;
     private static final boolean DEBUG_SERVER = true;

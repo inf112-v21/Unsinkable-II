@@ -7,6 +7,9 @@ public enum Boards {
     DIZZY_DASH("Maps/DizzyDash.tmx", "Dizzy Dash", 8),
     TWISTER("Maps/Twister.tmx", "Twister", 8),
     DEATH_TRAP("Maps/DeathTrap.tmx", "Death Trap", 8),
+    LOST_BEARINGS("Maps/LostBearings.tmx", "Lost Bearings", 8),
+    VAULT_ASSAULT("Maps/VaultAssault.tmx", "Vault Assault", 8),
+    WHIRLWIND_TOUR("Maps/WhirlwindTour.tmx", "Whirlwind Tour", 8),
     TESTMAP("Maps/Testmap2.tmx", "Test", 2),
     JUNIT_TEST_MAP("Maps/JUnitTestingMap.tmx", "JUnit_test", 8); // should not be included in ALL_BOARDS
 
@@ -17,6 +20,9 @@ public enum Boards {
             DIZZY_DASH,
             TWISTER,
             DEATH_TRAP,
+            LOST_BEARINGS,
+            VAULT_ASSAULT,
+            WHIRLWIND_TOUR,
             TESTMAP
     };
 
