@@ -139,7 +139,7 @@ public class PlayerUI {
         currentTableSetup();
 
         infoTable.row();
-        livesTable.padTop(height/6.5f);
+        livesTable.padTop(height/6.3f);
         livesTable.padBottom(bottomPadding*3/2);
         infoTable.add(livesTable);
         updateLives();
