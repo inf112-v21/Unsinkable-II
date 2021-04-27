@@ -1,5 +1,6 @@
 package roborally.gui.screens.menu;
 
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.SelectBox;
@@ -31,6 +32,7 @@ public abstract class MenuScreenAdapter implements MenuScreen {
     protected final Table titleTable;
     protected final Table headingTable;
     protected final Table buttonTable;
+    protected final Sprite backgroundSprite;
     protected Label heading;
     protected final int widgetWidth = Gdx.graphics.getWidth()/10;
 
@@ -45,7 +47,6 @@ public abstract class MenuScreenAdapter implements MenuScreen {
         addLogo(app.logoPath);
         this.titleTable = new Table();
         stageTable.add(titleTable).row();
-        addTitle(app.groupName);
         this.headingTable = new Table();
         headingTable.padTop(getCenterHeight()/4);
         stageTable.add(headingTable).row();
@@ -59,12 +60,16 @@ public abstract class MenuScreenAdapter implements MenuScreen {
             headingTable.setDebug(true);
             buttonTable.setDebug(true);
         }
+
+        backgroundSprite = new Sprite(new Texture(app.menuBackground));
+        backgroundSprite.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
     }
 
     @Override
     public void addLogo(String logoPath) {
         Texture logoTexture = new Texture(Gdx.files.internal(logoPath));
         Image logo = new Image(logoTexture);
+        stageTable.padTop(Gdx.graphics.getHeight()/15f);
         stageTable.add(logo).row();
         stageTable.setSkin(app.getMenuSkin());
     }
@@ -84,7 +89,7 @@ public abstract class MenuScreenAdapter implements MenuScreen {
         this.heading = new Label(headingText, app.getTextSkin());
         heading.setFontScale(1);
         heading.setAlignment(Align.center);
-        heading.setColor(Color.FIREBRICK);
+        heading.setColor(Color.ORANGE);
         headingTable.add(heading);
     }
 
@@ -147,8 +152,9 @@ public abstract class MenuScreenAdapter implements MenuScreen {
 
     @Override
     public void render(float delta) {
-        Gdx.gl.glClearColor(40/255f, 40/255f, 40/255f,1);
-        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+        stage.getBatch().begin();
+        backgroundSprite.draw(stage.getBatch());
+        stage.getBatch().end();
         stage.act();
         stage.draw();
     }
