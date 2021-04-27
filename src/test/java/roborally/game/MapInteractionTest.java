@@ -109,7 +109,7 @@ public class MapInteractionTest {
         ba.moveRobot(robot, Direction.EAST,false);
         ba.touchCheckpoints(robots);
         assertEquals(currentFlag + 1, robot.touchedFlags(), "two flags captured");
-        verify(game).setGameOver("GameOver!"); // game.setWinner(robot) should be called
+        verify(game).setGameOver(robot.getName()+" Wins!"); // game.setWinner(robot) should be called
     }
 
     @Test
