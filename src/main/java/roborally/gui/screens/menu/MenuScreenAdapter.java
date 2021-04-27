@@ -152,9 +152,13 @@ public abstract class MenuScreenAdapter implements MenuScreen {
 
     @Override
     public void render(float delta) {
+        Gdx.gl.glClearColor(0,0,0,1);
+        Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
         stage.getBatch().begin();
         backgroundSprite.draw(stage.getBatch());
         stage.getBatch().end();
+
         stage.act();
         stage.draw();
     }
@@ -164,7 +168,7 @@ public abstract class MenuScreenAdapter implements MenuScreen {
 
     @Override
     public void resize(int width, int height) {
-        stage.getViewport().update(width, height, true);
+        //stage.getViewport().update(width, height, true);
         stage.getCamera().update();
     }
 
