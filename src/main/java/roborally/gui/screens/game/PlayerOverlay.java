@@ -48,7 +48,7 @@ public class PlayerOverlay {
     private void createHealthBar(IRobot robot) {
         // using pixmap to create the colors
         // first the background
-        Pixmap pixmap = new Pixmap(100, 5, Pixmap.Format.RGB888);
+        Pixmap pixmap = new Pixmap(RoboRallyApp.TILE_SIZE, 5, Pixmap.Format.RGB888);
         pixmap.setColor(Color.RED);
         pixmap.fill();
         TextureRegionDrawable drawable = new TextureRegionDrawable(new TextureRegion(new Texture(pixmap)));
