@@ -1,6 +1,5 @@
 package roborally.game.engine;
 
-import roborally.game.player.Robot;
 import roborally.gui.RoboRallyApp;
 import roborally.game.board.BoardActions;
 import roborally.game.board.Boards;

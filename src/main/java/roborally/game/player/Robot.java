@@ -1,6 +1,5 @@
 package roborally.game.player;
 
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import roborally.debug.Debug;
 import roborally.game.cards.Card;
 import roborally.game.Direction;
@@ -10,7 +9,7 @@ import com.badlogic.gdx.math.Vector2;
 import java.util.Deque;
 import java.util.LinkedList;
 
-public class Robot extends Sprite implements IRobot {
+public class Robot implements IRobot {
 
     private final Vector2 location;
     private final Vector2 spawn;

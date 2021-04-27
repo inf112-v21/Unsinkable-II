@@ -167,4 +167,6 @@ public class RoboRallyApp extends Game {
      */
     public Skin getGameSkin() { return this.gameSkin; }
 
+    public Stage getStage() { return this.stage; }
+
 }

@@ -4,11 +4,12 @@ import roborally.gui.RoboRallyApp;
 
 public class GameOverScreen extends MenuScreenAdapter {
 
-    public GameOverScreen(RoboRallyApp app, String result) {
+    public GameOverScreen(RoboRallyApp app, String displayText) {
 
         super(app);
 
-        addHeading(result);
+        addLabel(displayText, true);
+
         addButton("Back",true, backButtonListener());
     }
 

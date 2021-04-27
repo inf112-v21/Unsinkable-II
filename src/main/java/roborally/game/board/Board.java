@@ -262,7 +262,7 @@ public abstract class Board {
      */
     protected void onFlag(IRobot robot) {
         if (flagLocs[robot.touchedFlags()].equals(robot.getLoc())) {
-            if (robot.touchedFlags() == flagLocs.length-1) { app.getGame().setGameOver(robot + " Wins!"); }
+            if (robot.touchedFlags() == flagLocs.length-1) { app.getGame().setGameOver(robot.getName() + " Wins!"); }
             else {
                 robot.setSpawnLoc(robot.getLoc());
                 robot.touchFlag();
