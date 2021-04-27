@@ -63,6 +63,7 @@ public abstract class Board {
     protected final TiledMapTileLayer upgradeLayer;
     protected final TiledMapTileLayer laserWallLayer;
     protected final TiledMapTileLayer laserLayer;
+    protected final TiledMapTileLayer laserDoubleLayer;
     protected final TiledMapTileLayer conveyorLayer;
     protected final TiledMapTileLayer gearLayer;
     protected final TiledMapTileLayer pusherLayer;
@@ -84,6 +85,7 @@ public abstract class Board {
         this.flagLayer = (TiledMapTileLayer) board.getLayers().get("Flag");
         this.holeLayer = (TiledMapTileLayer) board.getLayers().get("Hole");
         this.laserLayer = (TiledMapTileLayer) board.getLayers().get("Laser");
+        this.laserDoubleLayer = (TiledMapTileLayer) board.getLayers().get("LaserDouble");
         this.conveyorLayer = (TiledMapTileLayer) board.getLayers().get("Conveyor");
         this.gearLayer = (TiledMapTileLayer) board.getLayers().get("Gear");
         this.repairLayer = (TiledMapTileLayer) board.getLayers().get("Repair");
@@ -332,6 +334,7 @@ public abstract class Board {
     protected Set<Vector2> getPlayerLocs() { return findAllLayerTiles(playerLayer); }
     protected Set<Vector2> getLaserWalls() { return findAllLayerTiles(laserWallLayer); }
     protected Set<Vector2> getLaserBeams() { return findAllLayerTiles(laserLayer); }
+    protected Set<Vector2> getLaserDoubleBeams() { return findAllLayerTiles(laserDoubleLayer); }
 
     public TiledMap getBoard() { return this.board;}
     public int getBoardWidth() { return boardLayer.getWidth(); }

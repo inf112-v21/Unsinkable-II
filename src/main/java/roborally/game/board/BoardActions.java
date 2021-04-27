@@ -341,16 +341,16 @@ public class BoardActions extends Board {
      */
     private void addLaser(int beams, Vector2 loc, Direction dir) {
         if (dir.equals(Direction.WEST) || dir.equals(Direction.EAST)) {
-            if (beams == 1) { putLaser(loc, horizontalLaser, verticalLaser); }
-            if (beams == 2) { putLaser(loc, horizontalLaserDouble, verticalLaserDouble); }
+            if (beams == 1) { putLaser(loc, laserLayer, horizontalLaser, verticalLaser); }
+            if (beams == 2) { putLaser(loc, laserDoubleLayer, horizontalLaserDouble, verticalLaserDouble); }
         }
         if (dir.equals(Direction.NORTH) || dir.equals(Direction.SOUTH)) {
-            if (beams == 1) { putLaser(loc, verticalLaser, horizontalLaser); }
-            if (beams == 2) { putLaser(loc, verticalLaserDouble, horizontalLaserDouble); }
+            if (beams == 1) { putLaser(loc, laserLayer, verticalLaser, horizontalLaser); }
+            if (beams == 2) { putLaser(loc, laserDoubleLayer, verticalLaserDouble, horizontalLaserDouble); }
         }
     }
 
-    private void putLaser(Vector2 loc, TiledMapTileLayer.Cell horizontalLaser, TiledMapTileLayer.Cell verticalLaser) {
+    private void putLaser(Vector2 loc, TiledMapTileLayer laserLayer, TiledMapTileLayer.Cell horizontalLaser, TiledMapTileLayer.Cell verticalLaser) {
         if (laserLayer.getCell((int) loc.x, (int) loc.y) == null) {
             laserLayer.setCell((int) loc.x, (int) loc.y, horizontalLaser);
         }
@@ -362,7 +362,10 @@ public class BoardActions extends Board {
     /**
      * Removes all laser beams from the board.
      */
-    public void clearLasers() { for (Vector2 loc : getLaserBeams()) { laserLayer.setCell((int) loc.x, (int) loc.y, null);} }
+    public void clearLasers() {
+        for (Vector2 loc : getLaserBeams()) { laserLayer.setCell((int) loc.x, (int) loc.y, null);}
+        for (Vector2 loc : getLaserDoubleBeams()) { laserDoubleLayer.setCell((int) loc.x, (int) loc.y, null);}
+    }
 
     /**
      * Checks for side-effects for a given robot after moving. Should be called after a program card has been executed
