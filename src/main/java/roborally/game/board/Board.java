@@ -47,6 +47,12 @@ public abstract class Board {
     protected final Set<Vector2> westFastBelts;
     protected final Set<Vector2> southFastBelts;
     protected final Set<Vector2> eastFastBelts;
+    protected final Set<Vector2> northPushers;
+    protected final Set<Vector2> westPushers;
+    protected final Set<Vector2> southPushers;
+    protected final Set<Vector2> eastPushers;
+    protected final Set<Vector2> evenPushers;
+    protected final Set<Vector2> oddPushers;
     protected final TiledMapTileLayer boardLayer;
     protected final TiledMapTileLayer playerLayer;
     protected final TiledMapTileLayer startLayer;
@@ -57,12 +63,20 @@ public abstract class Board {
     protected final TiledMapTileLayer upgradeLayer;
     protected final TiledMapTileLayer laserWallLayer;
     protected final TiledMapTileLayer laserLayer;
+    protected final TiledMapTileLayer laserDoubleLayer;
     protected final TiledMapTileLayer conveyorLayer;
     protected final TiledMapTileLayer gearLayer;
     protected final TiledMapTileLayer pusherLayer;
     protected final TiledMapTileLayer.Cell verticalLaser;
     protected final TiledMapTileLayer.Cell horizontalLaser;
     protected final TiledMapTileLayer.Cell crossedLaser;
+    protected final TiledMapTileLayer.Cell northHalfLaser;
+    protected final TiledMapTileLayer.Cell southHalfLaser;
+    protected final TiledMapTileLayer.Cell westHalfLaser;
+    protected final TiledMapTileLayer.Cell eastHalfLaser;
+    protected final TiledMapTileLayer.Cell verticalLaserDouble;
+    protected final TiledMapTileLayer.Cell horizontalLaserDouble;
+    protected final TiledMapTileLayer.Cell crossedLaserDouble;
     private final TextureRegion[] flagTextures;
 
     public Board(RoboRallyApp app, Boards gameBoard) {
@@ -75,6 +89,7 @@ public abstract class Board {
         this.flagLayer = (TiledMapTileLayer) board.getLayers().get("Flag");
         this.holeLayer = (TiledMapTileLayer) board.getLayers().get("Hole");
         this.laserLayer = (TiledMapTileLayer) board.getLayers().get("Laser");
+        this.laserDoubleLayer = (TiledMapTileLayer) board.getLayers().get("LaserDouble");
         this.conveyorLayer = (TiledMapTileLayer) board.getLayers().get("Conveyor");
         this.gearLayer = (TiledMapTileLayer) board.getLayers().get("Gear");
         this.repairLayer = (TiledMapTileLayer) board.getLayers().get("Repair");
@@ -89,6 +104,22 @@ public abstract class Board {
         this.horizontalLaser.setTile(board.getTileSets().getTileSet(0).getTile(TileID.LASER_HORIZONTAL.getId()));
         this.crossedLaser = new TiledMapTileLayer.Cell();
         this.crossedLaser.setTile(board.getTileSets().getTileSet(0).getTile(TileID.LASER_CROSSED.getId()));
+
+        this.northHalfLaser = new TiledMapTileLayer.Cell();
+        this.northHalfLaser.setTile(board.getTileSets().getTileSet(0).getTile(TileID.LASER_VERTICAL_HALF_N.getId()));
+        this.southHalfLaser = new TiledMapTileLayer.Cell();
+        this.southHalfLaser.setTile(board.getTileSets().getTileSet(0).getTile(TileID.LASER_VERTICAL_HALF_S.getId()));
+        this.westHalfLaser = new TiledMapTileLayer.Cell();
+        this.westHalfLaser.setTile(board.getTileSets().getTileSet(0).getTile(TileID.LASER_HORIZONTAL_HALF_W.getId()));
+        this.eastHalfLaser = new TiledMapTileLayer.Cell();
+        this.eastHalfLaser.setTile(board.getTileSets().getTileSet(0).getTile(TileID.LASER_HORIZONTAL_HALF_E.getId()));
+
+        this.verticalLaserDouble = new TiledMapTileLayer.Cell();
+        this.verticalLaserDouble.setTile(board.getTileSets().getTileSet(0).getTile(TileID.LASER_DOUBLE_VERTICAL.getId()));
+        this.horizontalLaserDouble = new TiledMapTileLayer.Cell();
+        this.horizontalLaserDouble.setTile(board.getTileSets().getTileSet(0).getTile(TileID.LASER_DOUBLE_HORIZONTAL.getId()));
+        this.crossedLaserDouble = new TiledMapTileLayer.Cell();
+        this.crossedLaserDouble.setTile(board.getTileSets().getTileSet(0).getTile(TileID.LASER_DOUBLE_CROSSED.getId()));
 
         this.startLocs = findStart();
         this.flagLocs = findFlags();
@@ -122,6 +153,14 @@ public abstract class Board {
         this.leftGears = new HashSet<>();
         this.rightGears = new HashSet<>();
         findGears();
+
+        this.northPushers = new HashSet<>();
+        this.westPushers = new HashSet<>();
+        this.southPushers = new HashSet<>();
+        this.eastPushers = new HashSet<>();
+        this.evenPushers = new HashSet<>();
+        this.oddPushers = new HashSet<>();
+        findPushers();
 
         this.flagTextures = new TextureRegion[4];
         flagTextures[0] = board.getTileSets().getTile(TileID.FLAG_1.getId()).getTextureRegion();
@@ -222,6 +261,19 @@ public abstract class Board {
         }
     }
 
+    private void findPushers() {
+        for (Vector2 pusher : findAllLayerTiles(pusherLayer)) {
+            int pusherID = pusherLayer.getCell((int) pusher.x, (int) pusher.y).getTile().getId();
+            if (TileID.PUSHER_EVEN.contains(pusherID)) { evenPushers.add(pusher); }
+            else if (TileID.PUSHER_ODD.contains(pusherID)) { oddPushers.add(pusher); }
+            if (TileID.PUSHER_NORTH.contains(pusherID)) { northPushers.add(pusher); }
+            else if (TileID.PUSHER_WEST.contains(pusherID)) { westPushers.add(pusher); }
+            else if (TileID.PUSHER_SOUTH.contains(pusherID)) { southPushers.add(pusher); }
+            else if (TileID.PUSHER_EAST.contains(pusherID)) { eastPushers.add(pusher); }
+        }
+    }
+
+
     /**
      * Checks if there is a wall in a direction on a location.
      *
@@ -262,7 +314,7 @@ public abstract class Board {
      */
     protected void onFlag(IRobot robot) {
         if (flagLocs[robot.touchedFlags()].equals(robot.getLoc())) {
-            if (robot.touchedFlags() == flagLocs.length-1) { app.getGame().setWinner(robot); }
+            if (robot.touchedFlags() == flagLocs.length-1) { app.getGame().setGameOver(robot.getName() + " Wins!"); }
             else {
                 robot.setSpawnLoc(robot.getLoc());
                 robot.touchFlag();
@@ -295,6 +347,7 @@ public abstract class Board {
     protected Set<Vector2> getPlayerLocs() { return findAllLayerTiles(playerLayer); }
     protected Set<Vector2> getLaserWalls() { return findAllLayerTiles(laserWallLayer); }
     protected Set<Vector2> getLaserBeams() { return findAllLayerTiles(laserLayer); }
+    protected Set<Vector2> getLaserDoubleBeams() { return findAllLayerTiles(laserDoubleLayer); }
 
     public TiledMap getBoard() { return this.board;}
     public int getBoardWidth() { return boardLayer.getWidth(); }

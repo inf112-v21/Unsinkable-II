@@ -26,12 +26,12 @@ University of Bergen.
     1.  [Developers](#developers)
     2.  [About Us](#about-us)
 
-6.  [Documents](#documents)
+6.  [Documents](#documentation)
     1.  [Diagrams](#diagrams)
     2.  [User Stories](#user-stories)
     3.  [Minutes from meetings](#meeting-minutes)
     4.  [Retrospects](#retrospect)
-    5.  [Contributing to Git](#git)
+    5.  [Contributing to Git](#contributing-to-git)
     6.  [Board Design Protocol](#board-design)
 
 ## Overview
@@ -88,6 +88,54 @@ To run the automated tests, simply run `mvn test` from the command line, or run 
 
 While developing, run the tests from your IDE.
 
+### Contributing to git
+
+For å bidra med kode, følger vi følgende prosedyre:
+
+#### First Step
+Make a new branch off the desired branch.
+```shell
+$ git checkout -b <name> origin/master
+```
+
+Now you may work on the project.
+
+#### Commit og push
+
+Commit your code when it is ready.  
+Add any new files that should be included. This command adds all new files.
+```shell
+$ git add .
+```
+
+Then make a commit:
+```shell
+$ git commit -m "Commit message detailing changes."
+```
+
+Before pushing remember to update the local files from the git repo:
+```shell
+$ git pull origin master
+```
+
+Solve any potential merge conflicts in an IDE such as IntelliJ.
+
+Now you are ready to push your branch containing the new changes.
+```shell
+$ git push origin <name>
+```
+
+#### Pull request
+When the your branch with the new changes are pushed, make a new pull request 
+to merge these changes with the master branch.
+![lage pr](https://i.imgur.com/0UnA23s.png)
+
+Before a pull request is merged it must be approved by one of the team members.
+
+When you make a pull request you may link to issues that have been fiksed by your code changes. 
+This will will automatically close said issues when the pull request is approved. 
+[Ref til docs om dette](https://docs.github.com/en/github/managing-your-work-on-github/linking-a-pull-request-to-an-issue#linking-a-pull-request-to-an-issue-using-a-keyword)  
+It is possible to close multiple issues this way.
 
 ## Known Bugs and Issues
 See [Issues](https://github.com/inf112-v21/Unsinkable-II/issues)

@@ -23,6 +23,8 @@ public class GameScreen extends InputAdapter implements Screen {
     private final InputMultiplexer multiplexer;
     private final Sprite backgroundSprite;
     private final PlayerOverlay playerOverlay;
+    //private final Viewport viewport;
+    //private final Stage stage;
 
     /**
      * Instantiates a new RoboRally screen.
@@ -36,11 +38,12 @@ public class GameScreen extends InputAdapter implements Screen {
         float appHeight = Gdx.graphics.getHeight();
         float ratio = (boardHeight / boardWidth) * (appWidth / appHeight); // set ratio to 2 to stretch tile board to middle.
 
+        //this.stage = new Stage();
         this.camera = new OrthographicCamera();
-        camera.setToOrtho(false, boardWidth * ratio,boardHeight);
-        camera.position.x = boardWidth * 0.75f; // Horizontal board placement
-        camera.position.y = boardHeight * 0.5f; // Vertical board placement
-        camera.zoom = 1f; // 1 is default and off.
+        camera.setToOrtho(false, boardWidth * ratio, boardHeight);
+        //this.viewport = new ExtendViewport(boardWidth,boardHeight, camera);
+
+        camera.position.set(boardWidth*0.75f,boardHeight/2f,0);
         camera.update();
 
         this.playerUI = new PlayerUI(app);
@@ -54,7 +57,6 @@ public class GameScreen extends InputAdapter implements Screen {
         multiplexer = new InputMultiplexer();
         multiplexer.addProcessor(playerUI.getStage());
         if(Debug.cheatMode()) { multiplexer.addProcessor(new CheatMode(app)); }
-
     }
 
     @Override
@@ -72,30 +74,33 @@ public class GameScreen extends InputAdapter implements Screen {
         playerUI.getStage().getBatch().end();
 
         // Render the board
+        camera.update();
+        //viewport.update(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
         renderer.getBatch().setProjectionMatrix(camera.combined);
         renderer.render();
 
-        // Draw the UI
-        renderer.getBatch().setProjectionMatrix(playerUI.getStage().getCamera().combined);
-        playerUI.getStage().act(delta);
-        playerUI.getStage().getViewport().apply();
-        playerUI.getStage().draw();
-
         // update overlay
-        renderer.getBatch().setProjectionMatrix(playerOverlay.getStage().getCamera().combined);
+        renderer.getBatch().setProjectionMatrix(camera.combined);
         playerOverlay.getStage().act(delta);
         playerOverlay.getStage().getViewport().apply();
         playerOverlay.getStage().draw();
+
+        // Draw the UI
+        renderer.getBatch().setProjectionMatrix(camera.combined);
+        playerUI.getStage().act(delta);
+        playerUI.getStage().getViewport().apply();
+        playerUI.getStage().draw();
     }
 
     @Override
     public void resize(int width, int height) {
+        // viewport.update(width, height,true);
+        camera.update();
         playerUI.getStage().getViewport().update(width, height, true);
         playerUI.getStage().getCamera().update();
+
         playerOverlay.getStage().getViewport().update(width, height, true);
         playerOverlay.getStage().getCamera().update();
-
-
     }
 
     @Override
@@ -128,4 +133,5 @@ public class GameScreen extends InputAdapter implements Screen {
      * @return the player UI.
      */
     public PlayerOverlay getOverlay() { return playerOverlay; }
+
 }

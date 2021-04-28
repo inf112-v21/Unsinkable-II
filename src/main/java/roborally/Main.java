@@ -6,7 +6,7 @@ import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
 
 public class Main {
 
-    static boolean fullScreen = false;
+    static final boolean fullScreen = true;
     /**
      * Runs RoboRallyApp as a libGDX application using Tiled and Kryonet API.
      */
@@ -14,8 +14,8 @@ public class Main {
         Lwjgl3ApplicationConfiguration cfg = new Lwjgl3ApplicationConfiguration();
         cfg.setTitle("RoboRally");
         cfg.setAutoIconify(true);
-        if (fullScreen) cfg.setFullscreenMode(Lwjgl3ApplicationConfiguration.getDisplayMode());
-        else cfg.setWindowedMode(1920,1080);
+        if (fullScreen) { cfg.setFullscreenMode(Lwjgl3ApplicationConfiguration.getDisplayMode()); }
+        else { cfg.setWindowedMode(1920,1080); }
         new Lwjgl3Application(new RoboRallyApp(), cfg);
     }
 }

@@ -70,24 +70,30 @@ public enum TileID {
     BELT_FAST_E_S_TURN_L(74),
     BELT_FAST_S_W_TURN_L(75),
     BELT_FAST_W_N_TURN_L(76),
-    BELT_FAST_E_S_TURN_L_N_TURN_R(77),
-    BELT_FAST_S_W_TURN_L_E_TURN_R(78),
-    BELT_FAST_N_W_TURN_R(81),
-    BELT_FAST_E_N_TURN_R(82),
-    BELT_FAST_S_E_TURN_R(83),
-    BELT_FAST_W_S_TURN_R(84),
-    BELT_FAST_N_W_TURN_R_E_TURN_L(85),
-    BELT_FAST_W_S_TURN_R_N_TURN_L(86),
+    BELT_FAST_N_W_TURN_R(77),
+    BELT_FAST_E_N_TURN_R(78),
+    BELT_FAST_E_S_TURN_L_N_TURN_R(81),
+    BELT_FAST_S_W_TURN_L_E_TURN_R(82),
+    BELT_FAST_N_W_TURN_R_E_TURN_L(83),
+    BELT_FAST_W_S_TURN_R_N_TURN_L(84),
+    BELT_FAST_S_E_TURN_R(85),
+    BELT_FAST_W_S_TURN_R(86),
 
     // Laser beams
     LASER_HORIZONTAL(39),
     LASER_VERTICAL(47),
     LASER_CROSSED(40),
 
+    // Half Laser Beams
+    LASER_VERTICAL_HALF_N(48),
+    LASER_VERTICAL_HALF_S(56),
+    LASER_HORIZONTAL_HALF_W(64),
+    LASER_HORIZONTAL_HALF_E(72),
+
     // Double laser beams
-    LASER_DOUBLE_HORIZONTAL(102),
-    LASER_DOUBLE_VERTICAL(103),
     LASER_DOUBLE_CROSSED(101),
+    LASER_DOUBLE_VERTICAL(102),
+    LASER_DOUBLE_HORIZONTAL(103),
 
     // Gears
     GEAR_RIGHT(53),
@@ -286,6 +292,26 @@ public enum TileID {
             PUSHER_ODD_W.getId(),
             PUSHER_ODD_N.getId(),
             PUSHER_ODD_S.getId()
+    );
+
+    public static final Set<Integer> PUSHER_NORTH = Set.of(
+            PUSHER_EVEN_N.getId(),
+            PUSHER_ODD_N.getId()
+    );
+
+    public static final Set<Integer> PUSHER_SOUTH = Set.of(
+            PUSHER_EVEN_S.getId(),
+            PUSHER_ODD_S.getId()
+    );
+
+    public static final Set<Integer> PUSHER_EAST = Set.of(
+            PUSHER_EVEN_E.getId(),
+            PUSHER_ODD_E.getId()
+    );
+
+    public static final Set<Integer> PUSHER_WEST = Set.of(
+            PUSHER_EVEN_W.getId(),
+            PUSHER_ODD_W.getId()
     );
 
     private final int id;

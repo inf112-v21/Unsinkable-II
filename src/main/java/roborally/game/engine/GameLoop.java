@@ -34,12 +34,18 @@ public class GameLoop extends RoboRallyGame {
     public void run() {
         System.out.println("Starting " + Thread.currentThread().getName() + "...");
         while (!stopGame) {
+            preTurnCheck();
             requestHand();
             while (!nextRound) { sleep(100); }
             nextRound = false;
             turn();
             sleep(1000);
         }
+    }
+
+    private void preTurnCheck() {
+        for (IRobot robot : robots) { if (robot.getLives() != 0) { return; } }
+        setGameOver("Game Over!");
     }
 
     /**
@@ -98,6 +104,8 @@ public class GameLoop extends RoboRallyGame {
     public void moveBoardElements(List<IRobot> robots) {
         board.moveFastBelts(robots);
         board.moveAllBelts(robots);
+        if ((phaseNumber & 1) == 0) { board.pusherEven(robots); }
+        else { board.pusherOdd(robots); }
         board.rotateGears(robots);
         sleep(250);
     }
