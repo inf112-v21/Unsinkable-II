@@ -21,19 +21,13 @@ public class PlayerOverlay {
     private Map<IRobot, ProgressBar> healthBars;
     private final RoboRallyApp app;
     private final Stage stage;
-    private final float boardWidth;
     private final float boardHeight;
-    private final float appWidth;
-    private final float appHeight;
     private final ProgressBar.ProgressBarStyle barStyleHorizontal;
     private final ProgressBar.ProgressBarStyle barStyleVertical;
 
     public PlayerOverlay(RoboRallyApp app) {
         this.app = app;
-        this.boardWidth = app.getGame().getBoard().getBoardWidth();
         this.boardHeight = app.getGame().getBoard().getBoardHeight();
-        this.appWidth =  Gdx.graphics.getWidth();
-        this.appHeight = Gdx.graphics.getHeight();
         this.stage = new Stage(new FitViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight()));
 
         // using pixmap to create the colors
@@ -142,6 +136,7 @@ public class PlayerOverlay {
             createHealthBar(robot);
             ProgressBar bar = healthBars.get(robot);
             if (bar == null) { continue; }
+            int appHeight = Gdx.graphics.getHeight();
             if (bar.isVertical()) {
                 bar.setBounds(
                     385 + robot.getLoc().x * appHeight / boardHeight,

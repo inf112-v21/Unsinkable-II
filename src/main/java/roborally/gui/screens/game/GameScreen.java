@@ -1,7 +1,5 @@
 package roborally.gui.screens.game;
 
-import com.badlogic.gdx.utils.viewport.ExtendViewport;
-import com.badlogic.gdx.utils.viewport.Viewport;
 import roborally.debug.CheatMode;
 import roborally.debug.Debug;
 import roborally.gui.RoboRallyApp;
@@ -25,7 +23,7 @@ public class GameScreen extends InputAdapter implements Screen {
     private final InputMultiplexer multiplexer;
     private final Sprite backgroundSprite;
     private final PlayerOverlay playerOverlay;
-    private final Viewport viewport;
+    //private final Viewport viewport;
     //private final Stage stage;
 
     /**
@@ -43,7 +41,7 @@ public class GameScreen extends InputAdapter implements Screen {
         //this.stage = new Stage();
         this.camera = new OrthographicCamera();
         camera.setToOrtho(false, boardWidth * ratio, boardHeight);
-        this.viewport = new ExtendViewport(boardWidth,boardHeight, camera);
+        //this.viewport = new ExtendViewport(boardWidth,boardHeight, camera);
 
         camera.position.set(boardWidth*0.75f,boardHeight/2f,0);
         camera.update();
@@ -135,4 +133,5 @@ public class GameScreen extends InputAdapter implements Screen {
      * @return the player UI.
      */
     public PlayerOverlay getOverlay() { return playerOverlay; }
+
 }
