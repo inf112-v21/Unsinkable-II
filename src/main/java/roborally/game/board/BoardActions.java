@@ -238,36 +238,6 @@ public class BoardActions extends Board {
     }
 
     /**
-     * Fires all robot lasers.
-     *
-     * @param robots list of robots shooting laser.
-     */
-    public void fireRobotLasers(List<IRobot> robots) {
-        for (IRobot robot : robots) {
-            if (!robot.isDestroyed() && !robot.isPoweredDown() && canGo(robot.getLoc(), robot.getDirection())) {
-                shoot(1, getNextLoc(robot.getLoc(), robot.getDirection()), robot.getDirection());
-            }
-        }
-    }
-
-    /**
-     * Fires all wall lasers.
-     */
-    public void fireWallLasers() {
-        for (Vector2 loc : getLaserWalls()) {
-            int id = laserWallLayer.getCell((int) loc.x, (int) loc.y).getTile().getId();
-            if (id == TileID.LASER_WALL_N.getId()) { shoot(1, loc, Direction.SOUTH); }
-            if (id == TileID.LASER_WALL_W.getId()) { shoot(1, loc, Direction.EAST);  }
-            if (id == TileID.LASER_WALL_S.getId()) { shoot(1, loc, Direction.NORTH); }
-            if (id == TileID.LASER_WALL_E.getId()) { shoot(1, loc, Direction.WEST); }
-            if (id == TileID.LASER_WALL_DOUBLE_N.getId()) { shoot(2, loc, Direction.SOUTH); }
-            if (id == TileID.LASER_WALL_DOUBLE_W.getId()) { shoot(2, loc, Direction.EAST);  }
-            if (id == TileID.LASER_WALL_DOUBLE_S.getId()) { shoot(2, loc, Direction.NORTH); }
-            if (id == TileID.LASER_WALL_DOUBLE_E.getId()) { shoot(2, loc, Direction.WEST); }
-        }
-    }
-
-    /**
      * Activates all even pushers.
      */
     public void pusherEven(List<IRobot> robots) {
@@ -290,6 +260,37 @@ public class BoardActions extends Board {
         else if (westPushers.contains(robot.getLoc())) { moveRobot(robot, Direction.WEST, true); }
         else if (southPushers.contains(robot.getLoc())) { moveRobot(robot, Direction.SOUTH, true); }
         else if (eastPushers.contains(robot.getLoc())) { moveRobot(robot, Direction.EAST, true); }
+    }
+
+    /**
+     * Fires all robot lasers.
+     *
+     * @param robots list of robots shooting laser.
+     */
+    public void fireRobotLasers(List<IRobot> robots) {
+        for (IRobot robot : robots) {
+            if (!robot.isDestroyed() && !robot.isPoweredDown() && canGo(robot.getLoc(), robot.getDirection())) {
+                putInitialLaser(robot.getLoc(), robot.getDirection());
+                shoot(1, getNextLoc(robot.getLoc(), robot.getDirection()), robot.getDirection());
+            }
+        }
+    }
+
+    /**
+     * Fires all wall lasers.
+     */
+    public void fireWallLasers() {
+        for (Vector2 loc : getLaserWalls()) {
+            int id = laserWallLayer.getCell((int) loc.x, (int) loc.y).getTile().getId();
+            if (id == TileID.LASER_WALL_N.getId()) { shoot(1, loc, Direction.SOUTH); }
+            if (id == TileID.LASER_WALL_W.getId()) { shoot(1, loc, Direction.EAST);  }
+            if (id == TileID.LASER_WALL_S.getId()) { shoot(1, loc, Direction.NORTH); }
+            if (id == TileID.LASER_WALL_E.getId()) { shoot(1, loc, Direction.WEST); }
+            if (id == TileID.LASER_WALL_DOUBLE_N.getId()) { shoot(2, loc, Direction.SOUTH); }
+            if (id == TileID.LASER_WALL_DOUBLE_W.getId()) { shoot(2, loc, Direction.EAST);  }
+            if (id == TileID.LASER_WALL_DOUBLE_S.getId()) { shoot(2, loc, Direction.NORTH); }
+            if (id == TileID.LASER_WALL_DOUBLE_E.getId()) { shoot(2, loc, Direction.WEST); }
+        }
     }
 
     /**
@@ -348,6 +349,13 @@ public class BoardActions extends Board {
             if (beams == 1) { putLaser(loc, laserLayer, verticalLaser, horizontalLaser); }
             if (beams == 2) { putLaser(loc, laserDoubleLayer, verticalLaserDouble, horizontalLaserDouble); }
         }
+    }
+
+    private void putInitialLaser(Vector2 loc, Direction dir) {
+        if (dir.equals(Direction.NORTH)) { laserLayer.setCell((int) loc.x, (int) loc.y, northHalfLaser); }
+        if (dir.equals(Direction.SOUTH)) { laserLayer.setCell((int) loc.x, (int) loc.y, southHalfLaser); }
+        if (dir.equals(Direction.WEST)) { laserLayer.setCell((int) loc.x, (int) loc.y, westHalfLaser); }
+        if (dir.equals(Direction.EAST)) { laserLayer.setCell((int) loc.x, (int) loc.y, eastHalfLaser); }
     }
 
     private void putLaser(Vector2 loc, TiledMapTileLayer laserLayer, TiledMapTileLayer.Cell horizontalLaser, TiledMapTileLayer.Cell verticalLaser) {

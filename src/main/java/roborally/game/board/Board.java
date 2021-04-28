@@ -70,6 +70,10 @@ public abstract class Board {
     protected final TiledMapTileLayer.Cell verticalLaser;
     protected final TiledMapTileLayer.Cell horizontalLaser;
     protected final TiledMapTileLayer.Cell crossedLaser;
+    protected final TiledMapTileLayer.Cell northHalfLaser;
+    protected final TiledMapTileLayer.Cell southHalfLaser;
+    protected final TiledMapTileLayer.Cell westHalfLaser;
+    protected final TiledMapTileLayer.Cell eastHalfLaser;
     protected final TiledMapTileLayer.Cell verticalLaserDouble;
     protected final TiledMapTileLayer.Cell horizontalLaserDouble;
     protected final TiledMapTileLayer.Cell crossedLaserDouble;
@@ -100,6 +104,15 @@ public abstract class Board {
         this.horizontalLaser.setTile(board.getTileSets().getTileSet(0).getTile(TileID.LASER_HORIZONTAL.getId()));
         this.crossedLaser = new TiledMapTileLayer.Cell();
         this.crossedLaser.setTile(board.getTileSets().getTileSet(0).getTile(TileID.LASER_CROSSED.getId()));
+
+        this.northHalfLaser = new TiledMapTileLayer.Cell();
+        this.northHalfLaser.setTile(board.getTileSets().getTileSet(0).getTile(TileID.LASER_VERTICAL_HALF_N.getId()));
+        this.southHalfLaser = new TiledMapTileLayer.Cell();
+        this.southHalfLaser.setTile(board.getTileSets().getTileSet(0).getTile(TileID.LASER_VERTICAL_HALF_S.getId()));
+        this.westHalfLaser = new TiledMapTileLayer.Cell();
+        this.westHalfLaser.setTile(board.getTileSets().getTileSet(0).getTile(TileID.LASER_HORIZONTAL_HALF_W.getId()));
+        this.eastHalfLaser = new TiledMapTileLayer.Cell();
+        this.eastHalfLaser.setTile(board.getTileSets().getTileSet(0).getTile(TileID.LASER_HORIZONTAL_HALF_E.getId()));
 
         this.verticalLaserDouble = new TiledMapTileLayer.Cell();
         this.verticalLaserDouble.setTile(board.getTileSets().getTileSet(0).getTile(TileID.LASER_DOUBLE_VERTICAL.getId()));

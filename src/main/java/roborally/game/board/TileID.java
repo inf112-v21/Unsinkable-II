@@ -84,6 +84,12 @@ public enum TileID {
     LASER_VERTICAL(47),
     LASER_CROSSED(40),
 
+    // Half Laser Beams
+    LASER_VERTICAL_HALF_N(48),
+    LASER_VERTICAL_HALF_S(56),
+    LASER_HORIZONTAL_HALF_W(64),
+    LASER_HORIZONTAL_HALF_E(72),
+
     // Double laser beams
     LASER_DOUBLE_CROSSED(101),
     LASER_DOUBLE_VERTICAL(102),

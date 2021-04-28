@@ -11,7 +11,7 @@ public enum Boards {
     ISLAND_HOP("Maps/IslandHop.tmx", "Island Hop", 8),
     ISLAND_KING("Maps/IslandKing.tmx", "Island King", 8),
     LOST_BEARINGS("Maps/LostBearings.tmx", "Lost Bearings", 8),
-    TRIXY("Maps/Trixy.tmx", "Trixy", 8),
+    TRICKSY("Maps/Tricksy.tmx", "Tricksy", 8),
     VAULT_ASSAULT("Maps/VaultAssault.tmx", "Vault Assault", 8),
     WHIRLWIND_TOUR("Maps/WhirlwindTour.tmx", "Whirlwind Tour", 8),
     TESTMAP("Maps/Testmap2.tmx", "Test", 2),
@@ -28,7 +28,7 @@ public enum Boards {
             ISLAND_HOP,
             ISLAND_KING,
             LOST_BEARINGS,
-            TRIXY,
+            TRICKSY,
             VAULT_ASSAULT,
             WHIRLWIND_TOUR,
             TESTMAP
