@@ -74,10 +74,11 @@ public enum TileID {
     BELT_FAST_E_N_TURN_R(78),
     BELT_FAST_E_S_TURN_L_N_TURN_R(81),
     BELT_FAST_S_W_TURN_L_E_TURN_R(82),
-    BELT_FAST_N_W_TURN_R_E_TURN_L(83),
-    BELT_FAST_W_S_TURN_R_N_TURN_L(84),
-    BELT_FAST_S_E_TURN_R(85),
-    BELT_FAST_W_S_TURN_R(86),
+    BELT_FAST_W_S_TURN_R_N_TURN_L(83),
+    BELT_FAST_N_W_TURN_R_E_TURN_L(84),
+    BELT_FAST_W_S_TURN_R(85),
+    BELT_FAST_S_E_TURN_R(86),
+
 
     // Laser beams
     LASER_HORIZONTAL(39),
@@ -217,9 +218,9 @@ public enum TileID {
     );
 
     public static final Set<Integer> BELTS_FAST_NORTH = Set.of(
+            BELT_FAST_N.getId(),
             BELT_FAST_E_TO_N.getId(),
             BELT_FAST_W_TO_N.getId(),
-            BELT_FAST_N.getId(),
             BELT_FAST_N_W_TURN_R.getId(),
             BELT_FAST_N_W_TURN_R_E_TURN_L.getId(),
             BELT_FAST_N_E_TURN_L.getId()

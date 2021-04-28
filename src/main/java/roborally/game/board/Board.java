@@ -135,6 +135,7 @@ public abstract class Board {
         this.eastWalls = new HashSet<>();
         findWalls(wallLayer);
         findWalls(laserWallLayer);
+        findWalls(pusherLayer);
 
         this.northBelts = new HashSet<>();
         this.westBelts = new HashSet<>();

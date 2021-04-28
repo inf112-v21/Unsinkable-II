@@ -14,7 +14,8 @@ public enum Boards {
     TRICKSY("Maps/Tricksy.tmx", "Tricksy", 8),
     VAULT_ASSAULT("Maps/VaultAssault.tmx", "Vault Assault", 8),
     WHIRLWIND_TOUR("Maps/WhirlwindTour.tmx", "Whirlwind Tour", 8),
-    TESTMAP("Maps/Testmap2.tmx", "Test", 2),
+    TESTMAP("Maps/Testmap.tmx", "Test Map", 2),
+    TESTMAP2("Maps/Testmap2.tmx", "TestMap 2", 2),
     JUNIT_TEST_MAP("Maps/JUnitTestingMap.tmx", "JUnit_test", 8); // should not be included in ALL_BOARDS
 
     public static final Boards[] ALL_BOARDS = new Boards[] {
@@ -31,7 +32,8 @@ public enum Boards {
             TRICKSY,
             VAULT_ASSAULT,
             WHIRLWIND_TOUR,
-            TESTMAP
+            TESTMAP,
+            TESTMAP2
     };
 
     private final String path;
