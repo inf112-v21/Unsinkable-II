@@ -15,7 +15,7 @@ public class Main {
         cfg.setTitle("RoboRally");
         cfg.setAutoIconify(true);
         if (fullScreen) { cfg.setFullscreenMode(Lwjgl3ApplicationConfiguration.getDisplayMode()); }
-        else { cfg.setWindowedMode(1920,1024); }
+        else { cfg.setWindowedMode(1920,1080); }
         new Lwjgl3Application(new RoboRallyApp(), cfg);
     }
 }

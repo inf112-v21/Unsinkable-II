@@ -482,7 +482,9 @@ public class PlayerUI {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 powerUp = true;
+                clearRegistry();
                 updateHand();
+                updateLockedRegisters();
                 buttonTable.clearChildren();
                 buttonTable.padBottom(0);
                 buttonTable.add(runTable);

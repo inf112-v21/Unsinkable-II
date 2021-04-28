@@ -16,7 +16,9 @@ public class TitleScreen extends MenuScreenAdapter {
      * @param app the application GUI entry point object.
      */
     public TitleScreen(RoboRallyApp app) {
+
         super(app);
+
         addHeading("Select RoboRally Mode. ");
         addButton("Start Game", true, startGameButtonListener());
         addButton("Join Game", true, joinGameButtonListener());
@@ -46,7 +48,6 @@ public class TitleScreen extends MenuScreenAdapter {
             public void clicked(InputEvent event, float x, float y) { app.setScreen(new JoinGameScreen(app)); }
         };
     }
-
 
 }
 
